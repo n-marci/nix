@@ -18,7 +18,10 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    secrets.url = "git+ssh://git@github.com/n-marci/secrets.git";
+    secrets = {
+      url = "git+ssh://git@github.com/n-marci/secrets.git";
+      flake = false;
+    };
 
     # modules
     # xremap-flake.url = "github:xremap/nix-flake";

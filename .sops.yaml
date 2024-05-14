@@ -1,0 +1,19 @@
+# .sops.yaml
+
+keys:
+  - &inspirion age12kzru9qf09hr22vaxessg97kf0v047hqqdpyaa2q3kamjpgk4yaq3069m4
+  - &yoga age167thxdmeex7m8af3g35rtz0v3vt78w548eu2c4x5gey46n642v0sz9v477
+  - &desktop age1u83pdth54z7zcf8e5mraz56z8nay55v9flx02na6mqsewnvppqqqqjsnuh
+creation_rules:
+  - path_regex: secrets/inspirion.yaml$
+    key_groups:
+    - age:
+      - *inspirion
+  - path_regex: secrets/yoga.yaml$
+    key_groups:
+    - age:
+      - *yoga
+  - path_regex: secrets/desktop.yaml$
+    key_groups:
+    - age:
+      - *desktop

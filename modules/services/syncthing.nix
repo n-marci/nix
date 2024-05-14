@@ -25,7 +25,7 @@ let
     else if host.hostName == "inspirion" then [ "marci_helix_a" "marci_helix_b" "marci_desktop" "marci_yoga" ]
     else [];
 
-  sync-ids = import "../../secrets/syncthing-ids.nix";
+  sync-ids = import "/home/marci/nix/secrets/syncthing-ids.nix";
 in {
   options = {
     syncthing = {

@@ -18,6 +18,8 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    secrets.url = "git+ssh://git@github.com/n-marci/secrets.git";
+
     # modules
     # xremap-flake.url = "github:xremap/nix-flake";
     # firefly = {
@@ -27,7 +29,7 @@
     # nixos.url = "github:NixOS/nixpkgs/nixos-22.11";
   };
 
-  outputs = inputs @ { self, nixpkgs, nixpkgs-stable, nixpkgs-unstable, home-manager, ... }:
+  outputs = inputs @ { self, nixpkgs, nixpkgs-stable, nixpkgs-unstable, home-manager, secrets, ... }:
     let
       vars = {
         user = "marci";

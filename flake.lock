@@ -90,7 +90,24 @@
         "nixpkgs": "nixpkgs",
         "nixpkgs-stable": "nixpkgs-stable",
         "nixpkgs-unstable": "nixpkgs-unstable",
+        "secrets": "secrets",
         "sops-nix": "sops-nix"
+      }
+    },
+    "secrets": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1715694840,
+        "narHash": "sha256-TDB2inJ2pd4BECTE9yrKkVJF2rBJcr1Ci6L6dBWKzK4=",
+        "ref": "refs/heads/master",
+        "rev": "a987178e4da87b2e3bf9b39efdbdcdf1319162c6",
+        "revCount": 2,
+        "type": "git",
+        "url": "ssh://git@github.com/n-marci/secrets.git"
+      },
+      "original": {
+        "type": "git",
+        "url": "ssh://git@github.com/n-marci/secrets.git"
       }
     },
     "sops-nix": {

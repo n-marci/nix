@@ -25,6 +25,7 @@ let
     else if host.hostName == "inspirion" then [ "marci_helix_a" "marci_helix_b" "marci_desktop" "marci_yoga" ]
     else [];
 
+  sync-ids = import "../../secrets/syncthing-ids.nix";
 in {
   options = {
     syncthing = {
@@ -51,12 +52,12 @@ in {
       cert = config.sops.secrets.syncthing-cert.path;
       settings = {
         devices = {
-          "inspirion" = { id = "cat ${config.sops.secrets.sync-id-inspirion.path}"; };
-          "marci_helix_b" = { id = "cat ${config.sops.secrets.sync-id-helix-b.path}"; };
-          "marci_helix_a" = { id = "cat ${config.sops.secrets.sync-id-helix-a.path}"; };
-          "marci_desktop" = { id = "cat ${config.sops.secrets.sync-id-desktop.path}"; };
-          "marci_yoga" = { id = "cat ${config.sops.secrets.sync-id-yoga.path}"; };
-          "marci_note" = { id = "cat ${config.sops.secrets.sync-id-note.path}"; };
+          "inspirion" = { id = sync-ids.inspirion; };
+          "marci_helix_b" = { id = sync-ids.helix-b; };
+          "marci_helix_a" = { id = sync-ids.helix-a; };
+          "marci_desktop" = { id = sync-ids.desktop; };
+          "marci_yoga" = { id = sync-ids.yoga; };
+          "marci_note" = { id = sync-ids.note; };
         };
         folders = {
           "wallpapers" = {

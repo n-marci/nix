@@ -84,6 +84,22 @@
         "type": "github"
       }
     },
+    "nixpkgs_2": {
+      "locked": {
+        "lastModified": 1715534503,
+        "narHash": "sha256-5ZSVkFadZbFP1THataCaSf0JH2cAH3S29hU9rrxTEqk=",
+        "owner": "nixos",
+        "repo": "nixpkgs",
+        "rev": "2057814051972fa1453ddfb0d98badbea9b83c06",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nixos",
+        "ref": "nixos-unstable",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
     "root": {
       "inputs": {
         "home-manager": "home-manager",
@@ -95,13 +111,15 @@
       }
     },
     "secrets": {
-      "flake": false,
+      "inputs": {
+        "nixpkgs": "nixpkgs_2"
+      },
       "locked": {
-        "lastModified": 1715694840,
-        "narHash": "sha256-TDB2inJ2pd4BECTE9yrKkVJF2rBJcr1Ci6L6dBWKzK4=",
+        "lastModified": 1715697205,
+        "narHash": "sha256-iZh/umRzqxSCa+KiCqu7cd/LsHujvg+2ML07BbWRJ2E=",
         "ref": "refs/heads/master",
-        "rev": "a987178e4da87b2e3bf9b39efdbdcdf1319162c6",
-        "revCount": 2,
+        "rev": "eeef69e8a78ef736c048e10e53f5a21b4073dc99",
+        "revCount": 4,
         "type": "git",
         "url": "ssh://git@github.com/n-marci/secrets.git"
       },

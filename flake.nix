@@ -20,7 +20,7 @@
 
     secrets = {
       url = "git+ssh://git@github.com/n-marci/secrets.git";
-      flake = false;
+      # flake = false;
     };
 
     # modules
@@ -68,7 +68,7 @@
           inherit system;
 
           specialArgs = {
-            inherit inputs system stable unstable vars;
+            inherit inputs secrets system stable unstable vars;
             host = {
               hostName = "desktop";
             };

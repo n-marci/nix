@@ -105,5 +105,21 @@
   # Before changing this value read the documentation for this option
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
   # system.stateVersion = "23.05"; # Did you read the comment?
+  system.stateVersion = "23.11"; # Did you read the comment?
+
+  home-manager.users.${vars.user} = {
+    home = {
+      stateVersion = "23.11";
+    };
+
+    programs = {
+      home-manager.enable = true;
+    };
+
+    nix = {
+      # package = pkgs.nix;
+      settings.experimental-features = [ "nix-command" "flakes" ];
+    };
+  };
 
 }

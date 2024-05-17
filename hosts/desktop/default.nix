@@ -2,7 +2,7 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ config, inputs, pkgs, unstable, ... }:
+{ config, inputs, pkgs, unstable, vars, ... }:
 
 {
   imports =
@@ -108,11 +108,28 @@
     powerManagement.enable = true;
     nvidiaSettings = true;
     # open = true;
-    # package = config.boot.kernelPackages.nvidiaPackages.stable;
+    package = config.boot.kernelPackages.nvidiaPackages.stable;
     # package = config.boot.kernelPackages.nvidiaPackages.beta;
-    package = config.boot.kernelPackages.nvidiaPackages.vulkan_beta;
+    # package = config.boot.kernelPackages.nvidiaPackages.vulkan_beta;
   };
 
   # optimize for more battery life
   # powerManagement.powertop.enable = true;
+
+  system.stateVersion = "22.11"; # Did you read the comment?
+
+  home-manager.users.${vars.user} = {
+    home = {
+      stateVersion = "22.11";
+    };
+
+    programs = {
+      home-manager.enable = true;
+    };
+
+    nix = {
+      # package = pkgs.nix;
+      settings.experimental-features = [ "nix-command" "flakes" ];
+    };
+  };
 }

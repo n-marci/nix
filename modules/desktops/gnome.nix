@@ -30,6 +30,11 @@ with host; {
         enable = true;
         package = pkgs.gnomeExtensions.gsconnect;
       };
+
+      nautilus-open-any-terminal = {
+        enable = true;
+        terminal = "ptyxis";
+      };
     };
 
     services = {
@@ -86,13 +91,15 @@ with host; {
         "org/gnome/shell" = {
           favorite-apps = [
             # "brave-browser.desktop"
-            "firefox.desktop"
+            # "firefox.desktop"
             # "librewolf.desktop"
+            "floorp.desktop"
             "thunderbird.desktop"
             "spotify.desktop"
             "org.gnome.Nautilus.desktop"
             # "org.gnome.Console.desktop"
-            "com.raggesilver.BlackBox.desktop"
+            # "com.raggesilver.BlackBox.desktop"
+            "org.gnome.Ptyxis.desktop"
             "md.obsidian.Obsidian.desktop"
             "com.github.xournalpp.xournalpp.desktop"
             "org.gnome.Evince.desktop"
@@ -135,7 +142,7 @@ with host; {
 
         "org/gnome/mutter" = {
           edge-tiling = true;
-          # dynamic-workspaces = true;
+          dynamic-workspaces = true;
           workspaces-only-on-primary = true;
         };
 
@@ -178,6 +185,10 @@ with host; {
         #   '';
         # };
 
+        "org/gnome/settings-daemon/plugins/power" = {
+          ambient-enabled = false;                   # disable automatic screen brightness
+        };
+
         # keyboard shortcuts
         "org/gnome/settings-daemon/plugins/media-keys" = {
           rotate-video-lock-static = ["X86RotationLockToggle"];    # disable super+o -> rotate-video-lock-static
@@ -185,18 +196,18 @@ with host; {
           home = ["<Shift><Super>f"];
 
           custom-keybindings = [
-            "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/"
+            # "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/"
             "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom1/"
             "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom2/"
             "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom3/"
           ];
         };
 
-        "org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0" = {
-          binding = "<Shift><Super>t";
-          command = "blackbox";
-          name = "launch additional terminal windows";
-        };
+        # "org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0" = {
+        #   binding = "<Shift><Super>t";
+        #   command = "blackbox";
+        #   name = "launch additional terminal windows";
+        # };
 
         "org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom1" = {
           binding = "<Super>r";
@@ -226,15 +237,15 @@ with host; {
           # switch-to-application-1 = ["@as []"];      # disable super+1
           # switch-to-application-3 = ["@as []"];      # disable super+3
 
-          switch-to-application-1 = ["<Super>b"];    # firefox
-          switch-to-application-2 = ["<Super>e"];    # thunderbird email
-          switch-to-application-3 = ["<Super>m"];    # spotify
-          switch-to-application-4 = ["<Super>f"];    # files
-          switch-to-application-5 = ["<Super>t"];    # terminal / console
-          switch-to-application-6 = ["<Super>o"];    # obsidian
-          switch-to-application-7 = ["<Super>n"];    # xournal++
-          switch-to-application-8 = ["<Super>p"];    # evince pdf viewer
-          switch-to-application-9 = ["<Super>z"];    # zotero
+          # switch-to-application-1 = ["<Super>b"];    # browser
+          # switch-to-application-2 = ["<Super>e"];    # thunderbird email
+          # switch-to-application-3 = ["<Super>m"];    # spotify
+          # switch-to-application-4 = ["<Super>f"];    # files
+          # switch-to-application-5 = ["<Super>t"];    # terminal / console
+          # switch-to-application-6 = ["<Super>o"];    # obsidian
+          # switch-to-application-7 = ["<Super>n"];    # xournal++
+          # switch-to-application-8 = ["<Super>p"];    # evince pdf viewer
+          # switch-to-application-9 = ["<Super>z"];    # zotero
         };
 
         "org/gnome/desktop/wm/keybindings" = {
@@ -277,10 +288,28 @@ with host; {
           history-length = 50;
         };
 
-        # "system/locale" = {
-        #   region = "de_DE.UTF-8"
-        # };
+        "system/locale" = {
+          region = "de_DE.UTF-8";
+        };
       };
+
+      # setup the shortcuts.conf file for run-or-raise
+      home.file.".config/run-or-raise/shortcuts.conf".text = ''
+        <Super>b,floorp,,
+        <Super>e,thunderbird,,
+        <Super>m,spotify.desktop,spotify,
+        <Super>f,nautilus,,
+        <Super><Shift>f,nautilus
+        <Super>t,ptyxis,,
+        <Super><Shift>t,ptyxis --new-window
+        <Super>o,md.obsidian.Obsidian.desktop,,
+        <Super>n,xournalpp,,
+        <Super><Shift>n,xournalpp
+        <Super>p,evince,,
+        <Super>z,zotero,,
+        <Super>k:raise-or-register(0)
+        <Super>h:raise-or-register(1)
+      '';
 
       home.packages = with pkgs.gnomeExtensions; [
         grand-theft-focus

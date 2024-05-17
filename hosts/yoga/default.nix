@@ -2,7 +2,7 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ pkgs, inputs,  unstable, ... }:
+{ pkgs, inputs,  unstable, vars, ... }:
 
 {
   imports =
@@ -129,4 +129,20 @@
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
   # system.stateVersion = "23.05"; # Did you read the comment?
 
+  system.stateVersion = "23.05"; # Did you read the comment?
+
+  home-manager.users.${vars.user} = {
+    home = {
+      stateVersion = "23.05";
+    };
+
+    programs = {
+      home-manager.enable = true;
+    };
+
+    nix = {
+      # package = pkgs.nix;
+      settings.experimental-features = [ "nix-command" "flakes" ];
+    };
+  };
 }

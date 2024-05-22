@@ -115,11 +115,11 @@
         "nixpkgs": "nixpkgs_2"
       },
       "locked": {
-        "lastModified": 1715697205,
-        "narHash": "sha256-iZh/umRzqxSCa+KiCqu7cd/LsHujvg+2ML07BbWRJ2E=",
+        "lastModified": 1716386043,
+        "narHash": "sha256-h/8vC6Ryh8GxSiC/aqjg4KUjdf4oD4saPPiEFuowD+Y=",
         "ref": "refs/heads/master",
-        "rev": "eeef69e8a78ef736c048e10e53f5a21b4073dc99",
-        "revCount": 4,
+        "rev": "38e2c49031d33f54ff58ff39d485ee445e8dc5f9",
+        "revCount": 5,
         "type": "git",
         "url": "ssh://git@github.com/n-marci/secrets.git"
       },

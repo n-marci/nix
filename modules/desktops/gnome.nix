@@ -234,8 +234,12 @@ with host; {
         "org/gnome/shell/keybindings" = {
           toggle-overview = ["@as []"];              # disable super+s -> show the overview
           toggle-message-tray = ["@as []"];          # disable super+v
-          # switch-to-application-1 = ["@as []"];      # disable super+1
-          # switch-to-application-3 = ["@as []"];      # disable super+3
+          switch-to-application-1 = ["@as []"];      # disable super+1
+          switch-to-application-2 = ["@as []"];      # disable super+2
+          switch-to-application-3 = ["@as []"];      # disable super+3
+          switch-to-application-4 = ["@as []"];      # disable super+4
+          switch-to-application-5 = ["@as []"];      # disable super+5
+          switch-to-application-6 = ["@as []"];      # disable super+6
 
           # switch-to-application-1 = ["<Super>b"];    # browser
           # switch-to-application-2 = ["<Super>e"];    # thunderbird email
@@ -297,7 +301,7 @@ with host; {
       home.file.".config/run-or-raise/shortcuts.conf".text = ''
         <Super>b,floorp,,
         <Super>e,thunderbird,,
-        <Super>m,spotify.desktop,spotify,
+        <Super>m,spotify.desktop,"",Spotify Premium
         <Super>f,nautilus,,
         <Super><Shift>f,nautilus
         <Super>t,ptyxis,,

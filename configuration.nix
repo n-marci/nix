@@ -243,7 +243,15 @@
   zramSwap.enable = true;
   zramSwap.memoryPercent = 100;
   # Enable CUPS to print documents.
-  services.printing.enable = true;
+  services.printing = {
+    enable = true;
+    drivers = with pkgs; [ mfcl2700dnlpr ]; # brlaser 
+  };
+  services.avahi = {
+    enable = true;
+    nssmdns4 = true;
+    openFirewall = true;
+  };
 
   services.keyd = {
     enable = true;

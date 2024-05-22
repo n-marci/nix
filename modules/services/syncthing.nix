@@ -161,12 +161,16 @@ in {
     };
 
     home-manager.users.${vars.user} = {
-      home.file."sync/obsidian/.stignore".text = ''
+      # setup ignore files
+      home.file."sync/obsidian/.stignore".text = '' 
         .obsidian
-      ''; # setup ignore file for obsidian
-      # home.file."nix/.stignore".text = ''
-      #   .sops.yaml
-      # ''; # setup ignore file for nix
+      '';
+      home.file."nix/.stignore".text = ''
+        .git
+      '';
+      home.file."secrets/.stignore".text = ''
+        .git
+      '';
     };
   };
 

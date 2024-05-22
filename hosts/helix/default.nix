@@ -21,8 +21,9 @@
   # boot.kernelPackages = pkgs.linuxPackages_latest;
   # boot.initrd.kernelModules = [ "amdgpu" ];
 
-  # energy savings maybe?
-  # boot.kernelParams = [ "mem_sleep_default=deep" "pcie_aspm.policy=powersupersave" ];
+  # disable controller wakeups
+  # maybe helps with kernel panics
+  boot.kernelParams = [ "acpi.ec_no_wakeup=1" ];
 
   # add workaround for wifi chip
   # iwlwifi workaround to make bluetooth work?
@@ -67,18 +68,18 @@
   hardware.opengl = {
     enable = true;
     extraPackages = with pkgs; [
-      intel-media-driver
-      intel-vaapi-driver
-      libvdpau-va-gl
+      # intel-media-driver
+      # intel-vaapi-driver
+      # libvdpau-va-gl
     ];
   };
-  hardware.opengl.extraPackages32 = with pkgs; [
-    driversi686Linux.intel-vaapi-driver
-  ];
+  # hardware.opengl.extraPackages32 = with pkgs; [
+  #   driversi686Linux.intel-vaapi-driver
+  # ];
   hardware.opengl.driSupport = true;
   hardware.opengl.driSupport32Bit = true;
 
-  environment.sessionVariables = { LIBVA_DRIVER_NAME = "iHD"; };
+  # environment.sessionVariables = { LIBVA_DRIVER_NAME = "iHD"; };
 
   # screen rotation and stuff
   hardware.sensor.iio.enable = true;

@@ -21,9 +21,9 @@ with lib; {
 
     # btrfs-progs is a prerequisite in the documentation
     # not sure if needed
-    environment.systemPackages = with pkgs; [
-      btrfs-progs
-    ];
+    # environment.systemPackages = with pkgs; [
+    #   btrfs-progs
+    # ];
 
     services = {
       btrbk = {

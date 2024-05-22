@@ -73,7 +73,7 @@
     ];
   };
   hardware.opengl.extraPackages32 = with pkgs; [
-    pkgsi686linux.intel-vaapi-driver
+    driversi686Linux.intel-vaapi-driver
   ];
   hardware.opengl.driSupport = true;
   hardware.opengl.driSupport32Bit = true;

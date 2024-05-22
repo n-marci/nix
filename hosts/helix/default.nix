@@ -52,6 +52,9 @@
 
   gnome.enable = true;
 
+  syncthing.enable = mkOverride false;
+  services.syncthing.enable = true;
+
   environment.systemPackages = with unstable; [
     gnome.gnome-power-manager
     nssmdns
@@ -90,15 +93,15 @@
   powerManagement.powertop.enable = true;
   # powerManagement.cpuFreqGovernor = "schedutil";
 
-  sops = {
-    defaultSopsFile = ../../secrets/yoga.yaml;
-    defaultSopsFormat = "yaml";
+  # sops = {
+  #   defaultSopsFile = ../../secrets/helix.yaml;
+  #   defaultSopsFormat = "yaml";
 
-    age.keyFile= "/home/marci/.config/sops/age/keys.txt";
+  #   age.keyFile= "/home/marci/.config/sops/age/keys.txt";
 
-    secrets.syncthing-key = { };
-    secrets.syncthing-cert = { };
-  };
+  #   secrets.syncthing-key = { };
+  #   secrets.syncthing-cert = { };
+  # };
 
   # services.xserver.displayManager.job.preStart = "${pkgs.libdrm}/bin/proptest -M amdgpu -D /dev/dri/card0 107 connector 109 7";
 

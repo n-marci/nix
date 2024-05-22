@@ -95,7 +95,7 @@
           inherit system;
 
           specialArgs = {
-            inherit inputs system stable unstable vars;
+            inherit inputs secrets system stable unstable vars;
             host = {
               hostName = "yoga";
             };
@@ -116,7 +116,7 @@
           inherit system;
 
           specialArgs = {
-            inherit inputs system stable unstable vars;
+            inherit inputs secrets system stable unstable vars;
             host = {
               hostName = "helix";
             };
@@ -137,7 +137,7 @@
           inherit system;
 
           specialArgs = {
-            inherit inputs system stable unstable vars;
+            inherit inputs secrets system stable unstable vars;
             host = {
               hostName = "inspirion";
             };

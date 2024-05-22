@@ -112,6 +112,27 @@
           ];
         };
 
+        helix = lib.nixosSystem {
+          inherit system;
+
+          specialArgs = {
+            inherit inputs system stable unstable vars;
+            host = {
+              hostName = "helix";
+            };
+          };
+
+          modules = [
+            ./hosts/helix
+            ./configuration.nix 
+
+            home-manager.nixosModules.home-manager {
+              home-manager.useGlobalPkgs = true;
+              home-manager.useUserPackages = true;
+            }
+          ];
+        };
+
         inspirion = lib.nixosSystem {
           inherit system;
 

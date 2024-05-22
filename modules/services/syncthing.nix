@@ -10,19 +10,19 @@
 with lib;
 let
   devices-with-phone =
-    if host.hostName == "yoga" then [ "inspirion" "marci_helix_a" "marci_helix_b" "marci_desktop" "marci_note" ]
-    else if host.hostName == "desktop" then [ "inspirion" "marci_helix_a" "marci_helix_b" "marci_yoga" "marci_note" ]
-    else if host.hostName == "helix_a" then [ "inspirion" "marci_helix_b" "marci_desktop" "marci_yoga" "marci_note" ]
-    else if host.hostName == "helix_b" then [ "inspirion" "marci_helix_a" "marci_desktop" "marci_yoga" "marci_note" ]
-    else if host.hostName == "inspirion" then [ "marci_helix_a" "marci_helix_b" "marci_desktop" "marci_yoga" "marci_note" ]
+    if host.hostName == "yoga" then [ "inspirion" "marci_helix_s" "marci_helix_b" "marci_desktop" "marci_note" ]
+    else if host.hostName == "desktop" then [ "inspirion" "marci_helix_s" "marci_helix_b" "marci_yoga" "marci_note" ]
+    else if host.hostName == "helix" then [ "inspirion" "marci_helix_b" "marci_desktop" "marci_yoga" "marci_note" ]
+    # else if host.hostName == "helix_b" then [ "inspirion" "marci_helix_s" "marci_desktop" "marci_yoga" "marci_note" ]
+    else if host.hostName == "inspirion" then [ "marci_helix_s" "marci_helix_b" "marci_desktop" "marci_yoga" "marci_note" ]
     else [];
 
   devices-without-phone = 
-    if host.hostName == "yoga" then [ "inspirion" "marci_helix_a" "marci_helix_b" "marci_desktop" ]
-    else if host.hostName == "desktop" then [ "inspirion" "marci_helix_a" "marci_helix_b" "marci_yoga" ]
-    else if host.hostName == "helix_a" then [ "inspirion" "marci_helix_b" "marci_desktop" "marci_yoga" ]
-    else if host.hostName == "helix_b" then [ "inspirion" "marci_helix_a" "marci_desktop" "marci_yoga" ]
-    else if host.hostName == "inspirion" then [ "marci_helix_a" "marci_helix_b" "marci_desktop" "marci_yoga" ]
+    if host.hostName == "yoga" then [ "inspirion" "marci_helix_s" "marci_helix_b" "marci_desktop" ]
+    else if host.hostName == "desktop" then [ "inspirion" "marci_helix_s" "marci_helix_b" "marci_yoga" ]
+    else if host.hostName == "helix" then [ "inspirion" "marci_helix_b" "marci_desktop" "marci_yoga" ]
+    # else if host.hostName == "helix_b" then [ "inspirion" "marci_helix_a" "marci_desktop" "marci_yoga" ]
+    else if host.hostName == "inspirion" then [ "marci_helix_s" "marci_helix_b" "marci_desktop" "marci_yoga" ]
     else [];
 
   sync-ids = import "${secrets}/syncthing-ids.nix";
@@ -54,7 +54,7 @@ in {
         devices = {
           "inspirion" = { id = sync-ids.inspirion; };
           "marci_helix_b" = { id = sync-ids.helix-b; };
-          "marci_helix_a" = { id = sync-ids.helix-a; };
+          "marci_helix_s" = { id = sync-ids.helix-s; };
           "marci_desktop" = { id = sync-ids.desktop; };
           "marci_yoga" = { id = sync-ids.yoga; };
           "marci_note" = { id = sync-ids.note; };

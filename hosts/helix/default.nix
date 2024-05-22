@@ -17,7 +17,7 @@
   boot.loader.efi.canTouchEfiVariables = true;
 
   # update the kernel
-  boot.kernelPackages = pkgs.linuxPackages_6_8;
+  boot.kernelPackages = pkgs.linuxPackages_6_6;
   # boot.kernelPackages = pkgs.linuxPackages_latest;
   # boot.initrd.kernelModules = [ "amdgpu" ];
 

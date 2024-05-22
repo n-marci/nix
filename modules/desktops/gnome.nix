@@ -234,6 +234,7 @@ with host; {
         "org/gnome/shell/keybindings" = {
           toggle-overview = ["@as []"];              # disable super+s -> show the overview
           toggle-message-tray = ["@as []"];          # disable super+v
+          focus-active-notification = ["@as []"];
           switch-to-application-1 = ["@as []"];      # disable super+1
           switch-to-application-2 = ["@as []"];      # disable super+2
           switch-to-application-3 = ["@as []"];      # disable super+3

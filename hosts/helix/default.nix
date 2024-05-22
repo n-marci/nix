@@ -2,7 +2,7 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ pkgs, inputs,  unstable, vars, ... }:
+{ pkgs, lib, inputs, unstable, vars, ... }:
 
 {
   imports =
@@ -52,7 +52,7 @@
 
   gnome.enable = true;
 
-  syncthing.enable = mkOverride false;
+  syncthing.enable = lib.mkForce false;
   services.syncthing.enable = true;
 
   environment.systemPackages = with unstable; [

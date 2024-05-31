@@ -46,6 +46,8 @@ with host; {
         displayManager.gdm.enable = true;
         desktopManager.gnome.enable = true;
       };
+
+      gnome.gnome-remote-desktop.enable = true; # enable remote desktop using pipewire
     };
 
     security.sudo.extraConfig = ''

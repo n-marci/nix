@@ -50,6 +50,8 @@ with host; {
       gnome.gnome-remote-desktop.enable = true; # enable remote desktop using pipewire
     };
 
+    networking.firewall.allowedTCPPorts = [ 5900 3389 ]; # open ports for remote desktop?
+
     security.sudo.extraConfig = ''
       %wheel ALL=(ALL) NOPASSWD: ${pkgs.coreutils-full}/bin/tee /sys/bus/platform/drivers/ideapad_acpi/VPC????\:??/conservation_mode
     '';

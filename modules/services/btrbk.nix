@@ -74,8 +74,8 @@ with lib; {
       {
         command = "${pkgs.btrfs-progs}/bin/btrfs";
         options = [ "NOPASSWD" ];
+        users = [ "btrbk" ];
       }];
-      users = [ "btrbk" ];
-    }
+    };
   };
 }

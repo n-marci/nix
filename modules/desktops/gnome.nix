@@ -282,6 +282,16 @@ with host; {
           show-notifications = false;
         };
 
+        "/org/gnome/shell/extensions/windowgestures" = {
+          three-finger = true;
+          use-active-window = false;
+          taphold-move = true;
+          swipe4-left = 5;
+          swipe4-right = 4;
+          swipe3-left = 7;
+          swipe3-right = 6;
+        };
+
         # gesture improvements still missing
         # because i am not sure if i will keep it
 

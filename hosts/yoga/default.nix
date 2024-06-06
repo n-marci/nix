@@ -88,7 +88,7 @@
     extraPackages = with pkgs; [
       intel-media-driver
       intel-vaapi-driver
-      libdvpau-va-gl
+      libvdpau-va-gl
     ];
   };
   

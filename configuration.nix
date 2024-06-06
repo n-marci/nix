@@ -242,6 +242,7 @@
   # zram swap (info: https://libreddit.tiekoetter.com/r/linux/comments/11dkhz7/zswap_vs_zram_in_2023_whats_the_actual_practical/ ) 
   zramSwap.enable = true;
   zramSwap.memoryPercent = 200;
+  boot.kernel.sysctl = { "vm.swappiness" = 120; };
   # Enable CUPS to print documents.
   services.printing = {
     enable = true;

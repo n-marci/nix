@@ -19,18 +19,18 @@
   # update the kernel
   # boot.kernelPackages = pkgs.linuxPackages_6_7;
   boot.kernelPackages = pkgs.linuxPackages_latest;
-  boot.initrd.kernelModules = [ "amdgpu" ];
+  # boot.initrd.kernelModules = [ "amdgpu" ];
 
   # energy savings maybe?
   # boot.kernelParams = [ "mem_sleep_default=deep" "pcie_aspm.policy=powersupersave" ];
 
   # add workaround for wifi chip
   # iwlwifi workaround to make bluetooth work?
-  boot.extraModprobeConfig = ''
-    options rtw89_pci disable_clkreq=y disable_aspm_l1=y disable_aspm_l1ss=y
-    options rtw89pci disable_clkreq=y disable_aspm_l1=y disable_aspm_l1ss=y
-    options iwlwifi bt_coex_active=0
-  '';
+  # boot.extraModprobeConfig = ''
+  #   options rtw89_pci disable_clkreq=y disable_aspm_l1=y disable_aspm_l1ss=y
+  #   options rtw89pci disable_clkreq=y disable_aspm_l1=y disable_aspm_l1ss=y
+  #   options iwlwifi bt_coex_active=0
+  # '';
 
   networking.hostName = "yoga"; # Define your hostname.
 
@@ -55,7 +55,7 @@
   environment.systemPackages = with unstable; [
     gnome.gnome-power-manager
     nssmdns
-    radeontop      # utility to monitor graphics
+    # radeontop      # utility to monitor graphics
     # blender
     # libdrm
   ];
@@ -70,19 +70,28 @@
   };
 
   # amd specific stuff
-  systemd.tmpfiles.rules = [
-    "L+    /opt/rocm/hip   -    -    -     -    ${pkgs.rocmPackages.clr}"
-  ];
+  # systemd.tmpfiles.rules = [
+  #   "L+    /opt/rocm/hip   -    -    -     -    ${pkgs.rocmPackages.clr}"
+  # ];
 
-  hardware.opengl.extraPackages = with pkgs; [
-    # rocm-opencl-icd
-    # rocm-opencl-runtime
-    rocmPackages.clr.icd
-    amdvlk
-  ];
-  hardware.opengl.extraPackages32 = with pkgs; [
-    driversi686Linux.amdvlk
-  ];
+  # hardware.opengl.extraPackages = with pkgs; [
+  #   # rocm-opencl-icd
+  #   # rocm-opencl-runtime
+  #   rocmPackages.clr.icd
+  #   amdvlk
+  # ];
+  # hardware.opengl.extraPackages32 = with pkgs; [
+  #   driversi686Linux.amdvlk
+  # ];
+  hardware.opengl = {
+    enable = true;
+    extraPackages = with pkgs; [
+      intel-media-driver
+      intel-vaapi-driver
+      libdvpau-va-gl
+    ];
+  };
+  
   hardware.opengl.driSupport = true;
   hardware.opengl.driSupport32Bit = true;
 

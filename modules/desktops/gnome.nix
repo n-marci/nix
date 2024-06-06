@@ -197,7 +197,7 @@ with host; {
         "org/gnome/settings-daemon/plugins/media-keys" = {
           rotate-video-lock-static = ["X86RotationLockToggle"];    # disable super+o -> rotate-video-lock-static
 
-          home = ["<Shift><Super>f"];
+          # home = ["<Shift><Super>f"];
 
           custom-keybindings = [
             # "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/"
@@ -282,7 +282,7 @@ with host; {
           show-notifications = false;
         };
 
-        "/org/gnome/shell/extensions/windowgestures" = {
+        "org/gnome/shell/extensions/windowgestures" = {
           three-finger = true;
           use-active-window = false;
           taphold-move = true;

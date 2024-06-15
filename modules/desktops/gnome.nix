@@ -152,6 +152,7 @@ with host; {
 
         "org/gnome/desktop/peripherals/mouse" = {
           accel-profile = "flat";
+          speed = 0.73;
         };
         
         "org/gnome/desktop/peripherals/touchpad" = {
@@ -197,7 +198,7 @@ with host; {
         "org/gnome/settings-daemon/plugins/media-keys" = {
           rotate-video-lock-static = ["X86RotationLockToggle"];    # disable super+o -> rotate-video-lock-static
 
-          home = ["<Shift><Super>f"];
+          # home = ["<Shift><Super>f"];
 
           custom-keybindings = [
             # "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/"
@@ -280,6 +281,16 @@ with host; {
           enable-fullscreen = false;
           show-indicator = "only-active";
           show-notifications = false;
+        };
+
+        "org/gnome/shell/extensions/windowgestures" = {
+          three-finger = true;
+          use-active-window = false;
+          taphold-move = true;
+          swipe4-left = 5;
+          swipe4-right = 4;
+          swipe3-left = 7;
+          swipe3-right = 6;
         };
 
         # gesture improvements still missing

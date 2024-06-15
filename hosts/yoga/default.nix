@@ -22,7 +22,7 @@
   # boot.initrd.kernelModules = [ "amdgpu" ];
 
   # energy savings maybe?
-  # boot.kernelParams = [ "mem_sleep_default=deep" "pcie_aspm.policy=powersupersave" ];
+  boot.kernelParams = [ "mem_sleep_default=deep" "pcie_aspm.policy=powersupersave" ];
 
   # add workaround for wifi chip
   # iwlwifi workaround to make bluetooth work?
@@ -109,6 +109,16 @@
     secrets.syncthing-cert = { };
   };
 
+  # setup fingerprint scanner
+  services.fprintd = {
+    enable = true;
+    tod = {
+      enable = true;
+      driver = pkgs.libfprint-2-tod1-goodix;
+    };
+    
+  };
+  
   # services.xserver.displayManager.job.preStart = "${pkgs.libdrm}/bin/proptest -M amdgpu -D /dev/dri/card0 107 connector 109 7";
 
   # Some programs need SUID wrappers, can be configured further or are

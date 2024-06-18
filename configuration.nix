@@ -15,9 +15,12 @@
 
 {
   imports = (
-    import ./modules/desktops ++
-    import ./modules/programs ++
-    import ./modules/services
+      import ./modules/desktops ++
+      import ./modules/programs ++
+      import ./modules/services
+  #   ) ++ ([
+  #   <nixpkgs/nixos/modules/services/hardware/sane_extra_backends/brscan4.nix>
+  # ]);
   );
 
   # Configure network proxy if necessary
@@ -59,7 +62,7 @@
   users.users.${vars.user} = {
     isNormalUser = true;
     description = "Marcel Neugebauer";
-    extraGroups = [ "networkmanager" "wheel" ];
+    extraGroups = [ "networkmanager" "wheel" "scanner" "lp" ]; # scanner and lp group so i can access scanners and printers i guess
   };
 
   # Automatic Garbage collection
@@ -159,7 +162,7 @@
       clang-tools  # c lsp
       python311Packages.python-lsp-server  # python lsp (unfort. there is no 'latest' option)
       marksman  # markdown lsp
-      nodePackages.bash-language-server  # bash lsp
+      # nodePackages.bash-language-server  # bash lsp
       cmake-language-server  # cmake lsp
       texlab
       bibtex-tidy
@@ -214,7 +217,7 @@
       micromamba
       firefox
       librewolf
-      floorp
+      # floorp
       thunderbird
     ]) ++ (with stable; [
       piper-tts
@@ -253,6 +256,18 @@
     nssmdns4 = true;
     openFirewall = true;
   };
+
+  # Enable SANE to scan documents
+  hardware.sane = {
+    enable = true;
+    extraBackends = [ pkgs.sane-airscan ];
+    brscan4 = {
+      enable = true;
+    };
+  };
+  services.ipp-usb.enable = true;
+
+  
 
   services.keyd = {
     enable = true;

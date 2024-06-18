@@ -64,6 +64,7 @@ with lib; {
     security.sudo = {
       enable = true;
       extraRules = [{
+        # commands = [{
         command = "${pkgs.coreutils-full}/bin/test";
         options = [ "NOPASSWD" ];
       }
@@ -74,6 +75,7 @@ with lib; {
       {
         command = "${pkgs.btrfs-progs}/bin/btrfs";
         options = [ "NOPASSWD" ];
+      # }]
         users = [ "btrbk" ];
       }];
     };

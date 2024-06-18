@@ -97,7 +97,7 @@ with host; {
             # "brave-browser.desktop"
             # "firefox.desktop"
             # "librewolf.desktop"
-            "floorp.desktop"
+            "librewolf.desktop"
             "thunderbird.desktop"
             "spotify.desktop"
             "org.gnome.Nautilus.desktop"
@@ -315,7 +315,7 @@ with host; {
 
       # setup the shortcuts.conf file for run-or-raise
       home.file.".config/run-or-raise/shortcuts.conf".text = ''
-        <Super>b,floorp,,
+        <Super>b,librewolf,,
         <Super>e,thunderbird,,
         <Super>m,spotify.desktop,"",Spotify Premium
         <Super>f,nautilus,,

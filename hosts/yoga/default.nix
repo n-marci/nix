@@ -9,6 +9,7 @@
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
       inputs.sops-nix.nixosModules.sops
+      # <nixpkgs/nixos/modules/services/hardware/sane_extra_backends/brscan4.nix>
     ];
 
   # Bootloader.

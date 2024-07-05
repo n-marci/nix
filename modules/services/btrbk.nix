@@ -1,7 +1,7 @@
 
 # btrbk configuration
 
-{config, vars, lib, unstable, host, ...}:
+{config, pkgs, vars, lib, unstable, host, ...}:
 
 with lib; {
   options = {

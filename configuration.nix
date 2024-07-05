@@ -88,6 +88,7 @@
       comfortaa
       montserrat
       intel-one-mono
+      newcomputermodern
       (nerdfonts.override { fonts = [ "Monofur" "Agave" "AurulentSansMono" "CascadiaCode" "FantasqueSansMono" "Hermit" "OpenDyslexic" ]; })
     ];
     fontconfig.defaultFonts.monospace = [ "Monofur Nerd Font" ];
@@ -147,6 +148,7 @@
       python311Packages.langid
       keyd  # key remapper for my sweet super key on the mouse button
       shell-gpt
+      # llm
       inotify-tools
       distrobox
       fzf
@@ -166,6 +168,7 @@
       cmake-language-server  # cmake lsp
       texlab
       bibtex-tidy
+      ltex-ls
 
       # virtualisation
       distrobox
@@ -283,6 +286,7 @@
     };
   };
 
+  services.ollama.enable = true;
   services.ratbagd.enable = true;
   services.tailscale.enable = true;
   services.flatpak.enable = true;

@@ -90,11 +90,12 @@
       intel-media-driver
       intel-vaapi-driver
       libvdpau-va-gl
+      vpl-gpu-rt
     ];
   };
   
-  hardware.opengl.driSupport = true;
-  hardware.opengl.driSupport32Bit = true;
+  # hardware.opengl.driSupport = true;
+  # hardware.opengl.driSupport32Bit = true;
 
   # optimize for more battery life
   powerManagement.powertop.enable = true;

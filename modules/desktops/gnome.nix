@@ -238,6 +238,7 @@ with host; {
 
         "org/gnome/shell/keybindings" = {
           toggle-overview = ["@as []"];              # disable super+s -> show the overview
+          toggle-quick-settings = ["@as []"];        # now super+s is quick settings? -> disable aswell
           toggle-message-tray = ["@as []"];          # disable super+v
           focus-active-notification = ["@as []"];
           switch-to-application-1 = ["@as []"];      # disable super+1

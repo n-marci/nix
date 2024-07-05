@@ -32,6 +32,12 @@
             X = "extend_line_above";
             # "A-x" = "shrink_line_below";
             # "A-X" = "shrink_line_above";
+            m.l = {
+              t = [ "search_selection" ":insert-output echo '\\text{'" "ensure_selections_forward" "collapse_selection" "delete_selection" "search_next" "search_prev" ":append-output echo '}'" "ensure_selections_forward" "collapse_selection" "delete_selection" ];
+              i = [ "search_selection" ":insert-output echo '\\textit{'" "ensure_selections_forward" "collapse_selection" "delete_selection" "search_next" "search_prev" ":append-output echo '}'" "ensure_selections_forward" "collapse_selection" "delete_selection" ];
+              c = [ ":insert-output echo '\\textcolor{Blue}{}'" "ensure_selections_forward" "collapse_selection" "delete_selection" "move_char_left" "insert_mode" ];
+              r = [ "search_selection" ":insert-output echo '\\textcolor{Blue}{needs ref}'" "ensure_selections_forward" "collapse_selection" "delete_selection" ];
+            };
           };
         };
 
@@ -45,6 +51,19 @@
             # "ui.virtual.indent-guide" = { fg = "grey"; };
             "ui.virtual.indent-guide" = "black";
           };
+        };
+
+        languages= {
+
+          language-server.ltex = {
+            command = "${pkgs.ltex-ls}/bin/ltex-ls";
+            config.ltex.dictionary."en-US" = [ "Modelica" "SysML" "aeroponic" ];
+          };
+          
+          language = [{
+            name = "latex";
+            language-servers = [ "texlab" "ltex" ];
+          }];
         };
 
         # language config for latex - did not build on save tho?

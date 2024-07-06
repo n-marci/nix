@@ -252,7 +252,7 @@
   # Enable CUPS to print documents.
   services.printing = {
     enable = true;
-    drivers = with pkgs; [ mfcl2700dnlpr ]; # brlaser 
+    drivers = with pkgs; [ mfcl2700dnlpr brlaser ]; # brlaser 
   };
   services.avahi = {
     enable = true;

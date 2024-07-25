@@ -51,6 +51,16 @@
             # "ui.virtual.indent-guide" = { fg = "grey"; };
             "ui.virtual.indent-guide" = "black";
           };
+
+          onelight-extended = {
+            "inherits" = "onelight";
+            "ui.cursor.primary.normal" = { fg = "background"; bg = "white"; };
+            "ui.cursor.primary.insert" = { fg = "background"; bg = "green"; };
+            "ui.cursor.primary.select" = { fg = "background"; bg = "magenta"; };
+            # "ui.cursor.primary" = { modifiers = [ "reversed" ]; };
+            # "ui.virtual.indent-guide" = { fg = "grey"; };
+            # "ui.virtual.indent-guide" = "black";
+          };
         };
 
         languages= {

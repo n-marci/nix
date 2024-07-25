@@ -84,18 +84,22 @@
   # hardware.opengl.extraPackages32 = with pkgs; [
   #   driversi686Linux.amdvlk
   # ];
-  hardware.opengl = {
+  hardware.graphics = {
     enable = true;
     extraPackages = with pkgs; [
       intel-media-driver
-      intel-vaapi-driver
+      # intel-vaapi-driver
       libvdpau-va-gl
-      vpl-gpu-rt
+      vpl-gpu-rt # for intel quick sync video
+    ];
+    extraPackages32 = with pkgs.pkgsi686linux; [
+      intel-media-driver
     ];
   };
-  
-  # hardware.opengl.driSupport = true;
-  # hardware.opengl.driSupport32Bit = true;
+  environment.sessionVariables = {
+    LIBVA_DRIVER_NAME = "iHD";
+    VDPAU_DRIVER = "va_gl";
+  };
 
   # optimize for more battery life
   powerManagement.powertop.enable = true;

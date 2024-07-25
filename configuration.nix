@@ -31,7 +31,7 @@
   networking.networkmanager.enable = true;
 
   # Enable sound with pipewire.
-  sound.enable = true;
+  # sound.enable = true;
   hardware.pulseaudio.enable = false;
   security.rtkit.enable = true;
   services.pipewire = {
@@ -145,7 +145,7 @@
       translate-shell  # move to script if i write a nixpkg for it
       # python311Packages.gtts
       # piper-tts
-      python311Packages.langid
+      python312Packages.langid
       keyd  # key remapper for my sweet super key on the mouse button
       shell-gpt
       # llm
@@ -158,11 +158,12 @@
       # poetry
       # conda # out of date
       # micromamba
+      mesa
 
       # language servers
       nil # nix lsp
       clang-tools  # c lsp
-      python311Packages.python-lsp-server  # python lsp (unfort. there is no 'latest' option)
+      python312Packages.python-lsp-server  # python lsp (unfort. there is no 'latest' option)
       marksman  # markdown lsp
       # nodePackages.bash-language-server  # bash lsp
       cmake-language-server  # cmake lsp
@@ -175,11 +176,12 @@
 
       # gui program
       gradience
-      gnome.gnome-terminal
+      gnome-terminal
       alacritty
       ptyxis
       # blackbox-terminal
       helvum
+      gnome-graphs
       # (obsidian.overrideAttrs (oldAttrs: {
         
       # })
@@ -319,7 +321,7 @@
       paths = with pkgs; [
         #libsForQt5.breeze-qt5  # for plasma
         bibata-cursors-translucent
-        gnome.gnome-themes-extra
+        gnome-themes-extra
       ];
       pathsToLink = [ "/share/icons" ];
     };

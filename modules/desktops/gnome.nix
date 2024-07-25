@@ -58,9 +58,9 @@ with host; {
     
     environment = {
       systemPackages = with pkgs; [      # I have to use stable pkgs here, otherwise there were problems
-        gnome.nautilus-python            # with integration of nautilus-python for example
-        gnome.gnome-tweaks
-        gnome.dconf-editor
+        nautilus-python            # with integration of nautilus-python for example
+        gnome-tweaks
+        dconf-editor
         adw-gtk3
         gettext           # needed for battery-charging-health and also ideapad controls extensions
         libgtop           # needed for astra-monitor
@@ -71,13 +71,13 @@ with host; {
         gnome-tour
         gnome-photos
         gnome-console
-      ]) ++ (with pkgs.gnome; [
+      ]) ++ (with pkgs; [
         epiphany
         geary
-        gnome-contacts
-        gnome-initial-setup
+        gnome.gnome-contacts
+        gnome.gnome-initial-setup
         yelp
-        gnome-music
+        gnome.gnome-music
       ]);
       variables = {
         GI_TYPELIB_PATH = "/run/current-system/sw/lib/girepository-1.0";   # needed for astra-monitor
@@ -115,6 +115,7 @@ with host; {
             "grand-theft-focus@zalckos.github.com"
             "gsconnect@andyholmes.github.io"
             "pano@elhan.io"
+            "clipboard-indicator@tudmotu.com"
             "windowgestures@extension.amarullz.com"
             # "gestureImprovements@gestures"
             "caffeine@patapon.info"
@@ -309,6 +310,10 @@ with host; {
           history-length = 50;
         };
 
+        "org/gnome/shell/extensions/clipboard-indicator" = {
+          history-size = 50;
+        };
+
         "system/locale" = {
           region = "de_DE.UTF-8";
         };
@@ -336,6 +341,7 @@ with host; {
         grand-theft-focus
         gsconnect
         pano
+        clipboard-indicator
         window-gestures
         # gesture-improvements
         caffeine

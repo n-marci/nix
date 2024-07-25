@@ -66,7 +66,7 @@
     # cli tools
     qmk
     nvtopPackages.nvidia
-    mesa
+    # mesa
     
     # games
     wineWowPackages.stagingFull
@@ -89,7 +89,7 @@
   ];
 
   # nvidia options
-  hardware.opengl = {
+  hardware.graphics = {
     enable = true;
     # driSupport = true;
     # driSupport32Bit = true;

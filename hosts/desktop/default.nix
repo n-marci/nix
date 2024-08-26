@@ -64,17 +64,17 @@
 
   environment.systemPackages = with unstable; [
     # cli tools
-    qmk
+    # qmk
     nvtopPackages.nvidia
     # mesa
     
     # games
     wineWowPackages.stagingFull
     jdk17
-    prismlauncher
-    optifine
-    lutris
-    steam
+    # prismlauncher
+    # optifine
+    # lutris
+    # steam
 
     # gpu
     # cudaPackages.cudatoolkit
@@ -87,6 +87,12 @@
     # })
 
   ];
+
+  services.ollama = {
+    enable = true;
+    package = pkgs.ollama-cuda;
+    acceleration = "cuda";
+  };
 
   # nvidia options
   hardware.graphics = {

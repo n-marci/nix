@@ -54,9 +54,9 @@
 
           onelight-extended = {
             "inherits" = "onelight";
-            "ui.cursor.primary.normal" = { fg = "background"; bg = "white"; };
-            "ui.cursor.primary.insert" = { fg = "background"; bg = "green"; };
-            "ui.cursor.primary.select" = { fg = "background"; bg = "magenta"; };
+            "ui.cursor.primary.normal" = { fg = "white"; bg = "black"; };
+            "ui.cursor.primary.insert" = { fg = "white"; bg = "green"; };
+            "ui.cursor.primary.select" = { fg = "white"; bg = "magenta"; };
             # "ui.cursor.primary" = { modifiers = [ "reversed" ]; };
             # "ui.virtual.indent-guide" = { fg = "grey"; };
             # "ui.virtual.indent-guide" = "black";

@@ -122,6 +122,8 @@ with host; {
             "${battery-opt}"
             "monitor@astraext.github.io"
             "run-or-raise@edvard.cz"
+            "tilingshell@ferrarodomenico.com"
+            "system-monitor@gnome-shell-extensions.gcampax.github.com"
           ];
         };
 
@@ -351,6 +353,7 @@ with host; {
         thinkpad-battery-threshold
         astra-monitor
         run-or-raise
+        # tiling shell is not in nix repos - I downloaded it from the extensions manager
       ];
     };
   };

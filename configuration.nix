@@ -148,6 +148,7 @@
       python312Packages.langid
       keyd  # key remapper for my sweet super key on the mouse button
       shell-gpt
+      aichat
       # llm
       inotify-tools
       distrobox
@@ -200,6 +201,7 @@
       zotero
       keepassxc
       freecad
+      # alpaca
       # (blender.override {
       #   cudaSupport = true;
       # })
@@ -238,6 +240,8 @@
     keybindings = true;
     fuzzyCompletion = true;
   };
+
+  # programs.ydotool.enable = true;
 
   # configured services
   syncthing.enable = true;
@@ -288,7 +292,7 @@
     };
   };
 
-  services.ollama.enable = true;
+  # services.ollama.enable = true;
   services.ratbagd.enable = true;
   services.tailscale.enable = true;
   services.flatpak.enable = true;

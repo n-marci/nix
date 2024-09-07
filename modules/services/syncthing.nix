@@ -165,12 +165,12 @@ in {
       home.file."sync/obsidian/.stignore".text = '' 
         .obsidian
       '';
-      home.file."nix/.stignore".text = ''
-        .git
-      '';
-      home.file."nix/.gitignore".text = ''
-        .stignore
-      '';
+      # home.file."nix/.stignore".text = ''
+      #   .git
+      # '';
+      # home.file."nix/.gitignore".text = ''
+      #   .stignore
+      # '';
       home.file."secrets/.stignore".text = ''
         .git
       '';

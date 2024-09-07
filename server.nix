@@ -33,8 +33,6 @@
 
   nextcloud.enable = true;
 
-  firefly.enable = true;
-
   btrbk.enable = true;
 
   firefly.enable = false;

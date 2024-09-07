@@ -41,7 +41,7 @@ with lib; {
       enable = true;
       # hostName = "inspirion";
       hostName = "localhost";
-      package = pkgs.nextcloud28;
+      package = pkgs.nextcloud29;
       configureRedis = true;
       database.createLocally = true;
       maxUploadSize = "16G";

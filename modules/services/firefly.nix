@@ -1,20 +1,31 @@
 
-# paperless configuration
-# TODO make secrets folder only accessible by root
+# btrbk configuration
 
-{config, unstable, host, firefly, ...}:
+{config, pkgs, vars, lib, unstable, host, ...}:
 
-{
-  services = {
-    firefly-iii = {
-      enable = true;
-      appKeyFile = "";
-      nginx = {
-        forceSSL = false;
-        enableACME = false;
+with lib; {
+  options = {
+    firefly = {
+      enable = mkOption {
+        type = types.bool;
+        default = false;
       };
-      group = "nginx";
-      database.createLocally = true;
+      # versioning = mkOption {
+      #   type = types.bool;
+      #   default = false;
+      # };
+    };
+  };
+  
+  config = mkIf (config.firefly.enable) {
+
+    services = {
+      firefly-iii = {
+        enable = true;
+        settings = {
+          DB_PORT = 3306;
+        };
+      };
     };
   };
 }

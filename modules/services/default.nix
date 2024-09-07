@@ -3,5 +3,5 @@
   ./paperless.nix
   ./nextcloud.nix
   ./btrbk.nix
-  # ./firefly.nix
+  ./firefly.nix
 ]

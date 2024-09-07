@@ -54,7 +54,7 @@
   gnome.enable = true;
 
   environment.systemPackages = with unstable; [
-    gnome.gnome-power-manager
+    gnome-power-manager
     nssmdns
     # radeontop      # utility to monitor graphics
     # blender

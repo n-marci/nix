@@ -74,10 +74,10 @@ with host; {
       ]) ++ (with pkgs; [
         epiphany
         geary
-        gnome.gnome-contacts
-        gnome.gnome-initial-setup
+        gnome-contacts
+        gnome-initial-setup
         yelp
-        gnome.gnome-music
+        gnome-music
       ]);
       variables = {
         GI_TYPELIB_PATH = "/run/current-system/sw/lib/girepository-1.0";   # needed for astra-monitor

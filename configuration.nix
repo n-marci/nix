@@ -160,6 +160,7 @@
       # conda # out of date
       # micromamba
       mesa
+      clamav
 
       # language servers
       nil # nix lsp
@@ -289,6 +290,13 @@
           };
         };
       };
+    };
+  };
+
+  services.clamav = {
+    updater = {
+      enable = true;
+      # interval = "hourly";
     };
   };
 

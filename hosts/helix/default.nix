@@ -57,7 +57,7 @@
   # services.syncthing.enable = true;
 
   environment.systemPackages = with unstable; [
-    gnome.gnome-power-manager
+    gnome-power-manager
     nssmdns
     # intel-media-driver
     # radeontop      # utility to monitor graphics

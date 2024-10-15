@@ -39,8 +39,8 @@ with lib; {
     
     services.nextcloud = {
       enable = true;
-      # hostName = "inspirion";
       hostName = "localhost";
+      # hostName = "www.nextcloud-marci.com";
       package = pkgs.nextcloud29;
       configureRedis = true;
       database.createLocally = true;

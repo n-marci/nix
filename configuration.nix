@@ -126,7 +126,7 @@
       nh # nix helper - upgrade command nh os switch
       sops
       neovim
-      cli-visualizer
+      comma # wrapper around nix shell, to run programs without installing them
       # zathura
       # helix
       pdfgrep
@@ -161,6 +161,9 @@
       # micromamba
       mesa
       clamav
+
+      # eye candy cli programs
+      cli-visualizer
 
       # language servers
       nil # nix lsp
@@ -201,7 +204,7 @@
       brave
       zotero
       keepassxc
-      freecad
+      # freecad
       # alpaca
       # (blender.override {
       #   cudaSupport = true;

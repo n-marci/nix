@@ -112,10 +112,11 @@
   hardware.nvidia = {
     modesetting.enable = true;
     powerManagement.enable = true;
+    open = true;
     nvidiaSettings = true;
     # open = true;
-    package = config.boot.kernelPackages.nvidiaPackages.stable;
-    # package = config.boot.kernelPackages.nvidiaPackages.beta;
+    # package = config.boot.kernelPackages.nvidiaPackages.stable;
+    package = config.boot.kernelPackages.nvidiaPackages.beta;
     # package = config.boot.kernelPackages.nvidiaPackages.vulkan_beta;
   };
 

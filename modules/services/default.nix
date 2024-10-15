@@ -4,4 +4,5 @@
   ./nextcloud.nix
   ./btrbk.nix
   ./firefly.nix
+  ./immich.nix
 ]

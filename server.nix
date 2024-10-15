@@ -37,6 +37,8 @@
 
   firefly.enable = false;
 
+  immich.enable = true;
+
   ##############################################################################
   # other services
   ##############################################################################
@@ -138,6 +140,7 @@
       tldr
       btop
       syncthing # add program to be able to use cli additionally to web interface
+      nginx
 
       # language servers
       nil # nix lsp

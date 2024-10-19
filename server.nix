@@ -31,7 +31,7 @@
 
   paperless.enable = true;
 
-  nextcloud.enable = true;
+  nextcloud.enable = false;
 
   btrbk.enable = true;
 

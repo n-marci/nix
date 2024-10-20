@@ -22,13 +22,13 @@ with lib; {
       enable = true;
       environment.IMMICH_MACHINE_LEARNING_URL = "http://localhost:3003";
       openFirewall = true;
-      # host = "0.0.0.0";
+      host = "0.0.0.0";
     };
 
     # TODO add Hardware Accelerated Transconding using VA-API
       # Explanation https://wiki.nixos.org/wiki/Immich
 
-    # networking.firewall.allowedTCPPorts = [ 2283 ];
+    # networking.firewall.allowedTCPPorts = [ 2283  3001 ];
 
   };
 }

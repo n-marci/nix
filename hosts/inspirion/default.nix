@@ -52,9 +52,9 @@
     # secrets.firefly-db-pass = {
     #   owner = "firefly-iii";
     # };
-    # secrets.nextcloud-pass = {
-    #   owner = "nextcloud";
-    # };
+    secrets.nextcloud-pass = {
+      owner = "nextcloud";
+    };
     secrets.sync-id-inspirion = { };
     secrets.sync-id-desktop = { };
     secrets.sync-id-yoga = { };

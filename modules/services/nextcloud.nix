@@ -41,7 +41,7 @@ with lib; {
       enable = true;
       hostName = "localhost";
       # hostName = "www.nextcloud-marci.com";
-      package = pkgs.nextcloud29;
+      package = pkgs.nextcloud30;
       configureRedis = true;
       database.createLocally = true;
       maxUploadSize = "16G";
@@ -64,6 +64,7 @@ with lib; {
       config = {
         # overwriteProtocol = "https";
         dbtype = "pgsql";
+        # dbhost = "/var/lib/postgresql/nextcloud";
         adminuser = "caesar";
         adminpassFile = config.sops.secrets.nextcloud-pass.path;
       };

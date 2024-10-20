@@ -31,13 +31,15 @@
 
   paperless.enable = true;
 
-  nextcloud.enable = false;
+  nextcloud.enable = true;
 
   btrbk.enable = true;
 
   firefly.enable = false;
 
   immich.enable = true;
+
+  actualbudget.enable = true;
 
   ##############################################################################
   # other services
@@ -141,6 +143,7 @@
       btop
       syncthing # add program to be able to use cli additionally to web interface
       nginx
+      docker-compose
 
       # language servers
       nil # nix lsp

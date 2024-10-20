@@ -5,4 +5,5 @@
   ./btrbk.nix
   ./firefly.nix
   ./immich.nix
+  ./actual.nix
 ]

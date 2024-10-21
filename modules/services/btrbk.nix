@@ -50,10 +50,16 @@ with lib; {
                   "var/lib/postgresql" = {
                     snapshot_create = "always";
                   };
+                  "var/lib/immich" = {
+                    snapshot_create = "always";
+                  };
+                  "var/lib/actualbudget" = {
+                    snapshot_create = "always";
+                  };
                   # rootfs = { };
                 };
-                snapshot_dir = "/bkp/.snapshots";
-                target = "/bkp/target";
+                snapshot_dir = "/var/bkp/btrfs-snaps";
+                target = "/var/bkp/btrfs-target";
               };
             };
           };

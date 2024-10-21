@@ -19,10 +19,11 @@ with lib; {
       backend = "docker";
       containers = {
         actualbudget = {
-          cmd = [ "--pull=always" "--restart=unless-stopped" ];
+          autoStart = true;
           image = "docker.io/actualbudget/actual-server:latest";
           ports = [ "5006:5006" ];
           volumes = [ "/var/lib/actualbudget:/data" ];
+          # extraOptions = [ "--pull=always" "--restart=unless-stopped" ];
         };
       };
     };

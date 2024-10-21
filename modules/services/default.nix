@@ -2,8 +2,8 @@
   ./syncthing.nix
   ./paperless.nix
   ./nextcloud.nix
-  ./btrbk.nix
-  ./firefly.nix
   ./immich.nix
-  ./actual.nix
+  ./actualbudget.nix
+  ./btrbk.nix
+  ./postgresql-bkp.nix
 ]

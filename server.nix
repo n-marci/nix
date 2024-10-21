@@ -30,16 +30,20 @@
   };
 
   paperless.enable = true;
-
   nextcloud.enable = true;
+  immich.enable = true;
+  actualbudget.enable = true;
+
+  ##############################################################################
+  # backup services
+  ##############################################################################
 
   btrbk.enable = true;
 
-  firefly.enable = false;
-
-  immich.enable = true;
-
-  actualbudget.enable = true;
+  pg-bkp = {
+    enable = true;
+    databases = [ "nextcloud" "immich" ];
+  };
 
   ##############################################################################
   # other services

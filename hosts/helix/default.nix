@@ -17,13 +17,12 @@
   boot.loader.efi.canTouchEfiVariables = true;
 
   # update the kernel
-  boot.kernelPackages = pkgs.linuxPackages_6_1;
-  # boot.kernelPackages = pkgs.linuxPackages_latest;
-  # boot.initrd.kernelModules = [ "amdgpu" ];
+  # boot.kernelPackages = pkgs.linuxPackages_6_1;
+  boot.kernelPackages = pkgs.linuxPackages_latest;
 
   # disable controller wakeups
   # maybe helps with kernel panics
-  boot.kernelParams = [ "acpi.ec_no_wakeup=1" ];
+  # boot.kernelParams = [ "acpi.ec_no_wakeup=1" ];
 
   # add workaround for wifi chip
   # iwlwifi workaround to make bluetooth work?
@@ -65,22 +64,6 @@
     # libdrm
   ];
 
-  hardware.opengl = {
-    enable = true;
-    extraPackages = with pkgs; [
-      # intel-media-driver
-      # intel-vaapi-driver
-      # libvdpau-va-gl
-    ];
-  };
-  # hardware.opengl.extraPackages32 = with pkgs; [
-  #   driversi686Linux.intel-vaapi-driver
-  # ];
-  hardware.opengl.driSupport = true;
-  hardware.opengl.driSupport32Bit = true;
-
-  # environment.sessionVariables = { LIBVA_DRIVER_NAME = "iHD"; };
-
   # screen rotation and stuff
   hardware.sensor.iio.enable = true;
 
@@ -88,6 +71,23 @@
     General = {
       Experimental = true;
     };
+  };
+
+  hardware.graphics = {
+    enable = true;
+    extraPackages = with pkgs; [
+      intel-media-driver
+      # intel-vaapi-driver
+      libvdpau-va-gl
+      vpl-gpu-rt # for intel quick sync video
+    ];
+    extraPackages32 = with pkgs.pkgsi686linux; [
+      intel-media-driver
+    ];
+  };
+  environment.sessionVariables = {
+    LIBVA_DRIVER_NAME = "iHD";
+    VDPAU_DRIVER = "va_gl";
   };
 
   # optimize for more battery life
@@ -133,20 +133,16 @@
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
   # system.stateVersion = "23.05"; # Did you read the comment?
 
-  system.stateVersion = "23.11"; # Did you read the comment?
+  system.stateVersion = "24.05"; # Did you read the comment?
 
   home-manager.users.${vars.user} = {
     home = {
-      stateVersion = "23.11";
+      stateVersion = "24.05";
     };
 
     programs = {
       home-manager.enable = true;
     };
 
-    nix = {
-      # package = pkgs.nix;
-      settings.experimental-features = [ "nix-command" "flakes" ];
-    };
   };
 }

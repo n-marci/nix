@@ -4,7 +4,7 @@ keys:
   - &inspirion age12kzru9qf09hr22vaxessg97kf0v047hqqdpyaa2q3kamjpgk4yaq3069m4
   - &yoga age15f6mqs3gm9cn49m8rp3sdqp274ar3qc4tacy9hea784lkquygs2s836aep
   - &desktop age1u83pdth54z7zcf8e5mraz56z8nay55v9flx02na6mqsewnvppqqqqjsnuh
-  - &helix age1yuzuczdhhh699c6jthprv7jt3a9gfm0gj85lnzfe7kyn56cw2fasyce83q
+  - &helix age1k7gc62ah8fhn9yt3ykqhm6espaw35n3ns3gq7k3t366s44cude2szueumm
 creation_rules:
   - path_regex: secrets/inspirion.yaml$
     key_groups:

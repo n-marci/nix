@@ -23,7 +23,7 @@ with lib; {
       enable = true;
       startAt = "*-*-* 04:05:00";
       location = "/var/bkp/pg-dump";
-      databases = cfg.databases;
+      databases = config.pg-bkp.databases;
     };
   };
 }

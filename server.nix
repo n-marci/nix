@@ -27,12 +27,14 @@
   syncthing = {
     enable = true;
     versioning = true;
+    storeInBackupLocation = false;
   };
 
   paperless.enable = true;
   nextcloud.enable = true;
   immich.enable = true;
   actualbudget.enable = true;
+  adguard.enable = true;
 
   ##############################################################################
   # backup services

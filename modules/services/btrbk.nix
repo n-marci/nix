@@ -41,6 +41,11 @@ with lib; {
             volume = {
               "/" = {
                 subvolume = {
+
+                  ###########################
+                  # Server Applications
+                  ###########################
+
                   "var/lib/paperless" = {
                     snapshot_create = "always";
                   };
@@ -54,6 +59,38 @@ with lib; {
                     snapshot_create = "always";
                   };
                   "var/lib/actualbudget" = {
+                    snapshot_create = "always";
+                  };
+                  
+                  ###########################
+                  # Syncthing Folders
+                  ###########################
+
+                  "var/lib/syncthing/obsidian" = {
+                    snapshot_create = "always";
+                  };
+                  "var/lib/syncthing/logseq" = {
+                    snapshot_create = "always";
+                  };
+                  "var/lib/syncthing/live" = {
+                    snapshot_create = "always";
+                  };
+                  "var/lib/syncthing/linux" = {
+                    snapshot_create = "always";
+                  };
+                  "var/lib/syncthing/idle" = {
+                    snapshot_create = "always";
+                  };
+                  "var/lib/syncthing/archive" = {
+                    snapshot_create = "always";
+                  };
+                  "var/lib/syncthing/dev" = {
+                    snapshot_create = "always";
+                  };
+                  "home/marci/nix" = {
+                    snapshot_create = "always";
+                  };
+                  "home/marci/secrets" = {
                     snapshot_create = "always";
                   };
                   # rootfs = { };

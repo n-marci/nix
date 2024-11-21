@@ -16,14 +16,47 @@
   boot.loader.systemd-boot.enable = true;
   boot.loader.systemd-boot.configurationLimit = 3;
   boot.loader.efi.canTouchEfiVariables = true;
+  boot.loader.timeout = 0;
 
   # update the kernel
   # boot.kernelPackages = pkgs.linuxPackages_6_7;
   boot.kernelPackages = pkgs.linuxPackages_latest;
   # boot.initrd.kernelModules = [ "amdgpu" ];
 
-  # energy savings maybe?
-  boot.kernelParams = [ "mem_sleep_default=deep" "pcie_aspm.policy=powersupersave" ];
+  boot = {
+    plymouth = {
+      enable = true;
+      theme = "dna";
+      # theme = "colorful_sliced";
+      themePackages = with pkgs; [
+        (adi1090x-plymouth-themes.override {
+          selected_themes = [ "dna" ];
+          # selected_themes = [ "colorful_sliced" ];
+        })
+      ];
+    };
+
+    consoleLogLevel = 0;
+    initrd.verbose = false;
+    kernelParams = [
+      #########################################
+      # Silent Boot for plymouth boot animation
+      #########################################
+      "quiet"
+      "splash"
+      "boot.shell_on_fail"
+      "logLevel=3"
+      "rd.systemd.show_status=false"
+      "rd.udev.log_level=3"
+      "udev.log_priority=3"
+
+      #########################################
+      # Energy savings maybe?
+      #########################################
+      "mem_sleep_default=deep" 
+      "pcie_aspm.policy=powersupersave" 
+    ];
+  };
 
   # add workaround for wifi chip
   # iwlwifi workaround to make bluetooth work?

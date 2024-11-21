@@ -37,6 +37,10 @@ in {
         type = types.bool;
         default = false;
       };
+      storeInBackupLocation = mkOption {
+        type = types.bool;
+        default = false;
+      };
     };
   };
   
@@ -61,11 +65,16 @@ in {
         };
         folders = {
           "wallpapers" = {
-            path = "/home/marci/Pictures/wallpapers";
+            path =
+              if config.syncthing.storeInBackupLocation then "/var/lib/syncthing/wallpapers"
+              else "/home/marci/Pictures/wallpapers";
             devices = devices-with-phone;
           };
           "obsidian" = {
-            path = "/home/marci/sync/obsidian";
+            # path = "/home/marci/sync/obsidian";
+            path =
+              if config.syncthing.storeInBackupLocation then "/var/lib/syncthing/obsidian"
+              else "/home/marci/sync/obsidian";
             devices = devices-with-phone;
             versioning = mkIf (config.syncthing.versioning) {
               type = "staggered";
@@ -76,7 +85,9 @@ in {
             };
           };
           "logseq" = {
-            path = "/home/marci/logseq";
+            path =
+              if config.syncthing.storeInBackupLocation then "/var/lib/syncthing/logseq"
+              else "/home/marci/logseq";
             devices = devices-with-phone;
             versioning = mkIf (config.syncthing.versioning) {
               type = "staggered";
@@ -87,7 +98,9 @@ in {
             };
           };
           "live" = {
-            path = "/home/marci/sync/live";
+            path =
+              if config.syncthing.storeInBackupLocation then "/var/lib/syncthing/live"
+              else "/home/marci/sync/live";
             devices = devices-without-phone;
             versioning = mkIf (config.syncthing.versioning) {
               type = "staggered";
@@ -98,7 +111,9 @@ in {
             };
           };
           "linux" = {
-            path = "/home/marci/sync/linux";
+            path =
+              if config.syncthing.storeInBackupLocation then "/var/lib/syncthing/linux"
+              else "/home/marci/sync/linux";
             devices = devices-without-phone;
             versioning = mkIf (config.syncthing.versioning) {
               type = "staggered";
@@ -109,7 +124,9 @@ in {
             };
           };
           "idle" = {
-            path = "/home/marci/sync/idle";
+            path =
+              if config.syncthing.storeInBackupLocation then "/var/lib/syncthing/idle"
+              else "/home/marci/sync/idle";
             devices = devices-without-phone;
             versioning = mkIf (config.syncthing.versioning) {
               type = "staggered";
@@ -120,7 +137,9 @@ in {
             };
           };
           "archive" = {
-            path = "/home/marci/sync/archive";
+            path =
+              if config.syncthing.storeInBackupLocation then "/var/lib/syncthing/archive"
+              else "/home/marci/sync/archive";
             devices = devices-without-phone;
             versioning = mkIf (config.syncthing.versioning) {
               type = "staggered";
@@ -130,7 +149,7 @@ in {
               };
             };
           };
-          "nix" = {
+          "nix" = { # for nix I dont make a btrfs backup since it is version controlled by git
             path = "/home/marci/nix";
             devices = devices-with-phone;
             versioning = mkIf (config.syncthing.versioning) {
@@ -142,7 +161,9 @@ in {
             };
           };
           "dev" = {
-            path = "/home/marci/dev";
+            path =
+              if config.syncthing.storeInBackupLocation then "/var/lib/syncthing/dev"
+              else "/home/marci/dev";
             devices = devices-without-phone;
             versioning = mkIf (config.syncthing.versioning) {
               type = "staggered";
@@ -152,7 +173,7 @@ in {
               };
             };
           };
-          "secrets" = {
+          "secrets" = { # for secrets I dont make a btrfs backup since it is version controlled by git
             path = "/home/marci/secrets";
             devices = devices-with-phone;
           };
@@ -171,9 +192,9 @@ in {
       # home.file."nix/.gitignore".text = ''
       #   .stignore
       # '';
-      home.file."secrets/.stignore".text = ''
-        .git
-      '';
+      # home.file."secrets/.stignore".text = ''
+      #   .git
+      # '';
     };
   };
 

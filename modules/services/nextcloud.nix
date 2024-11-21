@@ -45,13 +45,29 @@ with lib; {
       configureRedis = true;
       database.createLocally = true;
       maxUploadSize = "16G";
-      # https = true;
+      https = true;
       # enableBrokenCiphersForSSE = false;
 
       autoUpdateApps.enable = true;
       extraAppsEnable = true;
       extraApps = {
         inherit (config.services.nextcloud.package.packages.apps) calendar contacts mail notes tasks;
+
+        # Nextcloud Gpodder Sync
+        # https://apps.nextcloud.com/apps/gpoddersync/releases
+        gpoddersync = pkgs.fetchNextcloudApp {
+          url = "https://github.com/thrillfall/nextcloud-gpodder/releases/download/3.10.0/gpoddersync.tar.gz";
+          sha256 = "sha256-OMH/pnDS/icDVUb56mzxowAhBCaVY60bMGJmwsjEc0k=";
+          license = "gpl3";
+        };
+
+        # RePod Podcast Application
+        # https://apps.nextcloud.com/apps/repod/releases
+        repod = pkgs.fetchNextcloudApp {
+          url = "https://git.crystalyx.net/Xefir/repod/releases/download/3.4.1/repod.tar.gz";
+          sha256 = "sha256-RXMQKvoYmghKFRMA8WOrXyFrKx5ZEFHKzZ0IV1l8ef8=";
+          license = "gpl3";
+        };
 
         ## Custom app installation example.
         # cookbook = pkgs.fetchNextcloudApp rec {
@@ -72,8 +88,25 @@ with lib; {
       settings = {
         # trusted_domains = [ "192.168.66.24" ];
         trusted_domains = [ "100.111.69.31" "100.125.148.107" ]; # add the tailscale server ip to the trusted domains
+        maintenance_window_start = 2;
+        opcache.interned_strings_buffer = 9;
       };
     };
+
+    services.nginx.virtualHosts.${config.services.nextcloud.hostName} = {
+      forceSSL = true;
+      # enableACME = true;
+      sslCertificate = "${pkgs.path}/nixos/tests/common/acme/server/acme.test.cert.pem";
+      sslCertificateKey = "${pkgs.path}/nixos/tests/common/acme/server/acme.test.key.pem";
+      # locations = { ... };
+    };
+
+    # security.acme = {
+    #   acceptTerms = true;   
+    #   certs = { 
+    #     ${config.services.nextcloud.hostName}.email = "neugebauer.marcel@web.de"; 
+    #   }; 
+    # };
     
     networking.firewall.allowedTCPPorts = [ 80 443 ];
   };

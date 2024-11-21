@@ -6,4 +6,5 @@
   ./actualbudget.nix
   ./btrbk.nix
   ./postgresql-bkp.nix
+  ./adguardhome.nix
 ]

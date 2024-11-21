@@ -23,6 +23,20 @@
   # ]);
   );
 
+  nixpkgs.overlays = [
+    (final: prev:
+    {
+      arduino-cli = prev.arduino-cli.overrideAttrs ( old: {
+        src = prev.fetchFromGithub {
+          owner = "arduino";
+          repo = "arduino-cli";
+          rev = "refs/tags/v1.1.0";
+          hash = "";
+        };
+      });
+    })
+  ];
+
   # Configure network proxy if necessary
   # networking.proxy.default = "http://user:password@proxy:port/";
   # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
@@ -161,6 +175,7 @@
       # micromamba
       mesa
       clamav
+      arduino-cli
 
       # eye candy cli programs
       cli-visualizer
@@ -175,6 +190,7 @@
       texlab
       bibtex-tidy
       ltex-ls
+      arduino-language-server
 
       # virtualisation
       distrobox
@@ -184,7 +200,6 @@
       gnome-terminal
       alacritty
       ptyxis
-      # blackbox-terminal
       helvum
       gnome-graphs
       # (obsidian.overrideAttrs (oldAttrs: {
@@ -198,17 +213,21 @@
       xournalpp
       inkscape
       drawio
-      libreoffice-fresh
+      libreoffice-still
       gimp
       remmina
       brave
       zotero
       keepassxc
+      protonmail-bridge
+      protonmail-bridge-gui
+      # protonmail-desktop
       # freecad
       # alpaca
       # (blender.override {
       #   cudaSupport = true;
       # })
+      kdePackages.kasts
 
       # temporary programs
       # libsForQt5.kdenlive
@@ -221,6 +240,7 @@
 
       # programs to watch development
       rnote                  # https://github.com/flxzt/rnote
+      muzika                 # https://github.com/vixalien/muzika
       # waypipe
       # moonlight-qt        # https://moonlight-stream.org/
       # sunshine            # https://github.com/LizardByte/Sunshine
@@ -280,7 +300,10 @@
   };
   services.ipp-usb.enable = true;
 
-  
+  # udev rule for user level access to Arduino Uno R4 connected with USB
+  services.udev.extraRules = ''
+    SUBSYSTEMS=="usb", ATTRS{idVendor}=="2341", MODE:="0666"
+  '';
 
   services.keyd = {
     enable = true;
@@ -303,6 +326,11 @@
     };
   };
 
+  # services.protonmail-bridge = {
+  #   enable = true;
+  #   path = with pkgs; [ gnome-keyring ];
+  # };
+
   # services.ollama.enable = true;
   services.ratbagd.enable = true;
   services.tailscale.enable = true;
@@ -320,6 +348,7 @@
           # XCURSOR_THEME=Bibata_Ghost
       # obsidian
       # logseq
+      # kasasa - snip and pin useful information - https://github.com/KelvinNovais/Kasasa
     # right now it flatpak does not use the right font
       # more info: https://nixos.wiki/wiki/Fonts#Flatpak_applications_can.27t_find_system_fonts
 

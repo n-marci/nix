@@ -46,12 +46,6 @@
     secrets.syncthing-key = { };
     secrets.syncthing-cert = { };
     secrets.paperless-pass = { };
-    # secrets.firefly-pass = { 
-    #   owner = "firefly-iii";
-    # };
-    # secrets.firefly-db-pass = {
-    #   owner = "firefly-iii";
-    # };
     secrets.nextcloud-pass = {
       owner = "nextcloud";
     };

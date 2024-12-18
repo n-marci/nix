@@ -98,13 +98,20 @@
   # font setup and configuration
   fonts = {
     fontDir.enable = true;   # needed for flatpak to use the right cursor and fonts
-    packages = with pkgs; [
+    packages = (with pkgs; [
       comfortaa
       montserrat
       intel-one-mono
       newcomputermodern
-      (nerdfonts.override { fonts = [ "Monofur" "Agave" "AurulentSansMono" "CascadiaCode" "FantasqueSansMono" "Hermit" "OpenDyslexic" ]; })
-    ];
+      # (nerdfonts.override { fonts = [ "Monofur" "Agave" "AurulentSansMono" "CascadiaCode" "FantasqueSansMono" "Hermit" "OpenDyslexic" ]; })
+    ]) ++ (with pkgs.nerd-fonts; [
+      monofur
+      agave
+      aurulent-sans-mono
+      caskaydia-mono
+      fantasque-sans-mono
+      open-dyslexic
+    ]);
     fontconfig.defaultFonts.monospace = [ "Monofur Nerd Font" ];
   };
   nixpkgs.config.allowUnfree = true;
@@ -208,6 +215,7 @@
       # obsidian
       # logseq
       # obsidianDesktopEntry
+      anytype
       spotify
       gnome-extension-manager
       xournalpp

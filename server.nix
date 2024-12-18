@@ -35,6 +35,7 @@
   immich.enable = true;
   actualbudget.enable = true;
   adguard.enable = true;
+  mealie.enable = true;
 
   ##############################################################################
   # backup services

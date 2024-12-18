@@ -7,4 +7,5 @@
   ./btrbk.nix
   ./postgresql-bkp.nix
   ./adguardhome.nix
+  ./mealie.nix
 ]

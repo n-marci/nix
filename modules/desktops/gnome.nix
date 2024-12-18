@@ -63,9 +63,6 @@ with host; {
         dconf-editor
         adw-gtk3
         gettext           # needed for battery-charging-health and also ideapad controls extensions
-        libgtop           # needed for astra-monitor
-        lm_sensors        # needed for astra-monitor
-        pciutils          # needed for astra-monitor
       ];
       gnome.excludePackages = (with pkgs; [
         gnome-tour
@@ -79,9 +76,6 @@ with host; {
         yelp
         gnome-music
       ]);
-      variables = {
-        GI_TYPELIB_PATH = "/run/current-system/sw/lib/girepository-1.0";   # needed for astra-monitor
-      };
     };
 
     home-manager.users.${vars.user} =
@@ -115,12 +109,11 @@ with host; {
             "grand-theft-focus@zalckos.github.com"
             "gsconnect@andyholmes.github.io"
             "pano@elhan.io"
-            "clipboard-indicator@tudmotu.com"
+            # "clipboard-indicator@tudmotu.com"
             "windowgestures@extension.amarullz.com"
             # "gestureImprovements@gestures"
             "caffeine@patapon.info"
             "${battery-opt}"
-            "monitor@astraext.github.io"
             "run-or-raise@edvard.cz"
             "tilingshell@ferrarodomenico.com"
             "system-monitor@gnome-shell-extensions.gcampax.github.com"
@@ -343,7 +336,7 @@ with host; {
         grand-theft-focus
         gsconnect
         pano
-        clipboard-indicator
+        # clipboard-indicator
         window-gestures
         # gesture-improvements
         caffeine
@@ -351,7 +344,6 @@ with host; {
         # ideapad-controls
         ideapad
         thinkpad-battery-threshold
-        astra-monitor
         run-or-raise
         # tiling shell is not in nix repos - I downloaded it from the extensions manager
       ];

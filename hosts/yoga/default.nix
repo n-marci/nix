@@ -135,7 +135,7 @@
   };
 
   # optimize for more battery life
-  # powerManagement.powertop.enable = true;
+  powerManagement.powertop.enable = true;
   # powerManagement.cpuFreqGovernor = "schedutil";
 
   sops = {

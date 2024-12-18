@@ -122,6 +122,7 @@ with host; {
 
         "org/gnome/desktop/interface" = {
           color-scheme = "prefer-dark";
+          accent-color = "yellow";
           enable-hot-corners = false;
           clock-show-seconds = true;
           show-battery-percentage = true;
@@ -159,6 +160,7 @@ with host; {
 
         "org/gnome/desktop/sound" = {
           allow-volume-above-100-percent = true;
+          event-sounds = false;
         };
 
         "org/gtk/gtk4/settings/file-chooser" = {
@@ -302,7 +304,7 @@ with host; {
           global-shortcut = ["<Super>v"];
           paste-on-select = false;
           play-audio-on-copy = false;
-          history-length = 50;
+          history-length = 250;
         };
 
         "org/gnome/shell/extensions/clipboard-indicator" = {

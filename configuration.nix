@@ -183,6 +183,7 @@
       mesa
       clamav
       arduino-cli
+      pioasm
 
       # eye candy cli programs
       cli-visualizer
@@ -217,7 +218,7 @@
       # obsidianDesktopEntry
       anytype
       spotify
-      gnome-extension-manager
+      # gnome-extension-manager # removed bc building problems - add again next build
       xournalpp
       inkscape
       drawio
@@ -227,8 +228,8 @@
       brave
       zotero
       keepassxc
-      protonmail-bridge
-      protonmail-bridge-gui
+      # protonmail-bridge
+      # protonmail-bridge-gui
       # protonmail-desktop
       # freecad
       # alpaca

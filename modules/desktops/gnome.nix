@@ -108,7 +108,7 @@ with host; {
           enabled-extensions = [
             "grand-theft-focus@zalckos.github.com"
             "gsconnect@andyholmes.github.io"
-            "pano@elhan.io"
+            # "pano@elhan.io" # removed bc build problems - add again next build
             # "clipboard-indicator@tudmotu.com"
             "windowgestures@extension.amarullz.com"
             # "gestureImprovements@gestures"
@@ -303,6 +303,7 @@ with host; {
         "org/gnone/shell/extensions/pano" = {
           global-shortcut = ["<Super>v"];
           paste-on-select = false;
+          send-notification-on-copy = false;
           play-audio-on-copy = false;
           history-length = 250;
         };
@@ -337,7 +338,7 @@ with host; {
       home.packages = with pkgs.gnomeExtensions; [
         grand-theft-focus
         gsconnect
-        pano
+        # pano # removed bc build problems - add again next build 
         # clipboard-indicator
         window-gestures
         # gesture-improvements

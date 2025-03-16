@@ -112,19 +112,19 @@
           ];
         };
 
-        helix = lib.nixosSystem {
+        helix-s = lib.nixosSystem {
           inherit system;
 
           specialArgs = {
             inherit inputs secrets system stable unstable vars;
             host = {
-              hostName = "helix";
+              hostName = "helix-s";
             };
           };
 
           modules = [
-            ./hosts/helix
-            ./configuration.nix 
+            ./hosts/helix-s
+            ./server.nix 
 
             home-manager.nixosModules.home-manager {
               home-manager.useGlobalPkgs = true;

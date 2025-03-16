@@ -108,7 +108,7 @@ with host; {
           enabled-extensions = [
             "grand-theft-focus@zalckos.github.com"
             "gsconnect@andyholmes.github.io"
-            # "pano@elhan.io" # removed bc build problems - add again next build
+            "pano@elhan.io" # removed bc build problems - add again next build
             # "clipboard-indicator@tudmotu.com"
             "windowgestures@extension.amarullz.com"
             # "gestureImprovements@gestures"
@@ -129,7 +129,8 @@ with host; {
           gtk-theme = "adw-gtk3";
 
           # gnome tweaks settings
-          cursor-theme = "Bibata_Ghost";
+          # cursor-theme = "Bibata_Ghost";
+          cursor-theme = "ComixCursors-Opaque-Black";
           cursor-size = 32;
           font-name = "Montserrat 11";
           document-font-name = "Montserrat 11";
@@ -338,7 +339,7 @@ with host; {
       home.packages = with pkgs.gnomeExtensions; [
         grand-theft-focus
         gsconnect
-        # pano # removed bc build problems - add again next build 
+        pano # removed bc build problems - add again next build 
         # clipboard-indicator
         window-gestures
         # gesture-improvements

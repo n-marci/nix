@@ -17,8 +17,8 @@
   boot.loader.efi.canTouchEfiVariables = true;
 
   # update the kernel
-  # boot.kernelPackages = pkgs.linuxPackages_6_1;
-  boot.kernelPackages = pkgs.linuxPackages_latest;
+  boot.kernelPackages = pkgs.linuxPackages_6_6;
+  # boot.kernelPackages = pkgs.linuxPackages_latest;
   boot.kernelParams = [ "consoleblank=120" ];
 
   # disable controller wakeups
@@ -57,13 +57,20 @@
   # services.syncthing.enable = true;
 
   sops = {
-    defaultSopsFile = ../../secrets/helix.yaml;
+    defaultSopsFile = ../../secrets/helix-s.yaml;
     defaultSopsFormat = "yaml";
 
     age.keyFile= "/home/marci/.config/sops/age/keys.txt";
 
     secrets.syncthing-key = { };
     secrets.syncthing-cert = { };
+
+    secrets.sync-id-inspirion = { };
+    secrets.sync-id-desktop = { };
+    secrets.sync-id-yoga = { };
+    secrets.sync-id-note = { };
+    secrets.sync-id-helix-a = { };
+    secrets.sync-id-helix-b = { };
   };
 
   environment.systemPackages = with unstable; [

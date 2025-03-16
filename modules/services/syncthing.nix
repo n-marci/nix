@@ -10,19 +10,19 @@
 with lib;
 let
   devices-with-phone =
-    if host.hostName == "yoga" then [ "inspirion" "helix" "marci_desktop" "marci_note" ]
-    else if host.hostName == "desktop" then [ "inspirion" "helix" "marci_yoga" "marci_note" ]
-    else if host.hostName == "helix" then [ "inspirion" "marci_desktop" "marci_yoga" "marci_note" ]
+    if host.hostName == "yoga" then [ "inspirion" "helix-s" "marci_desktop" "marci_note" ]
+    else if host.hostName == "desktop" then [ "inspirion" "helix-s" "marci_yoga" "marci_note" ]
+    else if host.hostName == "helix-s" then [ "inspirion" "marci_desktop" "marci_yoga" "marci_note" ]
     # else if host.hostName == "helix_b" then [ "inspirion" "marci_helix_s" "marci_desktop" "marci_yoga" "marci_note" ]
-    else if host.hostName == "inspirion" then [ "helix" "marci_desktop" "marci_yoga" "marci_note" ]
+    else if host.hostName == "inspirion" then [ "helix-s" "marci_desktop" "marci_yoga" "marci_note" ]
     else [];
 
   devices-without-phone = 
-    if host.hostName == "yoga" then [ "inspirion" "helix" "marci_desktop" ]
-    else if host.hostName == "desktop" then [ "inspirion" "helix" "marci_yoga" ]
-    else if host.hostName == "helix" then [ "inspirion" "marci_desktop" "marci_yoga" ]
+    if host.hostName == "yoga" then [ "inspirion" "helix-s" "marci_desktop" ]
+    else if host.hostName == "desktop" then [ "inspirion" "helix-s" "marci_yoga" ]
+    else if host.hostName == "helix-s" then [ "inspirion" "marci_desktop" "marci_yoga" ]
     # else if host.hostName == "helix_b" then [ "inspirion" "marci_helix_a" "marci_desktop" "marci_yoga" ]
-    else if host.hostName == "inspirion" then [ "helix" "marci_desktop" "marci_yoga" ]
+    else if host.hostName == "inspirion" then [ "helix-s" "marci_desktop" "marci_yoga" ]
     else [];
 
   sync-ids = import "${secrets}/syncthing-ids.nix";
@@ -58,7 +58,7 @@ in {
         devices = {
           "inspirion" = { id = sync-ids.inspirion; };
           # "marci_helix_b" = { id = sync-ids.helix-b; };
-          "helix" = { id = sync-ids.helix; };
+          "helix-s" = { id = sync-ids.helix-s; };
           "marci_desktop" = { id = sync-ids.desktop; };
           "marci_yoga" = { id = sync-ids.yoga; };
           "marci_note" = { id = sync-ids.note; };
@@ -149,9 +149,11 @@ in {
               };
             };
           };
-          "nix" = { # for nix I dont make a btrfs backup since it is version controlled by git
-            path = "/home/marci/nix";
-            devices = devices-with-phone;
+          "dev" = {
+            path =
+              if config.syncthing.storeInBackupLocation then "/var/lib/syncthing/dev"
+              else "/home/marci/dev";
+            devices = devices-without-phone;
             versioning = mkIf (config.syncthing.versioning) {
               type = "staggered";
               params = {
@@ -160,11 +162,9 @@ in {
               };
             };
           };
-          "dev" = {
-            path =
-              if config.syncthing.storeInBackupLocation then "/var/lib/syncthing/dev"
-              else "/home/marci/dev";
-            devices = devices-without-phone;
+          "nix" = { # for nix I dont make a btrfs backup since it is version controlled by git
+            path = "/home/marci/nix";
+            devices = devices-with-phone;
             versioning = mkIf (config.syncthing.versioning) {
               type = "staggered";
               params = {

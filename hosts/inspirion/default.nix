@@ -49,6 +49,8 @@
     secrets.nextcloud-pass = {
       owner = "nextcloud";
     };
+    secrets.cloudflare-marcelnet = { };
+
     secrets.sync-id-inspirion = { };
     secrets.sync-id-desktop = { };
     secrets.sync-id-yoga = { };

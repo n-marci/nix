@@ -46,8 +46,8 @@
 
   # Enable sound with pipewire.
   # sound.enable = true;
-  hardware.pulseaudio.enable = false;
   security.rtkit.enable = true;
+  services.pulseaudio.enable = false;
   services.pipewire = {
     enable = true;
     alsa.enable = true;
@@ -130,7 +130,8 @@
       HISTSIZE = "20000";
       HISTFILESIZE = "20000";
       EDITOR = "${vars.editor}";
-      XCURSOR_THEME="Bibata_Ghost";
+      # XCURSOR_THEME="Bibata_Ghost";
+      XCURSOR_THEME="ComixCursors-Opaque-Black";
     };
 
     sessionVariables = { # needed for nh
@@ -184,6 +185,8 @@
       clamav
       arduino-cli
       pioasm
+      minicom
+      piper-tts
 
       # eye candy cli programs
       cli-visualizer
@@ -199,35 +202,52 @@
       bibtex-tidy
       ltex-ls
       arduino-language-server
+      ruff
+      ruff-lsp
 
       # virtualisation
       distrobox
 
-      # gui program
-      gradience
+      # terminals 
       gnome-terminal
-      alacritty
       ptyxis
+      alacritty
+
+      # images
+      inkscape
+      gimp
+      oculante
+      drawio
+
+      # audio
+      spotify
       helvum
-      gnome-graphs
+
+      # documents
+      libreoffice-still
+      xournalpp
+      rnote                  # https://github.com/flxzt/rnote
+      zotero
+      papers
+      gscan2pdf
+
+      # browser
+      brave
+      firefox
+      librewolf
+      
+      # gui program
+      thunderbird
+      remmina
+      keepassxc
+      gnome-extension-manager
       # (obsidian.overrideAttrs (oldAttrs: {
         
       # })
       # obsidian
       # logseq
       # obsidianDesktopEntry
-      anytype
-      spotify
-      # gnome-extension-manager # removed bc building problems - add again next build
-      xournalpp
-      inkscape
-      drawio
-      libreoffice-still
-      gimp
-      remmina
-      brave
-      zotero
-      keepassxc
+      # anytype
       # protonmail-bridge
       # protonmail-bridge-gui
       # protonmail-desktop
@@ -238,29 +258,36 @@
       # })
       kdePackages.kasts
 
+      # cursors
+      comixcursors.Opaque_Black
+      # comixcursors.Opaque_Slim_Black
+      # comixcursors.Opaque_White
+      # comixcursors.Opaque_Slim_White
+      # volantes-cursors
+      # vimix-cursors
+      # bibata-cursors-translucent
+      # bibata-cursors
+
       # temporary programs
       # libsForQt5.kdenlive
       # glaxnimate            # needed for kdenlive
 
-      # cursors
-      volantes-cursors
-      bibata-cursors-translucent
-      bibata-cursors
-
       # programs to watch development
-      rnote                  # https://github.com/flxzt/rnote
-      muzika                 # https://github.com/vixalien/muzika
+      # muzika                 # https://github.com/vixalien/muzika
       # waypipe
       # moonlight-qt        # https://moonlight-stream.org/
       # sunshine            # https://github.com/LizardByte/Sunshine
     ]) ++ (with pkgs; [
-      micromamba
-      firefox
-      librewolf
-      # floorp
-      thunderbird
+      # micromamba
+      microfetch                  # dummy package so i can have nixpkgs version here
     ]) ++ (with stable; [
-      piper-tts
+
+      ### packages with build problems in unstable ###
+      ### packages with build problems in unstable ###
+
+      ### packages which need to build from source in unstable ###
+      ### packages which need to build from source in unstable ###
+
       # gaphor
       htop                  # dummy package so i can have stable pkgs here
       # blender-hip
@@ -309,9 +336,17 @@
   };
   services.ipp-usb.enable = true;
 
-  # udev rule for user level access to Arduino Uno R4 connected with USB
   services.udev.extraRules = ''
+    # udev rule for user level access to Arduino Uno R4 connected with USB
     SUBSYSTEMS=="usb", ATTRS{idVendor}=="2341", MODE:="0666"
+
+    # make raspberry pi pico accessible without sudo
+    SUBSYSTEMS=="usb", ATTRS{idVendor}=="2e8a", MODE:="0666"
+    # SUBSYSTEM!="usb_device", ACTION!="add", GOTO="rpi2_end"
+    # Raspberry Pi Pico
+    # ATTR{idVendor}=="2e8a", ATTRS{idProduct}=="000f", MODE="660", GROUP="plugdev"
+    # LABEL="rpi2_end"
+
   '';
 
   services.keyd = {
@@ -373,7 +408,13 @@
       name = "system-icons";
       paths = with pkgs; [
         #libsForQt5.breeze-qt5  # for plasma
-        bibata-cursors-translucent
+        # bibata-cursors-translucent
+        comixcursors.Opaque_Black
+        comixcursors.Opaque_Slim_Black
+        comixcursors.Opaque_White
+        comixcursors.Opaque_Slim_White
+        vimix-cursors
+        bibata-cursors
         gnome-themes-extra
       ];
       pathsToLink = [ "/share/icons" ];

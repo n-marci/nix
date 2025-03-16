@@ -27,7 +27,7 @@
   syncthing = {
     enable = true;
     versioning = true;
-    storeInBackupLocation = false;
+    storeInBackupLocation = true;
   };
 
   paperless.enable = true;
@@ -35,7 +35,7 @@
   immich.enable = true;
   actualbudget.enable = true;
   adguard.enable = true;
-  mealie.enable = true;
+  mealie.enable = false;
 
   ##############################################################################
   # backup services
@@ -43,6 +43,7 @@
 
   btrbk.enable = true;
 
+  # postgresql backup
   pg-bkp = {
     enable = true;
     databases = [ "nextcloud" "immich" ];

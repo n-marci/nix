@@ -51,12 +51,12 @@
     };
     secrets.cloudflare-marcelnet = { };
 
-    secrets.sync-id-inspirion = { };
-    secrets.sync-id-desktop = { };
-    secrets.sync-id-yoga = { };
-    secrets.sync-id-note = { };
-    secrets.sync-id-helix-a = { };
-    secrets.sync-id-helix-b = { };
+    # secrets.sync-id-inspirion = { };
+    # secrets.sync-id-desktop = { };
+    # secrets.sync-id-yoga = { };
+    # secrets.sync-id-note = { };
+    # secrets.sync-id-helix-a = { };
+    # secrets.sync-id-helix-b = { };
   };
 
   environment.systemPackages = with unstable; [

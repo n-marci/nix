@@ -21,6 +21,35 @@
   # boot.kernelPackages = pkgs.linuxPackages_latest;
   boot.kernelParams = [ "consoleblank=120" ];
 
+  ##############################################################################
+  # configured services
+  ##############################################################################
+
+  syncthing = {
+    enable = true;
+    versioning = lib.mkForce false;
+    storeInBackupLocation = true;
+  };
+
+  paperless.enable = lib.mkForce false;
+  nextcloud.enable = lib.mkForce false;
+  immich.enable = lib.mkForce false;
+  actualbudget.enable = lib.mkForce false;
+  adguard.enable = lib.mkForce false;
+  mealie.enable = lib.mkForce false;
+
+  ##############################################################################
+  # backup services
+  ##############################################################################
+
+  btrbk.enable = lib.mkForce false;
+
+  # postgresql backup
+  pg-bkp = {
+    enable = lib.mkForce false;
+    databases = [ "nextcloud" "immich" ];
+  };
+
   # disable controller wakeups
   # maybe helps with kernel panics
   # boot.kernelParams = [ "acpi.ec_no_wakeup=1" ];
@@ -65,12 +94,12 @@
     secrets.syncthing-key = { };
     secrets.syncthing-cert = { };
 
-    secrets.sync-id-inspirion = { };
-    secrets.sync-id-desktop = { };
-    secrets.sync-id-yoga = { };
-    secrets.sync-id-note = { };
-    secrets.sync-id-helix-a = { };
-    secrets.sync-id-helix-b = { };
+    # secrets.sync-id-inspirion = { };
+    # secrets.sync-id-desktop = { };
+    # secrets.sync-id-yoga = { };
+    # secrets.sync-id-note = { };
+    # secrets.sync-id-helix-a = { };
+    # secrets.sync-id-helix-b = { };
   };
 
   environment.systemPackages = with unstable; [

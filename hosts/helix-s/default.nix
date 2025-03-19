@@ -50,6 +50,18 @@
     databases = [ "nextcloud" "immich" ];
   };
 
+  ##############################################################################
+  # storage setup
+  ##############################################################################
+
+  fileSystems."/media/bkp" = {
+    device = "/dev/disk/by-uuid/a6237260-b23e-49c2-963c-c9a9b97b5190";
+    fsType = "btrfs";
+    options = [
+      "nofail" # Prevent system from failing if this drive doesn't mount
+    ];
+  };
+
   # disable controller wakeups
   # maybe helps with kernel panics
   # boot.kernelParams = [ "acpi.ec_no_wakeup=1" ];

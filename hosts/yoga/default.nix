@@ -149,14 +149,14 @@
   };
 
   # setup fingerprint scanner
-  services.fprintd = {
-    enable = true;
-    tod = {
-      enable = true;
-      driver = pkgs.libfprint-2-tod1-goodix;
-    };
+  # services.fprintd = {
+  #   enable = true;
+  #   tod = {
+  #     enable = true;
+  #     driver = pkgs.libfprint-2-tod1-goodix;
+  #   };
     
-  };
+  # };
   
   # services.xserver.displayManager.job.preStart = "${pkgs.libdrm}/bin/proptest -M amdgpu -D /dev/dri/card0 107 connector 109 7";
 

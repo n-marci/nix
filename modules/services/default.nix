@@ -8,4 +8,6 @@
   ./postgresql-bkp.nix
   ./adguardhome.nix
   ./mealie.nix
+  ./nginx.nix
+  ./cockpit.nix
 ]

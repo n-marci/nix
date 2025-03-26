@@ -1,4 +1,3 @@
-
 # paperless configuration
 # TODO make secrets folder only accessible by root
 

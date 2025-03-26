@@ -36,6 +36,8 @@
   actualbudget.enable = true;
   adguard.enable = true;
   mealie.enable = false;
+  nginx.enable = true;
+  cockpit.enable = true;
 
   ##############################################################################
   # backup services

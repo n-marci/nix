@@ -37,12 +37,18 @@
   actualbudget.enable = lib.mkForce false;
   adguard.enable = lib.mkForce false;
   mealie.enable = lib.mkForce false;
+  nginx.enable = lib.mkForce false;
+  cockpit.enable = lib.mkForce false;
+
 
   ##############################################################################
   # backup services
   ##############################################################################
 
-  btrbk.enable = lib.mkForce false;
+  btrbk = {
+    enable = lib.mkForce false;
+    node = "target";
+  };
 
   # postgresql backup
   pg-bkp = {

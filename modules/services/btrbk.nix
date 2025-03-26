@@ -10,6 +10,17 @@ with lib; {
         type = types.bool;
         default = false;
       };
+
+      node = mkOption {
+        description = "Specifies if the device should send or receive backups in the case of ssh target";
+        type = types.enum [
+          "source"
+          "target"
+          "both"
+        ];
+        default = "source";
+      };
+
       # versioning = mkOption {
       #   type = types.bool;
       #   default = false;
@@ -27,6 +38,12 @@ with lib; {
 
     services = {
       btrbk = {
+        sshAccess = mkIf (config.btrbk.node == "target" ) [{
+          key = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIH+C3Nnd5EOTg52l8M3jJsfq8lr6tXXSgREaNP1Lx8OQ inspirion";
+          roles = [ "info" "source" "target" "delete" "snapshot" "send" "receive" ];
+        }];
+
+
         instances.btrbk = {
           onCalendar = "hourly";
           settings = {
@@ -96,7 +113,9 @@ with lib; {
                   # rootfs = { };
                 };
                 snapshot_dir = "/var/bkp/btrfs-snaps";
-                target = "/var/bkp/btrfs-target";
+                # target = "/var/bkp/btrfs-target";
+                target = "ssh://100.83.225.75/media/bkp/inspirion-target";
+
               };
             };
           };

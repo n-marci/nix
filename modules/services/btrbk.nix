@@ -44,7 +44,7 @@ with lib; {
         }];
 
 
-        instances.btrbk = {
+        instances.btrbk = mkIf (config.btrbk.node == "source" ) {
           onCalendar = "hourly";
           settings = {
             # good explanation on gentoo wiki https://wiki.calculate-linux.org/btrbk
@@ -55,6 +55,8 @@ with lib; {
             target_preserve_min = "no"; # do not preserve temporary snapshots
             target_preserve = "6d 4w 6m 1y"; # preserve 6 latest daily, 4 weekly, 6 monthly, 1 annual snapshots
             stream_compress = "zstd";
+            backend_remote = "btrfs-progs-sudo"; # so that i dont need root login for send
+            ssh_user = "btrbk"; # so that i dont need root login for send
             volume = {
               "/" = {
                 subvolume = {
@@ -79,6 +81,14 @@ with lib; {
                     snapshot_create = "always";
                   };
                   
+                  ###########################
+                  # Postgres Database Dump
+                  ###########################
+
+                  "var/bkp/pg-dump" = {
+                    snapshot_create = "always";
+                  };
+
                   ###########################
                   # Syncthing Folders
                   ###########################
@@ -123,6 +133,14 @@ with lib; {
       };
     };
 
+    # Define a user account. Don't forget to set a password with ‘passwd’.
+    users.users.btrbk = mkIf (config.btrbk.node == "target" ) {
+      isSystemUser = true;
+      description = "Btrbk ssh user";
+      # extraGroups = [ "networkmanager" "wheel" ];
+    };
+
+
     security.sudo = {
       enable = true;
       extraRules = [{
@@ -143,7 +161,7 @@ with lib; {
       extraConfig = with pkgs; ''
         Defaults:picloud secure_path="${lib.makeBinPath [
           btrfs-progs coreutils-full
-        ]}:/nix/var/nix/profiles/default/bin:/run/current-system/sw/bin"
+       ]}:/nix/var/nix/profiles/default/bin:/run/current-system/sw/bin"
       '';
     };
   };

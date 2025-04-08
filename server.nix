@@ -43,7 +43,10 @@
   # backup services
   ##############################################################################
 
-  btrbk.enable = true;
+  btrbk = {
+    enable = true;
+    node = "source";
+  };
 
   # postgresql backup
   pg-bkp = {

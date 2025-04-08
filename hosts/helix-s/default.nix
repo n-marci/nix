@@ -46,8 +46,8 @@
   ##############################################################################
 
   btrbk = {
-    enable = lib.mkForce false;
-    node = "target";
+    enable = true;
+    node = lib.mkForce "target";
   };
 
   # postgresql backup

@@ -10,4 +10,5 @@
   ./mealie.nix
   ./nginx.nix
   ./cockpit.nix
+  ./traccar.nix
 ]

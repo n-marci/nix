@@ -54,6 +54,11 @@ with lib; {
           useACMEHost = "marcelnet.com";
           locations."/".proxyPass = "http://100.125.148.107:9090";
         };
+        "traccar.marcelnet.com" = {
+          forceSSL = true;
+          useACMEHost = "marcelnet.com";
+          locations."/".proxyPass = "http://100.125.148.107:8082";
+        };
         "immich.inspirion.bearded-bushi.ts.net" = {
           # forceSSL = true;
           # enableACME = false;

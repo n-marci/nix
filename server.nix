@@ -38,6 +38,7 @@
   mealie.enable = false;
   nginx.enable = true;
   cockpit.enable = true;
+  traccar.enable = true;
 
   ##############################################################################
   # backup services

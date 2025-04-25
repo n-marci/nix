@@ -197,9 +197,10 @@ in {
 
     home-manager.users.${vars.user} = {
       # setup ignore files
-      home.file."sync/obsidian/.stignore".text = '' 
+      home.file."sync/obsidian/.stignore".text = if (config.syncthing.storeInBackupLocation == false) then '' 
         .obsidian
-      '';
+      ''
+      else "";
       # home.file."nix/.stignore".text = ''
       #   .git
       # '';
@@ -210,6 +211,11 @@ in {
       #   .git
       # '';
     };
+    systemd.tmpfiles.rules = if config.syncthing.storeInBackupLocation then [
+      "f /var/lib/syncthing/obsidian/.stignore 755 marci syncthing"
+      "w /var/lib/syncthing/obsidian/.stignore - - - - .obsidian"
+    ]
+    else [];
   };
 
 

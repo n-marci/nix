@@ -59,6 +59,15 @@ with lib; {
           useACMEHost = "marcelnet.com";
           locations."/".proxyPass = "http://100.125.148.107:8082";
         };
+        "matrix.marcelnet.com" = {
+          forceSSL = true;
+          useACMEHost = "marcelnet.com";
+          locations."/".extraConfig = ''
+            return 404;
+          '';
+          locations."/_matrix".proxyPass = "http://[::1]:8008";
+          locations."/_synapse/client".proxyPass = "http://[::1]:8008";
+        };
         "immich.inspirion.bearded-bushi.ts.net" = {
           # forceSSL = true;
           # enableACME = false;

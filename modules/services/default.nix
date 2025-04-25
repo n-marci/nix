@@ -11,4 +11,5 @@
   ./nginx.nix
   ./cockpit.nix
   ./traccar.nix
+  ./synapse.nix
 ]

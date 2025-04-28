@@ -39,6 +39,7 @@
   mealie.enable = lib.mkForce false;
   nginx.enable = lib.mkForce false;
   cockpit.enable = lib.mkForce false;
+  synapse.enable = lib.mkForce false;
 
 
   ##############################################################################

@@ -203,7 +203,7 @@
       ltex-ls
       arduino-language-server
       ruff
-      ruff-lsp
+      python313Packages.python-lsp-ruff
 
       # virtualisation
       distrobox

@@ -50,6 +50,9 @@
       owner = "nextcloud";
     };
     secrets.cloudflare-marcelnet = { };
+    secrets.matrix-shared-secret = {
+      owner = "matrix-synapse";
+    };
 
     # secrets.sync-id-inspirion = { };
     # secrets.sync-id-desktop = { };

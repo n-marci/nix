@@ -111,6 +111,7 @@ with host; {
             "pano@elhan.io" # removed bc build problems - add again next build
             # "clipboard-indicator@tudmotu.com"
             "windowgestures@extension.amarullz.com"
+            "gjsosk@vishram1123.com"
             # "gestureImprovements@gestures"
             "caffeine@patapon.info"
             "${battery-opt}"
@@ -286,7 +287,7 @@ with host; {
         "org/gnome/shell/extensions/windowgestures" = {
           three-finger = true;
           use-active-window = false;
-          taphold-move = true;
+          # taphold-move = true;
           swipe4-left = 5;
           swipe4-right = 4;
           swipe3-left = 7;
@@ -343,6 +344,7 @@ with host; {
         # clipboard-indicator
         window-gestures
         # gesture-improvements
+        gjs-osk
         caffeine
         # battery-health-charging    # installing this on top outside home manager to see if this fixes problem (polkit rule not applying)
         # ideapad-controls

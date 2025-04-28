@@ -15,6 +15,9 @@ with lib; {
   
   config = mkIf (config.synapse.enable) {
     services = {
+      mautrix-whatsapp = {
+        enable = true;
+      };
       postgresql = {
         ensureUsers = [{
           name = "matrix-synapse";
@@ -54,8 +57,9 @@ with lib; {
               compress = true;
             }];
           }];
-          enable_registration = true;
+          # enable_registration = true;
         };
+        extraConfigFiles = [ config.sops.secrets.matrix-shared-secret.path ];
       };
 
       # mautrix-whatsapp = {

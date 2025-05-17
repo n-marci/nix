@@ -86,7 +86,7 @@ with lib; {
 
       settings = {
         # trusted_domains = [ "192.168.66.24" ];
-        trusted_domains = [ "100.125.148.107" ]; # add the tailscale server ip to the trusted domains
+        trusted_domains = [ "100.125.148.107" "192.168.66.21" ]; # add the tailscale server ip to the trusted domains
         maintenance_window_start = 2;
         opcache.interned_strings_buffer = 9;
       };

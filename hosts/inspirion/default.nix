@@ -27,7 +27,17 @@
   boot.kernelPackages = pkgs.linuxPackages_6_6;
   # boot.initrd.kernelModules = [ "amdgpu" ];
 
-  networking.hostName = "inspirion"; # Define your hostname.
+  networking = {
+    hostName = "inspirion"; # Define your hostname.
+    nameservers = [
+      "127.0.0.1"
+      "9.9.9.9"
+    ];
+    interfaces.enp0s20u3.ipv4.addresses = [{
+      address = "192.168.66.21";
+      prefixLength = 24;
+    }];
+  };
 
   # Configure console keymap
   console.keyMap = "de";
@@ -50,9 +60,9 @@
       owner = "nextcloud";
     };
     secrets.cloudflare-marcelnet = { };
-    secrets.matrix-shared-secret = {
-      owner = "matrix-synapse";
-    };
+    # secrets.matrix-shared-secret = {
+    #   owner = "matrix-synapse";
+    # };
 
     # secrets.sync-id-inspirion = { };
     # secrets.sync-id-desktop = { };

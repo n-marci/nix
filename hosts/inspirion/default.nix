@@ -29,6 +29,10 @@
 
   networking = {
     hostName = "inspirion"; # Define your hostname.
+    defaultGateway = {
+      address = "192.168.66.1";
+      interface = "enp0s20u3";
+    };
     nameservers = [
       "127.0.0.1"
       "9.9.9.9"
@@ -60,9 +64,9 @@
       owner = "nextcloud";
     };
     secrets.cloudflare-marcelnet = { };
-    # secrets.matrix-shared-secret = {
-    #   owner = "matrix-synapse";
-    # };
+    secrets.matrix-shared-secret = {
+      owner = "matrix-synapse";
+    };
 
     # secrets.sync-id-inspirion = { };
     # secrets.sync-id-desktop = { };

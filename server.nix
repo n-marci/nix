@@ -39,7 +39,7 @@
   nginx.enable = true;
   cockpit.enable = true;
   traccar.enable = true;
-  synapse.enable = true;
+  synapse.enable = false;
 
   ##############################################################################
   # backup services

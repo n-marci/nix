@@ -4,14 +4,14 @@
 {config, vars, lib, unstable, host, pkgs, ...}:
 
 with lib; {
-  options = {
-    synapse = {
-      enable = mkOption {
-        type = types.bool;
-        default = false;
-      };
-    };
-  };
+  # options = {
+  #   synapse = {
+  #     enable = mkOption {
+  #       type = types.bool;
+  #       default = false;
+  #     };
+  #   };
+  # };
   
   config = mkIf (config.synapse.enable) {
     nixpkgs.config.permittedInsecurePackages = [
@@ -59,6 +59,8 @@ with lib; {
           logging.writers = [{
             type = "journald";
           }];
+        };
+      };
       #     appservice = {
       #       # as_token = "autogen";
       #       # bot = {

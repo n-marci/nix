@@ -40,6 +40,7 @@
   cockpit.enable = true;
   traccar.enable = true;
   synapse.enable = false;
+  audiobookshelf.enable = true;
 
   ##############################################################################
   # backup services

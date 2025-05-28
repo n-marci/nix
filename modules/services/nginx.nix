@@ -33,6 +33,11 @@ with lib; {
           forceSSL = true;
           useACMEHost = "marcelnet.com";
           locations."/".proxyPass = "http://100.125.148.107:2283";
+          # # For the moment I have it configured globally
+          # # should also work with this config though
+          # extraConfig = ''
+          #   client_max_body_size 1G;
+          # '';
         };
         "adguard.marcelnet.com" = {
           forceSSL = true;
@@ -59,15 +64,23 @@ with lib; {
           useACMEHost = "marcelnet.com";
           locations."/".proxyPass = "http://100.125.148.107:8082";
         };
-        "matrix.marcelnet.com" = {
+        "audiobookshelf.marcelnet.com" = {
           forceSSL = true;
           useACMEHost = "marcelnet.com";
-          locations."/".extraConfig = ''
-            return 404;
-          '';
-          locations."/_matrix".proxyPass = "http://[::1]:8008";
-          locations."/_synapse/client".proxyPass = "http://[::1]:8008";
+          locations."/" = {
+            proxyPass = "http://100.125.148.107:8000";
+            proxyWebsockets = true;
+          };
         };
+        # "matrix.marcelnet.com" = {
+        #   forceSSL = true;
+        #   useACMEHost = "marcelnet.com";
+        #   locations."/".extraConfig = ''
+        #     return 404;
+        #   '';
+        #   locations."/_matrix".proxyPass = "http://[::1]:8008";
+        #   locations."/_synapse/client".proxyPass = "http://[::1]:8008";
+        # };
         "immich.inspirion.bearded-bushi.ts.net" = {
           # forceSSL = true;
           # enableACME = false;

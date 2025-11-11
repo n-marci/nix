@@ -35,6 +35,7 @@ with lib; {
           enable_registration = false;
           # enable_registration_without_verification = true;
           # registration_requires_token = true;
+          # registration_shared_secret_path = [ config.sops.secrets.matrix-shared-secret.path ];
           listeners = [{
             port = 8008;
             bind_addresses = [ "::1" ];
@@ -48,7 +49,7 @@ with lib; {
             }];
           }];
         };
-        extraConfigFiles = [ config.sops.secrets.matrix-shared-secret.path ];
+        # extraConfigFiles = [ config.sops.secrets.matrix-shared-secret.path ]; # moved to option registration_shared_secret_path above - untested
       };
 
       postgresql = {

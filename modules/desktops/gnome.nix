@@ -13,8 +13,10 @@
 
 {config, lib, pkgs, unstable, vars, host, ...}:
 
-with lib; 
-with host; {
+let
+  inherit (lib) mkOption mkIf types;
+  inherit (host) hostName;
+in {
   options = {
     gnome = {
       enable = mkOption {
@@ -38,23 +40,23 @@ with host; {
     };
 
     services = {
-      xserver = {
-        enable = true;
+      # xserver = {
+      # enable = true;
 
-        xkb.layout = "us,de";
+        # xkb.layout = "us,de";
 
-        displayManager.gdm.enable = true;
-        desktopManager.gnome.enable = true;
-      };
+      displayManager.gdm.enable = true;
+      desktopManager.gnome.enable = true;
+      # };
 
       gnome.gnome-remote-desktop.enable = true; # enable remote desktop using pipewire
     };
 
     networking.firewall.allowedTCPPorts = [ 5900 3389 ]; # open ports for remote desktop?
 
-    security.sudo.extraConfig = ''
-      %wheel ALL=(ALL) NOPASSWD: ${pkgs.coreutils-full}/bin/tee /sys/bus/platform/drivers/ideapad_acpi/VPC????\:??/conservation_mode
-    '';
+    # security.sudo.extraConfig = ''
+    #   %wheel ALL=(ALL) NOPASSWD: ${pkgs.coreutils-full}/bin/tee /sys/bus/platform/drivers/ideapad_acpi/VPC????\:??/conservation_mode
+    # '';
     
     environment = {
       systemPackages = with pkgs; [      # I have to use stable pkgs here, otherwise there were problems
@@ -81,7 +83,7 @@ with host; {
     home-manager.users.${vars.user} =
     let
       battery-opt =
-        if hostName == "yoga" then "ideapad@laurento.frittella"
+        if hostName == "yoga" then "ideapad-controls@woomymy.protonmail.com"
         else if hostName == "helix" then "thinkpad-battery-threshold@marcosdalvarez.org"
         else "";
     in {
@@ -106,6 +108,7 @@ with host; {
 
           # disable-user-extensions = false;
           enabled-extensions = [
+            "system-monitor@gnome-shell-extensions.gcampax.github.com"
             "grand-theft-focus@zalckos.github.com"
             "gsconnect@andyholmes.github.io"
             "pano@elhan.io" # removed bc build problems - add again next build
@@ -116,7 +119,10 @@ with host; {
             "caffeine@patapon.info"
             "${battery-opt}"
             "run-or-raise@edvard.cz"
-            "tilingshell@ferrarodomenico.com"
+            # "tilingshell@ferrarodomenico.com"
+            "paperwm@paperwm.github.com"
+            "openbar@neuromorph"
+            "ideapad-controls@woomymy.protonmail.com"
             "system-monitor@gnome-shell-extensions.gcampax.github.com"
           ];
         };
@@ -202,9 +208,10 @@ with host; {
 
           custom-keybindings = [
             # "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/"
-            "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom1/"
+            # "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom1/"
             "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom2/"
             "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom3/"
+            "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom4/"
           ];
         };
 
@@ -214,11 +221,12 @@ with host; {
         #   name = "launch additional terminal windows";
         # };
 
-        "org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom1" = {
-          binding = "<Super>r";
-          command = "/home/marci/sync/linux/scripts/speak_en.sh";
-          name = "read out loud in english";
-        };
+        # disabled because of paperwm for now - super r is also resizing
+        # "org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom1" = {
+        #   binding = "<Super>r";
+        #   command = "/home/marci/sync/linux/scripts/speak_en.sh";
+        #   name = "read out loud in english";
+        # };
 
         "org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom2" = {
           binding = "<Super>w";
@@ -232,6 +240,12 @@ with host; {
           name = "xdg open";
         };
 
+        "org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom4" = {
+          binding = "Print";
+          command = "flatpak run io.github.kelvinnovais.Kasasa";
+          name = "run kasasa";
+        };
+
         "org/gnome/mutter/keybindings" = {
           switch-monitor = ["@as []"];               # disable super+p
         };
@@ -239,6 +253,7 @@ with host; {
         "org/gnome/shell/keybindings" = {
           toggle-overview = ["@as []"];              # disable super+s -> show the overview
           toggle-quick-settings = ["@as []"];        # now super+s is quick settings? -> disable aswell
+          show-screenshot-ui = ["@as []"];           # disable print to screenshot - use kasasa instead
           toggle-message-tray = ["@as []"];          # disable super+v
           focus-active-notification = ["@as []"];
           switch-to-application-1 = ["@as []"];      # disable super+1
@@ -287,20 +302,21 @@ with host; {
         "org/gnome/shell/extensions/windowgestures" = {
           three-finger = true;
           use-active-window = false;
-          # taphold-move = true;
+          taphold-move = true;
           swipe4-left = 5;
           swipe4-right = 4;
+          swipe4-updown = 2;
           swipe3-left = 7;
           swipe3-right = 6;
+          swipe3-down= 8;
         };
 
         # gesture improvements still missing
         # because i am not sure if i will keep it
 
-        # ideapad controls disabled for now
-        # "org/gnone/shell/extensions/ideapad-controls" = {
-        #   tray-location = false;
-        # };
+        "org/gnone/shell/extensions/ideapad-controls" = {
+          tray-location = false;
+        };
 
         "org/gnone/shell/extensions/pano" = {
           global-shortcut = ["<Super>v"];
@@ -324,8 +340,8 @@ with host; {
         <Super>b,librewolf,,
         <Super>e,thunderbird,,
         <Super>m,spotify.desktop,"",Spotify Premium
-        <Super>f,nautilus,,
-        <Super><Shift>f,nautilus
+        # <Super>f,nautilus,,
+        # <Super><Shift>f,nautilus
         <Super>t,ptyxis,,
         <Super><Shift>t,ptyxis --new-window
         <Super>o,md.obsidian.Obsidian.desktop,,
@@ -338,19 +354,22 @@ with host; {
       '';
 
       home.packages = with pkgs.gnomeExtensions; [
+        system-monitor
         grand-theft-focus
         gsconnect
         pano # removed bc build problems - add again next build 
         # clipboard-indicator
-        window-gestures
+        # window-gestures
         # gesture-improvements
         gjs-osk
         caffeine
         # battery-health-charging    # installing this on top outside home manager to see if this fixes problem (polkit rule not applying)
-        # ideapad-controls
-        ideapad
+        ideapad-controls
+        # ideapad
         thinkpad-battery-threshold
         run-or-raise
+        paperwm
+        open-bar
         # tiling shell is not in nix repos - I downloaded it from the extensions manager
       ];
     };

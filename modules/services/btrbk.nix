@@ -20,11 +20,6 @@ with lib; {
         ];
         default = "source";
       };
-
-      # versioning = mkOption {
-      #   type = types.bool;
-      #   default = false;
-      # };
     };
   };
   
@@ -72,9 +67,6 @@ with lib; {
                     snapshot_create = "always";
                   };
                   "var/lib/postgresql" = {
-                    snapshot_create = "always";
-                  };
-                  "var/lib/immich" = {
                     snapshot_create = "always";
                   };
                   "var/lib/actualbudget" = {

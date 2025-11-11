@@ -13,6 +13,11 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    disko = {
+      url = "github:nix-community/disko";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     sops-nix = {
       url = "github:mic92/sops-nix";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -23,16 +28,10 @@
       # flake = false;
     };
 
-    # modules
-    # xremap-flake.url = "github:xremap/nix-flake";
-    # firefly = {
-    #   url = "github:timhae/firefly";
-    #   inputs.nixpkgs.follows = "nixos";
-    # };
-    # nixos.url = "github:NixOS/nixpkgs/nixos-22.11";
+    musnix.url = "github:musnix/musnix";
   };
 
-  outputs = inputs @ { self, nixpkgs, nixpkgs-stable, nixpkgs-unstable, home-manager, secrets, ... }:
+  outputs = inputs @ { self, nixpkgs, nixpkgs-stable, nixpkgs-unstable, home-manager, disko, secrets, musnix, ... }:
     let
       vars = {
         user = "marci";
@@ -78,6 +77,8 @@
             ./hosts/desktop
             ./configuration.nix 
 
+            musnix.nixosModules.musnix
+            disko.nixosModules.disko
             home-manager.nixosModules.home-manager {
               home-manager.useGlobalPkgs = true;
               home-manager.useUserPackages = true;
@@ -105,6 +106,8 @@
             ./hosts/yoga
             ./configuration.nix 
 
+            musnix.nixosModules.musnix
+            disko.nixosModules.disko
             home-manager.nixosModules.home-manager {
               home-manager.useGlobalPkgs = true;
               home-manager.useUserPackages = true;

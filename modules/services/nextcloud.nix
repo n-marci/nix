@@ -41,7 +41,7 @@ with lib; {
       enable = true;
       # hostName = "localhost";
       hostName = "nextcloud.marcelnet.com";
-      package = pkgs.nextcloud31;
+      package = pkgs.nextcloud32;
       configureRedis = true;
       database.createLocally = true;
       maxUploadSize = "16G";
@@ -50,8 +50,14 @@ with lib; {
       autoUpdateApps.enable = true;
       extraAppsEnable = true;
       extraApps = {
-        inherit (config.services.nextcloud.package.packages.apps) calendar contacts mail notes tasks;
+        inherit (config.services.nextcloud.package.packages.apps) calendar contacts mail notes /*tasks*/ gpoddersync repod integration_paperless integration_deepl; # possible apps: https://github.com/NixOS/nixpkgs/blob/nixos-unstable/pkgs/servers/nextcloud/packages/nextcloud-apps.json
 
+        # nextcloud tasks since the release was not updated
+        tasks = pkgs.fetchNextcloudApp {
+          url = "https://github.com/nextcloud/tasks/releases/download/v0.17.0/tasks.tar.gz";
+          sha256 = "sha256:877bbdc51df382e2af5565c0ec235275edac11dbe0b13d7c718007a7c74a3d28";
+          license = "agpl3Plus";
+        };
         # # Nextcloud Gpodder Sync
         # # https://apps.nextcloud.com/apps/gpoddersync/releases
         # gpoddersync = pkgs.fetchNextcloudApp {

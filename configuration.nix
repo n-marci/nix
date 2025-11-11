@@ -53,7 +53,10 @@
     alsa.enable = true;
     alsa.support32Bit = true;
     pulse.enable = true;
+    jack.enable = true;
   };
+  services.jack.loopback.enable = true;
+  musnix.enable = true;
 
   # Set time zone and locale
   time.timeZone = "Europe/Berlin";
@@ -76,13 +79,14 @@
   users.users.${vars.user} = {
     isNormalUser = true;
     description = "Marcel Neugebauer";
-    extraGroups = [ "networkmanager" "wheel" "scanner" "lp" ]; # scanner and lp group so i can access scanners and printers i guess
+    extraGroups = [ "networkmanager" "wheel" "scanner" "lp" "libvirtd" "jackaudio" "docker" ]; # scanner and lp group so i can access scanners and printers i guess - libvirtd so there can be user access to my vms - jackaudio to get jack loopback audio working maybe - docker for winboat
   };
 
   # Automatic Garbage collection
   nix = {
     settings.auto-optimise-store = true;
     settings.experimental-features = [ "nix-command" "flakes" ];
+    # settings.trusted-users = [ "@wheel" ]; # added to test what it does
     gc = {
       automatic = true;
       dates = "weekly";
@@ -122,7 +126,16 @@
       enable = true;
       # dockerCompat = true; # Create a `docker` alias for podman, to use it as a drop-in replacement
     };
-    waydroid.enable = true;
+    docker.enable = true;
+    # waydroid.enable = true;
+    libvirtd = {
+      enable = true;
+      qemu = {
+        package = pkgs.qemu_kvm;
+        runAsRoot = true;
+        swtpm.enable = true;
+      };
+    };
   };
 
   environment = {
@@ -187,9 +200,13 @@
       pioasm
       minicom
       piper-tts
+      julia-bin
+      qmk
+      qmk-udev-rules
 
       # eye candy cli programs
-      cli-visualizer
+      # cli-visualizer  # it is no longer available on github :((
+      scope-tui
 
       # language servers
       nil # nix lsp
@@ -207,10 +224,14 @@
 
       # virtualisation
       distrobox
+      virt-manager
+      winboat # windows apps
+      freerdp
 
       # terminals 
       gnome-terminal
       ptyxis
+      ghostty
       alacritty
 
       # images
@@ -218,10 +239,14 @@
       gimp
       oculante
       drawio
+      gradia
 
       # audio
       spotify
-      helvum
+      # helvum
+      qpwgraph
+      alsa-lib
+      alsa-utils
 
       # documents
       libreoffice-still
@@ -229,12 +254,19 @@
       rnote                  # https://github.com/flxzt/rnote
       zotero
       papers
-      gscan2pdf
+      # gscan2pdf
 
       # browser
       brave
       firefox
       librewolf
+
+      # engineering
+      kicad-small
+      simulide
+
+      # LLMs
+      # newelle
       
       # gui program
       thunderbird
@@ -284,7 +316,7 @@
 
       ### packages with build problems in unstable ###
       ### packages with build problems in unstable ###
-
+      gscan2pdf
       ### packages which need to build from source in unstable ###
       ### packages which need to build from source in unstable ###
 
@@ -301,7 +333,7 @@
     fuzzyCompletion = true;
   };
 
-  # programs.ydotool.enable = true;
+  programs.virt-manager.enable = true;
 
   # configured services
   syncthing.enable = true;
@@ -314,11 +346,11 @@
   # zram swap (info: https://libreddit.tiekoetter.com/r/linux/comments/11dkhz7/zswap_vs_zram_in_2023_whats_the_actual_practical/ ) 
   zramSwap.enable = true;
   zramSwap.memoryPercent = 200;
-  boot.kernel.sysctl = { "vm.swappiness" = 120; };
+  boot.kernel.sysctl = { "vm.swappiness" = lib.mkForce 80; };
   # Enable CUPS to print documents.
   services.printing = {
     enable = true;
-    drivers = with pkgs; [ mfcl2700dnlpr brlaser ]; # brlaser 
+    drivers = with pkgs; [ /*mfcl2700dnlpr*/ brlaser ]; # brlaser 
   };
   services.avahi = {
     enable = true;
@@ -337,6 +369,9 @@
   services.ipp-usb.enable = true;
 
   services.udev.extraRules = ''
+    # udev rule for user level access to Preonic keyboard connected with USB
+    SUBSYSTEMS=="usb", ATTRS{idVendor}=="0483", MODE:="0666"
+
     # udev rule for user level access to Arduino Uno R4 connected with USB
     SUBSYSTEMS=="usb", ATTRS{idVendor}=="2341", MODE:="0666"
 
@@ -346,6 +381,41 @@
     # Raspberry Pi Pico
     # ATTR{idVendor}=="2e8a", ATTRS{idProduct}=="000f", MODE="660", GROUP="plugdev"
     # LABEL="rpi2_end"
+
+    # udev rules to make ubports installer work (installed in distrobox deb-13)
+    SUBSYSTEM=="usb", ATTRS{idVendor}=="0e79", MODE="0666", GROUP="plugdev"
+    SUBSYSTEM=="usb", ATTRS{idVendor}=="0502", MODE="0666", GROUP="plugdev"
+    SUBSYSTEM=="usb", ATTRS{idVendor}=="0b05", MODE="0666", GROUP="plugdev"
+    SUBSYSTEM=="usb", ATTRS{idVendor}=="413c", MODE="0666", GROUP="plugdev"
+    SUBSYSTEM=="usb", ATTRS{idVendor}=="0489", MODE="0666", GROUP="plugdev"
+    SUBSYSTEM=="usb", ATTRS{idVendor}=="091e", MODE="0666", GROUP="plugdev"
+    SUBSYSTEM=="usb", ATTRS{idVendor}=="18d1", MODE="0666", GROUP="plugdev"
+    SUBSYSTEM=="usb", ATTRS{idVendor}=="0bb4", MODE="0666", GROUP="plugdev"
+    SUBSYSTEM=="usb", ATTRS{idVendor}=="12d1", MODE="0666", GROUP="plugdev"
+    SUBSYSTEM=="usb", ATTRS{idVendor}=="24e3", MODE="0666", GROUP="plugdev"
+    SUBSYSTEM=="usb", ATTRS{idVendor}=="2116", MODE="0666", GROUP="plugdev"
+    SUBSYSTEM=="usb", ATTRS{idVendor}=="0482", MODE="0666", GROUP="plugdev"
+    SUBSYSTEM=="usb", ATTRS{idVendor}=="17ef", MODE="0666", GROUP="plugdev"
+    SUBSYSTEM=="usb", ATTRS{idVendor}=="1004", MODE="0666", GROUP="plugdev"
+    SUBSYSTEM=="usb", ATTRS{idVendor}=="22b8", MODE="0666", GROUP="plugdev"
+    SUBSYSTEM=="usb", ATTRS{idVendor}=="0409", MODE="0666", GROUP="plugdev"
+    SUBSYSTEM=="usb", ATTRS{idVendor}=="2080", MODE="0666", GROUP="plugdev"
+    SUBSYSTEM=="usb", ATTRS{idVendor}=="0955", MODE="0666", GROUP="plugdev"
+    SUBSYSTEM=="usb", ATTRS{idVendor}=="2257", MODE="0666", GROUP="plugdev"
+    SUBSYSTEM=="usb", ATTRS{idVendor}=="10a9", MODE="0666", GROUP="plugdev"
+    SUBSYSTEM=="usb", ATTRS{idVendor}=="1d4d", MODE="0666", GROUP="plugdev"
+    SUBSYSTEM=="usb", ATTRS{idVendor}=="0471", MODE="0666", GROUP="plugdev"
+    SUBSYSTEM=="usb", ATTRS{idVendor}=="04da", MODE="0666", GROUP="plugdev"
+    SUBSYSTEM=="usb", ATTRS{idVendor}=="05c6", MODE="0666", GROUP="plugdev"
+    SUBSYSTEM=="usb", ATTRS{idVendor}=="1f53", MODE="0666", GROUP="plugdev"
+    SUBSYSTEM=="usb", ATTRS{idVendor}=="04e8", MODE="0666", GROUP="plugdev"
+    SUBSYSTEM=="usb", ATTRS{idVendor}=="04dd", MODE="0666", GROUP="plugdev"
+    SUBSYSTEM=="usb", ATTRS{idVendor}=="0fce", MODE="0666", GROUP="plugdev"
+    SUBSYSTEM=="usb", ATTRS{idVendor}=="0930", MODE="0666", GROUP="plugdev"
+    SUBSYSTEM=="usb", ATTRS{idVendor}=="19d2", MODE="0666", GROUP="plugdev"
+    SUBSYSTEM=="usb", ATTRS{idVendor}=="2ae5", MODE="0666", GROUP="plugdev"
+    SUBSYSTEM=="usb", ATTRS{idVendor}=="2a45", MODE="0666", GROUP="plugdev"
+
 
   '';
 

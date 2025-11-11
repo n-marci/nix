@@ -32,10 +32,16 @@
 
   paperless.enable = true;
   nextcloud.enable = true;
-  immich.enable = true;
+  immich = {
+    enable = true;
+    backup = true;
+  };
   actualbudget.enable = true;
   adguard.enable = true;
-  mealie.enable = false;
+  mealie = {
+    enable = true;
+    backup = true;
+  };
   nginx.enable = true;
   cockpit.enable = true;
   traccar.enable = true;
@@ -64,10 +70,10 @@
   # Disable suspend when closing the lid
   # systemd targets sleep.target, suspend.target, hibernate.target, hybrid-sleep.target
   # seem to already be masked for some reason
-  services.logind = {
-    lidSwitch = "ignore";
-    lidSwitchDocked = "ignore";
-    lidSwitchExternalPower = "ignore";
+  services.logind.settings.Login = {
+    HandleLidSwitch = "ignore";
+    HandleLidSwitchDocked = "ignore";
+    HandleLidSwitchExternalPower = "ignore";
   };
 
   services.tailscale = {

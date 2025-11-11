@@ -21,20 +21,13 @@ with lib; {
         "nextcloud.marcelnet.com" = {
           forceSSL = true;
           useACMEHost = "marcelnet.com";
-        #   locations."/" = {
-        #     proxyPass = "http://localhost";
-        #     proxyWebsockets = true;
-        #     extraConfig = ''
-        #       proxy_redirect http://$host https://$host; # apparently required for apps: https://codeberg.org/balint/nixos-configs/src/branch/main/hosts/vps/nextcloud.nix
-        #     '';
-        #   };
-        };
-        "immich.marcelnet.com" = {
-          forceSSL = true;
-          useACMEHost = "marcelnet.com";
-          locations."/".proxyPass = "http://100.125.148.107:2283";
-          # # For the moment I have it configured globally
-          # # should also work with this config though
+          #   locations."/" = {
+          #     proxyPass = "http://localhost";
+          #     proxyWebsockets = true;
+          #     extraConfig = ''
+          #       proxy_redirect http://$host https://$host; # apparently required for apps: https://codeberg.org/balint/nixos-configs/src/branch/main/hosts/vps/nextcloud.nix
+          #     '';
+          #   };
           # extraConfig = ''
           #   client_max_body_size 1G;
           # '';
@@ -48,6 +41,10 @@ with lib; {
           forceSSL = true;
           useACMEHost = "marcelnet.com";
           locations."/".proxyPass = "http://100.125.148.107:28981";
+          # locations."/" = {
+          #   proxyPass = "http://100.125.148.107:28981";
+          #   proxyWebsockets = true;
+          # };
         };
         "actual.marcelnet.com" = {
           forceSSL = true;
@@ -72,6 +69,11 @@ with lib; {
             proxyWebsockets = true;
           };
         };
+        # "mealie.marcelnet.com" = {
+        #   forceSSL = true;
+        #   useACMEHost = "marcelnet.com";
+        #   locations."/".proxyPass = "http://100.125.148.107:9925";
+        # };
         # "matrix.marcelnet.com" = {
         #   forceSSL = true;
         #   useACMEHost = "marcelnet.com";

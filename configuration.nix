@@ -56,7 +56,6 @@
     jack.enable = true;
   };
   services.jack.loopback.enable = true;
-  musnix.enable = true;
 
   # Set time zone and locale
   time.timeZone = "Europe/Berlin";

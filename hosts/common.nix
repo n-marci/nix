@@ -1,4 +1,4 @@
-{ pkgs, vars, ... }:
+{ pkgs, vars, name, ... }:
 
 {
   # imports = [
@@ -41,8 +41,11 @@
   # networking
   ##############################################################################
 
-  networking.networkmanager.enable = true;
-  networking.firewall.enable = true;
+  networking = {
+    hostName = name;
+    networkmanager.enable = true;
+    firewall.enable = true;
+  };
 
   ##############################################################################
   # bash
@@ -51,8 +54,8 @@
   environment = {
     variables = {
       HISTSIZE = "20000";
-      HISTFILESIZE = "20000";
-      EDITOR = "${vars.editor}";
+    HISTFILESIZE = "20000";
+      EDITOR = "hx";
     };
   };
 

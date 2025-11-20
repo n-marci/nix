@@ -49,106 +49,65 @@
     let
       vars = {
         user = "marci";
-        location = "$HOME/nix";
-        editor = "hx";
+        # location = "$HOME/nix";
+        # editor = "hx";
       };
-      system = "x86_64-linux";
-
-      pkgs = import nixpkgs {
-        inherit system;
-        config.allowUnfree = true;
-      };
-
       stable = import nixpkgs-stable {
-        inherit system;
-        config.allowUnfree = true;
+        system = "x86_64-linux";
+        allowUnfree = true;
       };
-
       unstable = import nixpkgs-unstable {
-        inherit system;
-        config.allowUnfree = true;
-        # temporary allow old electron because of obsidian
-        # config.permittedInsecurePackages = [
-        #   "electron-25.9.0"
-        # ];
+        system = "x86_64-linux";
+        allowUnfree = true;
       };
-
-      lib = nixpkgs.lib;
-
     in {
-      nixosConfigurations = {
+      # nixosConfigurations = {
+      colmenaHive = colmena.lib.makeHive {
+        meta = {
+          nixpkgs = stable;
+          nodeNixpkgs = {
+            desktop = unstable;
+            yoga = unstable;
+          };
+        };
+        _module.args = {
+          inputs = inputs;
+          stable = stable;
+          unstable = unstable;
+        };
+        
+      # }
 
   ##############################################################################
   # DESKTOPS
   ##############################################################################
 
-        desktop = lib.nixosSystem {
-          inherit system;
-
-          specialArgs = {
-            inherit inputs secrets system stable unstable vars;
-            host = {
-              hostName = "desktop";
-            };
+        # desktop = nixpkgs.lib.nixosSystem {
+        desktop = { name, ... }: {
+          deployment = {
+            allowLocalDeployment = true;
+            targetHost = null;
           };
 
-          modules = [
+          imports = [
             ./hosts/desktop
-            ./configuration.nix 
+            ./configuration.nix
 
-            disko.nixosModules.disko
             home-manager.nixosModules.home-manager {
               home-manager.useGlobalPkgs = true;
               home-manager.useUserPackages = true;
-              # home-manager.extraSpecialArgs = {
-              #   inherit user inputs upkgs;
-              # };
-              # home-manager.users.${user} = {
-              #   imports = [ ./home.nix ];
-              # };
             }
           ];
         };
-
-        yoga = lib.nixosSystem {
-          inherit system;
-
-          specialArgs = {
-            inherit inputs secrets system stable unstable vars;
-            host = {
-              hostName = "yoga";
-            };
+        yoga = { name, ... }: {
+          deployment = {
+            allowLocalDeployment = true;
+            targetHost = null;
           };
 
-          modules = [
+          imports = [
             ./hosts/yoga
-            ./configuration.nix 
-
-            disko.nixosModules.disko
-            home-manager.nixosModules.home-manager {
-              home-manager.useGlobalPkgs = true;
-              home-manager.useUserPackages = true;
-            }
-          ];
-        };
-
-  ##############################################################################
-  # HOMELAB
-  ##############################################################################
-
-        helix-s = lib.nixosSystem {
-          inherit system;
-
-          specialArgs = {
-            inherit inputs secrets system stable unstable vars;
-            host = {
-              hostName = "helix-s";
-            };
-          };
-
-          modules = [
-            ./hosts/helix-s
-            ./server.nix 
+            ./configuration.nix
 
             home-manager.nixosModules.home-manager {
               home-manager.useGlobalPkgs = true;
@@ -156,27 +115,104 @@
             }
           ];
         };
+        #   inherit system;
 
-        inspirion = lib.nixosSystem {
-          inherit system;
+        #   specialArgs = {
+        #     inherit inputs secrets system stable unstable vars;
+        #     host = {
+        #       hostName = "desktop";
+        #     };
+        #   };
 
-          specialArgs = {
-            inherit inputs secrets system stable unstable vars;
-            host = {
-              hostName = "inspirion";
-            };
-          };
+        #   modules = [
+        #     ./hosts/desktop
+        #     ./configuration.nix 
 
-          modules = [
-            ./hosts/inspirion
-            ./server.nix 
+        #     disko.nixosModules.disko
+        #     home-manager.nixosModules.home-manager {
+        #       home-manager.useGlobalPkgs = true;
+        #       home-manager.useUserPackages = true;
+        #       # home-manager.extraSpecialArgs = {
+        #       #   inherit user inputs upkgs;
+        #       # };
+        #       # home-manager.users.${user} = {
+        #       #   imports = [ ./home.nix ];
+        #       # };
+        #     }
+        #   ];
+        # };
 
-            home-manager.nixosModules.home-manager {
-              home-manager.useGlobalPkgs = true;
-              home-manager.useUserPackages = true;
-            }
-          ];
-        };
+  #       yoga = nixpkgs.lib.nixosSystem {
+  #         inherit system;
+
+  #         specialArgs = {
+  #           inherit inputs secrets system stable unstable vars;
+  #           host = {
+  #             hostName = "yoga";
+  #           };
+  #         };
+
+  #         modules = [
+  #           ./hosts/yoga
+  #           ./configuration.nix 
+
+  #           disko.nixosModules.disko
+  #           home-manager.nixosModules.home-manager {
+  #             home-manager.useGlobalPkgs = true;
+  #             home-manager.useUserPackages = true;
+  #           }
+  #         ];
+  #       };
+
+  # ##############################################################################
+  # # HOMELAB
+  # ##############################################################################
+
+  #       helix-s = nixpkgs-stable.lib.nixosSystem {
+  #         inherit system;
+
+  #         specialArgs = {
+  #           inherit inputs secrets system stable unstable vars;
+  #           host = {
+  #             hostName = "helix-s";
+  #           };
+  #         };
+
+  #         modules = [
+  #           ./hosts/helix-s
+  #           ./server.nix 
+
+  #           home-manager.nixosModules.home-manager {
+  #             home-manager.useGlobalPkgs = true;
+  #             home-manager.useUserPackages = true;
+  #           }
+
+  #           { nixpkgs.config.pkgs = import nixpkgs-stable { inherit system; }; } # use stable nixpkgs
+  #         ];
+  #       };
+
+  #       inspirion = nixpkgs-stable.lib.nixosSystem {
+  #         inherit system;
+
+  #         specialArgs = {
+  #           inherit inputs secrets system stable unstable vars;
+  #           host = {
+  #             hostName = "inspirion";
+  #           };
+  #         };
+
+  #         modules = [
+  #           ./hosts/inspirion
+  #           ./server.nix 
+
+  #           home-manager.nixosModules.home-manager {
+  #             home-manager.useGlobalPkgs = true;
+  #             home-manager.useUserPackages = true;
+  #           }
+
+  #           { nixpkgs.config.pkgs = import nixpkgs-stable { inherit system; }; } # use stable nixpkgs
+  #         ];
+  #       };
 
   ##############################################################################
   # VMs

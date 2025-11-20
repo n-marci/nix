@@ -2,7 +2,7 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ pkgs, inputs,  unstable, vars, ... }:
+{ pkgs, inputs, name, unstable, vars, ... }:
 
 {
   imports =
@@ -66,7 +66,7 @@
   #   options iwlwifi bt_coex_active=0
   # '';
 
-  networking.hostName = "yoga"; # Define your hostname.
+  networking.hostName = name; # Define your hostname.
 
   # open port in firewall for wireguard home connection
   networking.firewall = {

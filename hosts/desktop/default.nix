@@ -2,7 +2,7 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ config, inputs, pkgs, unstable, vars, ... }:
+{ inputs, pkgs, unstable, vars, ... }:
 
 {
   imports =
@@ -116,7 +116,7 @@
     nvidiaSettings = true;
     # open = true;
     # package = config.boot.kernelPackages.nvidiaPackages.stable;
-    package = config.boot.kernelPackages.nvidiaPackages.beta;
+    # package = config.boot.kernelPackages.nvidiaPackages.beta; # removed because config. caused infinite recursion with colmena
     # package = config.boot.kernelPackages.nvidiaPackages.vulkan_beta;
   };
 

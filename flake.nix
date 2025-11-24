@@ -63,7 +63,9 @@
       };
     in {
       # nixosConfigurations = {
-      colmenaHive = colmena.lib.makeHive {
+      colmenaHive = colmena.lib.makeHive self.outputs.colmena;
+
+      colmena = {
         meta = {
           nixpkgs = stable;
           nodeNixpkgs = {

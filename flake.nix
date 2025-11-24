@@ -38,6 +38,7 @@
     };
 
     colmena.url = "github:zhaofengli/colmena";
+    flatpaks.url = "github:gmodena/nix-flatpak/?ref=latest";
     secrets.url = "git+ssh://git@github.com/n-marci/secrets.git";
   };
 
@@ -45,7 +46,7 @@
   # OUTPUTS
   ##############################################################################
 
-  outputs = inputs @ { self, nixpkgs, nixpkgs-stable, nixpkgs-unstable, home-manager, disko, microvm, colmena, secrets, ... }:
+  outputs = inputs @ { self, nixpkgs, nixpkgs-stable, nixpkgs-unstable, home-manager, disko, microvm, colmena, flatpaks, secrets, ... }:
     let
       vars = {
         user = "marci";
@@ -93,9 +94,11 @@
             ./hosts/desktop
             ./configuration.nix
 
+            flatpaks.nixosModules.nix-flatpak
             home-manager.nixosModules.home-manager {
               home-manager.useGlobalPkgs = true;
               home-manager.useUserPackages = true;
+              home-manager.extraSpecialArgs.flake-inputs = inputs;
             }
           ];
         };
@@ -109,9 +112,11 @@
             ./hosts/yoga
             ./configuration.nix
 
+            flatpaks.nixosModules.nix-flatpak
             home-manager.nixosModules.home-manager {
               home-manager.useGlobalPkgs = true;
               home-manager.useUserPackages = true;
+              home-manager.extraSpecialArgs.flake-inputs = inputs;
             }
           ];
         };

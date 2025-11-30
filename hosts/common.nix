@@ -31,7 +31,7 @@
   # users
   ##############################################################################
 
-  users.users.${vars.user}= {
+  users.users."marci" = {
     isNormalUser = true;
     description = "Marcel Neugebauer";
     extraGroups = [ "networkmanager" "wheel" ];

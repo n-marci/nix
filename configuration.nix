@@ -42,37 +42,37 @@
   # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
 
   # Enable networking
-  networking.networkmanager.enable = true;
+  # networking.networkmanager.enable = true;
 
   # Enable sound with pipewire.
   # sound.enable = true;
-  security.rtkit.enable = true;
-  services.pulseaudio.enable = false;
-  services.pipewire = {
-    enable = true;
-    alsa.enable = true;
-    alsa.support32Bit = true;
-    pulse.enable = true;
-    jack.enable = true;
-  };
-  services.jack.loopback.enable = true;
+  # security.rtkit.enable = true;
+  # services.pulseaudio.enable = false;
+  # services.pipewire = {
+  #   enable = true;
+  #   alsa.enable = true;
+  #   alsa.support32Bit = true;
+  #   pulse.enable = true;
+  #   jack.enable = true;
+  # };
+  # services.jack.loopback.enable = true;
 
   # Set time zone and locale
-  time.timeZone = "Europe/Berlin";
-  i18n = {
-    defaultLocale = "en_US.UTF-8";
-    extraLocaleSettings = {
-      LC_ADDRESS = "de_DE.UTF-8";
-      LC_IDENTIFICATION = "de_DE.UTF-8";
-      LC_MEASUREMENT = "de_DE.UTF-8";
-      LC_MONETARY = "de_DE.UTF-8";
-      LC_NAME = "de_DE.UTF-8";
-      LC_NUMERIC = "de_DE.UTF-8";
-      LC_PAPER = "de_DE.UTF-8";
-      LC_TELEPHONE = "de_DE.UTF-8";
-      LC_TIME = "de_DE.UTF-8";
-    };
-  };
+  # time.timeZone = "Europe/Berlin";
+  # i18n = {
+  #   defaultLocale = "en_US.UTF-8";
+  #   extraLocaleSettings = {
+  #     LC_ADDRESS = "de_DE.UTF-8";
+  #     LC_IDENTIFICATION = "de_DE.UTF-8";
+  #     LC_MEASUREMENT = "de_DE.UTF-8";
+  #     LC_MONETARY = "de_DE.UTF-8";
+  #     LC_NAME = "de_DE.UTF-8";
+  #     LC_NUMERIC = "de_DE.UTF-8";
+  #     LC_PAPER = "de_DE.UTF-8";
+  #     LC_TELEPHONE = "de_DE.UTF-8";
+  #     LC_TIME = "de_DE.UTF-8";
+  #   };
+  # };
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.${vars.user} = {

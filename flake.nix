@@ -111,8 +111,9 @@
           };
 
           imports = [
-            ./hosts/yoga
-            ./configuration.nix
+            ./hosts/yoga/configuration.nix
+            # ./configuration.nix
+            ./hosts/common.nix
 
             flatpaks.nixosModules.nix-flatpak
             home-manager.nixosModules.home-manager {

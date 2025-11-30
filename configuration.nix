@@ -75,23 +75,23 @@
   # };
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
-  users.users.${vars.user} = {
-    isNormalUser = true;
-    description = "Marcel Neugebauer";
-    extraGroups = [ "networkmanager" "wheel" "scanner" "lp" "libvirtd" "jackaudio" "docker" ]; # scanner and lp group so i can access scanners and printers i guess - libvirtd so there can be user access to my vms - jackaudio to get jack loopback audio working maybe - docker for winboat
-  };
+  # users.users.${vars.user} = {
+  #   isNormalUser = true;
+  #   description = "Marcel Neugebauer";
+  #   extraGroups = [ "networkmanager" "wheel" "scanner" "lp" "libvirtd" "jackaudio" "docker" ]; # scanner and lp group so i can access scanners and printers i guess - libvirtd so there can be user access to my vms - jackaudio to get jack loopback audio working maybe - docker for winboat
+  # };
 
   # Automatic Garbage collection
-  nix = {
-    settings.auto-optimise-store = true;
-    settings.experimental-features = [ "nix-command" "flakes" ];
-    # settings.trusted-users = [ "@wheel" ]; # added to test what it does
-    gc = {
-      automatic = true;
-      dates = "weekly";
-      options = "--delete-older-than 7d";
-    };
-  };
+  # nix = {
+  #   settings.auto-optimise-store = true;
+  #   settings.experimental-features = [ "nix-command" "flakes" ];
+  #   # settings.trusted-users = [ "@wheel" ]; # added to test what it does
+  #   gc = {
+  #     automatic = true;
+  #     dates = "weekly";
+  #     options = "--delete-older-than 7d";
+  #   };
+  # };
 
   nix.settings = {
     substituters = [ "https://tweag-jupyter.cachix.org" ];
@@ -99,55 +99,55 @@
   };
 
   # font setup and configuration
-  fonts = {
-    fontDir.enable = true;   # needed for flatpak to use the right cursor and fonts
-    packages = (with pkgs; [
-      comfortaa
-      montserrat
-      intel-one-mono
-      newcomputermodern
-      # (nerdfonts.override { fonts = [ "Monofur" "Agave" "AurulentSansMono" "CascadiaCode" "FantasqueSansMono" "Hermit" "OpenDyslexic" ]; })
-    ]) ++ (with pkgs.nerd-fonts; [
-      monofur
-      agave
-      aurulent-sans-mono
-      caskaydia-mono
-      fantasque-sans-mono
-      open-dyslexic
-    ]);
-    fontconfig.defaultFonts.monospace = [ "Monofur Nerd Font" ];
-  };
-  nixpkgs.config.allowUnfree = true;
+  # fonts = {
+  #   fontDir.enable = true;   # needed for flatpak to use the right cursor and fonts
+  #   packages = (with pkgs; [
+  #     comfortaa
+  #     montserrat
+  #     intel-one-mono
+  #     newcomputermodern
+  #     # (nerdfonts.override { fonts = [ "Monofur" "Agave" "AurulentSansMono" "CascadiaCode" "FantasqueSansMono" "Hermit" "OpenDyslexic" ]; })
+  #   ]) ++ (with pkgs.nerd-fonts; [
+  #     monofur
+  #     agave
+  #     aurulent-sans-mono
+  #     caskaydia-mono
+  #     fantasque-sans-mono
+  #     open-dyslexic
+  #   ]);
+  #   fontconfig.defaultFonts.monospace = [ "Monofur Nerd Font" ];
+  # };
+  # nixpkgs.config.allowUnfree = true;
   # nixpkgs-unstable.config.allowUnfree = true;
 
-  virtualisation = {
-    podman = {
-      enable = true;
-      # dockerCompat = true; # Create a `docker` alias for podman, to use it as a drop-in replacement
-    };
-    docker.enable = true;
-    # waydroid.enable = true;
-    libvirtd = {
-      enable = true;
-      qemu = {
-        package = pkgs.qemu_kvm;
-        runAsRoot = true;
-        swtpm.enable = true;
-      };
-    };
-  };
+  # virtualisation = {
+  #   podman = {
+  #     enable = true;
+  #     # dockerCompat = true; # Create a `docker` alias for podman, to use it as a drop-in replacement
+  #   };
+  #   docker.enable = true;
+  #   # waydroid.enable = true;
+  #   libvirtd = {
+  #     enable = true;
+  #     qemu = {
+  #       package = pkgs.qemu_kvm;
+  #       runAsRoot = true;
+  #       swtpm.enable = true;
+  #     };
+  #   };
+  # };
 
   environment = {
     variables = {
-      HISTSIZE = "20000";
-      HISTFILESIZE = "20000";
-      EDITOR = "${vars.editor}";
+      # HISTSIZE = "20000";
+      # HISTFILESIZE = "20000";
+      # EDITOR = "${vars.editor}";
       # XCURSOR_THEME="Bibata_Ghost";
       XCURSOR_THEME="ComixCursors-Opaque-Black";
     };
 
     sessionVariables = { # needed for nh
-      FLAKE = "/home/marci/nix";
+      NH_FLAKE = "/home/marci/nix";
     };
 
     # shellAliases = {

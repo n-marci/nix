@@ -1,6 +1,6 @@
 # printer config
 
-{ config, lib, pkgs, ... }:
+{ config, lib, pkgs, user, ... }:
 
 let
   inherit (lib) mkEnableOption mkOption mkIf mkDefault types;
@@ -16,7 +16,7 @@ in
 
     user = mkOption {
       type = types.str;
-      default = "marci";
+      default = user;
     };
   };
   

@@ -82,12 +82,12 @@
   };
 
   # Configure console keymap
-  console.keyMap = "de";
+  # console.keyMap = "de";
 
-  gnome.enable = true;
+  # gnome.enable = true;
 
   environment.systemPackages = with unstable; [
-    gnome-power-manager
+    # gnome-power-manager
     nssmdns
     # radeontop      # utility to monitor graphics
     # blender
@@ -95,13 +95,13 @@
   ];
 
   # screen rotation and stuff
-  hardware.sensor.iio.enable = true;
+  # hardware.sensor.iio.enable = true;
 
-  hardware.bluetooth.settings = {
-    General = {
-      Experimental = true;
-    };
-  };
+  # hardware.bluetooth.settings = {
+  #   General = {
+  #     Experimental = true;
+  #   };
+  # };
 
   # amd specific stuff
   # systemd.tmpfiles.rules = [
@@ -117,36 +117,36 @@
   # hardware.opengl.extraPackages32 = with pkgs; [
   #   driversi686Linux.amdvlk
   # ];
-  hardware.graphics = {
-    enable = true;
-    extraPackages = with pkgs; [
-      intel-media-driver
-      intel-vaapi-driver
-      libvdpau-va-gl
-      vpl-gpu-rt # for intel quick sync video
-    ];
-    extraPackages32 = with pkgs.pkgsi686linux; [
-      intel-media-driver
-    ];
-  };
-  environment.sessionVariables = {
-    LIBVA_DRIVER_NAME = "iHD";
-    VDPAU_DRIVER = "va_gl";
-  };
+  # hardware.graphics = {
+  #   enable = true;
+  #   extraPackages = with pkgs; [
+  #     intel-media-driver
+  #     intel-vaapi-driver
+  #     libvdpau-va-gl
+  #     vpl-gpu-rt # for intel quick sync video
+  #   ];
+  #   extraPackages32 = with pkgs.pkgsi686linux; [
+  #     intel-media-driver
+  #   ];
+  # };
+  # environment.sessionVariables = {
+  #   LIBVA_DRIVER_NAME = "iHD";
+  #   VDPAU_DRIVER = "va_gl";
+  # };
 
   # optimize for more battery life
-  powerManagement.powertop.enable = true;
+  # powerManagement.powertop.enable = true;
   # powerManagement.cpuFreqGovernor = "schedutil";
 
-  sops = {
-    defaultSopsFile = ../../secrets/yoga.yaml;
-    defaultSopsFormat = "yaml";
+  # sops = {
+  #   defaultSopsFile = ../../secrets/yoga.yaml;
+  #   defaultSopsFormat = "yaml";
 
-    age.keyFile= "/home/marci/.config/sops/age/keys.txt";
+  #   age.keyFile= "/home/marci/.config/sops/age/keys.txt";
 
-    secrets.syncthing-key = { };
-    secrets.syncthing-cert = { };
-  };
+  #   secrets.syncthing-key = { };
+  #   secrets.syncthing-cert = { };
+  # };
 
   # setup fingerprint scanner
   # services.fprintd = {
@@ -187,20 +187,20 @@
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
   # system.stateVersion = "23.05"; # Did you read the comment?
 
-  system.stateVersion = "23.11"; # Did you read the comment?
+  # system.stateVersion = "23.11"; # Did you read the comment?
 
-  home-manager.users.${vars.user} = {
-    home = {
-      stateVersion = "23.11";
-    };
+  # home-manager.users.${vars.user} = {
+  #   home = {
+  #     stateVersion = "23.11";
+  #   };
 
-    programs = {
-      home-manager.enable = true;
-    };
+  #   programs = {
+  #     home-manager.enable = true;
+  #   };
 
-    nix = {
-      # package = pkgs.nix;
-      settings.experimental-features = [ "nix-command" "flakes" ];
-    };
-  };
+  #   nix = {
+  #     # package = pkgs.nix;
+  #     settings.experimental-features = [ "nix-command" "flakes" ];
+  #   };
+  # };
 }

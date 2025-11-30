@@ -1,4 +1,4 @@
-{ pkgs, vars, name, ... }:
+{ pkgs, name, user, ... }:
 
 {
   # imports = [
@@ -31,7 +31,7 @@
   # users
   ##############################################################################
 
-  users.users."marci" = {
+  users.users.${user} = {
     isNormalUser = true;
     description = "Marcel Neugebauer";
     extraGroups = [ "networkmanager" "wheel" ];
@@ -54,7 +54,7 @@
   environment = {
     variables = {
       HISTSIZE = "20000";
-    HISTFILESIZE = "20000";
+      HISTFILESIZE = "20000";
       EDITOR = "hx";
     };
   };
@@ -76,6 +76,8 @@
   ##############################################################################
   # LOCALIZATION & TIMEZONE
   ##############################################################################
+
+  console.keyMap = "de";
 
   time.timeZone = "Europe/Berlin";
   i18n = {

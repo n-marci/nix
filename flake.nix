@@ -48,11 +48,12 @@
 
   outputs = inputs @ { self, nixpkgs, nixpkgs-stable, nixpkgs-unstable, home-manager, disko, microvm, colmena, flatpaks, secrets, ... }:
     let
-      vars = {
-        user = "marci";
-        # location = "$HOME/nix";
-        # editor = "hx";
-      };
+      # vars = {
+      #   user = "marci";
+      #   # location = "$HOME/nix";
+      #   # editor = "hx";
+      # };
+      hosts = import ./hosts.nix { inherit secrets; };
       stable = import nixpkgs-stable {
         system = "x86_64-linux";
         allowUnfree = true;
@@ -72,6 +73,17 @@
             desktop = unstable;
             yoga = unstable;
           };
+          nodeSpecialArgs = {
+            desktop = {
+              user = hosts.desktop.user;
+            };
+            yoga = {
+              user = hosts.yoga.user;
+            };
+          };
+          # specialArgs = {
+          #   inherit hosts;
+          # };
         };
         _module.args = {
           inputs = inputs;
@@ -114,6 +126,7 @@
             ./hosts/yoga/configuration.nix
             # ./configuration.nix
             ./hosts/common.nix
+            ./hosts/mobile.nix
 
             flatpaks.nixosModules.nix-flatpak
             home-manager.nixosModules.home-manager {

@@ -1,6 +1,6 @@
 # virtualisation config
 
-{ config, lib, pkgs, ... }:
+{ config, lib, pkgs, user, ... }:
 
 let
   inherit (lib) mkEnableOption mkOption mkIf mkDefault types elem;
@@ -16,7 +16,7 @@ in
 
     user = mkOption {
       type = types.str;
-      default = "marci";
+      default = user;
     };
     tools = mkOption {
       type = types.listOf types.str;

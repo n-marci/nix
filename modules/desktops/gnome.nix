@@ -18,7 +18,7 @@ let
   inherit (host) hostName;
 in {
   options = {
-    gnome = {
+    fleet.gnome = {
       enable = mkOption {
         type = types.bool;
         default = false;
@@ -26,7 +26,7 @@ in {
     };
   };
 
-  config = mkIf (config.gnome.enable) {
+  config = mkIf (config.fleet.gnome.enable) {
     programs = {
       kdeconnect = {
         enable = true;

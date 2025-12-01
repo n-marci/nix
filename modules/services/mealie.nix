@@ -1,11 +1,11 @@
 # mealie recipe manager configuration
 
-{ config, lib,  pkgs, unstable, host, ... }:
+{ config, lib,  pkgs, unstable, name, ... }:
 
 let
   datadir = "var/lib/private/mealie";
   snapdir = "var/btr/mealie";
-  bkpdir = "srv/btr/${host.hostName}/mealie";
+  bkpdir = "srv/btr/${name}/mealie";
   bkparray = "linc-nvme-raid";
   inherit (lib) mkOption mkIf mkDefault types;
 in
@@ -67,10 +67,10 @@ in
     };
 
     # setup disko subvolume for ${host}/${bkpdir}
-    disko.devices.btrfs.${bkparray}.subvolumes = mkIf (config.mealie.backupTarget) {
-      "${bkpdir}" = {
-        mountpoint = "${bkpdir}";
-      };
-    };
+    # disko.devices.btrfs.${bkparray}.subvolumes = mkIf (config.mealie.backupTarget) {
+    #   "${bkpdir}" = {
+    #     mountpoint = "${bkpdir}";
+    #   };
+    # };
   };
 }

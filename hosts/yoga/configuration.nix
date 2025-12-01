@@ -1,11 +1,15 @@
 { pkgs, name, user, ... }:
 
 {
-  imports =
-    [ # Include the results of the hardware scan.
+  imports = (
+      import ../../modules/configurations ++
+      import ../../modules/desktops ++
+      import ../../modules/programs ++
+      import ../../modules/services
+    ) ++ ([ # Include the results of the hardware scan.
       ./hardware-configuration.nix
       # inputs.sops-nix.nixosModules.sops
-    ];
+    ]);
 
   ##############################################################################
   # my modules

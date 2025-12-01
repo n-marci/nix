@@ -124,6 +124,7 @@ in {
             "openbar@neuromorph"
             "ideapad-controls@woomymy.protonmail.com"
             "system-monitor@gnome-shell-extensions.gcampax.github.com"
+            "soft-brightness-plus@joelkitching.com"
           ];
         };
 
@@ -330,6 +331,11 @@ in {
           history-size = 50;
         };
 
+        "org/gnome/shell/extensions/soft-brightness-plus" = {
+          monitors = "external";
+          builtin-monitor = "eDP-1";
+        };
+
         "system/locale" = {
           region = "de_DE.UTF-8";
         };
@@ -371,6 +377,7 @@ in {
         paperwm
         open-bar
         # tiling shell is not in nix repos - I downloaded it from the extensions manager
+        soft-brightness-plus
       ];
     };
   };

@@ -1,3 +1,9 @@
 [
   ./flatpak.nix
+  ./audio.nix
+  ./virtualisation.nix
+  ./printer.nix
+  ./plymouth.nix
+  ./graphics.nix
+  ./fonts.nix
 ]

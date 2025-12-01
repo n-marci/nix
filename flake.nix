@@ -126,7 +126,7 @@
             ./hosts/yoga/configuration.nix
             # ./configuration.nix
             ./hosts/common.nix
-            ./hosts/mobile.nix
+            # ./hosts/mobile.nix
 
             flatpaks.nixosModules.nix-flatpak
             home-manager.nixosModules.home-manager {

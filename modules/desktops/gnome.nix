@@ -11,11 +11,11 @@
 # TODO generate ~/.config/run-or-raise/shortcuts.conf declaratively
 # TODO go through extension settings again
 
-{config, lib, pkgs, unstable, vars, host, ...}:
+{config, lib, pkgs, name, unstable, user, ...}:
 
 let
   inherit (lib) mkOption mkIf types;
-  inherit (host) hostName;
+  # inherit (host) hostName;
 in {
   options = {
     fleet.gnome = {
@@ -80,11 +80,11 @@ in {
       ]);
     };
 
-    home-manager.users.${vars.user} =
+    home-manager.users.${user} =
     let
       battery-opt =
-        if hostName == "yoga" then "ideapad-controls@woomymy.protonmail.com"
-        else if hostName == "helix" then "thinkpad-battery-threshold@marcosdalvarez.org"
+        if name == "yoga" then "ideapad-controls@woomymy.protonmail.com"
+        else if name == "helix" then "thinkpad-battery-threshold@marcosdalvarez.org"
         else "";
     in {
       dconf.settings = {

@@ -1,6 +1,6 @@
 # graphics config
 
-{ config, lib, pkgs, user, ... }:
+{ config, lib, pkgs, graphics, ... }:
 
 let
   inherit (lib) mkEnableOption mkOption mkIf mkDefault types;
@@ -16,7 +16,7 @@ in
 
     hardware = mkOption {
       type = types.str;
-      default = "";
+      default = graphics;
     };
   };
   

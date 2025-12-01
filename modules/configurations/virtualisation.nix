@@ -3,7 +3,8 @@
 { config, lib, pkgs, user, ... }:
 
 let
-  inherit (lib) mkEnableOption mkOption mkIf mkDefault types elem;
+  inherit (lib) mkEnableOption mkOption mkIf mkDefault types elem filter;
+  possibleTools = [ "docker" "podman" "waydroid" "libvirtd" ];
 in
 {
   
@@ -24,7 +25,7 @@ in
         "docker"
         "libvirtd"
       ];
-      description = "my default virtualisation methods";
+      description = "my default virtualisation methods \n must be a list containing ${possibleTools}";
     };
   };
   
@@ -34,17 +35,31 @@ in
 
   config = mkIf (config.fleet.virtualisation.enable) {
     virtualisation = {
+
+  ##############################################################################
+  # PODMAN
+  ##############################################################################
+
       podman = mkIf (elem "podman" config.fleet.virtualisation.tools) {
         enable = true;
         # dockerCompat = true; # Create a `docker` alias for podman, to use it as a drop-in replacement
       };
 
+  ##############################################################################
+  # DOCKER
+  ##############################################################################
+
       docker.enable = mkIf (elem "docker" config.fleet.virtualisation.tools) true;
-    users.users.${config.fleet.virtualisation.user} = mkIf (elem "libvirtd" config.fleet.virtualisation.tools) {
-      extraGroups = [ "libvirtd" ];
-    };
+
+  ##############################################################################
+  # WAYDROID
+  ##############################################################################
 
       waydroid.enable = mkIf (elem "waydroid" config.fleet.virtualisation.tools) true;
+
+  ##############################################################################
+  # LIBVIRTD
+  ##############################################################################
 
       libvirtd = mkIf (elem "libvirtd" config.fleet.virtualisation.tools) {
         enable = true;
@@ -56,6 +71,21 @@ in
       };
     };
 
+    programs.virt-manager.enable = mkIf (elem "libvirtd" config.fleet.virtualisation.tools) true;
+
+  ##############################################################################
+  # GENERAL
+  ##############################################################################
+
+    users.users.${config.fleet.virtualisation.user} = {
+      # extraGroups = mkIf (elem "libvirtd" config.fleet.virtualisation.tools) [ "libvirtd" ];
+      # extraGroups = mkIf (elem "docker" config.fleet.virtualisation.tools) [ "docker" ];
+      # extraGroups = [
+      #   mkIf (elem "libvirtd" config.fleet.virtualisation.tools) "libvirtd"
+      #   mkIf (elem "docker" config.fleet.virtualisation.tools) "docker"
+      # ];
+      extraGroups = filter (g: elem g config.fleet.virtualisation.tools) possibleTools;
+    };
 
   };
 }

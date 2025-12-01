@@ -28,7 +28,7 @@ let
   sync-ids = import "${secrets}/syncthing-ids.nix";
 in {
   options = {
-    syncthing = {
+    fleet.services.syncthing = {
       enable = mkOption {
         type = types.bool;
         default = false;
@@ -44,7 +44,7 @@ in {
     };
   };
   
-  config = mkIf (config.syncthing.enable) {
+  config = mkIf (config.fleet.services.syncthing.enable) {
     services.syncthing = {
       enable = true;
       user = "marci";
@@ -67,17 +67,17 @@ in {
         folders = {
           "wallpapers" = {
             path =
-              if config.syncthing.storeInBackupLocation then "/var/lib/syncthing/wallpapers"
+              if config.fleet.services.syncthing.storeInBackupLocation then "/var/lib/syncthing/wallpapers"
               else "/home/marci/Pictures/wallpapers";
             devices = devices-with-phone;
           };
           "obsidian" = {
             # path = "/home/marci/sync/obsidian";
             path =
-              if config.syncthing.storeInBackupLocation then "/var/lib/syncthing/obsidian"
+              if config.fleet.services.syncthing.storeInBackupLocation then "/var/lib/syncthing/obsidian"
               else "/home/marci/sync/obsidian";
             devices = devices-with-phone;
-            versioning = mkIf (config.syncthing.versioning) {
+            versioning = mkIf (config.fleet.services.syncthing.versioning) {
               type = "staggered";
               params = {
                 cleanInterval = "3600";
@@ -87,10 +87,10 @@ in {
           };
           "logseq" = {
             path =
-              if config.syncthing.storeInBackupLocation then "/var/lib/syncthing/logseq"
+              if config.fleet.services.syncthing.storeInBackupLocation then "/var/lib/syncthing/logseq"
               else "/home/marci/logseq";
             devices = devices-with-phone;
-            versioning = mkIf (config.syncthing.versioning) {
+            versioning = mkIf (config.fleet.services.syncthing.versioning) {
               type = "staggered";
               params = {
                 cleanInterval = "3600";
@@ -100,10 +100,10 @@ in {
           };
           "live" = {
             path =
-              if config.syncthing.storeInBackupLocation then "/var/lib/syncthing/live"
+              if config.fleet.services.syncthing.storeInBackupLocation then "/var/lib/syncthing/live"
               else "/home/marci/sync/live";
             devices = devices-without-phone;
-            versioning = mkIf (config.syncthing.versioning) {
+            versioning = mkIf (config.fleet.services.syncthing.versioning) {
               type = "staggered";
               params = {
                 cleanInterval = "3600";
@@ -113,10 +113,10 @@ in {
           };
           "linux" = {
             path =
-              if config.syncthing.storeInBackupLocation then "/var/lib/syncthing/linux"
+              if config.fleet.services.syncthing.storeInBackupLocation then "/var/lib/syncthing/linux"
               else "/home/marci/sync/linux";
             devices = devices-without-phone;
-            versioning = mkIf (config.syncthing.versioning) {
+            versioning = mkIf (config.fleet.services.syncthing.versioning) {
               type = "staggered";
               params = {
                 cleanInterval = "3600";
@@ -126,10 +126,10 @@ in {
           };
           "idle" = {
             path =
-              if config.syncthing.storeInBackupLocation then "/var/lib/syncthing/idle"
+              if config.fleet.services.syncthing.storeInBackupLocation then "/var/lib/syncthing/idle"
               else "/home/marci/sync/idle";
             devices = devices-without-phone;
-            versioning = mkIf (config.syncthing.versioning) {
+            versioning = mkIf (config.fleet.services.syncthing.versioning) {
               type = "staggered";
               params = {
                 cleanInterval = "3600";
@@ -139,10 +139,10 @@ in {
           };
           "archive" = {
             path =
-              if config.syncthing.storeInBackupLocation then "/var/lib/syncthing/archive"
+              if config.fleet.services.syncthing.storeInBackupLocation then "/var/lib/syncthing/archive"
               else "/home/marci/sync/archive";
             devices = devices-without-phone;
-            versioning = mkIf (config.syncthing.versioning) {
+            versioning = mkIf (config.fleet.services.syncthing.versioning) {
               type = "staggered";
               params = {
                 cleanInterval = "3600";
@@ -152,10 +152,10 @@ in {
           };
           "dev" = {
             path =
-              if config.syncthing.storeInBackupLocation then "/var/lib/syncthing/dev"
+              if config.fleet.services.syncthing.storeInBackupLocation then "/var/lib/syncthing/dev"
               else "/home/marci/dev";
             devices = devices-without-phone;
-            versioning = mkIf (config.syncthing.versioning) {
+            versioning = mkIf (config.fleet.services.syncthing.versioning) {
               type = "staggered";
               params = {
                 cleanInterval = "3600";
@@ -165,10 +165,10 @@ in {
           };
           "phone" = {
             path =
-              if config.syncthing.storeInBackupLocation then "/var/lib/syncthing/phone"
+              if config.fleet.services.syncthing.storeInBackupLocation then "/var/lib/syncthing/phone"
               else "/home/marci/phone";
             devices = devices-with-phone;
-            versioning = mkIf (config.syncthing.versioning) {
+            versioning = mkIf (config.fleet.services.syncthing.versioning) {
               type = "staggered";
               params = {
                 cleanInterval = "3600";
@@ -179,7 +179,7 @@ in {
           "nix" = { # for nix I dont make a btrfs backup since it is version controlled by git
             path = "/home/marci/nix";
             devices = devices-with-phone;
-            versioning = mkIf (config.syncthing.versioning) {
+            versioning = mkIf (config.fleet.services.syncthing.versioning) {
               type = "staggered";
               params = {
                 cleanInterval = "3600";
@@ -197,7 +197,7 @@ in {
 
     home-manager.users.${vars.user} = {
       # setup ignore files
-      home.file."sync/obsidian/.stignore".text = if (config.syncthing.storeInBackupLocation == false) then '' 
+      home.file."sync/obsidian/.stignore".text = if (config.fleet.services.syncthing.storeInBackupLocation == false) then '' 
         .obsidian
       ''
       else "";
@@ -211,7 +211,7 @@ in {
       #   .git
       # '';
     };
-    systemd.tmpfiles.rules = if config.syncthing.storeInBackupLocation then [
+    systemd.tmpfiles.rules = if config.fleet.services.syncthing.storeInBackupLocation then [
       "f /var/lib/syncthing/obsidian/.stignore 755 marci syncthing"
       "w /var/lib/syncthing/obsidian/.stignore - - - - .obsidian"
     ]

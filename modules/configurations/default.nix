@@ -6,4 +6,5 @@
   ./plymouth.nix
   ./graphics.nix
   ./fonts.nix
+  ./development.nix
 ]

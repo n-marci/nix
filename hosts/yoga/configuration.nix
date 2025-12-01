@@ -6,18 +6,28 @@
       import ../../modules/desktops ++
       import ../../modules/programs ++
       import ../../modules/services
-    ) ++ ([ # Include the results of the hardware scan.
+    ) ++ ([
+      ../baremetals.nix
+      ../common.nix
+      ../desktops.nix
+      ../mobile.nix
       ./hardware-configuration.nix
-      # inputs.sops-nix.nixosModules.sops
+      # sops-nix.nixosModules.sops
     ]);
 
   ##############################################################################
   # my modules
   ##############################################################################
 
-  fleet.graphics = {
-    enable = true;
-    hardware = "intel";
+  fleet = {
+    # graphics = {
+    #   enable = true;
+    #   hardware = "intel";
+    # };
+
+    plymouth.enable = true;
+
+    services.syncthing.enable = true;
   };
 
   ##############################################################################
@@ -34,16 +44,6 @@
   # boot.kernelPackages = pkgs.linuxPackages_6_7;
   boot.kernelPackages = pkgs.linuxPackages_latest;
   # boot.initrd.kernelModules = [ "amdgpu" ];
-
-  boot = {
-    kernelParams = [
-      #########################################
-      # Energy savings maybe?
-      #########################################
-      "mem_sleep_default=deep" 
-      "pcie_aspm.policy=powersupersave" 
-    ];
-  };
 
   ##############################################################################
   # sops-nix secrets

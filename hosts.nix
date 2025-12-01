@@ -14,6 +14,7 @@ in
   yoga = {
     ip = "dynamic";
     user = "marci";
+    graphics = "intel";
     tags = [
       "desktop"
     ];
@@ -25,6 +26,7 @@ in
   desktop = {
     ip = "dynamic";
     user = "marci";
+    graphics = "nvidia";
     tags = [
       "desktop"
     ];

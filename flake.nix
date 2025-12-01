@@ -46,7 +46,7 @@
   # OUTPUTS
   ##############################################################################
 
-  outputs = inputs @ { self, nixpkgs, nixpkgs-stable, nixpkgs-unstable, home-manager, disko, microvm, colmena, flatpaks, secrets, ... }:
+  outputs = inputs @ { self, nixpkgs, nixpkgs-stable, nixpkgs-unstable, sops-nix, home-manager, disko, microvm, colmena, flatpaks, secrets, ... }:
     let
       # vars = {
       #   user = "marci";
@@ -76,22 +76,36 @@
           nodeSpecialArgs = {
             desktop = {
               user = hosts.desktop.user;
+              graphics = hosts.desktop.graphics;
             };
             yoga = {
               user = hosts.yoga.user;
+              graphics = hosts.yoga.graphics;
             };
           };
-          # specialArgs = {
-          #   inherit hosts;
-          # };
+          specialArgs = {
+            # inherit stable;
+            # inherit unstable;
+            sops-nix = sops-nix;
+          };
         };
         _module.args = {
-          inputs = inputs;
+          # inputs = inputs;
           stable = stable;
           unstable = unstable;
+          # sops-nix = inputs.sops-nix;
         };
         
       # }
+
+  ##############################################################################
+  # DEFAULTS
+  ##############################################################################
+        defaults = {
+          imports = [
+            sops-nix.nixosModules.sops
+          ];
+        };
 
   ##############################################################################
   # DESKTOPS
@@ -125,7 +139,7 @@
           imports = [
             ./hosts/yoga/configuration.nix
             # ./configuration.nix
-            ./hosts/common.nix
+            # ./hosts/common.nix
             # ./hosts/mobile.nix
 
             flatpaks.nixosModules.nix-flatpak

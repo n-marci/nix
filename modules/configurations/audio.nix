@@ -11,7 +11,7 @@ in
   # OPTIONS
   ##############################################################################
 
-  options.audio= {
+  options.fleet.audio= {
     enable = mkEnableOption "Enable audio";
   };
   
@@ -19,7 +19,7 @@ in
   # CONFIG
   ##############################################################################
 
-  config = mkIf (config.audio.enable) {
+  config = mkIf (config.fleet.audio.enable) {
     security.rtkit.enable = true;
     services.pulseaudio.enable = false;
     services.pipewire = {

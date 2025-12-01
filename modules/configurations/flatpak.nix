@@ -11,7 +11,7 @@ in
   # OPTIONS
   ##############################################################################
 
-  options.flatpak = {
+  options.fleet.flatpak = {
     enable = mkEnableOption "Enable flatpak application usage";
 
     apps = mkOption {
@@ -30,17 +30,17 @@ in
       description = "my default flatpak apps";
     };
 
-    gnome = mkOption {
-      type = types.bool;
-      default = false;
-    };
+    # gnome = mkOption {
+    #   type = types.bool;
+    #   default = config.fleet.gnome.enable;
+    # };
   };
   
   ##############################################################################
   # CONFIG
   ##############################################################################
 
-  config = mkIf (config.flatpak.enable) {
+  config = mkIf (config.fleet.flatpak.enable) {
     fonts.fontDir.enable = true; # needed for flatpak to use the right cursor and fonts
     services.flatpak.enable = true;
     # non-declarative steps (only needed without the nix-flatpak module)
@@ -82,7 +82,7 @@ in
   ##############################################################################
 
     services.flatpak = {
-      packages = config.flatpak.apps;
+      packages = config.fleet.flatpak.apps;
 
       update.auto = {
         enable = true;
@@ -93,13 +93,15 @@ in
         global = {
           Environment = {
             # Force Wayland by default
-            Context.sockets = ["wayland" "!x11" "!fallback-x11"];
+            # Context.sockets = [ "wayland" "!x11" "!fallback-x11" ];
+            Context = [ "wayland" "!x11" "!fallback-x11" ];
 
             # Fix un-themed cursor in some Wayland apps
             XCURSOR_PATH = "/run/host/user-share/icons:/run/host/share/icons";
 
             # Force correct theme for some GTK apps
-            GTK_THEME = "Adwaita:dark";
+            # GTK_THEME = "Adwaita:dark";
+            GTK_THEME = "adw-gtk3:dark";
           };
         };
 
@@ -124,35 +126,35 @@ in
   ##############################################################################
 
     # This should enable the right cursor and fonts in flatpak applications
-    system.fsPackages = mkIf (config.flatpak.gnome) [ pkgs.bindfs ];
-    fileSystems = let mkRoSymBind = path: {
-        device = path;
-        fsType = "fuse.bindfs";
-        options = [ "ro" "resolve-symlinks" "x-gvfs-hide" ];
-      };
-      aggregatedIcons = pkgs.buildEnv {
-        name = "system-icons";
-        paths = with pkgs; [
-          #libsForQt5.breeze-qt5  # for plasma
-          # bibata-cursors-translucent
-          comixcursors.Opaque_Black
-          comixcursors.Opaque_Slim_Black
-          comixcursors.Opaque_White
-          comixcursors.Opaque_Slim_White
-          vimix-cursors
-          bibata-cursors
-          gnome-themes-extra
-        ];
-        pathsToLink = [ "/share/icons" ];
-      };
-      aggregatedFonts = pkgs.buildEnv {
-        name = "system-fonts";
-        paths = config.fonts.packages;
-        pathsToLink = [ "/share/fonts" ];
-      };
-    in {
-      "/usr/share/icons" = mkIf (config.flatpak.gnome) mkRoSymBind "${aggregatedIcons}/share/icons";
-      "/usr/local/share/fonts" = mkIf (config.flatpak.gnome) mkRoSymBind "${aggregatedFonts}/share/fonts";
-    };
+    # system.fsPackages = mkIf (config.fleet.flatpak.gnome) [ pkgs.bindfs ];
+    # fileSystems = let mkRoSymBind = path: {
+    #     device = path;
+    #     fsType = "fuse.bindfs";
+    #     options = [ "ro" "resolve-symlinks" "x-gvfs-hide" ];
+    #   };
+    #   aggregatedIcons = pkgs.buildEnv {
+    #     name = "system-icons";
+    #     paths = with pkgs; [
+    #       #libsForQt5.breeze-qt5  # for plasma
+    #       # bibata-cursors-translucent
+    #       comixcursors.Opaque_Black
+    #       comixcursors.Opaque_Slim_Black
+    #       comixcursors.Opaque_White
+    #       comixcursors.Opaque_Slim_White
+    #       vimix-cursors
+    #       bibata-cursors
+    #       gnome-themes-extra
+    #     ];
+    #     pathsToLink = [ "/share/icons" ];
+    #   };
+    #   aggregatedFonts = pkgs.buildEnv {
+    #     name = "system-fonts";
+    #     paths = config.fonts.packages;
+    #     pathsToLink = [ "/share/fonts" ];
+    #   };
+    # in {
+    #   "/usr/share/icons" = mkIf (config.fleet.flatpak.gnome) mkRoSymBind "${aggregatedIcons}/share/icons";
+    #   "/usr/local/share/fonts" = mkIf (config.fleet.flatpak.gnome) mkRoSymBind "${aggregatedFonts}/share/fonts";
+    # };
   };
 }

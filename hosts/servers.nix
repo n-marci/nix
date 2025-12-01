@@ -34,7 +34,7 @@
   };
 
   services.tailscale = {
-    enable = true;
+    # enable = true; # already enabled in common.nix
     extraUpFlags = [ "--ssh" ];
     # extraUpFlags = [ "--ssh" "--accept-routes" ];
       # -> used it in proxmox and I was able to use nextcloud

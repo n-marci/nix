@@ -155,289 +155,289 @@
     #   c3 = "sgpt --model gpt-3.5-turbo --role custom-chat --chat";
     # };
 
-    systemPackages = (with unstable; [
-      # cli tools
-      nh # nix helper - upgrade command nh os switch
-      sops
-      neovim
-      comma # wrapper around nix shell, to run programs without installing them
-      # zathura
-      # helix
-      pdfgrep
-      wget
-      git
-      wl-clipboard
-      mpv
-      tldr
-      btop
-      ttyper
-      ntfs3g
-      nssmdns # needed by avahi-daemon i guess
-      ghostscript
-      imagemagick
-      ffmpeg
-      translate-shell  # move to script if i write a nixpkg for it
-      # python311Packages.gtts
-      # piper-tts
-      python312Packages.langid
-      keyd  # key remapper for my sweet super key on the mouse button
-      shell-gpt
-      aichat
-      # llm
-      inotify-tools
-      distrobox
-      fzf
-      zellij
-      texliveFull
-      # waypipe
-      # poetry
-      # conda # out of date
-      # micromamba
-      mesa
-      clamav
-      arduino-cli
-      pioasm
-      minicom
-      piper-tts
-      julia-bin
-      qmk
-      qmk-udev-rules
+    # systemPackages = (with unstable; [
+    #   # cli tools
+    #   # nh # nix helper - upgrade command nh os switch
+    #   # sops
+    #   # neovim
+    #   comma # wrapper around nix shell, to run programs without installing them
+    #   # zathura
+    #   # helix
+    #   pdfgrep
+    #   # wget
+    #   # git
+    #   wl-clipboard
+    #   mpv
+    #   # tldr
+    #   # btop
+    #   ttyper
+    #   ntfs3g
+    #   nssmdns # needed by avahi-daemon i guess
+    #   ghostscript
+    #   imagemagick
+    #   ffmpeg
+    #   translate-shell  # move to script if i write a nixpkg for it
+    #   # python311Packages.gtts
+    #   # piper-tts
+    #   python312Packages.langid
+    #   keyd  # key remapper for my sweet super key on the mouse button
+    #   shell-gpt
+    #   aichat
+    #   # llm
+    #   inotify-tools
+    #   distrobox
+    #   fzf
+    #   zellij
+    #   texliveFull
+    #   # waypipe
+    #   # poetry
+    #   # conda # out of date
+    #   # micromamba
+    #   mesa
+    #   clamav
+    #   arduino-cli
+    #   pioasm
+    #   minicom
+    #   piper-tts
+    #   julia-bin
+    #   qmk
+    #   qmk-udev-rules
 
-      # eye candy cli programs
-      # cli-visualizer  # it is no longer available on github :((
-      scope-tui
+    #   # eye candy cli programs
+    #   # cli-visualizer  # it is no longer available on github :((
+    #   scope-tui
 
-      # language servers
-      nil # nix lsp
-      clang-tools  # c lsp
-      python312Packages.python-lsp-server  # python lsp (unfort. there is no 'latest' option)
-      marksman  # markdown lsp
-      # nodePackages.bash-language-server  # bash lsp
-      cmake-language-server  # cmake lsp
-      texlab
-      bibtex-tidy
-      ltex-ls
-      arduino-language-server
-      ruff
-      python313Packages.python-lsp-ruff
+    #   # language servers
+    #   nil # nix lsp
+    #   clang-tools  # c lsp
+    #   python312Packages.python-lsp-server  # python lsp (unfort. there is no 'latest' option)
+    #   marksman  # markdown lsp
+    #   # nodePackages.bash-language-server  # bash lsp
+    #   cmake-language-server  # cmake lsp
+    #   texlab
+    #   bibtex-tidy
+    #   ltex-ls
+    #   arduino-language-server
+    #   ruff
+    #   python313Packages.python-lsp-ruff
 
-      # virtualisation
-      distrobox
-      virt-manager
-      winboat # windows apps
-      freerdp
+    #   # virtualisation
+    #   distrobox
+    #   virt-manager
+    #   winboat # windows apps
+    #   freerdp
 
-      # terminals 
-      gnome-terminal
-      ptyxis
-      ghostty
-      alacritty
+    #   # terminals 
+    #   gnome-terminal
+    #   ptyxis
+    #   ghostty
+    #   alacritty
 
-      # images
-      inkscape
-      gimp
-      oculante
-      drawio
-      gradia
+    #   # images
+    #   inkscape
+    #   gimp
+    #   oculante
+    #   drawio
+    #   gradia
 
-      # audio
-      spotify
-      # helvum
-      qpwgraph
-      alsa-lib
-      alsa-utils
+    #   # audio
+    #   spotify
+    #   # helvum
+    #   qpwgraph
+    #   alsa-lib
+    #   alsa-utils
 
-      # documents
-      libreoffice-still
-      xournalpp
-      rnote                  # https://github.com/flxzt/rnote
-      zotero
-      papers
-      # gscan2pdf
+    #   # documents
+    #   libreoffice-still
+    #   xournalpp
+    #   rnote                  # https://github.com/flxzt/rnote
+    #   zotero
+    #   papers
+    #   # gscan2pdf
 
-      # browser
-      brave
-      firefox
-      librewolf
+    #   # browser
+    #   brave
+    #   firefox
+    #   librewolf
 
-      # engineering
-      kicad-small
-      simulide
+    #   # engineering
+    #   kicad-small
+    #   simulide
 
-      # LLMs
-      # newelle
+    #   # LLMs
+    #   # newelle
       
-      # gui program
-      thunderbird
-      remmina
-      keepassxc
-      gnome-extension-manager
-      # (obsidian.overrideAttrs (oldAttrs: {
+    #   # gui program
+    #   thunderbird
+    #   remmina
+    #   keepassxc
+    #   gnome-extension-manager
+    #   # (obsidian.overrideAttrs (oldAttrs: {
         
-      # })
-      # obsidian
-      # logseq
-      # obsidianDesktopEntry
-      # anytype
-      # protonmail-bridge
-      # protonmail-bridge-gui
-      # protonmail-desktop
-      # freecad
-      # alpaca
-      # (blender.override {
-      #   cudaSupport = true;
-      # })
-      kdePackages.kasts
+    #   # })
+    #   # obsidian
+    #   # logseq
+    #   # obsidianDesktopEntry
+    #   # anytype
+    #   # protonmail-bridge
+    #   # protonmail-bridge-gui
+    #   # protonmail-desktop
+    #   # freecad
+    #   # alpaca
+    #   # (blender.override {
+    #   #   cudaSupport = true;
+    #   # })
+    #   kdePackages.kasts
 
-      # cursors
-      comixcursors.Opaque_Black
-      # comixcursors.Opaque_Slim_Black
-      # comixcursors.Opaque_White
-      # comixcursors.Opaque_Slim_White
-      # volantes-cursors
-      # vimix-cursors
-      # bibata-cursors-translucent
-      # bibata-cursors
+    #   # cursors
+    #   comixcursors.Opaque_Black
+    #   # comixcursors.Opaque_Slim_Black
+    #   # comixcursors.Opaque_White
+    #   # comixcursors.Opaque_Slim_White
+    #   # volantes-cursors
+    #   # vimix-cursors
+    #   # bibata-cursors-translucent
+    #   # bibata-cursors
 
-      # temporary programs
-      # libsForQt5.kdenlive
-      # glaxnimate            # needed for kdenlive
+    #   # temporary programs
+    #   # libsForQt5.kdenlive
+    #   # glaxnimate            # needed for kdenlive
 
-      # programs to watch development
-      # muzika                 # https://github.com/vixalien/muzika
-      # waypipe
-      # moonlight-qt        # https://moonlight-stream.org/
-      # sunshine            # https://github.com/LizardByte/Sunshine
-    ]) ++ (with pkgs; [
-      # micromamba
-      microfetch                  # dummy package so i can have nixpkgs version here
-    ]) ++ (with stable; [
+    #   # programs to watch development
+    #   # muzika                 # https://github.com/vixalien/muzika
+    #   # waypipe
+    #   # moonlight-qt        # https://moonlight-stream.org/
+    #   # sunshine            # https://github.com/LizardByte/Sunshine
+    # ]) ++ (with pkgs; [
+    #   # micromamba
+    #   microfetch                  # dummy package so i can have nixpkgs version here
+    # ]) ++ (with stable; [
 
-      ### packages with build problems in unstable ###
-      ### packages with build problems in unstable ###
-      gscan2pdf
-      ### packages which need to build from source in unstable ###
-      ### packages which need to build from source in unstable ###
+    #   ### packages with build problems in unstable ###
+    #   ### packages with build problems in unstable ###
+    #   # gscan2pdf
+    #   ### packages which need to build from source in unstable ###
+    #   ### packages which need to build from source in unstable ###
 
-      # gaphor
-      htop                  # dummy package so i can have stable pkgs here
-      # blender-hip
-    ]);
+    #   # gaphor
+    #   # htop                  # dummy package so i can have stable pkgs here
+    #   # blender-hip
+    # ]);
   };
 
   # maybe put indo module
   # programs.fzf.enable = true;
-  programs.fzf = {
-    keybindings = true;
-    fuzzyCompletion = true;
-  };
+  # programs.fzf = {
+  #   keybindings = true;
+  #   fuzzyCompletion = true;
+  # };
 
-  programs.virt-manager.enable = true;
+  # programs.virt-manager.enable = true;
 
   # configured services
-  syncthing.enable = true;
+  # syncthing.enable = true;
 
   # other services
-  hardware.enableAllFirmware = true;
-  services.fwupd.enable = true;
-  # SSD enable fstrim
-  services.fstrim.enable = true;
-  # zram swap (info: https://libreddit.tiekoetter.com/r/linux/comments/11dkhz7/zswap_vs_zram_in_2023_whats_the_actual_practical/ ) 
-  zramSwap.enable = true;
-  zramSwap.memoryPercent = 200;
-  boot.kernel.sysctl = { "vm.swappiness" = lib.mkForce 80; };
-  # Enable CUPS to print documents.
-  services.printing = {
-    enable = true;
-    drivers = with pkgs; [ /*mfcl2700dnlpr*/ brlaser ]; # brlaser 
-  };
-  services.avahi = {
-    enable = true;
-    nssmdns4 = true;
-    openFirewall = true;
-  };
+  # hardware.enableAllFirmware = true;
+  # services.fwupd.enable = true;
+  # # SSD enable fstrim
+  # services.fstrim.enable = true;
+  # # zram swap (info: https://libreddit.tiekoetter.com/r/linux/comments/11dkhz7/zswap_vs_zram_in_2023_whats_the_actual_practical/ ) 
+  # zramSwap.enable = true;
+  # zramSwap.memoryPercent = 200;
+  # boot.kernel.sysctl = { "vm.swappiness" = lib.mkForce 80; };
+  # # Enable CUPS to print documents.
+  # services.printing = {
+  #   enable = true;
+  #   drivers = with pkgs; [ /*mfcl2700dnlpr*/ brlaser ]; # brlaser 
+  # };
+  # services.avahi = {
+  #   enable = true;
+  #   nssmdns4 = true;
+  #   openFirewall = true;
+  # };
 
-  # Enable SANE to scan documents
-  hardware.sane = {
-    enable = true;
-    extraBackends = [ pkgs.sane-airscan ];
-    brscan4 = {
-      enable = true;
-    };
-  };
-  services.ipp-usb.enable = true;
+  # # Enable SANE to scan documents
+  # hardware.sane = {
+  #   enable = true;
+  #   extraBackends = [ pkgs.sane-airscan ];
+  #   brscan4 = {
+  #     enable = true;
+  #   };
+  # };
+  # services.ipp-usb.enable = true;
 
-  services.udev.extraRules = ''
-    # udev rule for user level access to Preonic keyboard connected with USB
-    SUBSYSTEMS=="usb", ATTRS{idVendor}=="0483", MODE:="0666"
+  # services.udev.extraRules = ''
+  #   # udev rule for user level access to Preonic keyboard connected with USB
+  #   SUBSYSTEMS=="usb", ATTRS{idVendor}=="0483", MODE:="0666"
 
-    # udev rule for user level access to Arduino Uno R4 connected with USB
-    SUBSYSTEMS=="usb", ATTRS{idVendor}=="2341", MODE:="0666"
+  #   # udev rule for user level access to Arduino Uno R4 connected with USB
+  #   SUBSYSTEMS=="usb", ATTRS{idVendor}=="2341", MODE:="0666"
 
-    # make raspberry pi pico accessible without sudo
-    SUBSYSTEMS=="usb", ATTRS{idVendor}=="2e8a", MODE:="0666"
-    # SUBSYSTEM!="usb_device", ACTION!="add", GOTO="rpi2_end"
-    # Raspberry Pi Pico
-    # ATTR{idVendor}=="2e8a", ATTRS{idProduct}=="000f", MODE="660", GROUP="plugdev"
-    # LABEL="rpi2_end"
+  #   # make raspberry pi pico accessible without sudo
+  #   SUBSYSTEMS=="usb", ATTRS{idVendor}=="2e8a", MODE:="0666"
+  #   # SUBSYSTEM!="usb_device", ACTION!="add", GOTO="rpi2_end"
+  #   # Raspberry Pi Pico
+  #   # ATTR{idVendor}=="2e8a", ATTRS{idProduct}=="000f", MODE="660", GROUP="plugdev"
+  #   # LABEL="rpi2_end"
 
-    # udev rules to make ubports installer work (installed in distrobox deb-13)
-    SUBSYSTEM=="usb", ATTRS{idVendor}=="0e79", MODE="0666", GROUP="plugdev"
-    SUBSYSTEM=="usb", ATTRS{idVendor}=="0502", MODE="0666", GROUP="plugdev"
-    SUBSYSTEM=="usb", ATTRS{idVendor}=="0b05", MODE="0666", GROUP="plugdev"
-    SUBSYSTEM=="usb", ATTRS{idVendor}=="413c", MODE="0666", GROUP="plugdev"
-    SUBSYSTEM=="usb", ATTRS{idVendor}=="0489", MODE="0666", GROUP="plugdev"
-    SUBSYSTEM=="usb", ATTRS{idVendor}=="091e", MODE="0666", GROUP="plugdev"
-    SUBSYSTEM=="usb", ATTRS{idVendor}=="18d1", MODE="0666", GROUP="plugdev"
-    SUBSYSTEM=="usb", ATTRS{idVendor}=="0bb4", MODE="0666", GROUP="plugdev"
-    SUBSYSTEM=="usb", ATTRS{idVendor}=="12d1", MODE="0666", GROUP="plugdev"
-    SUBSYSTEM=="usb", ATTRS{idVendor}=="24e3", MODE="0666", GROUP="plugdev"
-    SUBSYSTEM=="usb", ATTRS{idVendor}=="2116", MODE="0666", GROUP="plugdev"
-    SUBSYSTEM=="usb", ATTRS{idVendor}=="0482", MODE="0666", GROUP="plugdev"
-    SUBSYSTEM=="usb", ATTRS{idVendor}=="17ef", MODE="0666", GROUP="plugdev"
-    SUBSYSTEM=="usb", ATTRS{idVendor}=="1004", MODE="0666", GROUP="plugdev"
-    SUBSYSTEM=="usb", ATTRS{idVendor}=="22b8", MODE="0666", GROUP="plugdev"
-    SUBSYSTEM=="usb", ATTRS{idVendor}=="0409", MODE="0666", GROUP="plugdev"
-    SUBSYSTEM=="usb", ATTRS{idVendor}=="2080", MODE="0666", GROUP="plugdev"
-    SUBSYSTEM=="usb", ATTRS{idVendor}=="0955", MODE="0666", GROUP="plugdev"
-    SUBSYSTEM=="usb", ATTRS{idVendor}=="2257", MODE="0666", GROUP="plugdev"
-    SUBSYSTEM=="usb", ATTRS{idVendor}=="10a9", MODE="0666", GROUP="plugdev"
-    SUBSYSTEM=="usb", ATTRS{idVendor}=="1d4d", MODE="0666", GROUP="plugdev"
-    SUBSYSTEM=="usb", ATTRS{idVendor}=="0471", MODE="0666", GROUP="plugdev"
-    SUBSYSTEM=="usb", ATTRS{idVendor}=="04da", MODE="0666", GROUP="plugdev"
-    SUBSYSTEM=="usb", ATTRS{idVendor}=="05c6", MODE="0666", GROUP="plugdev"
-    SUBSYSTEM=="usb", ATTRS{idVendor}=="1f53", MODE="0666", GROUP="plugdev"
-    SUBSYSTEM=="usb", ATTRS{idVendor}=="04e8", MODE="0666", GROUP="plugdev"
-    SUBSYSTEM=="usb", ATTRS{idVendor}=="04dd", MODE="0666", GROUP="plugdev"
-    SUBSYSTEM=="usb", ATTRS{idVendor}=="0fce", MODE="0666", GROUP="plugdev"
-    SUBSYSTEM=="usb", ATTRS{idVendor}=="0930", MODE="0666", GROUP="plugdev"
-    SUBSYSTEM=="usb", ATTRS{idVendor}=="19d2", MODE="0666", GROUP="plugdev"
-    SUBSYSTEM=="usb", ATTRS{idVendor}=="2ae5", MODE="0666", GROUP="plugdev"
-    SUBSYSTEM=="usb", ATTRS{idVendor}=="2a45", MODE="0666", GROUP="plugdev"
+  #   # udev rules to make ubports installer work (installed in distrobox deb-13)
+  #   SUBSYSTEM=="usb", ATTRS{idVendor}=="0e79", MODE="0666", GROUP="plugdev"
+  #   SUBSYSTEM=="usb", ATTRS{idVendor}=="0502", MODE="0666", GROUP="plugdev"
+  #   SUBSYSTEM=="usb", ATTRS{idVendor}=="0b05", MODE="0666", GROUP="plugdev"
+  #   SUBSYSTEM=="usb", ATTRS{idVendor}=="413c", MODE="0666", GROUP="plugdev"
+  #   SUBSYSTEM=="usb", ATTRS{idVendor}=="0489", MODE="0666", GROUP="plugdev"
+  #   SUBSYSTEM=="usb", ATTRS{idVendor}=="091e", MODE="0666", GROUP="plugdev"
+  #   SUBSYSTEM=="usb", ATTRS{idVendor}=="18d1", MODE="0666", GROUP="plugdev"
+  #   SUBSYSTEM=="usb", ATTRS{idVendor}=="0bb4", MODE="0666", GROUP="plugdev"
+  #   SUBSYSTEM=="usb", ATTRS{idVendor}=="12d1", MODE="0666", GROUP="plugdev"
+  #   SUBSYSTEM=="usb", ATTRS{idVendor}=="24e3", MODE="0666", GROUP="plugdev"
+  #   SUBSYSTEM=="usb", ATTRS{idVendor}=="2116", MODE="0666", GROUP="plugdev"
+  #   SUBSYSTEM=="usb", ATTRS{idVendor}=="0482", MODE="0666", GROUP="plugdev"
+  #   SUBSYSTEM=="usb", ATTRS{idVendor}=="17ef", MODE="0666", GROUP="plugdev"
+  #   SUBSYSTEM=="usb", ATTRS{idVendor}=="1004", MODE="0666", GROUP="plugdev"
+  #   SUBSYSTEM=="usb", ATTRS{idVendor}=="22b8", MODE="0666", GROUP="plugdev"
+  #   SUBSYSTEM=="usb", ATTRS{idVendor}=="0409", MODE="0666", GROUP="plugdev"
+  #   SUBSYSTEM=="usb", ATTRS{idVendor}=="2080", MODE="0666", GROUP="plugdev"
+  #   SUBSYSTEM=="usb", ATTRS{idVendor}=="0955", MODE="0666", GROUP="plugdev"
+  #   SUBSYSTEM=="usb", ATTRS{idVendor}=="2257", MODE="0666", GROUP="plugdev"
+  #   SUBSYSTEM=="usb", ATTRS{idVendor}=="10a9", MODE="0666", GROUP="plugdev"
+  #   SUBSYSTEM=="usb", ATTRS{idVendor}=="1d4d", MODE="0666", GROUP="plugdev"
+  #   SUBSYSTEM=="usb", ATTRS{idVendor}=="0471", MODE="0666", GROUP="plugdev"
+  #   SUBSYSTEM=="usb", ATTRS{idVendor}=="04da", MODE="0666", GROUP="plugdev"
+  #   SUBSYSTEM=="usb", ATTRS{idVendor}=="05c6", MODE="0666", GROUP="plugdev"
+  #   SUBSYSTEM=="usb", ATTRS{idVendor}=="1f53", MODE="0666", GROUP="plugdev"
+  #   SUBSYSTEM=="usb", ATTRS{idVendor}=="04e8", MODE="0666", GROUP="plugdev"
+  #   SUBSYSTEM=="usb", ATTRS{idVendor}=="04dd", MODE="0666", GROUP="plugdev"
+  #   SUBSYSTEM=="usb", ATTRS{idVendor}=="0fce", MODE="0666", GROUP="plugdev"
+  #   SUBSYSTEM=="usb", ATTRS{idVendor}=="0930", MODE="0666", GROUP="plugdev"
+  #   SUBSYSTEM=="usb", ATTRS{idVendor}=="19d2", MODE="0666", GROUP="plugdev"
+  #   SUBSYSTEM=="usb", ATTRS{idVendor}=="2ae5", MODE="0666", GROUP="plugdev"
+  #   SUBSYSTEM=="usb", ATTRS{idVendor}=="2a45", MODE="0666", GROUP="plugdev"
 
 
-  '';
+  # '';
 
-  services.keyd = {
-    enable = true;
-    keyboards = {
-      default = {
-        ids = [ "*" ];
-        settings = {
-          main = {
-            "stop" = "leftmeta";
-          };
-        };
-      };
-    };
-  };
+  # services.keyd = {
+  #   enable = true;
+  #   keyboards = {
+  #     default = {
+  #       ids = [ "*" ];
+  #       settings = {
+  #         main = {
+  #           "stop" = "leftmeta";
+  #         };
+  #       };
+  #     };
+  #   };
+  # };
 
-  services.clamav = {
-    updater = {
-      enable = true;
-      # interval = "hourly";
-    };
-  };
+  # services.clamav = {
+  #   updater = {
+  #     enable = true;
+  #     # interval = "hourly";
+  #   };
+  # };
 
   # services.protonmail-bridge = {
   #   enable = true;
@@ -445,9 +445,9 @@
   # };
 
   # services.ollama.enable = true;
-  services.ratbagd.enable = true;
-  services.tailscale.enable = true;
-  services.flatpak.enable = true;
+  # services.ratbagd.enable = true;
+  # services.tailscale.enable = true;
+  # services.flatpak.enable = true;
     # non-declarative steps
       # flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
       # flatpak update
@@ -466,37 +466,37 @@
       # more info: https://nixos.wiki/wiki/Fonts#Flatpak_applications_can.27t_find_system_fonts
 
   # This should enable the right cursor and fonts in flatpak applications
-  system.fsPackages = [ pkgs.bindfs ];
-  fileSystems = let
-    mkRoSymBind = path: {
-      device = path;
-      fsType = "fuse.bindfs";
-      options = [ "ro" "resolve-symlinks" "x-gvfs-hide" ];
-    };
-    aggregatedIcons = pkgs.buildEnv {
-      name = "system-icons";
-      paths = with pkgs; [
-        #libsForQt5.breeze-qt5  # for plasma
-        # bibata-cursors-translucent
-        comixcursors.Opaque_Black
-        comixcursors.Opaque_Slim_Black
-        comixcursors.Opaque_White
-        comixcursors.Opaque_Slim_White
-        vimix-cursors
-        bibata-cursors
-        gnome-themes-extra
-      ];
-      pathsToLink = [ "/share/icons" ];
-    };
-    aggregatedFonts = pkgs.buildEnv {
-      name = "system-fonts";
-      paths = config.fonts.packages;
-      pathsToLink = [ "/share/fonts" ];
-    };
-  in {
-    "/usr/share/icons" = mkRoSymBind "${aggregatedIcons}/share/icons";
-    "/usr/local/share/fonts" = mkRoSymBind "${aggregatedFonts}/share/fonts";
-  };
+  # system.fsPackages = [ pkgs.bindfs ];
+  # fileSystems = let
+  #   mkRoSymBind = path: {
+  #     device = path;
+  #     fsType = "fuse.bindfs";
+  #     options = [ "ro" "resolve-symlinks" "x-gvfs-hide" ];
+  #   };
+  #   aggregatedIcons = pkgs.buildEnv {
+  #     name = "system-icons";
+  #     paths = with pkgs; [
+  #       #libsForQt5.breeze-qt5  # for plasma
+  #       # bibata-cursors-translucent
+  #       comixcursors.Opaque_Black
+  #       comixcursors.Opaque_Slim_Black
+  #       comixcursors.Opaque_White
+  #       comixcursors.Opaque_Slim_White
+  #       vimix-cursors
+  #       bibata-cursors
+  #       gnome-themes-extra
+  #     ];
+  #     pathsToLink = [ "/share/icons" ];
+  #   };
+  #   aggregatedFonts = pkgs.buildEnv {
+  #     name = "system-fonts";
+  #     paths = config.fonts.packages;
+  #     pathsToLink = [ "/share/fonts" ];
+  #   };
+  # in {
+  #   "/usr/share/icons" = mkRoSymBind "${aggregatedIcons}/share/icons";
+  #   "/usr/local/share/fonts" = mkRoSymBind "${aggregatedFonts}/share/fonts";
+  # };
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.

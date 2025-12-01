@@ -1,7 +1,7 @@
-{ pkgs, vars, ... }:
+{ pkgs, user, ... }:
 
 {
-  home-manager.users.${vars.user} = {
+  home-manager.users.${user} = {
     programs = {
       helix = {
         enable = true;

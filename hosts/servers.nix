@@ -62,7 +62,15 @@
       options = [ "NOPASSWD" ];
     }
     {
+      command = "/run/current-system/sw/bin/switch-to-configuration";
+      options = [ "NOPASSWD" ];
+    }
+    {
       command = "/nix/store/*/bin/switch-to-configuration";
+      options = [ "NOPASSWD" ];
+    }
+    {
+      command = "/run/current-system/sw/bin/systemctl";
       options = [ "NOPASSWD" ];
     }];
   }];

@@ -202,16 +202,27 @@ in {
     sops = {
       secrets.syncthing-key = { };
       secrets.syncthing-cert = { };
-    };
+    }
 
     ##############################################################################
     # IGNORE FILES
     ##############################################################################
 
-    home-manager.users.${user} = mkIf (config ? home-manager && config.home-manager.enable or false && config.fleet.syncthing.storeInBackupLocation == false) {
-      home.file."sync/obsidian/.stignore".text = '' 
-        .obsidian
-      '';
+    # home-manager.users.${user} = mkIf (config.fleet.syncthing.storeInBackupLocation == false) {
+    #   home.file."sync/obsidian/.stignore".text = '' 
+    #     .obsidian
+    #   '';
+    # };
+    // optionalAttrs (config ? home-manager) {
+      home-manager = {
+        users = mkIf (config.fleet.syncthing.storeInBackupLocation == false) {
+          "${user}" = {
+            home.file."sync/obsidian/.stignore".text = ''
+              .obsidian
+            '';
+          };
+        };
+      };
     };
 
     systemd.tmpfiles.rules = mkIf (config.fleet.syncthing.storeInBackupLocation) [
@@ -219,4 +230,5 @@ in {
       "w /var/lib/syncthing/obsidian/.stignore - - - - .obsidian"
     ];
   };
+
 }

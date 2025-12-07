@@ -86,19 +86,19 @@
 
   system.stateVersion = "23.11"; # Did you read the comment?
 
-  home-manager.users.${user} = {
-    home = {
-      stateVersion = "23.11";
-    };
+  # home-manager.users.${user} = {
+  #   home = {
+  #     stateVersion = "23.11";
+  #   };
 
-    programs = {
-      home-manager.enable = true;
-    };
+  #   programs = {
+  #     home-manager.enable = true;
+  #   };
 
-    nix = {
-      # package = pkgs.nix;
-      settings.experimental-features = [ "nix-command" "flakes" ];
-    };
-  };
+  #   nix = {
+  #     # package = pkgs.nix;
+  #     settings.experimental-features = [ "nix-command" "flakes" ];
+  #   };
+  # };
 
 }

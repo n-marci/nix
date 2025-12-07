@@ -37,7 +37,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    colmena.url = "github:zhaofengli/colmena/?ref=v0.4.0";
+    colmena.url = "github:zhaofengli/colmena";
     flatpaks.url = "github:gmodena/nix-flatpak/?ref=latest";
     secrets.url = "git+ssh://git@github.com/n-marci/secrets.git";
   };
@@ -208,9 +208,11 @@
 
         inspirion = { name, ... }: {
           deployment = {
+            allowLocalDeployment = true;
             targetUser = hosts.inspirion.user; 
             buildOnTarget = true;
             tags = hosts.inspirion.tags;
+            sshOptions = [ "-t" ];
           };
 
           imports = [

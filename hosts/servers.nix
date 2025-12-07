@@ -32,6 +32,7 @@
 
   nix = {
     gc.options = "--delete-older-than 30d";
+    settings.trusted-users = [ "@wheel" ]; # might be needed so I can enable colmena remote cache
   };
 
   ##############################################################################
@@ -62,7 +63,15 @@
       options = [ "NOPASSWD" ];
     }
     {
+      command = "/run/current-system/sw/bin/switch-to-configuration";
+      options = [ "NOPASSWD" ];
+    }
+    {
       command = "/nix/store/*/bin/switch-to-configuration";
+      options = [ "NOPASSWD" ];
+    }
+    {
+      command = "/run/current-system/sw/bin/systemctl";
       options = [ "NOPASSWD" ];
     }];
   }];

@@ -14,7 +14,7 @@ in
   options.fleet.networking = {
     enable = mkEnableOption "Enable networking";
 
-    static-ip = {
+    static = {
       enable = mkEnableOption "Enable static ip";
       ip = mkOption {
         type = types.str;

@@ -113,5 +113,12 @@ with lib; {
     
     networking.firewall.allowedTCPPorts = [ 80 443 ];
     users.users.nginx.extraGroups = [ "acme" ];
+
+  ##############################################################################
+  # SOPS
+  ##############################################################################
+
+    sops.secrets.cloudflare-marcelnet = { };
+
   };
 }

@@ -49,7 +49,11 @@ in
   # DOCKER
   ##############################################################################
 
-      docker.enable = mkIf (elem "docker" config.fleet.virtualisation.tools) true;
+      docker = mkIf (elem "docker" config.fleet.virtualisation.tools) {
+        enable = true;
+        storageDriver = "btrfs";
+        autoPrune.enable = true;
+      };
 
   ##############################################################################
   # WAYDROID

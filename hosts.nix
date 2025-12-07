@@ -5,6 +5,7 @@
 
 let
   sync-ids = import "${secrets}/syncthing-ids.nix";
+  emails = import "${secrets}/email-addresses.nix";
 in
 {
   ##############################################################################
@@ -21,6 +22,7 @@ in
     sync-id = sync-ids.yoga;
     bkp-target = "linc-n2";
     access = [ ];
+    public-key = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIMbTG0TMrD6NK8zO8pGzmL6ZybgrZhWJMsiFHvjhMpKH ${emails.web-de}";
   };
 
   desktop = {
@@ -36,11 +38,30 @@ in
   };
 
   ##############################################################################
+  # PHONES
+  ##############################################################################
+
+  s20-plus = {
+    tags = [
+      "phone"
+    ];
+    sync-id = sync-ids.s20-plus;
+  };
+
+  note-9 = {
+    tags = [
+      "phone"
+    ];
+    sync-id = sync-ids.note;
+  };
+
+  ##############################################################################
   # HOMELAB
   ##############################################################################
 
   inspirion = {
     ip = "192.168.66.21";
+    interface = "enp0s20u3";
     user = "marci";
     tags = [
       "homelab"
@@ -68,6 +89,7 @@ in
     tags = [
       "homelab"
       "storage"
+      "bkp"
     ];
     sync-id = sync-ids.helix-s;
     bkp-target = "linc-n2";

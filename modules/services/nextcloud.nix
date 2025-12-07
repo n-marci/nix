@@ -97,6 +97,14 @@ with lib; {
         opcache.interned_strings_buffer = 9;
       };
     };
+
+  ##############################################################################
+  # SOPS
+  ##############################################################################
+
+    sops.secrets.nextcloud-pass = {
+      owner = "nextcloud";
+    };
   };
   # users.users.nextcloud.extraGroups = [ config.users.groups.keys.name ];
 }

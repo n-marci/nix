@@ -2,7 +2,7 @@
 
 {
   ##############################################################################
-  # MY MODULES
+  # FLEET
   ##############################################################################
 
   fleet = {
@@ -76,6 +76,7 @@
     ffmpeg
     fzf
     zellij
+    colmena
 
     translate-shell  # move to script if i write a nixpkg for it
     # python311Packages.gtts
@@ -201,6 +202,7 @@
     ###################
 
     comixcursors.Opaque_Black
+    bibata-cursors-translucent
     
   ]) ++ (with stable; [
     htop # dummy pkg so I can have stable pkgs

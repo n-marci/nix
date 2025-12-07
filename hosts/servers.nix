@@ -1,28 +1,21 @@
-{ pkgs, vars, ... }:
+{ config, user, hosts,... }:
 
 {
-  imports = (
-    import ./modules/services
-  ) ++ ([
-    # ./modules/programs/helix.nix
-  ]);
-
   ##############################################################################
   # custom services
   ##############################################################################
 
   fleet.monitoring.nodeExporter.enable = true;
+  fleet = {
+    virtualisation = {
+      enable = true;
+      tools = [ "docker" ];
+    };
+  };
 
   ##############################################################################
   # other services -REWRITE- ssh hardening as in newelle chat 5 server
   ##############################################################################
-
-  services.openssh = {
-    enable = true;
-    settings = {
-      PasswordAuthentication = false;
-    };
-  };
 
   # Disable suspend when closing the lid
   # systemd targets sleep.target, suspend.target, hibernate.target, hybrid-sleep.target
@@ -33,8 +26,70 @@
     HandleLidSwitchExternalPower = "ignore";
   };
 
+  ##############################################################################
+  # NIX
+  ##############################################################################
+
+  nix = {
+    gc.options = "--delete-older-than 30d";
+  };
+
+  ##############################################################################
+  # SSH
+  ##############################################################################
+
+  services.openssh = {
+    enable = true;
+    settings = {
+      PasswordAuthentication = false;
+    };
+  };
+
+  users.users.${user}= {
+    openssh.authorizedKeys.keys = [
+      hosts.yoga.public-key
+    ];
+  };
+
+  ##############################################################################
+  # SECURITY
+  ##############################################################################
+
+  security.sudo.extraRules = [{
+    users = [ "${user}" ];
+    commands = [{
+      command = "/run/current-system/sw/bin/nixos-rebuild";
+      options = [ "NOPASSWD" ];
+    }
+    {
+      command = "/nix/store/*/bin/switch-to-configuration";
+      options = [ "NOPASSWD" ];
+    }];
+  }];
+
+  ##############################################################################
+  # NETWORKING
+  ##############################################################################
+
+  fleet.networking.static.enable = true;
+  # networking = {
+  #   defaultGateway = {
+  #     address = "192.168.66.1";
+  #     interface = "enp0s20u3";
+  #   };
+  #   nameservers = [
+  #     "127.0.0.1"
+  #     "9.9.9.9"
+  #   ];
+  #   interfaces.enp0s20u3.ipv4.addresses = [{
+  #     address = "192.168.66.21";
+  #     prefixLength = 24;
+  #   }];
+  # };
+
   services.tailscale = {
     # enable = true; # already enabled in common.nix
+    authKeyFile = config.sops.secrets.tailscale-homelab-auth-key-one-time;
     extraUpFlags = [ "--ssh" ];
     # extraUpFlags = [ "--ssh" "--accept-routes" ];
       # -> used it in proxmox and I was able to use nextcloud
@@ -42,43 +97,11 @@
   };
 
   ##############################################################################
-  # virtualisation -REWRITE- only configure when actually running a docker app?
+  # SECRETS
   ##############################################################################
 
-  virtualisation = {
-    docker = {
-      enable = true;
-      storageDriver = "btrfs";
-      # dockerCompat = true; # Create a `docker` alias for podman, to use it as a drop-in replacement
-    };
+  sops = {
+    secrets.tailscale-homelab-auth-key-one-time = { };
   };
 
-  ##############################################################################
-  # nix
-  ##############################################################################
-
-  nix = {
-    settings.trusted-users = [ "@wheel" ];
-    gc.options = "--delete-older-than 30d";
-  };
-
-  ##############################################################################
-  # users
-  ##############################################################################
-
-  users.users.${vars.user}= {
-    openssh.authorizedKeys.keys = [
-      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIMzLokg14/USYIlrHwqWavA3DVPiLk+l9PlqwSi3l8Pa logan@franklin"
-    ];
-  };
-
-  ##############################################################################
-  # security -REWRITE- really needed to deploy with colmena? seems unsafe to me
-  ##############################################################################
-
-  security.sudo.wheelNeedsPassword = false;
-
-  ##############################################################################
-  # networking
-  ##############################################################################
 }

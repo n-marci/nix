@@ -137,8 +137,8 @@ in {
           gtk-theme = "adw-gtk3";
 
           # gnome tweaks settings
-          # cursor-theme = "Bibata_Ghost";
-          cursor-theme = "ComixCursors-Opaque-Black";
+          cursor-theme = "Bibata_Ghost";
+          # cursor-theme = "ComixCursors-Opaque-Black";
           cursor-size = 32;
           font-name = "Montserrat 11";
           document-font-name = "Montserrat 11";

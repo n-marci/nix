@@ -1,20 +1,22 @@
 { pkgs, name, user, ... }:
 
 {
-  # imports = [
-  #   ../modules/monitoring/node-exporter.nix
-  # ];
-  # imports = (
-  #   import ./modules/services
-  # ) ++ ([
-  #   # ./modules/programs/helix.nix
-  # ]);
-
   ##############################################################################
   # ANTIVIRUS
   ##############################################################################
 
   services.clamav.updater.enable = true;
+
+  ##############################################################################
+  # sops-nix secrets
+  ##############################################################################
+
+  sops = {
+    defaultSopsFile = ../secrets/${name}.yaml;
+    defaultSopsFormat = "yaml";
+
+    age.keyFile= "/home/${user}/.config/sops/age/keys.txt";
+  };
 
   ##############################################################################
   # NIX
@@ -31,7 +33,7 @@
     };
   };
 
-  nixpkgs.config.allowUnfree = true;
+  # nixpkgs.config.allowUnfree = true;
 
   ##############################################################################
   # USERS
@@ -47,12 +49,7 @@
   # NETWORKING
   ##############################################################################
 
-  networking = {
-    hostName = name;
-    networkmanager.enable = true;
-    firewall.enable = true;
-  };
-
+  fleet.networking.enable = true;
   services.tailscale.enable = true;
 
   ##############################################################################

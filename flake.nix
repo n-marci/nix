@@ -13,7 +13,7 @@
   inputs = {
     # nixpkgs.url = "github:nixos/nixpkgs/nixos-23.11";
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
-    nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-23.11";
+    nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-25.11";
     nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
 
     sops-nix = {
@@ -48,19 +48,14 @@
 
   outputs = inputs @ { self, nixpkgs, nixpkgs-stable, nixpkgs-unstable, sops-nix, home-manager, disko, microvm, colmena, flatpaks, secrets, ... }:
     let
-      # vars = {
-      #   user = "marci";
-      #   # location = "$HOME/nix";
-      #   # editor = "hx";
-      # };
       hosts = import ./hosts.nix { inherit secrets; };
       stable = import nixpkgs-stable {
         system = "x86_64-linux";
-        allowUnfree = true;
+        config.allowUnfree = true;
       };
       unstable = import nixpkgs-unstable {
         system = "x86_64-linux";
-        allowUnfree = true;
+        config.allowUnfree = true;
       };
     in {
       # nixosConfigurations = {
@@ -82,18 +77,25 @@
               user = hosts.yoga.user;
               graphics = hosts.yoga.graphics;
             };
+            inspirion = {
+              user = hosts.inspirion.user;
+              ip = hosts.inspirion.ip;
+              interface = hosts.inspirion.interface;
+              # graphics = hosts.inspirion.graphics;
+            };
+            helix-s = {
+              user = hosts.helix-s.user;
+              # graphics = hosts.helix-s.graphics;
+            };
           };
           specialArgs = {
-            # inherit stable;
-            # inherit unstable;
+            stable = stable;
             sops-nix = sops-nix;
+            secrets = secrets;
+            hosts = hosts;
+            lts-kernel = stable.linuxPackages_6_6;
+            latest-kernel = unstable.linuxPackages_latest;
           };
-        };
-        _module.args = {
-          # inputs = inputs;
-          stable = stable;
-          unstable = unstable;
-          # sops-nix = inputs.sops-nix;
         };
         
       # }
@@ -101,6 +103,7 @@
   ##############################################################################
   # DEFAULTS
   ##############################################################################
+
         defaults = {
           imports = [
             sops-nix.nixosModules.sops
@@ -116,6 +119,7 @@
           deployment = {
             allowLocalDeployment = true;
             targetHost = null;
+            tags = hosts.desktop.tags;
           };
 
           imports = [
@@ -130,17 +134,16 @@
             }
           ];
         };
+
         yoga = { name, ... }: {
           deployment = {
             allowLocalDeployment = true;
             targetHost = null;
+            tags = hosts.yoga.tags;
           };
 
           imports = [
             ./hosts/yoga/configuration.nix
-            # ./configuration.nix
-            # ./hosts/common.nix
-            # ./hosts/mobile.nix
 
             flatpaks.nixosModules.nix-flatpak
             home-manager.nixosModules.home-manager {
@@ -202,6 +205,24 @@
   # ##############################################################################
   # # HOMELAB
   # ##############################################################################
+
+        inspirion = { name, ... }: {
+          deployment = {
+            targetUser = hosts.inspirion.user; 
+            buildOnTarget = true;
+            tags = hosts.inspirion.tags;
+          };
+
+          imports = [
+            ./hosts/inspirion/configuration.nix
+
+            # home-manager.nixosModules.home-manager {
+            #   home-manager.useGlobalPkgs = true;
+            #   home-manager.useUserPackages = true;
+            #   home-manager.extraSpecialArgs.flake-inputs = inputs;
+            # }
+          ];
+        };
 
   #       helix-s = nixpkgs-stable.lib.nixosSystem {
   #         inherit system;

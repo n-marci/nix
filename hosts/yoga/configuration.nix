@@ -1,4 +1,4 @@
-{ pkgs, name, user, ... }:
+{ user, latest-kernel, ... }:
 
 {
   imports = (
@@ -12,26 +12,19 @@
       ../desktops.nix
       ../mobile.nix
       ./hardware-configuration.nix
-      # sops-nix.nixosModules.sops
     ]);
 
   ##############################################################################
-  # my modules
+  # FLEET
   ##############################################################################
 
   fleet = {
-    # graphics = {
-    #   enable = true;
-    #   hardware = "intel";
-    # };
-
     plymouth.enable = true;
-
-    services.syncthing.enable = true;
+    syncthing.enable = true;
   };
 
   ##############################################################################
-  # boot
+  # BOOT
   ##############################################################################
 
   # Bootloader.
@@ -40,27 +33,10 @@
   boot.loader.efi.canTouchEfiVariables = true;
   boot.loader.timeout = 0;
 
-  # update the kernel
-  # boot.kernelPackages = pkgs.linuxPackages_6_7;
-  boot.kernelPackages = pkgs.linuxPackages_latest;
-  # boot.initrd.kernelModules = [ "amdgpu" ];
+  boot.kernelPackages = latest-kernel;
 
   ##############################################################################
-  # sops-nix secrets
-  ##############################################################################
-
-  sops = {
-    defaultSopsFile = ../../secrets/yoga.yaml;
-    defaultSopsFormat = "yaml";
-
-    age.keyFile= "/home/marci/.config/sops/age/keys.txt";
-
-    secrets.syncthing-key = { };
-    secrets.syncthing-cert = { };
-  };
-
-  ##############################################################################
-  # state version
+  # STATE VERSION
   ##############################################################################
 
   system.stateVersion = "23.11"; # Did you read the comment?

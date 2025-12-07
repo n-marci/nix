@@ -1,6 +1,7 @@
 { lib, ... }:
 
 {
+  powerManagement.powertop.enable = true;
   hardware.enableAllFirmware = true;
   services.fwupd.enable = true;
   services.fstrim.enable = true;

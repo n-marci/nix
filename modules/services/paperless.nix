@@ -10,10 +10,6 @@ with lib; {
         type = types.bool;
         default = false;
       };
-      # versioning = mkOption {
-      #   type = types.bool;
-      #   default = false;
-      # };
     };
   };
   
@@ -35,5 +31,12 @@ with lib; {
         passwordFile = config.sops.secrets.paperless-pass.path;
       };
     };
+
+  ##############################################################################
+  # SOPS
+  ##############################################################################
+
+    sops.secrets.paperless-pass = { };
+
   };
 }

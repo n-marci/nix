@@ -209,10 +209,11 @@
         inspirion = { name, ... }: {
           deployment = {
             allowLocalDeployment = true;
-            targetUser = hosts.inspirion.user; 
+            # targetUser = hosts.inspirion.user; 
+            targetUser = "root";
             buildOnTarget = true;
             tags = hosts.inspirion.tags;
-            sshOptions = [ "-t" ];
+            # sshOptions = [ "-t" ];
           };
 
           imports = [

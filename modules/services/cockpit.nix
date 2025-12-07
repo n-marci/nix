@@ -4,7 +4,7 @@
 
 with lib; {
   options = {
-    cockpit = {
+    fleet.cockpit = {
       enable = mkOption {
         type = types.bool;
         default = false;
@@ -12,7 +12,7 @@ with lib; {
     };
   };
   
-  config = mkIf (config.cockpit.enable) {
+  config = mkIf (config.fleet.cockpit.enable) {
     services = {
       cockpit = {
         enable = true;

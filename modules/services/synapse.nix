@@ -10,7 +10,7 @@ with lib; {
   ];
 
   options = {
-    synapse = {
+    fleet.synapse = {
       enable = mkOption {
         type = types.bool;
         default = false;
@@ -18,7 +18,7 @@ with lib; {
     };
   };
   
-  config = mkIf (config.synapse.enable) {
+  config = mkIf (config.fleet.synapse.enable) {
     # nixpkgs.config.permittedInsecurePackages = [
     #   "olm-3.2.16"
     # ];

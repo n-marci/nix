@@ -5,7 +5,7 @@
 
 with lib; {
   options = {
-    paperless = {
+    fleet.paperless = {
       enable = mkOption {
         type = types.bool;
         default = false;
@@ -13,7 +13,7 @@ with lib; {
     };
   };
   
-  config = mkIf (config.paperless.enable) {
+  config = mkIf (config.fleet.paperless.enable) {
     services = {
       paperless = {
         enable = true;

@@ -12,7 +12,7 @@ let
 in
 {
   options = {
-    immich = {
+    fleet.immich = {
       enable = mkOption {
         type = types.bool;
         default = false;
@@ -24,7 +24,7 @@ in
     };
   };
   
-  config = mkIf (config.immich.enable) {
+  config = mkIf (config.fleet.immich.enable) {
 
     ###########################
     # TODO Disko Config
@@ -70,7 +70,7 @@ in
     # Postgres Database Export
     ###########################
 
-    services.postgresqlBackup = mkIf (config.immich.backup) {
+    services.postgresqlBackup = mkIf (config.fleet.immich.backup) {
       enable = true;
       startAt = "*-*-* 04:05:00";
       location = "/${dbdump}";
@@ -81,7 +81,7 @@ in
     # Btrfs backup
     ###########################
     
-    services.btrbk.instances.btrbk.settings.volume."/".subvolume = mkIf (config.immich.backup) {
+    services.btrbk.instances.btrbk.settings.volume."/".subvolume = mkIf (config.fleet.immich.backup) {
       "${datadir}" = {
         snapshot_create = "always";
         snapshot_dir = "/${snapdir}";

@@ -4,7 +4,7 @@
 
 with lib; {
   options = {
-    nginx = {
+    fleet.nginx = {
       enable = mkOption {
         type = types.bool;
         default = false;
@@ -12,7 +12,7 @@ with lib; {
     };
   };
   
-  config = mkIf (config.nginx.enable) {
+  config = mkIf (config.fleet.nginx.enable) {
     services.nginx = {
       enable = true;
       clientMaxBodySize = "1G";

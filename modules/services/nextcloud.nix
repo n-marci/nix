@@ -4,7 +4,7 @@
 
 with lib; {
   options = {
-    nextcloud = {
+    fleet.nextcloud = {
       enable = mkOption {
         type = types.bool;
         default = false;
@@ -16,7 +16,7 @@ with lib; {
     };
   };
   
-  config = mkIf (config.nextcloud.enable) {
+  config = mkIf (config.fleet.nextcloud.enable) {
 
     # # Failed assertions:
     # #    - You must define `security.acme.certs.<name>.email` or
@@ -50,7 +50,7 @@ with lib; {
       autoUpdateApps.enable = true;
       extraAppsEnable = true;
       extraApps = {
-        inherit (config.services.nextcloud.package.packages.apps) calendar contacts mail notes /*tasks*/ gpoddersync repod integration_paperless integration_deepl; # possible apps: https://github.com/NixOS/nixpkgs/blob/nixos-unstable/pkgs/servers/nextcloud/packages/nextcloud-apps.json
+        inherit (config.services.fleet.nextcloud.package.packages.apps) calendar contacts mail notes /*tasks*/ gpoddersync repod integration_paperless integration_deepl; # possible apps: https://github.com/NixOS/nixpkgs/blob/nixos-unstable/pkgs/servers/nextcloud/packages/nextcloud-apps.json
 
         # nextcloud tasks since the release was not updated
         tasks = pkgs.fetchNextcloudApp {

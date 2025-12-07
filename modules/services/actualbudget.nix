@@ -5,7 +5,7 @@
 
 with lib; {
   options = {
-    actualbudget = {
+    fleet.actualbudget = {
       enable = mkOption {
         type = types.bool;
         default = false;
@@ -13,7 +13,7 @@ with lib; {
     };
   };
   
-  config = mkIf (config.actualbudget.enable) {
+  config = mkIf (config.fleet.actualbudget.enable) {
 
     virtualisation.oci-containers = {
       backend = "docker";

@@ -4,7 +4,7 @@
 
 with lib; {
   options = {
-    pg-bkp = {
+    fleet.pg-bkp = {
       enable = mkOption {
         type = types.bool;
         default = false;
@@ -17,13 +17,13 @@ with lib; {
     };
   };
   
-  config = mkIf (config.pg-bkp.enable) {
+  config = mkIf (config.fleet.pg-bkp.enable) {
 
     services.postgresqlBackup = {
       enable = true;
       startAt = "*-*-* 04:05:00";
       location = "/var/bkp/pg-dump";
-      databases = config.pg-bkp.databases;
+      databases = config.fleet.pg-bkp.databases;
     };
   };
 }

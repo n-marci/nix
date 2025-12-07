@@ -5,7 +5,7 @@
 
 with lib; {
   options = {
-    btrbk = {
+    fleet.btrbk = {
       enable = mkOption {
         type = types.bool;
         default = false;
@@ -23,7 +23,7 @@ with lib; {
     };
   };
   
-  config = mkIf (config.btrbk.enable) {
+  config = mkIf (config.fleet.btrbk.enable) {
 
     # btrfs-progs is a prerequisite in the documentation
     # not sure if needed
@@ -33,13 +33,13 @@ with lib; {
 
     services = {
       btrbk = {
-        sshAccess = mkIf (config.btrbk.node == "target" ) [{
+        sshAccess = mkIf (config.fleet.btrbk.node == "target" ) [{
           key = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIH+C3Nnd5EOTg52l8M3jJsfq8lr6tXXSgREaNP1Lx8OQ inspirion";
           roles = [ "info" "source" "target" "delete" "snapshot" "send" "receive" ];
         }];
 
 
-        instances.btrbk = mkIf (config.btrbk.node == "source" ) {
+        instances.btrbk = mkIf (config.fleet.btrbk.node == "source" ) {
           onCalendar = "hourly";
           settings = {
             # good explanation on gentoo wiki https://wiki.calculate-linux.org/btrbk
@@ -126,7 +126,7 @@ with lib; {
     };
 
     # Define a user account. Don't forget to set a password with ‘passwd’.
-    users.users.btrbk = mkIf (config.btrbk.node == "target" ) {
+    users.users.btrbk = mkIf (config.fleet.btrbk.node == "target" ) {
       isSystemUser = true;
       description = "Btrbk ssh user";
       # extraGroups = [ "networkmanager" "wheel" ];

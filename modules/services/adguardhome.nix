@@ -4,7 +4,7 @@
 
 with lib; {
   options = {
-    adguard = {
+    fleet.adguard = {
       enable = mkOption {
         type = types.bool;
         default = false;
@@ -16,7 +16,7 @@ with lib; {
     };
   };
   
-  config = mkIf (config.adguard.enable) {
+  config = mkIf (config.fleet.adguard.enable) {
 
     services.adguardhome = {
       enable = true;

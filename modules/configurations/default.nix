@@ -7,4 +7,5 @@
   ./graphics.nix
   ./fonts.nix
   ./development.nix
+  ./networking.nix
 ]

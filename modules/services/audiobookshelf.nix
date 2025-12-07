@@ -5,7 +5,7 @@
 
 with lib; {
   options = {
-    audiobookshelf = {
+    fleet.audiobookshelf = {
       enable = mkOption {
         type = types.bool;
         default = false;
@@ -13,7 +13,7 @@ with lib; {
     };
   };
   
-  config = mkIf (config.audiobookshelf.enable) {
+  config = mkIf (config.fleet.audiobookshelf.enable) {
     services = {
       audiobookshelf = {
         enable = true;

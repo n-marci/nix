@@ -5,7 +5,7 @@
 
 with lib; {
   options = {
-    traccar = {
+    fleet.traccar = {
       enable = mkOption {
         type = types.bool;
         default = false;
@@ -13,7 +13,7 @@ with lib; {
     };
   };
   
-  config = mkIf (config.traccar.enable) {
+  config = mkIf (config.fleet.traccar.enable) {
     services = {
       traccar = {
         enable = true;

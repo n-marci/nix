@@ -11,7 +11,7 @@ let
 in
 {
   options = {
-    mealie = {
+    fleet.mealie = {
       enable = mkOption {
         type = types.bool;
         default = false;
@@ -27,7 +27,7 @@ in
     };
   };
   
-  config = mkIf (config.mealie.enable) {
+  config = mkIf (config.fleet.mealie.enable) {
 
     services.mealie = {
       enable = true;
@@ -60,7 +60,7 @@ in
     # setup disko subvolume for ${datadir}
      
     # setup btrbk
-    services.btrbk.instances.btrbk.settings.volume."/".subvolume = mkIf (config.mealie.backup) {
+    services.btrbk.instances.btrbk.settings.volume."/".subvolume = mkIf (config.fleet.mealie.backup) {
       "${datadir}" = {
         snapshot_create = "always";
       };

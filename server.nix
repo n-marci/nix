@@ -52,16 +52,16 @@
   # backup services
   ##############################################################################
 
-  btrbk = {
-    enable = true;
-    node = "source";
-  };
+  # btrbk = {
+  #   enable = true;
+  #   node = "source";
+  # };
 
-  # postgresql backup
-  pg-bkp = {
-    enable = true;
-    databases = [ "nextcloud" "immich" ];
-  };
+  # # postgresql backup
+  # pg-bkp = {
+  #   enable = true;
+  #   databases = [ "nextcloud" "immich" ];
+  # };
 
   ##############################################################################
   # other services

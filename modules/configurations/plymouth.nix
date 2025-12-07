@@ -3,6 +3,7 @@
 { config, lib, pkgs, user, ... }:
 
 let
+  cfg = config.fleet.plymouth;
   inherit (lib) mkEnableOption mkOption mkIf mkDefault types;
 in
 {
@@ -19,7 +20,7 @@ in
   # CONFIG
   ##############################################################################
 
-  config = mkIf (config.fleet.plymouth.enable) {
+  config = mkIf (cfg.enable) {
     boot = {
       plymouth = {
         enable = true;

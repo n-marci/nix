@@ -3,6 +3,7 @@
 { config, lib, pkgs, user, ... }:
 
 let
+  cfg = config.fleet.fonts;
   inherit (lib) mkEnableOption mkOption mkIf mkDefault types;
 in
 {
@@ -19,7 +20,7 @@ in
   # CONFIG
   ##############################################################################
 
-  config = mkIf (config.fleet.fonts.enable) {
+  config = mkIf (cfg.enable) {
     fonts = {
       fontDir.enable = true;   # needed for flatpak to use the right cursor and fonts
       packages = (with pkgs; [

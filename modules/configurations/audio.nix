@@ -3,6 +3,7 @@
 { config, lib, pkgs, ... }:
 
 let
+  cfg = config.fleet.audio;
   inherit (lib) mkEnableOption mkOption mkIf mkDefault types;
 in
 {
@@ -19,7 +20,7 @@ in
   # CONFIG
   ##############################################################################
 
-  config = mkIf (config.fleet.audio.enable) {
+  config = mkIf (cfg.enable) {
     security.rtkit.enable = true;
     services.pulseaudio.enable = false;
     services.pipewire = {

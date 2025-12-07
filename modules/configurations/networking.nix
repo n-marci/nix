@@ -3,6 +3,7 @@
 { config, lib, name, ip, interface, ... }:
 
 let
+  cfg = config.fleet.networking;
   inherit (lib) mkEnableOption mkOption mkIf mkDefault types;
 in
 {
@@ -40,7 +41,7 @@ in
   # CONFIG
   ##############################################################################
 
-  config = mkIf (config.fleet.networking.enable) {
+  config = mkIf (cfg.enable) {
     networking = {
       enable = true;
       hostName = name;
@@ -50,16 +51,16 @@ in
   # STATIC IP
   ##############################################################################
 
-      defaultGateway = mkIf (config.fleet.networking.static.enable) {
+      defaultGateway = mkIf (cfg.static.enable) {
         address = "192.168.66.1";
-        interface = config.fleet.networking.static.interface;
+        interface = cfg.static.interface;
       };
-      nameservers = mkIf (config.fleet.networking.static.enable) [
+      nameservers = mkIf (cfg.static.enable) [
         "127.0.0.1"
         "9.9.9.9"
       ];
-      interfaces.${config.fleet.networking.static.interface}.ipv4.addresses = mkIf (config.fleet.networking.static.enable) [{
-        address = config.fleet.networking.static.ip;
+      interfaces.${cfg.static.interface}.ipv4.addresses = mkIf (cfg.static.enable) [{
+        address = cfg.static.ip;
         prefixLength = 24;
       }];
     };

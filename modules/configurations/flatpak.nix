@@ -3,6 +3,7 @@
 { config, lib, pkgs, ... }:
 
 let
+  cfg = config.fleet.flatpak;
   inherit (lib) mkEnableOption mkOption mkIf mkDefault types;
 in
 {
@@ -40,7 +41,7 @@ in
   # CONFIG
   ##############################################################################
 
-  config = mkIf (config.fleet.flatpak.enable) {
+  config = mkIf (cfg.enable) {
     fonts.fontDir.enable = true; # needed for flatpak to use the right cursor and fonts
     services.flatpak.enable = true;
     # non-declarative steps (only needed without the nix-flatpak module)
@@ -82,7 +83,7 @@ in
   ##############################################################################
 
     services.flatpak = {
-      packages = config.fleet.flatpak.apps;
+      packages = cfg.apps;
 
       update.auto = {
         enable = true;
@@ -126,7 +127,7 @@ in
   ##############################################################################
 
     # This should enable the right cursor and fonts in flatpak applications
-    # system.fsPackages = mkIf (config.fleet.flatpak.gnome) [ pkgs.bindfs ];
+    # system.fsPackages = mkIf (cfg.gnome) [ pkgs.bindfs ];
     # fileSystems = let mkRoSymBind = path: {
     #     device = path;
     #     fsType = "fuse.bindfs";
@@ -153,8 +154,8 @@ in
     #     pathsToLink = [ "/share/fonts" ];
     #   };
     # in {
-    #   "/usr/share/icons" = mkIf (config.fleet.flatpak.gnome) mkRoSymBind "${aggregatedIcons}/share/icons";
-    #   "/usr/local/share/fonts" = mkIf (config.fleet.flatpak.gnome) mkRoSymBind "${aggregatedFonts}/share/fonts";
+    #   "/usr/share/icons" = mkIf (cfg.gnome) mkRoSymBind "${aggregatedIcons}/share/icons";
+    #   "/usr/local/share/fonts" = mkIf (cfg.gnome) mkRoSymBind "${aggregatedFonts}/share/fonts";
     # };
   };
 }

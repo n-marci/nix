@@ -208,8 +208,8 @@ in {
     # IGNORE FILES
     ##############################################################################
 
-    home-manager.users.${user} = {
-      home.file."sync/obsidian/.stignore".text = mkIf (config.fleet.syncthing.storeInBackupLocation == false) '' 
+    home-manager.users.${user} = mkIf (config.fleet.syncthing.storeInBackupLocation == false) {
+      home.file."sync/obsidian/.stignore".text = '' 
         .obsidian
       '';
     };

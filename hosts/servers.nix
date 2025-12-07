@@ -2,10 +2,10 @@
 
 {
   ##############################################################################
-  # custom services
+  # FLEET
   ##############################################################################
 
-  fleet.monitoring.nodeExporter.enable = true;
+  fleet.node-exporter.enable = true;
   fleet = {
     virtualisation = {
       enable = true;
@@ -72,21 +72,6 @@
   ##############################################################################
 
   fleet.networking.static.enable = true;
-  # networking = {
-  #   defaultGateway = {
-  #     address = "192.168.66.1";
-  #     interface = "enp0s20u3";
-  #   };
-  #   nameservers = [
-  #     "127.0.0.1"
-  #     "9.9.9.9"
-  #   ];
-  #   interfaces.enp0s20u3.ipv4.addresses = [{
-  #     address = "192.168.66.21";
-  #     prefixLength = 24;
-  #   }];
-  # };
-
   services.tailscale = {
     # enable = true; # already enabled in common.nix
     authKeyFile = config.sops.secrets.tailscale-homelab-auth-key-one-time;

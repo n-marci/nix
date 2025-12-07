@@ -3,6 +3,7 @@
 { config, lib, pkgs, graphics, ... }:
 
 let
+  cfg = config.fleet.graphics;
   inherit (lib) mkEnableOption mkOption mkIf mkDefault types;
 in
 {
@@ -24,13 +25,13 @@ in
   # CONFIG
   ##############################################################################
 
-  config = mkIf (config.fleet.graphics.enable) {
+  config = mkIf (cfg.enable) {
   
   ##############################################################################
   # INTEL
   ##############################################################################
 
-    hardware.graphics = mkIf (config.fleet.graphics.hardware == "intel") {
+    hardware.graphics = mkIf (cfg.hardware == "intel") {
       enable = true;
       extraPackages = with pkgs; [
         intel-media-driver
@@ -42,7 +43,7 @@ in
         intel-media-driver
       ];
     };
-    environment.sessionVariables = mkIf (config.fleet.graphics.hardware == "intel") {
+    environment.sessionVariables = mkIf (cfg.hardware == "intel") {
       LIBVA_DRIVER_NAME = "iHD";
       VDPAU_DRIVER = "va_gl";
     };

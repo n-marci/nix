@@ -3,6 +3,7 @@
 { config, lib, pkgs, ... }:
 
 let
+  cfg = config.fleet.development;
   inherit (lib) mkEnableOption mkOption mkIf mkDefault types;
 in
 {
@@ -30,7 +31,7 @@ in
   # CONFIG
   ##############################################################################
 
-  config = mkIf (config.fleet.development.enable) {
+  config = mkIf (cfg.enable) {
 
   ##############################################################################
   # WORK IN PROGRESS - maybe put development into extra modules/development folder

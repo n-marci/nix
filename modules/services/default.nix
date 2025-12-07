@@ -13,4 +13,5 @@
   ./traccar.nix
   ./audiobookshelf.nix
   ./synapse.nix
+  ./prometheus-node-exporter.nix
 ]

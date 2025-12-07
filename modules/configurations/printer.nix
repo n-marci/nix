@@ -3,6 +3,7 @@
 { config, lib, pkgs, user, ... }:
 
 let
+  cfg = config.fleet.printer;
   inherit (lib) mkEnableOption mkOption mkIf mkDefault types;
 in
 {
@@ -24,8 +25,8 @@ in
   # CONFIG
   ##############################################################################
 
-  config = mkIf (config.fleet.printer.enable) {
-    users.users.${config.fleet.printer.user} = {
+  config = mkIf (cfg.enable) {
+    users.users.${cfg.user} = {
       extraGroups = [ "scanner" "lp" ];
     };
     

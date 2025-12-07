@@ -213,17 +213,10 @@
             targetUser = "root";
             buildOnTarget = true;
             tags = hosts.inspirion.tags;
-            # sshOptions = [ "-t" ];
           };
 
           imports = [
             ./hosts/inspirion/configuration.nix
-
-            # home-manager.nixosModules.home-manager {
-            #   home-manager.useGlobalPkgs = true;
-            #   home-manager.useUserPackages = true;
-            #   home-manager.extraSpecialArgs.flake-inputs = inputs;
-            # }
           ];
         };
 

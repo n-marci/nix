@@ -4,7 +4,7 @@
 
 let
   cfg = config.fleet.networking;
-  inherit (lib) mkEnableOption mkOption mkIf mkDefault types;
+  inherit (lib) mkEnableOption mkOption mkIf mkDefault types optionalAttrs;
 in
 {
   
@@ -13,7 +13,7 @@ in
   ##############################################################################
 
   options.fleet.networking = {
-    enable = mkEnableOption "Enable networking";
+    # enable = mkEnableOption "Enable networking";
 
     static = {
       enable = mkEnableOption "Enable static ip";
@@ -43,8 +43,8 @@ in
 
   config = mkIf (cfg.enable) {
     networking = {
-      hostName = name;
-      firewall.enable = true;
+      # hostName = name;
+      # firewall.enable = true;
       
   ##############################################################################
   # STATIC IP

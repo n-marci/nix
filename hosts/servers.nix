@@ -5,8 +5,8 @@
   # FLEET
   ##############################################################################
 
-  fleet.node-exporter.enable = true;
   fleet = {
+    node-exporter.enable = true;
     virtualisation = {
       enable = true;
       tools = [ "docker" ];
@@ -32,7 +32,7 @@
 
   nix = {
     gc.options = "--delete-older-than 30d";
-    settings.trusted-users = [ "@wheel" ]; # might be needed so I can enable colmena remote cache
+    # settings.trusted-users = [ "${user}" ]; # might be needed so I can enable colmena remote cache
   };
 
   ##############################################################################
@@ -56,25 +56,25 @@
   # SECURITY
   ##############################################################################
 
-  security.sudo.extraRules = [{
-    users = [ "${user}" ];
-    commands = [{
-      command = "/run/current-system/sw/bin/nixos-rebuild";
-      options = [ "NOPASSWD" ];
-    }
-    {
-      command = "/run/current-system/sw/bin/switch-to-configuration";
-      options = [ "NOPASSWD" ];
-    }
-    {
-      command = "/nix/store/*/bin/switch-to-configuration";
-      options = [ "NOPASSWD" ];
-    }
-    {
-      command = "/run/current-system/sw/bin/systemctl";
-      options = [ "NOPASSWD" ];
-    }];
-  }];
+  # security.sudo.extraRules = [{
+  #   users = [ "${user}" ];
+  #   commands = [{
+  #     command = "/run/current-system/sw/bin/nixos-rebuild";
+  #     options = [ "NOPASSWD" ];
+  #   }
+  #   {
+  #     command = "/run/current-system/sw/bin/switch-to-configuration";
+  #     options = [ "NOPASSWD" ];
+  #   }
+  #   {
+  #     command = "/nix/store/*/bin/switch-to-configuration";
+  #     options = [ "NOPASSWD" ];
+  #   }
+  #   {
+  #     command = "/run/current-system/sw/bin/systemctl";
+  #     options = [ "NOPASSWD" ];
+  #   }];
+  # }];
 
   ##############################################################################
   # NETWORKING

@@ -49,7 +49,8 @@
   # NETWORKING
   ##############################################################################
 
-  fleet.networking.enable = true;
+  # fleet.networking.enable = true;
+  networking.hostName = name;
   services.tailscale.enable = true;
 
   ##############################################################################

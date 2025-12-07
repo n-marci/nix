@@ -202,7 +202,7 @@ in {
     sops = {
       secrets.syncthing-key = { };
       secrets.syncthing-cert = { };
-    }
+    };
 
     ##############################################################################
     # IGNORE FILES
@@ -213,22 +213,9 @@ in {
     #     .obsidian
     #   '';
     # };
-    // optionalAttrs (config ? home-manager) {
-      home-manager = {
-        users = mkIf (config.fleet.syncthing.storeInBackupLocation == false) {
-          "${user}" = {
-            home.file."sync/obsidian/.stignore".text = ''
-              .obsidian
-            '';
-          };
-        };
-      };
-    };
-
     systemd.tmpfiles.rules = mkIf (config.fleet.syncthing.storeInBackupLocation) [
       "f /var/lib/syncthing/obsidian/.stignore 755 marci syncthing"
       "w /var/lib/syncthing/obsidian/.stignore - - - - .obsidian"
     ];
   };
-
 }

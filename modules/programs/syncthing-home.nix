@@ -13,8 +13,12 @@ in
   ##############################################################################
 
   options.fleet.syncthing-home = {
-    enable = mkEnableOption {
-      name = "Enable syncthing-home";
+    # enable = mkEnableOption {
+    #   name = "Enable syncthing-home";
+    #   default = config.fleet.syncthing.enable;
+    # };
+    enable = mkOption {
+      type = types.bool;
       default = config.fleet.syncthing.enable;
     };
   };

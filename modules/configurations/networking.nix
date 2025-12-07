@@ -43,7 +43,6 @@ in
 
   config = mkIf (cfg.enable) {
     networking = {
-      enable = true;
       hostName = name;
       firewall.enable = true;
       

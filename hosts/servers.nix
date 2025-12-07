@@ -74,7 +74,7 @@
   fleet.networking.static.enable = true;
   services.tailscale = {
     # enable = true; # already enabled in common.nix
-    authKeyFile = config.sops.secrets.tailscale-homelab-auth-key-one-time;
+    authKeyFile = config.sops.secrets.tailscale-homelab-auth-key-one-time.path;
     extraUpFlags = [ "--ssh" ];
     # extraUpFlags = [ "--ssh" "--accept-routes" ];
       # -> used it in proxmox and I was able to use nextcloud

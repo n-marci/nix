@@ -1,13 +1,13 @@
 # nextcloud configuration
 
-{ config, lib,  pkgs, unstable, host, ... }:
+{ config, lib,  pkgs, unstable, name, ... }:
 
 let
   datadir = "var/lib/immich";
   dbdir = "var/lib/postgresql";
   dbdump = "var/lib/postgresql-dump";
   snapdir = "var/btr/immich";
-  bkpdir = "srv/btr/${host.hostName}/immich";
+  bkpdir = "srv/btr/${name}/immich";
   inherit (lib) mkOption mkIf mkDefault types;
 in
 {
@@ -70,12 +70,12 @@ in
     # Postgres Database Export
     ###########################
 
-    services.postgresqlBackup = mkIf (config.fleet.immich.backup) {
-      enable = true;
-      startAt = "*-*-* 04:05:00";
-      location = "/${dbdump}";
-      databases = [ "immich" ];
-    };
+    # services.postgresqlBackup = mkIf (config.fleet.immich.backup) {
+    #   enable = true;
+    #   startAt = "*-*-* 04:05:00";
+    #   location = "/${dbdump}";
+    #   databases = [ "immich" ];
+    # };
 
     ###########################
     # Btrfs backup

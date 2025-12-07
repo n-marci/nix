@@ -2,7 +2,7 @@
 
 {
   imports = (
-      import ../../modules/configurations ++
+      # import ../../modules/configurations ++
       # import ../../modules/desktops ++
       # import ../../modules/programs ++
       import ../../modules/services
@@ -12,7 +12,9 @@
       ../servers.nix
       ./hardware-configuration.nix
 
-      # ./modules/programs/helix.nix
+      # ../../modules/programs/helix.nix
+      ../../modules/configurations/networking.nix
+      ../../modules/configurations/virtualisation.nix
     ]);
 
   ##############################################################################
@@ -65,13 +67,13 @@
   ##############################################################################
 
   # Bootloader.
-  boot.loader.systemd-boot.enable = true;
-  boot.loader.systemd-boot.configurationLimit = 3;
-  boot.loader.efi.canTouchEfiVariables = true;
+  # boot.loader.systemd-boot.enable = true;
+  # boot.loader.systemd-boot.configurationLimit = 3;
+  # boot.loader.efi.canTouchEfiVariables = true;
   # boot.loader.timeout = 5;
-  # boot.loader.grub.enable = true;
-  # boot.loader.grub.device = "/dev/sda";
-  # boot.loader.grub.useOSProber = true;
+  boot.loader.grub.enable = true;
+  boot.loader.grub.device = "/dev/sda";
+  boot.loader.grub.useOSProber = true;
 
   # set the timeout for the screen going dark - value in seconds
   boot.kernelParams = [ "consoleblank=120" ];
@@ -84,19 +86,19 @@
 
   system.stateVersion = "23.11"; # Did you read the comment?
 
-  # home-manager.users.${user} = {
-  #   home = {
-  #     stateVersion = "23.11";
-  #   };
+  home-manager.users.${user} = {
+    home = {
+      stateVersion = "23.11";
+    };
 
-  #   programs = {
-  #     home-manager.enable = true;
-  #   };
+    programs = {
+      home-manager.enable = true;
+    };
 
-  #   nix = {
-  #     # package = pkgs.nix;
-  #     settings.experimental-features = [ "nix-command" "flakes" ];
-  #   };
-  # };
+    nix = {
+      # package = pkgs.nix;
+      settings.experimental-features = [ "nix-command" "flakes" ];
+    };
+  };
 
 }

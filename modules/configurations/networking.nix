@@ -41,7 +41,7 @@ in
   # CONFIG
   ##############################################################################
 
-  config = mkIf (cfg.static.enable) {
+  config = mkIf (cfg.static.enable && (cfg.static.ip != "dynamic") ) {
     networking = {
       # hostName = name;
       # firewall.enable = true;

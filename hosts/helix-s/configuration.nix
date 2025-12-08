@@ -43,7 +43,7 @@
 
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
-  boot.loader.systemd-boot.configurationLimit = 3;
+  boot.loader.systemd-boot.configurationLimit = 5;
   boot.loader.efi.canTouchEfiVariables = true;
 
   # set the timeout for the screen going dark - value in seconds
@@ -62,6 +62,12 @@
       "nofail" # Prevent system from failing if this drive doesn't mount
     ];
   };
+
+  ##############################################################################
+  # NETWORKING
+  ##############################################################################
+
+  networking.networkmanager.enable = true;
 
   ##############################################################################
   # STATE VERSION

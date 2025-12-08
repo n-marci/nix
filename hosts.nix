@@ -84,7 +84,7 @@ in
   };
 
   helix-s = {
-    ip = "192.168.66.23";
+    ip = "dynamic"; # dynamic since otherwise i need to configure wifi manually
     interface = "wlp6s0";
     user = "marci";
     tags = [

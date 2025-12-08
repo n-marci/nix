@@ -1,5 +1,4 @@
 [
-  ./flatpak.nix
   ./audio.nix
   ./virtualisation.nix
   ./printer.nix

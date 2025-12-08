@@ -1,4 +1,5 @@
 [
+  ./flatpak.nix
   ./zathura.nix
   ./helix.nix
   ./git.nix

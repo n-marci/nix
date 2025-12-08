@@ -95,13 +95,13 @@ in
           Environment = {
             # Force Wayland by default
             # Context.sockets = [ "wayland" "!x11" "!fallback-x11" ];
-            # Context = [ "wayland" "!x11" "!fallback-x11" ];
-            Context = [ "wayland" "/nix/store:ro" ];
+            Context = [ "wayland" "!x11" "!fallback-x11" ];
+            # Context = [ "wayland" "/nix/store:ro" ];
 
             # Fix un-themed cursor in some Wayland apps
             XCURSOR_PATH = "/run/host/user-share/icons:/run/host/share/icons";
-            XCURSOR_SIZE= "32";
-            XCURSOR_THEME= "Bibata_Ghost";
+            # XCURSOR_SIZE= "32";
+            # XCURSOR_THEME= "Bibata_Ghost";
 
             # Force correct theme for some GTK apps
             # GTK_THEME = "Adwaita:dark";

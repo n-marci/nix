@@ -1,4 +1,4 @@
-{ config, user, hosts,... }:
+{ config, user, hosts, ... }:
 
 {
   ##############################################################################
@@ -46,16 +46,37 @@
     };
   };
 
-  users.users.${user}= {
-    openssh.authorizedKeys.keys = [
+  users.users = {
+    ${user}.openssh.authorizedKeys.keys = [ # allow user marci to login with my devices
       hosts.yoga.public-key
     ];
+
+    colmena = { # create priviliged user for the deployment of colmena
+      isNormalUser = true;
+    };
+    # ${config.deployment.targetUser} = { # create priviliged user for the deployment of colmena
+    #   isNormalUser = true;
+    # };
   };
 
   ##############################################################################
   # SECURITY
   ##############################################################################
 
+  security.sudo.extraRules = [{
+    users = [ "colmena" ];
+    commands = [{
+      command = "ALL";
+      options = [ "NOPASSWD" ];
+    }];
+  }];
+  # security.sudo.extraRules = [{
+  #   users = [ "${config.deployment.targetUser}" ];
+  #   commands = [{
+  #     command = "ALL";
+  #     options = [ "NOPASSWD" ];
+  #   }];
+  # }];
   # security.sudo.extraRules = [{
   #   users = [ "${user}" ];
   #   commands = [{
@@ -83,7 +104,7 @@
   fleet.networking.static.enable = true;
   services.tailscale = {
     # enable = true; # already enabled in common.nix
-    authKeyFile = config.sops.secrets.tailscale-homelab-auth-key-one-time.path;
+    # authKeyFile = config.sops.secrets.tailscale-homelab-auth-key-one-time.path;
     extraUpFlags = [ "--ssh" ];
     # extraUpFlags = [ "--ssh" "--accept-routes" ];
       # -> used it in proxmox and I was able to use nextcloud
@@ -94,8 +115,8 @@
   # SECRETS
   ##############################################################################
 
-  sops = {
-    secrets.tailscale-homelab-auth-key-one-time = { };
-  };
+  # sops = {
+  #   secrets.tailscale-homelab-auth-key-one-time = { };
+  # };
 
 }

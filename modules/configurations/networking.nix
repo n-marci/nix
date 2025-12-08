@@ -1,6 +1,6 @@
 # networking config
 
-{ config, lib, name, ip, interface, ... }:
+{ config, lib, name, ip, interface, hosts, ... }:
 
 let
   cfg = config.fleet.networking;
@@ -55,7 +55,8 @@ in
         interface = cfg.static.interface;
       };
       nameservers = mkIf (cfg.static.enable) [
-        "127.0.0.1"
+        # "192.168.66.21"
+        "${hosts.inspirion.ip}"
         "9.9.9.9"
       ];
       interfaces.${cfg.static.interface}.ipv4.addresses = mkIf (cfg.static.enable) [{

@@ -43,6 +43,7 @@
     enable = true;
     settings = {
       PasswordAuthentication = false;
+      PermitRootLogin = "no";
     };
   };
 
@@ -51,32 +52,32 @@
       hosts.yoga.public-key
     ];
 
-    colmena = { # create priviliged user for the deployment of colmena
-      isNormalUser = true;
-    };
-    # ${config.deployment.targetUser} = { # create priviliged user for the deployment of colmena
+    # colmena = { # create priviliged user for the deployment of colmena
     #   isNormalUser = true;
     # };
+    ${config.deployment.targetUser} = { # create priviliged user for the deployment of colmena
+      isNormalUser = true;
+    };
   };
 
   ##############################################################################
   # SECURITY
   ##############################################################################
 
-  security.sudo.extraRules = [{
-    users = [ "colmena" ];
-    commands = [{
-      command = "ALL";
-      options = [ "NOPASSWD" ];
-    }];
-  }];
   # security.sudo.extraRules = [{
-  #   users = [ "${config.deployment.targetUser}" ];
+  #   users = [ "colmena" ];
   #   commands = [{
   #     command = "ALL";
   #     options = [ "NOPASSWD" ];
   #   }];
   # }];
+  security.sudo.extraRules = [{
+    users = [ "${config.deployment.targetUser}" ];
+    commands = [{
+      command = "ALL";
+      options = [ "NOPASSWD" ];
+    }];
+  }];
   # security.sudo.extraRules = [{
   #   users = [ "${user}" ];
   #   commands = [{

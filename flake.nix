@@ -215,7 +215,7 @@
           deployment = {
             # allowLocalDeployment = true;
             # targetUser = hosts.inspirion.user; 
-            targetUser = "root";
+            targetUser = "colmena";
             buildOnTarget = true;
             tags = hosts.inspirion.tags;
           };
@@ -229,7 +229,7 @@
           deployment = {
             # allowLocalDeployment = true;
             # targetUser = hosts.linc-n2.user; 
-            targetUser = "root";
+            targetUser = "colmena";
             buildOnTarget = true;
             tags = hosts.linc-n2.tags;
           };
@@ -243,7 +243,7 @@
           deployment = {
             # allowLocalDeployment = true;
             # targetUser = hosts.helix-s.user; 
-            targetUser = "root";
+            targetUser = "colmena";
             buildOnTarget = true;
             tags = hosts.helix-s.tags;
           };

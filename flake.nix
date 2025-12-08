@@ -81,11 +81,16 @@
               user = hosts.inspirion.user;
               ip = hosts.inspirion.ip;
               interface = hosts.inspirion.interface;
-              # graphics = hosts.inspirion.graphics;
+            };
+            linc-n2 = {
+              user = hosts.linc-n2.user;
+              ip = hosts.linc-n2.ip;
+              interface = hosts.linc-n2.interface;
             };
             helix-s = {
               user = hosts.helix-s.user;
-              # graphics = hosts.helix-s.graphics;
+              ip = hosts.helix-s.ip;
+              interface = hosts.helix-s.interface;
             };
           };
           specialArgs = {
@@ -217,6 +222,34 @@
 
           imports = [
             ./hosts/inspirion/configuration.nix
+          ];
+        };
+
+        linc-n2 = { name, ... }: {
+          deployment = {
+            # allowLocalDeployment = true;
+            # targetUser = hosts.linc-n2.user; 
+            targetUser = "root";
+            buildOnTarget = true;
+            tags = hosts.linc-n2.tags;
+          };
+
+          imports = [
+            ./hosts/linc-n2/configuration.nix
+          ];
+        };
+
+        helix-s = { name, ... }: {
+          deployment = {
+            # allowLocalDeployment = true;
+            # targetUser = hosts.helix-s.user; 
+            targetUser = "root";
+            buildOnTarget = true;
+            tags = hosts.helix-s.tags;
+          };
+
+          imports = [
+            ./hosts/helix-s/configuration.nix
           ];
         };
 

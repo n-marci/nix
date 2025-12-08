@@ -26,7 +26,7 @@ in
         "org.blender.Blender"
         "org.gaphor.Gaphor"
         "space.gaiasky.GaiaSky"
-        # "org.gtk.Gtk3theme.adw-gtk3"
+        "org.gtk.Gtk3theme.adw-gtk3"
       ];
       description = "my default flatpak apps";
     };
@@ -101,8 +101,8 @@ in
             XCURSOR_PATH = "/run/host/user-share/icons:/run/host/share/icons";
 
             # Force correct theme for some GTK apps
-            GTK_THEME = "Adwaita:dark";
-            # GTK_THEME = "adw-gtk3:dark";
+            # GTK_THEME = "Adwaita:dark";
+            # GTK_THEME = "Adw-gtk3";
           };
         };
 

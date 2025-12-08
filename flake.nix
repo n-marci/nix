@@ -208,7 +208,7 @@
 
         inspirion = { name, ... }: {
           deployment = {
-            allowLocalDeployment = true;
+            # allowLocalDeployment = true;
             # targetUser = hosts.inspirion.user; 
             targetUser = "root";
             buildOnTarget = true;

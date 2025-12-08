@@ -121,7 +121,7 @@ in {
             "run-or-raise@edvard.cz"
             # "tilingshell@ferrarodomenico.com"
             "paperwm@paperwm.github.com"
-            "openbar@neuromorph"
+            # "openbar@neuromorph"
             "ideapad-controls@woomymy.protonmail.com"
             "system-monitor@gnome-shell-extensions.gcampax.github.com"
             "soft-brightness-plus@joelkitching.com"
@@ -375,7 +375,7 @@ in {
         thinkpad-battery-threshold
         run-or-raise
         paperwm
-        open-bar
+        # open-bar
         # tiling shell is not in nix repos - I downloaded it from the extensions manager
         soft-brightness-plus
       ];

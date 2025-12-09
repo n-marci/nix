@@ -1,30 +1,86 @@
+# actualbudget config
 
-# actual budget configuration
+{ config, lib, name, hosts, service-dir, snapshot-dir, backup-dir, ... }:
 
-{config, pkgs, vars, lib, unstable, host, ...}:
+let
+  cfg = config.fleet.actualbudget;
+  inherit (lib) mkEnableOption mkOption mkIf mkDefault types;
+in
+{
+  
+  ##############################################################################
+  # OPTIONS
+  ##############################################################################
 
-with lib; {
-  options = {
-    fleet.actualbudget = {
-      enable = mkOption {
-        type = types.bool;
-        default = false;
-      };
+  options.fleet.actualbudget = {
+    enable = mkEnableOption "Enable actualbudget";
+
+    backup = mkOption {
+      type = types.bool;
+      default = false;
+    };
+
+    backupTarget = mkOption {
+      type = types.str;
+      default = "helix-s";
     };
   };
   
-  config = mkIf (config.fleet.actualbudget.enable) {
+  ##############################################################################
+  # CONFIG
+  ##############################################################################
 
-    virtualisation.oci-containers = {
-      backend = "docker";
-      containers = {
-        actualbudget = {
-          autoStart = true;
-          image = "docker.io/actualbudget/actual-server:latest";
-          ports = [ "5006:5006" ];
-          volumes = [ "/var/lib/actualbudget:/data" ];
-          # extraOptions = [ "--pull=always" "--restart=unless-stopped" ];
+  config = mkIf (cfg.enable) {
+
+  ##############################################################################
+  # SERVICE
+  ##############################################################################
+
+    services.actual = {
+      enable = true;
+      openFirewall = true;
+      settings = {
+        port = 5006;
+        hostname = "0.0.0.0";
+      };
+    };
+
+  ##############################################################################
+  # NGINX
+  ##############################################################################
+
+    services.nginx = {
+      enable = mkDefault true;
+      virtualHosts = {
+        "actual.marcelnet.com" = {
+          forceSSL = true;
+          useACMEHost = "marcelnet.com";
+          locations."/".proxyPass = "http://127.0.0.1:5006";
         };
+      };
+    };
+
+  ##############################################################################
+  # DISKO
+  ##############################################################################
+
+  # TODO
+  
+  ##############################################################################
+  # DISKO ON BTRFS TARGET
+  ##############################################################################
+
+  # TODO
+  
+  ##############################################################################
+  # BTRFS
+  ##############################################################################
+
+    services.btrbk.instances.btrbk.settings.volume."/".subvolume = mkIf (cfg.backup) {
+      "${service-dir}/actual" = {
+        snapshot_create = "always";
+        snapshot_dir = "/${snapshot-dir}/actual";
+        target = "ssh://${hosts.${cfg.backupTarget}.tailscale-ip}/${backup-dir}/${name}/actual";
       };
     };
   };

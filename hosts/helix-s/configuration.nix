@@ -67,7 +67,7 @@
   # NETWORKING
   ##############################################################################
 
-  networking.networkmanager.enable = true;
+  networking.networkmanager.enable = true; # needed cause helix-s is connected via wifi
 
   ##############################################################################
   # STATE VERSION

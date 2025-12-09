@@ -1,33 +1,40 @@
-# mealie recipe manager configuration
+# mealie config
 
-{ config, lib,  pkgs, unstable, name, ... }:
+{ config, lib, name, hosts, service-dir, snapshot-dir, backup-dir, ... }:
 
 let
-  datadir = "var/lib/private/mealie";
-  snapdir = "var/btr/mealie";
-  bkpdir = "srv/btr/${name}/mealie";
-  bkparray = "linc-nvme-raid";
-  inherit (lib) mkOption mkIf mkDefault types;
+  cfg = config.fleet.mealie;
+  inherit (lib) mkEnableOption mkOption mkIf mkDefault types;
 in
 {
-  options = {
-    fleet.mealie = {
-      enable = mkOption {
-        type = types.bool;
-        default = false;
-      };
-      backup = mkOption {
-        type = types.bool;
-        default = false;
-      };
-      backupTarget = mkOption {
-        type = types.bool;
-        default = false;
-      };
+  
+  ##############################################################################
+  # OPTIONS
+  ##############################################################################
+
+  options.fleet.mealie = {
+    enable = mkEnableOption "Enable mealie";
+
+    backup = mkOption {
+      type = types.bool;
+      default = false;
+    };
+
+    backupTarget = mkOption {
+      type = types.str;
+      default = "helix-s";
     };
   };
   
-  config = mkIf (config.fleet.mealie.enable) {
+  ##############################################################################
+  # CONFIG
+  ##############################################################################
+
+  config = mkIf (cfg.enable) {
+
+  ##############################################################################
+  # SERVICE
+  ##############################################################################
 
     services.mealie = {
       enable = true;
@@ -46,31 +53,43 @@ in
     };
     users.groups.mealie = { };
 
+  ##############################################################################
+  # NGINX
+  ##############################################################################
+
     services.nginx = {
       enable = mkDefault true;
       virtualHosts = {
         "mealie.marcelnet.com" = {
           forceSSL = true;
           useACMEHost = "marcelnet.com";
-          locations."/".proxyPass = "http://100.125.148.107:9925";
+          locations."/".proxyPass = "http://127.0.0.1:9925";
         };
       };
     };
 
-    # setup disko subvolume for ${datadir}
-     
-    # setup btrbk
-    services.btrbk.instances.btrbk.settings.volume."/".subvolume = mkIf (config.fleet.mealie.backup) {
-      "${datadir}" = {
+  ##############################################################################
+  # DISKO
+  ##############################################################################
+
+  # TODO
+  
+  ##############################################################################
+  # DISKO ON BTRFS TARGET
+  ##############################################################################
+
+  # TODO
+  
+  ##############################################################################
+  # BTRFS
+  ##############################################################################
+
+    services.btrbk.instances.btrbk.settings.volume."/".subvolume = mkIf (cfg.backup) {
+      "${service-dir}/private/mealie" = {
         snapshot_create = "always";
+        snapshot_dir = "/${snapshot-dir}/private/mealie";
+        target = "ssh://${hosts.${cfg.backupTarget}.tailscale-ip}/${backup-dir}/${name}/private/mealie";
       };
     };
-
-    # setup disko subvolume for ${host}/${bkpdir}
-    # disko.devices.btrfs.${bkparray}.subvolumes = mkIf (config.mealie.backupTarget) {
-    #   "${bkpdir}" = {
-    #     mountpoint = "${bkpdir}";
-    #   };
-    # };
   };
 }

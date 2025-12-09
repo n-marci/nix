@@ -27,13 +27,22 @@
       versioning = true;
       storeInBackupLocation = true;
     };
-    paperless.enable = true;
-    nextcloud.enable = true;
+    paperless = {
+      enable = true;
+      backup = true;
+    };
+    nextcloud = {
+      enable = true;
+      backup = true;
+    };
     immich = {
       enable = true;
       backup = true;
     };
-    actualbudget.enable = true;
+    actualbudget = {
+      enable = true;
+      backup = true;
+    };
     adguard.enable = true;
     mealie = {
       enable = true;
@@ -55,10 +64,10 @@
     };
 
     # postgresql backup
-    pg-bkp = {
-      enable = true;
-      databases = [ "nextcloud" "immich" ];
-    };
+    # pg-bkp = {
+    #   enable = true;
+    #   databases = [ "nextcloud" "immich" ];
+    # };
 
   };
 
@@ -85,20 +94,5 @@
   ##############################################################################
 
   system.stateVersion = "23.11"; # Did you read the comment?
-
-  # home-manager.users.${user} = {
-  #   home = {
-  #     stateVersion = "23.11";
-  #   };
-
-  #   programs = {
-  #     home-manager.enable = true;
-  #   };
-
-  #   nix = {
-  #     # package = pkgs.nix;
-  #     settings.experimental-features = [ "nix-command" "flakes" ];
-  #   };
-  # };
 
 }

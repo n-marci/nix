@@ -61,6 +61,7 @@ in
 
   inspirion = {
     ip = "192.168.66.21";
+    tailscale-ip = "100.125.148.107";
     interface = "enp0s20u3";
     user = "marci";
     tags = [
@@ -85,6 +86,7 @@ in
 
   helix-s = {
     ip = "dynamic"; # dynamic since otherwise i need to configure wifi manually
+    tailscale-ip = "100.83.225.75";
     interface = "wlp6s0";
     user = "marci";
     tags = [

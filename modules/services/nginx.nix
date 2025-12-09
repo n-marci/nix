@@ -18,57 +18,57 @@ with lib; {
       clientMaxBodySize = "1G";
 
       virtualHosts = {
-        "nextcloud.marcelnet.com" = {
-          forceSSL = true;
-          useACMEHost = "marcelnet.com";
-          #   locations."/" = {
-          #     proxyPass = "http://localhost";
-          #     proxyWebsockets = true;
-          #     extraConfig = ''
-          #       proxy_redirect http://$host https://$host; # apparently required for apps: https://codeberg.org/balint/nixos-configs/src/branch/main/hosts/vps/nextcloud.nix
-          #     '';
-          #   };
-          # extraConfig = ''
-          #   client_max_body_size 1G;
-          # '';
-        };
-        "adguard.marcelnet.com" = {
-          forceSSL = true;
-          useACMEHost = "marcelnet.com";
-          locations."/".proxyPass = "http://100.125.148.107:3000";
-        };
-        "paperless.marcelnet.com" = {
-          forceSSL = true;
-          useACMEHost = "marcelnet.com";
-          locations."/".proxyPass = "http://100.125.148.107:28981";
-          # locations."/" = {
-          #   proxyPass = "http://100.125.148.107:28981";
-          #   proxyWebsockets = true;
-          # };
-        };
-        "actual.marcelnet.com" = {
-          forceSSL = true;
-          useACMEHost = "marcelnet.com";
-          locations."/".proxyPass = "http://100.125.148.107:5006";
-        };
-        "cockpit.marcelnet.com" = {
-          forceSSL = true;
-          useACMEHost = "marcelnet.com";
-          locations."/".proxyPass = "http://100.125.148.107:9090";
-        };
+        # "nextcloud.marcelnet.com" = {
+        #   forceSSL = true;
+        #   useACMEHost = "marcelnet.com";
+        #   #   locations."/" = {
+        #   #     proxyPass = "http://localhost";
+        #   #     proxyWebsockets = true;
+        #   #     extraConfig = ''
+        #   #       proxy_redirect http://$host https://$host; # apparently required for apps: https://codeberg.org/balint/nixos-configs/src/branch/main/hosts/vps/nextcloud.nix
+        #   #     '';
+        #   #   };
+        #   # extraConfig = ''
+        #   #   client_max_body_size 1G;
+        #   # '';
+        # };
+        # "adguard.marcelnet.com" = {
+        #   forceSSL = true;
+        #   useACMEHost = "marcelnet.com";
+        #   locations."/".proxyPass = "http://100.125.148.107:3000";
+        # };
+        # "paperless.marcelnet.com" = {
+        #   forceSSL = true;
+        #   useACMEHost = "marcelnet.com";
+        #   locations."/".proxyPass = "http://100.125.148.107:28981";
+        #   # locations."/" = {
+        #   #   proxyPass = "http://100.125.148.107:28981";
+        #   #   proxyWebsockets = true;
+        #   # };
+        # };
+        # "actual.marcelnet.com" = {
+        #   forceSSL = true;
+        #   useACMEHost = "marcelnet.com";
+        #   locations."/".proxyPass = "http://100.125.148.107:5006";
+        # };
+        # "cockpit.marcelnet.com" = {
+        #   forceSSL = true;
+        #   useACMEHost = "marcelnet.com";
+        #   locations."/".proxyPass = "http://100.125.148.107:9090";
+        # };
         "traccar.marcelnet.com" = {
           forceSSL = true;
           useACMEHost = "marcelnet.com";
           locations."/".proxyPass = "http://100.125.148.107:8082";
         };
-        "audiobookshelf.marcelnet.com" = {
-          forceSSL = true;
-          useACMEHost = "marcelnet.com";
-          locations."/" = {
-            proxyPass = "http://100.125.148.107:8000";
-            proxyWebsockets = true;
-          };
-        };
+        # "audiobookshelf.marcelnet.com" = {
+        #   forceSSL = true;
+        #   useACMEHost = "marcelnet.com";
+        #   locations."/" = {
+        #     proxyPass = "http://100.125.148.107:8000";
+        #     proxyWebsockets = true;
+        #   };
+        # };
         # "mealie.marcelnet.com" = {
         #   forceSSL = true;
         #   useACMEHost = "marcelnet.com";

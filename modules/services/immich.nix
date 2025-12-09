@@ -1,38 +1,42 @@
-# nextcloud configuration
+# immich config
 
-{ config, lib,  pkgs, unstable, name, ... }:
+{ config, lib, name, hosts, service-dir, snapshot-dir, backup-dir, ... }:
 
 let
-  datadir = "var/lib/immich";
-  dbdir = "var/lib/postgresql";
-  dbdump = "var/lib/postgresql-dump";
-  snapdir = "var/btr/immich";
-  bkpdir = "srv/btr/${name}/immich";
-  inherit (lib) mkOption mkIf mkDefault types;
+  cfg = config.fleet.immich;
+  inherit (lib) mkEnableOption mkOption mkIf mkDefault types;
+  database-directory = "var/lib/postgresql";
+  db-export-directory = "var/lib/psql-export";
 in
 {
-  options = {
-    fleet.immich = {
-      enable = mkOption {
-        type = types.bool;
-        default = false;
-      };
-      backup = mkOption {
-        type = types.bool;
-        default = false;
-      };
+  
+  ##############################################################################
+  # OPTIONS
+  ##############################################################################
+
+  options.fleet.immich = {
+    enable = mkEnableOption "Enable immich";
+
+    backup = mkOption {
+      type = types.bool;
+      default = false;
+    };
+
+    backupTarget = mkOption {
+      type = types.str;
+      default = "helix-s";
     };
   };
   
-  config = mkIf (config.fleet.immich.enable) {
+  ##############################################################################
+  # CONFIG
+  ##############################################################################
 
-    ###########################
-    # TODO Disko Config
-    ###########################
+  config = mkIf (cfg.enable) {
 
-    ###########################
-    # Service Config
-    ###########################
+  ##############################################################################
+  # SERVICE
+  ##############################################################################
 
     services.immich = {
       enable = true;
@@ -41,14 +45,9 @@ in
       host = "0.0.0.0";
     };
 
-    # TODO add Hardware Accelerated Transconding using VA-API
-      # Explanation https://wiki.nixos.org/wiki/Immich
-
-    # networking.firewall.allowedTCPPorts = [ 2283  3001 ];
-    
-    ###########################
-    # Nginx Config
-    ###########################
+  ##############################################################################
+  # NGINX
+  ##############################################################################
 
     services.nginx = {
       enable = mkDefault true;
@@ -56,7 +55,7 @@ in
         "immich.marcelnet.com" = {
           forceSSL = true;
           useACMEHost = "marcelnet.com";
-          locations."/".proxyPass = "http://100.125.148.107:2283";
+          locations."/".proxyPass = "http://127.0.0.1:2283";
           # # For the moment I have it configured globally
           # # should also work with this config though
           extraConfig = ''
@@ -66,38 +65,49 @@ in
       };
     };
 
-    ###########################
-    # Postgres Database Export
-    ###########################
+  ##############################################################################
+  # DISKO
+  ##############################################################################
 
-    # services.postgresqlBackup = mkIf (config.fleet.immich.backup) {
-    #   enable = true;
-    #   startAt = "*-*-* 04:05:00";
-    #   location = "/${dbdump}";
-    #   databases = [ "immich" ];
-    # };
+  # TODO
+  
+  ##############################################################################
+  # POSTGRES DB EXPORT
+  ##############################################################################
 
-    ###########################
-    # Btrfs backup
-    ###########################
-    
-    services.btrbk.instances.btrbk.settings.volume."/".subvolume = mkIf (config.fleet.immich.backup) {
-      "${datadir}" = {
-        snapshot_create = "always";
-        snapshot_dir = "/${snapdir}";
-        target = "ssh://100.83.225.75/${bkpdir}";
-      };
-      "${dbdir}" = {
-        snapshot_create = "always";
-        snapshot_dir = "/${snapdir}";
-        target = "ssh://100.83.225.75/${bkpdir}";
-      };
-      "${dbdump}" = {
-        snapshot_create = "always";
-        snapshot_dir = "/${snapdir}";
-        target = "ssh://100.83.225.75/${bkpdir}";
-      };
+    services.postgresqlBackup = mkIf (config.fleet.immich.backup) {
+      enable = true;
+      startAt = "*-*-* 04:05:00";
+      location = "/${db-export-directory}";
+      databases = [ "immich" ];
     };
 
+  ##############################################################################
+  # DISKO ON BTRFS TARGET
+  ##############################################################################
+
+  # TODO
+  
+  ##############################################################################
+  # BTRFS
+  ##############################################################################
+
+    services.btrbk.instances.btrbk.settings.volume."/".subvolume = mkIf (cfg.backup) {
+      "${service-dir}/immich" = {
+        snapshot_create = "always";
+        snapshot_dir = "/${snapshot-dir}/immich";
+        target = "ssh://${hosts.${cfg.backupTarget}.tailscale-ip}/${backup-dir}/${name}/immich";
+      };
+      "${database-directory}" = {
+        snapshot_create = "always";
+        snapshot_dir = "/${snapshot-dir}/immich";
+        target = "ssh://${hosts.${cfg.backupTarget}.tailscale-ip}/${backup-dir}/${name}/immich";
+      };
+      "${db-export-directory}" = {
+        snapshot_create = "always";
+        snapshot_dir = "/${snapshot-dir}/immich";
+        target = "ssh://${hosts.${cfg.backupTarget}.tailscale-ip}/${backup-dir}/${name}/immich";
+      };
+    };
   };
 }

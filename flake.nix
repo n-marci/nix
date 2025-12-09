@@ -81,6 +81,9 @@
               user = hosts.inspirion.user;
               ip = hosts.inspirion.ip;
               interface = hosts.inspirion.interface;
+              service-dir = "var/lib";
+              snapshot-dir = "var/snap";
+              backup-dir = "srv/bkp";
             };
             linc-n2 = {
               user = hosts.linc-n2.user;

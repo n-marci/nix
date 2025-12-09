@@ -60,26 +60,26 @@ with lib; {
                   # Server Applications
                   ###########################
 
-                  "var/lib/paperless" = {
-                    snapshot_create = "always";
-                  };
-                  "var/lib/nextcloud" = {
-                    snapshot_create = "always";
-                  };
-                  "var/lib/postgresql" = {
-                    snapshot_create = "always";
-                  };
-                  "var/lib/actualbudget" = {
-                    snapshot_create = "always";
-                  };
+                  # "var/lib/paperless" = {
+                  #   snapshot_create = "always";
+                  # };
+                  # "var/lib/nextcloud" = {
+                  #   snapshot_create = "always";
+                  # };
+                  # "var/lib/postgresql" = {
+                  #   snapshot_create = "always";
+                  # };
+                  # "var/lib/actualbudget" = {
+                  #   snapshot_create = "always";
+                  # };
                   
                   ###########################
                   # Postgres Database Dump
                   ###########################
 
-                  "var/bkp/pg-dump" = {
-                    snapshot_create = "always";
-                  };
+                  # "var/bkp/pg-dump" = {
+                  #   snapshot_create = "always";
+                  # };
 
                   ###########################
                   # Syncthing Folders

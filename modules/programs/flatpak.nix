@@ -100,8 +100,8 @@ in
 
             # Fix un-themed cursor in some Wayland apps
             XCURSOR_PATH = "/run/host/user-share/icons:/run/host/share/icons";
-            # XCURSOR_SIZE= "32";
-            # XCURSOR_THEME= "Bibata_Ghost";
+            XCURSOR_SIZE= "32";
+            XCURSOR_THEME= "Bibata_Ghost";
 
             # Force correct theme for some GTK apps
             # GTK_THEME = "Adwaita:dark";

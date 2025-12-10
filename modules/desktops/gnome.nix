@@ -125,6 +125,7 @@ in {
             "ideapad-controls@woomymy.protonmail.com"
             "system-monitor@gnome-shell-extensions.gcampax.github.com"
             "soft-brightness-plus@joelkitching.com"
+            "display-brightness-ddcutil@themightydeity.github.com" # workaround as long as gnome does not have the feature natively
           ];
         };
 
@@ -336,6 +337,14 @@ in {
           builtin-monitor = "eDP-1";
         };
 
+        "org/gnome/shell/extensions/display-brightness-ddcutil" = {
+          button-location = 1;
+          hide-system-indicator = true;
+          ddcutil-binary-path = "/run/current-system/sw/bin/ddcutil";
+          allow-zero-brightness = true;
+          ddcutil-sleep-multiplier = 12.0;
+        };
+
         "system/locale" = {
           region = "de_DE.UTF-8";
         };
@@ -378,6 +387,7 @@ in {
         # open-bar
         # tiling shell is not in nix repos - I downloaded it from the extensions manager
         soft-brightness-plus
+        brightness-control-using-ddcutil
       ];
     };
   };

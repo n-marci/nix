@@ -163,6 +163,7 @@
     zotero
     papers
     gscan2pdf
+    naps2 # scanning application - wanted to try it out instead of gscan2pdf
 
     ###################
     # browser

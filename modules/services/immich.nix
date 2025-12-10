@@ -92,7 +92,12 @@ in
   # BTRFS
   ##############################################################################
 
-    services.btrbk.instances.btrbk.settings.volume."/".subvolume = mkIf (cfg.backup) {
+    fleet.btrbk-instance = {
+      enable = true;
+      instance = "immich";
+    };
+
+    services.btrbk.instances.immich.settings.volume."/".subvolume = mkIf (cfg.backup) {
       "${service-dir}/immich" = {
         snapshot_create = "always";
         snapshot_dir = "/${snapshot-dir}/immich";

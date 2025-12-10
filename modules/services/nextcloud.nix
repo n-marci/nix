@@ -179,7 +179,12 @@ in
   # BTRFS
   ##############################################################################
 
-    services.btrbk.instances.btrbk.settings.volume."/".subvolume = mkIf (cfg.backup) {
+    fleet.btrbk-instance = {
+      enable = true;
+      instance = "nextcloud";
+    };
+
+    services.btrbk.instances.nextcloud.settings.volume."/".subvolume = mkIf (cfg.backup) {
       "${service-dir}/nextcloud" = {
         snapshot_create = "always";
         snapshot_dir = "/${snapshot-dir}/nextcloud";

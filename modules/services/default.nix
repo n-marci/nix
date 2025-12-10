@@ -5,6 +5,7 @@
   ./immich.nix
   ./actualbudget.nix
   ./btrbk.nix
+  ./btrbk-instance.nix
   ./postgresql-bkp.nix
   ./adguardhome.nix
   ./mealie.nix

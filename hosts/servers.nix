@@ -56,7 +56,7 @@
     #   isNormalUser = true;
     # };
     ${config.deployment.targetUser} = { # create priviliged user for the deployment of colmena
-      isNormalUser = true;
+      isSystemUser = true;
     };
   };
 

@@ -1,4 +1,4 @@
-{ user, latest-kernel, ... }:
+{ pkgs, config, user, latest-kernel, ... }:
 
 {
   imports = (
@@ -13,6 +13,17 @@
       ../mobile.nix
       ./hardware-configuration.nix
     ]);
+
+  ##############################################################################
+  # PLAYGROUND
+  ##############################################################################
+
+  hardware.i2c.enable = true;
+  boot.kernelModules = [ "i2c-dev" "ddcci_backlight" ];
+  boot.extraModulePackages = [ config.boot.kernelPackages.ddcci-driver ];
+  services.ddccontrol.enable = true;
+  environment.systemPackages = [ pkgs.ddcutil ];
+  services.udev.packages = [ pkgs.ddcutil ];
 
   ##############################################################################
   # FLEET

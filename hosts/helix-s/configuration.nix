@@ -7,9 +7,10 @@
       # import ../../modules/programs ++
       import ../../modules/services
     ) ++ ([
-      ../baremetals.nix
-      ../common.nix
-      ../servers.nix
+      ../shared/baremetals.nix
+      ../shared/common.nix
+      ../shared/servers.nix
+      ../shared/mesh.nix
       ./hardware-configuration.nix
 
       ../../modules/configurations/networking.nix
@@ -31,10 +32,10 @@
     # backup services
     ##############################################################################
 
-    btrbk = {
-      enable = true;
-      node = "target";
-    };
+    # btrbk = {
+    #   enable = true;
+    #   node = "target";
+    # };
   };
 
   ##############################################################################

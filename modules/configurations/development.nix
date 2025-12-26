@@ -37,6 +37,25 @@ in
   # WORK IN PROGRESS - maybe put development into extra modules/development folder
   ##############################################################################
 
+    nixpkgs.overlays = [
+      (final: prev:
+      {
+        arduino-cli = prev.arduino-cli.overrideAttrs ( old: {
+          src = prev.fetchFromGithub {
+            owner = "arduino";
+            repo = "arduino-cli";
+            rev = "refs/tags/v1.1.0";
+            hash = "";
+          };
+        });
+      })
+    ];
+
+    nix.settings = {
+      substituters = [ "https://tweag-jupyter.cachix.org" ];
+      trusted-public-keys = [ "tweag-jupyter.cachix.org-1:UtNH4Zs6hVUFpFBTLaA4ejYavPo5EFFqgd7G7FxGW9g=" ];
+    };
+
     environment.systemPackages = with pkgs; [
       # poetry
       # conda # out of date
@@ -97,8 +116,6 @@ in
       SUBSYSTEM=="usb", ATTRS{idVendor}=="19d2", MODE="0666", GROUP="plugdev"
       SUBSYSTEM=="usb", ATTRS{idVendor}=="2ae5", MODE="0666", GROUP="plugdev"
       SUBSYSTEM=="usb", ATTRS{idVendor}=="2a45", MODE="0666", GROUP="plugdev"
-
-
     '';
 
   };

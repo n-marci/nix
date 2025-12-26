@@ -62,6 +62,7 @@
       HISTSIZE = "20000";
       HISTFILESIZE = "20000";
       EDITOR = "hx";
+      XCURSOR_THEME="ComixCursors-Opaque-Black"; # not entirely sure if needed
     };
   };
 

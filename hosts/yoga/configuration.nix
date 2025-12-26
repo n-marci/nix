@@ -7,10 +7,10 @@
       import ../../modules/programs ++
       import ../../modules/services
     ) ++ ([
-      ../baremetals.nix
-      ../common.nix
-      ../desktops.nix
-      ../mobile.nix
+      ../shared/baremetals.nix
+      ../shared/common.nix
+      ../shared/desktops.nix
+      ../shared/mobile.nix
       ./hardware-configuration.nix
     ]);
 

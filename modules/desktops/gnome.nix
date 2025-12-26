@@ -357,7 +357,7 @@ in {
         <Super>m,spotify.desktop,"",Spotify Premium
         # <Super>f,nautilus,,
         # <Super><Shift>f,nautilus
-        <Super>t,ptyxis,,
+        # <Super>t,ptyxis,,
         <Super><Shift>t,ptyxis --new-window
         <Super>o,md.obsidian.Obsidian.desktop,,
         <Super>n,xournalpp,,

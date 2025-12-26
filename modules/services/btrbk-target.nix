@@ -3,7 +3,7 @@
 { config, pkgs, lib, name, hosts, service-dir, snapshot-dir, backup-dir, ... }:
 
 let
-  cfg = config.fleet.btrbk;
+  cfg = config.fleet.btrbk-target;
   inherit (lib) mkEnableOption mkOption mkIf mkDefault types;
 in
 {
@@ -12,15 +12,8 @@ in
   # OPTIONS
   ##############################################################################
 
-  options.fleet.btrbk = {
+  options.fleet.btrbk-target = {
     enable = mkEnableOption "Enable btrbk";
-
-    instance = mkOption {
-      type = types.str;
-      default = "btrbk";
-    };
-
-    target = mkEnableOption "Enable target configuration for btrbk";
 
     publicKey = mkOption {
       type = types.str;
@@ -34,40 +27,21 @@ in
 
   config = mkIf (cfg.enable) {
 
-    # assertions = [{
-    #   assertion = !(cfg.source && cfg.target);
-    #   message = "Node must be either `source` or `target`, not both";
-    # }];
-
   ##############################################################################
-  # SOURCE SERVICE
+  # USER
   ##############################################################################
 
-    services.btrbk.instances.${cfg.instance} = mkIf (!cfg.target) {
-      onCalendar = "hourly";
-      settings = {
-        # good explanation on gentoo wiki https://wiki.calculate-linux.org/btrbk
-        preserve_hour_of_day = "0"; # the daily backup is the first one after midnight
-        preserve_day_of_week = "monday"; # Monday is the first day of week
-        snapshot_preserve_min = "1d"; # preserve all temporary snapshots for at least one day
-        snapshot_preserve = "14d 8w 6m 1y"; # preserve 14 latest daily, 8 weekly, 6 monthly, 1 annual snapshots
-        target_preserve_min = "no"; # do not preserve temporary snapshots
-        target_preserve = "6d 4w 6m 1y"; # preserve 6 latest daily, 4 weekly, 6 monthly, 1 annual snapshots
-        stream_compress = "zstd";
-        backend_remote = "btrfs-progs-sudo"; # so that i dont need root login for send
-        ssh_user = "btrbk"; # so that i dont need root login for send
-
-        # volume."/".subvolume = {
-
-        # };
-      };
+    # Define a user account. Don't forget to set a password with ‘passwd’.
+    users.users.btrbk = {
+      isSystemUser = true;
+      description = "Btrbk ssh user";
     };
 
   ##############################################################################
-  # SOURCE SECURITY
+  # SECURITY
   ##############################################################################
 
-    security.sudo = mkIf (!cfg.target) {
+    security.sudo = { # only needed on instance definition or also on the backup target?
       enable = true;
       extraRules = [{
         commands = [{
@@ -103,20 +77,5 @@ in
 
   # TODO
   
-  ##############################################################################
-  # TARGET USER
-  ##############################################################################
-
-    # Define a user account. Don't forget to set a password with ‘passwd’.
-    users.users.btrbk = mkIf (cfg.target) {
-      isSystemUser = true;
-      description = "Btrbk ssh user";
-      # hashedPassword = "";
-    };
-
-    services.btrbk.sshAccess = mkIf (cfg.target) [{
-      key = cfg.publicKey;
-      roles = [ "info" "source" "target" "delete" "snapshot" "send" "receive" ];
-    }];
   };
 }

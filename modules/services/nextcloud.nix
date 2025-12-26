@@ -17,14 +17,18 @@ in
   options.fleet.nextcloud = {
     enable = mkEnableOption "Enable nextcloud";
 
-    backup = mkOption {
-      type = types.bool;
-      default = false;
+    host = mkOption {
+      type = types.str;
+      default = "inspirion";
     };
 
-    backupTarget = mkOption {
-      type = types.str;
-      default = "helix-s";
+    backup = {
+      enable = mkEnableOption "Enable backup for nextcloud data directory and database";
+
+      target = mkOption {
+        type = types.str;
+        default = "helix-s";
+      };
     };
 
     fail2ban = mkOption {
@@ -43,7 +47,7 @@ in
   # SERVICE
   ##############################################################################
 
-    services.nextcloud = {
+    services.nextcloud = mkIf (name == cfg.host) {
       enable = true;
       hostName = "nextcloud.marcelnet.com";
       package = pkgs.nextcloud32;
@@ -85,7 +89,7 @@ in
   # SECRETS
   ##############################################################################
 
-    sops.secrets.nextcloud-pass = {
+    sops.secrets.nextcloud-pass = mkIf (name == cfg.host) {
       owner = "nextcloud";
     };
 
@@ -93,7 +97,7 @@ in
   # NGINX
   ##############################################################################
 
-    services.nginx = {
+    services.nginx = mkIf (name == cfg.host) {
       enable = mkDefault true;
       virtualHosts = {
         "nextcloud.marcelnet.com" = {
@@ -123,7 +127,7 @@ in
   # FAIL2BAN
   ##############################################################################
 
-    services.fail2ban = mkIf (cfg.fail2ban) {
+    services.fail2ban = mkIf (cfg.fail2ban && name == cfg.host) {
       enable = mkDefault true;
       jails = {
         nextcloud.settings = {
@@ -142,7 +146,7 @@ in
       };
     };
 
-    environment.etc = mkIf (cfg.fail2ban) {
+    environment.etc = mkIf (cfg.fail2ban && name == cfg.host) {
       # Adapted failregex for syslogs
       "fail2ban/filter.d/nextcloud.local".text = pkgs.lib.mkDefault (pkgs.lib.mkAfter ''
         [Definition]
@@ -162,7 +166,7 @@ in
   # POSTGRES DB EXPORT
   ##############################################################################
 
-    services.postgresqlBackup = mkIf (config.fleet.nextcloud.backup) {
+    services.postgresqlBackup = mkIf (cfg.backup.enable && (name == cfg.host)) {
       enable = mkDefault true;
       startAt = "*-*-* 04:05:00";
       location = "/${db-export-directory}";
@@ -179,27 +183,30 @@ in
   # BTRFS
   ##############################################################################
 
-    fleet.btrbk-instance = {
-      enable = true;
-      instance = "nextcloud";
-    };
-
-    services.btrbk.instances.nextcloud.settings.volume."/".subvolume = mkIf (cfg.backup) {
+    services.btrbk.instances.nextcloud.settings.volume."/".subvolume = mkIf (cfg.backup.enable && (name == cfg.host)) {
       "${service-dir}/nextcloud" = {
         snapshot_create = "always";
-        snapshot_dir = "/${snapshot-dir}/nextcloud";
-        target = "ssh://${hosts.${cfg.backupTarget}.tailscale-ip}/${backup-dir}/${name}/nextcloud";
       };
       "${database-directory}" = {
         snapshot_create = "always";
-        snapshot_dir = "/${snapshot-dir}/nextcloud";
-        target = "ssh://${hosts.${cfg.backupTarget}.tailscale-ip}/${backup-dir}/${name}/nextcloud";
       };
       "${db-export-directory}" = {
         snapshot_create = "always";
-        snapshot_dir = "/${snapshot-dir}/nextcloud";
-        target = "ssh://${hosts.${cfg.backupTarget}.tailscale-ip}/${backup-dir}/${name}/nextcloud";
       };
+      snapshot_dir = "/${snapshot-dir}/nextcloud";
+      target = "ssh://${hosts.${cfg.backup.target}.tailscale-ip}/${backup-dir}/${name}/nextcloud";
     };
+
+    fleet.btrbk = mkIf (cfg.backup.enable) {
+      enable = true;
+      instance = mkIf (name == cfg.host) "nextcloud";
+
+  ##############################################################################
+  # BTRFS ON TARGET
+  ##############################################################################
+
+      target = mkIf (name == cfg.backup.target) true;
+    };
+
   };
 }

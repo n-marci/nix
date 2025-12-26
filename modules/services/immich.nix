@@ -17,15 +17,28 @@ in
   options.fleet.immich = {
     enable = mkEnableOption "Enable immich";
 
-    backup = mkOption {
-      type = types.bool;
-      default = false;
+    host = mkOption {
+      type = types.str;
+      default = "inspirion";
     };
 
-    backupTarget = mkOption {
-      type = types.str;
-      default = "helix-s";
+    backup = {
+      enable = mkEnableOption "Enable backup for immich data directory and database";
+
+      target = mkOption {
+        type = types.str;
+        default = "helix-s";
+      };
     };
+    # backup = mkOption {
+    #   type = types.bool;
+    #   default = false;
+    # };
+
+    # backupTarget = mkOption {
+    #   type = types.str;
+    #   default = "helix-s";
+    # };
   };
   
   ##############################################################################
@@ -38,7 +51,7 @@ in
   # SERVICE
   ##############################################################################
 
-    services.immich = {
+    services.immich = mkIf (name == cfg.host) {
       enable = true;
       environment.IMMICH_MACHINE_LEARNING_URL = "http://localhost:3003";
       openFirewall = true;
@@ -49,7 +62,7 @@ in
   # NGINX
   ##############################################################################
 
-    services.nginx = {
+    services.nginx = mkIf (name == cfg.host) {
       enable = mkDefault true;
       virtualHosts = {
         "immich.marcelnet.com" = {
@@ -75,8 +88,8 @@ in
   # POSTGRES DB EXPORT
   ##############################################################################
 
-    services.postgresqlBackup = mkIf (config.fleet.immich.backup) {
-      enable = true;
+    services.postgresqlBackup = mkIf (cfg.backup.enable && (name == cfg.host)) {
+      enable = mkDefault true;
       startAt = "*-*-* 04:05:00";
       location = "/${db-export-directory}";
       databases = [ "immich" ];
@@ -86,33 +99,36 @@ in
   # DISKO ON BTRFS TARGET
   ##############################################################################
 
-  # TODO
+  # TODO mkIf (name == cfg.backupTarget)
   
   ##############################################################################
-  # BTRFS
+  # BTRFS ON HOST
   ##############################################################################
 
-    fleet.btrbk-instance = {
-      enable = true;
-      instance = "immich";
-    };
-
-    services.btrbk.instances.immich.settings.volume."/".subvolume = mkIf (cfg.backup) {
+    services.btrbk.instances.immich.settings.volume."/".subvolume = mkIf (cfg.backup.enable && (name == cfg.host)) {
       "${service-dir}/immich" = {
         snapshot_create = "always";
-        snapshot_dir = "/${snapshot-dir}/immich";
-        target = "ssh://${hosts.${cfg.backupTarget}.tailscale-ip}/${backup-dir}/${name}/immich";
       };
       "${database-directory}" = {
         snapshot_create = "always";
-        snapshot_dir = "/${snapshot-dir}/immich";
-        target = "ssh://${hosts.${cfg.backupTarget}.tailscale-ip}/${backup-dir}/${name}/immich";
       };
       "${db-export-directory}" = {
         snapshot_create = "always";
-        snapshot_dir = "/${snapshot-dir}/immich";
-        target = "ssh://${hosts.${cfg.backupTarget}.tailscale-ip}/${backup-dir}/${name}/immich";
       };
+      snapshot_dir = "/${snapshot-dir}/immich";
+      target = "ssh://${hosts.${cfg.backup.target}.tailscale-ip}/${backup-dir}/${name}/immich";
     };
+
+    fleet.btrbk = mkIf (cfg.backup.enable) {
+      enable = true;
+      instance = mkIf (name == cfg.host) "immich";
+
+  ##############################################################################
+  # BTRFS ON TARGET
+  ##############################################################################
+
+      target = mkIf (name == cfg.backup.target) true;
+    };
+
   };
 }

@@ -133,7 +133,7 @@ in
     users.users.btrbk = mkIf (cfg.target) {
       isSystemUser = true;
       description = "Btrbk ssh user";
-      # hashedPassword = "";
+      hashedPassword = "$y$j9T$zLd4QQEe0StSokJHXbxby1$v.7TpY9aVKPGHC.rYoMmHKZnIDny7ZiKjQ9BvUs19v7";
     };
 
     services.btrbk.sshAccess = mkIf (cfg.target) [{

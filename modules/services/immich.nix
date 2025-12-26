@@ -105,23 +105,38 @@ in
   # BTRFS ON HOST
   ##############################################################################
 
-    services.btrbk.instances.immich.settings.volume."/".subvolume = mkIf (cfg.backup.enable && (name == cfg.host)) {
-      "${service-dir}/immich" = {
-        snapshot_create = "always";
-      };
-      "${database-directory}" = {
-        snapshot_create = "always";
-      };
-      "${db-export-directory}" = {
-        snapshot_create = "always";
-      };
-      snapshot_dir = "/${snapshot-dir}/immich";
-      target = "ssh://${hosts.${cfg.backup.target}.tailscale-ip}/${backup-dir}/${name}/immich";
-    };
+    # services.btrbk.instances.immich.settings.volume."/".subvolume = mkIf (cfg.backup.enable && (name == cfg.host)) {
+    #   "${service-dir}/immich" = {
+    #     snapshot_create = "always";
+    #   };
+    #   "${database-directory}" = {
+    #     snapshot_create = "always";
+    #   };
+    #   "${db-export-directory}" = {
+    #     snapshot_create = "always";
+    #   };
+    #   snapshot_dir = "/${snapshot-dir}/immich";
+    #   target = "ssh://${hosts.${cfg.backup.target}.tailscale-ip}/${backup-dir}/${name}/immich";
+    # };
 
     fleet.btrbk = mkIf (cfg.backup.enable) {
       enable = true;
-      instance = mkIf (name == cfg.host) "immich";
+
+      instances."immich".settings = mkIf (name == cfg.host) {
+        volume."/".subvolume = {
+          "${service-dir}/immich" = {
+            snapshot_create = "always";
+          };
+          "${database-directory}" = {
+            snapshot_create = "always";
+          };
+          "${db-export-directory}" = {
+            snapshot_create = "always";
+          };
+          snapshot_dir = "/${snapshot-dir}/immich";
+          target = "ssh://${hosts.${cfg.backup.target}.tailscale-ip}/${backup-dir}/${name}/immich";
+        };
+      };
 
   ##############################################################################
   # BTRFS ON TARGET

@@ -183,23 +183,38 @@ in
   # BTRFS
   ##############################################################################
 
-    services.btrbk.instances.nextcloud.settings.volume."/".subvolume = mkIf (cfg.backup.enable && (name == cfg.host)) {
-      "${service-dir}/nextcloud" = {
-        snapshot_create = "always";
-      };
-      "${database-directory}" = {
-        snapshot_create = "always";
-      };
-      "${db-export-directory}" = {
-        snapshot_create = "always";
-      };
-      snapshot_dir = "/${snapshot-dir}/nextcloud";
-      target = "ssh://${hosts.${cfg.backup.target}.tailscale-ip}/${backup-dir}/${name}/nextcloud";
-    };
+    # services.btrbk.instances.nextcloud.settings.volume."/".subvolume = mkIf (cfg.backup.enable && (name == cfg.host)) {
+    #   "${service-dir}/nextcloud" = {
+    #     snapshot_create = "always";
+    #   };
+    #   "${database-directory}" = {
+    #     snapshot_create = "always";
+    #   };
+    #   "${db-export-directory}" = {
+    #     snapshot_create = "always";
+    #   };
+    #   snapshot_dir = "/${snapshot-dir}/nextcloud";
+    #   target = "ssh://${hosts.${cfg.backup.target}.tailscale-ip}/${backup-dir}/${name}/nextcloud";
+    # };
 
     fleet.btrbk = mkIf (cfg.backup.enable) {
       enable = true;
-      instance = mkIf (name == cfg.host) "nextcloud";
+
+      instances."nextcloud".settings = mkIf (name == cfg.host) {
+        volume."/".subvolume = {
+          "${service-dir}/nextcloud" = {
+            snapshot_create = "always";
+          };
+          "${database-directory}" = {
+            snapshot_create = "always";
+          };
+          "${db-export-directory}" = {
+            snapshot_create = "always";
+          };
+          snapshot_dir = "/${snapshot-dir}/nextcloud";
+          target = "ssh://${hosts.${cfg.backup.target}.tailscale-ip}/${backup-dir}/${name}/nextcloud";
+        };
+      };
 
   ##############################################################################
   # BTRFS ON TARGET

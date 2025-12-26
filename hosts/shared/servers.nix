@@ -57,8 +57,11 @@
     # };
     ${config.deployment.targetUser} = { # create priviliged user for the deployment of colmena
       isSystemUser = true;
+      group = "${config.deployment.targetUser}";
     };
   };
+
+  users.groups.${config.deployment.targetUser} = { };
 
   ##############################################################################
   # SECURITY

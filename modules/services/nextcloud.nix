@@ -103,16 +103,17 @@ in
         "nextcloud.marcelnet.com" = {
           forceSSL = true;
           useACMEHost = "marcelnet.com";
-          #   locations."/" = {
+          locations."/" = {
+              # clientMaxBodySize = "1G";
           #     proxyPass = "http://localhost";
           #     proxyWebsockets = true;
           #     extraConfig = ''
           #       proxy_redirect http://$host https://$host; # apparently required for apps: https://codeberg.org/balint/nixos-configs/src/branch/main/hosts/vps/nextcloud.nix
           #     '';
-          #   };
-          extraConfig = ''
-            client_max_body_size 1G;
-          '';
+            extraConfig = ''
+              client_max_body_size 1G;
+            '';
+          };
         };
       };
     };

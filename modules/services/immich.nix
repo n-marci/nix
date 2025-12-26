@@ -68,12 +68,15 @@ in
         "immich.marcelnet.com" = {
           forceSSL = true;
           useACMEHost = "marcelnet.com";
-          locations."/".proxyPass = "http://127.0.0.1:2283";
+          locations."/" = {
+            proxyPass = "http://127.0.0.1:2283";
+            # clientMaxBodySize = "1G";
+            extraConfig = ''
+              client_max_body_size 1G;
+            '';
+          };
           # # For the moment I have it configured globally
           # # should also work with this config though
-          extraConfig = ''
-            client_max_body_size 1G;
-          '';
         };
       };
     };

@@ -48,7 +48,7 @@
 
   outputs = inputs @ { self, nixpkgs, nixpkgs-stable, nixpkgs-unstable, sops-nix, home-manager, disko, microvm, colmena, flatpaks, secrets, ... }:
     let
-      hosts = import ./hosts.nix { inherit secrets; };
+      hosts = import ./hosts/hosts.nix { inherit secrets; };
       stable = import nixpkgs-stable {
         system = "x86_64-linux";
         config.allowUnfree = true;

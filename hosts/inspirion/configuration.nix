@@ -32,14 +32,14 @@
       enable = true;
       backup = true;
     };
-    nextcloud = {
-      enable = true;
-      backup = true;
-    };
-    immich = {
-      enable = true;
-      backup = true;
-    };
+    # nextcloud = {
+    #   enable = true;
+    #   backup = true;
+    # };
+    # immich = {
+    #   enable = true;
+    #   backup = true;
+    # };
     actualbudget = {
       enable = true;
       backup = true;

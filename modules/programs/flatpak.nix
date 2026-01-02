@@ -27,6 +27,9 @@ in
         "org.gaphor.Gaphor"
         "space.gaiasky.GaiaSky"
         "org.gtk.Gtk3theme.adw-gtk3"
+        "dev.fredol.open-tv"
+        "io.github.josephmawa.Egghead"
+        "io.github.v81d.Wattage"
       ];
       description = "my default flatpak apps";
     };

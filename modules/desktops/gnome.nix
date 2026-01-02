@@ -135,7 +135,7 @@ in {
           enable-hot-corners = false;
           clock-show-seconds = true;
           show-battery-percentage = true;
-          gtk-theme = "adw-gtk3";
+          gtk-theme = "adw-gtk3-dark";
 
           # gnome tweaks settings
           cursor-theme = "Bibata_Ghost";

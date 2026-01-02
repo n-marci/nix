@@ -63,6 +63,12 @@
   environment.systemPackages = (with pkgs; [
 
     ###################
+    # playground
+    ###################
+
+    # kando # also need to add gnomeExtensions.kando-integration
+    
+    ###################
     # cli tools
     ###################
     

@@ -7,10 +7,10 @@
       import ../../modules/programs ++
       import ../../modules/services
     ) ++ ([
-      ../shared/baremetals.nix
-      ../shared/common.nix
-      ../shared/desktops.nix
-      ../shared/mobile.nix
+      # ../shared/baremetals.nix
+      # ../shared/common.nix
+      ../../modules/configurations/hosts/gui.nix
+      ../../modules/configurations/hosts/mobile.nix
       ./hardware-configuration.nix
     ]);
 
@@ -28,6 +28,13 @@
   ##############################################################################
   # FLEET
   ##############################################################################
+
+  marci = {
+    hosts = {
+      baremetal.enable = true;
+      common.enable = true;
+    };
+  };
 
   fleet = {
     plymouth.enable = true;

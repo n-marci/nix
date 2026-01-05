@@ -2,15 +2,15 @@
 
 {
   imports = (
-      # import ../../modules/configurations ++
+      import ../../modules/configurations ++
       # import ../../modules/desktops ++
       # import ../../modules/programs ++
       import ../../modules/services
     ) ++ ([
-      ../shared/baremetals.nix
-      ../shared/common.nix
-      ../shared/servers.nix
-      ../shared/mesh.nix
+      # ../shared/baremetals.nix
+      # ../shared/common.nix
+      # ../shared/servers.nix
+      # ../shared/mesh.nix
       ./hardware-configuration.nix
 
       # ../../modules/programs/helix.nix
@@ -21,6 +21,15 @@
   ##############################################################################
   # FLEET
   ##############################################################################
+
+  marci = {
+    hosts = {
+      baremetal.enable = true;
+      common.enable = true;
+      server.enable = true;
+      mesh.enable = true;
+    };
+  };
 
   fleet = {
     syncthing = {

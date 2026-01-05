@@ -38,8 +38,8 @@
     #   enable = true;
     #   home = [ "yoga" "unicorn" ];
     #   server = [ "inspirion" ];
-    #   other = [ "s20-plus" "note-9" ];
-    #   folders = [ "nix" "secrets" "wallpapers" "obsidian" "logseq" "live" "linux" "idle" "archive" "dev" "phone" ];
+    #   other = [ "s20-plus" "s20-plus-wa" "note-9" ];
+    #   folders = [ "nix" "secrets" "wallpapers" "obsidian" "logseq" "live" "linux" "idle" "archive" "dev" "phone" "whatsapp"];
 
     #   backup = {
     #     enable = true;

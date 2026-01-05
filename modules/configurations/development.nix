@@ -22,6 +22,7 @@ in
         "zmk"
         "arduino"
         "raspberry"
+        "android"
       ];
       description = "my default development environments";
     };
@@ -118,5 +119,13 @@ in
       SUBSYSTEM=="usb", ATTRS{idVendor}=="2a45", MODE="0666", GROUP="plugdev"
     '';
 
+  ##############################################################################
+  # ADB
+  ##############################################################################
+
+    programs.adb.enable = true;
+    # environment.systemPackages = with pkgs; [
+    #   android-tools
+    # ];
   };
 }

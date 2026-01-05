@@ -9,8 +9,8 @@
     ) ++ ([
       # ../shared/baremetals.nix
       # ../shared/common.nix
-      ../../modules/configurations/hosts/gui.nix
-      ../../modules/configurations/hosts/mobile.nix
+      # ../../modules/configurations/hosts/gui.nix
+      # ../../modules/configurations/hosts/mobile.nix
       ./hardware-configuration.nix
     ]);
 
@@ -33,6 +33,8 @@
     hosts = {
       baremetal.enable = true;
       common.enable = true;
+      gui.enable = true;
+      mobile.enable = true;
     };
   };
 

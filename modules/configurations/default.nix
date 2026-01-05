@@ -6,7 +6,7 @@
   ./graphics.nix
   ./fonts.nix
   ./development.nix
-  # ./networking.nix
+  ./networking.nix
   
   ./hosts/baremetals.nix
   ./hosts/common.nix

@@ -163,7 +163,7 @@ in
     
       inkscape
       gimp
-      oculante
+      # oculante
       drawio
       gradia
 

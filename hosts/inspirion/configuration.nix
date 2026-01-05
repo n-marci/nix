@@ -2,15 +2,11 @@
 
 {
   imports = (
-      import ../../modules/configurations ++
+      # import ../../modules/configurations ++
       # import ../../modules/desktops ++
       # import ../../modules/programs ++
       import ../../modules/services
     ) ++ ([
-      # ../shared/baremetals.nix
-      # ../shared/common.nix
-      # ../shared/servers.nix
-      # ../shared/mesh.nix
       ../../modules/configurations/hosts/baremetals.nix
       ../../modules/configurations/hosts/common.nix
       ../../modules/configurations/hosts/servers.nix

@@ -122,26 +122,25 @@
   # DESKTOPS
   ##############################################################################
 
-        # desktop = nixpkgs.lib.nixosSystem {
-        desktop = { name, ... }: {
-          deployment = {
-            allowLocalDeployment = true;
-            targetHost = null;
-            tags = hosts.desktop.tags;
-          };
+        # desktop = { name, ... }: {
+        #   deployment = {
+        #     allowLocalDeployment = true;
+        #     targetHost = null;
+        #     tags = hosts.desktop.tags;
+        #   };
 
-          imports = [
-            ./hosts/desktop
-            ./configuration.nix
+        #   imports = [
+        #     ./hosts/desktop
+        #     ./configuration.nix
 
-            flatpaks.nixosModules.nix-flatpak
-            home-manager.nixosModules.home-manager {
-              home-manager.useGlobalPkgs = true;
-              home-manager.useUserPackages = true;
-              home-manager.extraSpecialArgs.flake-inputs = inputs;
-            }
-          ];
-        };
+        #     flatpaks.nixosModules.nix-flatpak
+        #     home-manager.nixosModules.home-manager {
+        #       home-manager.useGlobalPkgs = true;
+        #       home-manager.useUserPackages = true;
+        #       home-manager.extraSpecialArgs.flake-inputs = inputs;
+        #     }
+        #   ];
+        # };
 
         yoga = { name, ... }: {
           deployment = {
@@ -228,19 +227,19 @@
           ];
         };
 
-        linc-n2 = { name, ... }: {
-          deployment = {
-            # allowLocalDeployment = true;
-            # targetUser = hosts.linc-n2.user; 
-            targetUser = "colmena";
-            buildOnTarget = true;
-            tags = hosts.linc-n2.tags;
-          };
+        # linc-n2 = { name, ... }: {
+        #   deployment = {
+        #     # allowLocalDeployment = true;
+        #     # targetUser = hosts.linc-n2.user; 
+        #     targetUser = "colmena";
+        #     buildOnTarget = true;
+        #     tags = hosts.linc-n2.tags;
+        #   };
 
-          imports = [
-            ./hosts/linc-n2/configuration.nix
-          ];
-        };
+        #   imports = [
+        #     ./hosts/linc-n2/configuration.nix
+        #   ];
+        # };
 
         helix-s = { name, ... }: {
           deployment = {

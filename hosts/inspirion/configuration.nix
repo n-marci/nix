@@ -11,6 +11,10 @@
       # ../shared/common.nix
       # ../shared/servers.nix
       # ../shared/mesh.nix
+      ../../modules/configurations/hosts/baremetals.nix
+      ../../modules/configurations/hosts/common.nix
+      ../../modules/configurations/hosts/servers.nix
+      ../../modules/configurations/hosts/mesh.nix
       ./hardware-configuration.nix
 
       # ../../modules/programs/helix.nix

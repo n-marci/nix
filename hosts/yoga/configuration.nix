@@ -3,6 +3,7 @@
 {
   imports = (
       import ../../modules/configurations ++
+      import ../../modules/configurations/hosts ++
       import ../../modules/desktops ++
       import ../../modules/programs ++
       import ../../modules/services

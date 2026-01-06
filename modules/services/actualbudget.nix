@@ -77,10 +77,10 @@ in
   ##############################################################################
 
     services.btrbk.instances.btrbk.settings.volume."/".subvolume = mkIf (cfg.backup) {
-      "${service-dir}/actual" = {
+      "${service-dir}/private/actual" = {
         snapshot_create = "always";
-        snapshot_dir = "/${snapshot-dir}/actual";
-        target = "ssh://${hosts.${cfg.backupTarget}.tailscale-ip}/${backup-dir}/${name}/actual";
+        snapshot_dir = "/${snapshot-dir}/private/actual";
+        target = "ssh://${hosts.${cfg.backupTarget}.tailscale-ip}/${backup-dir}/${name}/private/actual";
       };
     };
   };

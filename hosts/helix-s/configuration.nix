@@ -7,10 +7,10 @@
       # import ../../modules/programs ++
       import ../../modules/services
     ) ++ ([
-      ../../modules/configurations/hosts/baremetals.nix
-      ../../modules/configurations/hosts/common.nix
-      ../../modules/configurations/hosts/servers.nix
-      ../../modules/configurations/hosts/mesh.nix
+      ../../modules/hosts/baremetals.nix
+      ../../modules/hosts/common.nix
+      ../../modules/hosts/servers.nix
+      ../../modules/hosts/mesh.nix
       ./hardware-configuration.nix
 
       ../../modules/configurations/networking.nix

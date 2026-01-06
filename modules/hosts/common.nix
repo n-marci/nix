@@ -31,7 +31,7 @@ in
   ##############################################################################
 
     sops = {
-      defaultSopsFile = ../../../secrets/${name}.yaml;
+      defaultSopsFile = ../../secrets/${name}.yaml;
       defaultSopsFormat = "yaml";
 
       age.keyFile= "/home/${user}/.config/sops/age/keys.txt";

@@ -3,7 +3,7 @@
 { config, lib, user, ... }:
 
 let
-  cfg = config.fleet.syncthing-home;
+  cfg = config.marci.syncthing-home;
   inherit (lib) mkEnableOption mkOption mkIf mkDefault types;
 in
 {
@@ -12,7 +12,7 @@ in
   # OPTIONS
   ##############################################################################
 
-  options.fleet.syncthing-home = {
+  options.marci.syncthing-home = {
     # enable = mkEnableOption {
     #   name = "Enable syncthing-home";
     #   default = config.fleet.syncthing.enable;

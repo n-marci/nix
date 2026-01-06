@@ -23,14 +23,23 @@ in
   # FLEET
   ##############################################################################
 
+    marci = {
+      programs = {
+        bash.enable = true;
+        flatpak.enable = true;
+        git.enable = true;
+        helix.enable = true;
+        vscodium.enable = true;
+        zathura.enable = true;
+
+        direnv.enable = false;
+      };
+    };
+
     fleet = {
       gnome.enable = true;
       virtualisation.enable = true;
       fonts.enable = true;
-      flatpak = {
-        enable = true;
-        # gnome = true;
-      };
       graphics.enable = true;
       audio.enable = true;
       printer.enable = true;

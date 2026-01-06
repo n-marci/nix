@@ -5,6 +5,6 @@
   ./git.nix
   ./bash.nix
   ./vscodium.nix
-  # ./direnv.nix
+  ./direnv.nix
   ./syncthing-home.nix
 ]

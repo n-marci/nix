@@ -3,7 +3,7 @@
 { config, lib, pkgs, ... }:
 
 let
-  cfg = config.fleet.flatpak;
+  cfg = config.marci.programs.flatpak;
   inherit (lib) mkEnableOption mkOption mkIf mkDefault types;
 in
 {
@@ -12,7 +12,7 @@ in
   # OPTIONS
   ##############################################################################
 
-  options.fleet.flatpak = {
+  options.marci.programs.flatpak = {
     enable = mkEnableOption "Enable flatpak application usage";
 
     apps = mkOption {
@@ -36,7 +36,7 @@ in
 
     # gnome = mkOption {
     #   type = types.bool;
-    #   default = config.fleet.gnome.enable;
+    #   default = config.marci.desktops.gnome.enable;
     # };
   };
   

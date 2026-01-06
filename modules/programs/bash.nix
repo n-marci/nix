@@ -1,32 +1,43 @@
-{ pkgs, user, ... }:
+{ config, lib, pkgs, user, ... }:
 
+let
+  cfg = config.marci.programs.bash;
+  inherit (lib) mkEnableOption mkIf;
+in
 {
-  home-manager.users.${user} = {
-    programs = {
-      bash = {
-        enable = true;
 
-        # bashrcExtra = ''
-        #   # # >>> mamba initialize >>>
-        #   # # !! Contents within this block are managed by 'mamba init' !!
-        #   # export MAMBA_EXE='/nix/store/j54g2ccy0mgs74qgzpnz4chk4xpvba81-micromamba-1.5.4/bin/micromamba';
-        #   # export MAMBA_ROOT_PREFIX='/home/marci/micromamba';
-        #   # __mamba_setup="$("$MAMBA_EXE" shell hook --shell bash --root-prefix "$MAMBA_ROOT_PREFIX" 2> /dev/null)"
-        #   # if [ $? -eq 0 ]; then
-        #   #     eval "$__mamba_setup"
-        #   # else
-        #   #     alias micromamba="$MAMBA_EXE"  # Fallback on help from mamba activate
-        #   # fi
-        #   # unset __mamba_setup
-        #   # # <<< mamba initialize <<<
+  ##############################################################################
+  # OPTIONS
+  ##############################################################################
 
-        #   eval "$(direnv hook bash)"     # this needs to be the last line of .bashrc file
-        # '';
+  options.marci.programs.bash = {
+    enable = mkEnableOption "Enable configuration for the bash shell";
+  };
+  
+  ##############################################################################
+  # CONFIG
+  ##############################################################################
 
-        shellAliases = {
-          c4 = "sgpt --model gpt-4 --role custom-chat --chat";
-          c3 = "sgpt --model gpt-3.5-turbo --role custom-chat --chat";
+  config = mkIf (cfg.enable) {
+    home-manager.users.${user} = {
+      programs = {
+        bash = {
+          enable = true;
+
+          bashrcExtra = ''
+            # shows the current startup art in new terminal window
+            cat ~/sync/linux/config/bash/startup_art
+          '';
+
+          shellAliases = {
+            c4 = "sgpt --model gpt-4 --role custom-chat --chat";
+            c3 = "sgpt --model gpt-3.5-turbo --role custom-chat --chat";
+          };
         };
+
+        readline.extraConfig = ''
+          "\C-h": backward-kill-word
+        '';
       };
     };
   };

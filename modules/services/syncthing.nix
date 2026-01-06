@@ -47,6 +47,7 @@ in {
   config = mkIf (config.fleet.syncthing.enable) {
     services.syncthing = {
       enable = true;
+      openDefaultPorts = true; # open firewall
       user = user;
       dataDir = "/home/${user}/sync";
       configDir = "/home/${user}/.config/syncthing";

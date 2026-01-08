@@ -177,6 +177,7 @@ in {
               };
             };
           };
+          # TODO whatsapp
           "nix" = { # for nix I dont make a btrfs backup since it is version controlled by git
             path = "/home/marci/nix";
             devices = devices-with-phone;

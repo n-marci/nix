@@ -53,7 +53,7 @@
 
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
-  boot.loader.systemd-boot.configurationLimit = 5;
+  boot.loader.systemd-boot.configurationLimit = 10;
   boot.loader.efi.canTouchEfiVariables = true;
 
   # set the timeout for the screen going dark - value in seconds
@@ -85,4 +85,15 @@
 
   system.stateVersion = "24.05"; # Did you read the comment?
 
+  ##############################################################################
+  # WORKAROUNDS
+  ##############################################################################
+
+  # If tablet audio is very very low, change the driver intel uses
+
+  # sudo nvim /etc/modprobe.d/snd-intel.conf
+  # Add 'options snd-intel-dspcfg dsp_driver=3'
+  # This will use SOF driver instead of sst or legacy driver
+
+  # source: https://dev.to/archerallstars/i-have-been-using-fedora-36-for-a-month-here-is-my-review-2c1h
 }

@@ -232,13 +232,13 @@ in {
 
         "org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom2" = {
           binding = "<Super>w";
-          command = "/home/marci/sync/linux/scripts/ai_explain.sh";
+          command = "/home/marci/sync/obsidian/Life/2. Areas/scripts/ai_explain.sh";
           name = "ai pls explain";
         };
 
         "org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom3" = {
           binding = "<Super>g";
-          command = "/home/marci/sync/linux/scripts/run-selection.sh";
+          command = "xdg-open '$(wl-paste --primary)'";
           name = "xdg open";
         };
 

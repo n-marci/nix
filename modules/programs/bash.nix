@@ -26,7 +26,15 @@ in
 
           bashrcExtra = ''
             # shows the current startup art in new terminal window
-            cat ~/sync/linux/config/bash/startup_art
+            echo '
+              ／l、"
+           🗦（ﾟ๓ ｡ ７ " 
+            ⠀ l、ﾞ~ヽ"
+            ⠀ じしf_, )ノ"
+            '
+
+            # setup vi keybindings in bash
+            # set -o vi
           '';
 
           shellAliases = {

@@ -19,7 +19,7 @@ in
   ##############################################################################
 
   config = mkIf (cfg.enable) {
-    fleet = {
+    marci.services = {
 
     ##############################################################################
     # IMMICH
@@ -51,18 +51,19 @@ in
     # SYNCTHING
     ##############################################################################
 
-      # syncthing = {
-      #   enable = true;
-      #   home = [ "yoga" "unicorn" ];
-      #   server = [ "inspirion" ];
-      #   other = [ "s20-plus" "s20-plus-wa" "note-9" ];
-      #   folders = [ "nix" "secrets" "wallpapers" "obsidian" "logseq" "live" "linux" "idle" "archive" "dev" "phone" "whatsapp"];
+      syncthing = {
+        enable = true;
+        homes = [ "yoga" "unicorn" ];
+        servers = [ "inspirion" ];
+        phones = [ "s20-plus" "note-9" ];
+        whatsapp = [ "s20-plus-wa" ];
+        folders = [ "nix" "secrets" "wallpapers" "obsidian" "logseq" "phone" "signal" "whatsapp"];
 
-      #   backup = {
-      #     enable = true;
-      #     target = "helix-s";
-      #   };
-      # };
+        backup = {
+          enable = true;
+          target = "helix-s";
+        };
+      };
 
     };
   };

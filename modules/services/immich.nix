@@ -3,7 +3,7 @@
 { config, lib, name, hosts, service-dir, snapshot-dir, backup-dir, ... }:
 
 let
-  cfg = config.fleet.immich;
+  cfg = config.marci.services.immich;
   inherit (lib) mkEnableOption mkOption mkIf mkDefault types;
   database-directory = "var/lib/postgresql";
   db-export-directory = "var/lib/psql-export";
@@ -14,7 +14,7 @@ in
   # OPTIONS
   ##############################################################################
 
-  options.fleet.immich = {
+  options.marci.services.immich = {
     enable = mkEnableOption "Enable immich";
 
     host = mkOption {

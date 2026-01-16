@@ -1,84 +1,144 @@
-# syncthing configuration
-# TODO at some point maybe outsource the id's to a secret file  
-# TODO add /dev and /secrets to sync
-# TODO reorganise my files
-# TODO setup only pull on server
-# TODO setup versioning on server
+# syncthing config
 
-{ config, lib, user, pkgs, name, hosts, ... }:
+{ config, lib, user, pkgs, name, hosts, service-dir, snapshot-dir, backup-dir, ... }:
 
-with lib;
 let
-  devices-with-phone =
-    if name == "yoga" then [ "inspirion" "helix-s" "marci_desktop" "marci_note" "s20-plus" ]
-    else if name == "desktop" then [ "inspirion" "helix-s" "marci_yoga" "marci_note" "s20-plus" ]
-    else if name == "helix-s" then [ "inspirion" "marci_desktop" "marci_yoga" "marci_note" "s20-plus" ]
-    # else if name == "helix_b" then [ "inspirion" "marci_helix_s" "marci_desktop" "marci_yoga" "marci_note" ]
-    else if name == "inspirion" then [ "helix-s" "marci_desktop" "marci_yoga" "marci_note" "s20-plus" ]
-    else [];
+  cfg = config.marci.services.syncthing;
+  inherit (lib) mkEnableOption mkOption mkIf mkDefault types elem;
+  inherit (builtins) filter concatLists;
+in
+{
+  ##############################################################################
+  # OPTIONS
+  ##############################################################################
 
-  devices-without-phone = 
-    if name == "yoga" then [ "inspirion" "helix-s" "marci_desktop" "s20-plus" ]
-    else if name == "desktop" then [ "inspirion" "helix-s" "marci_yoga" "s20-plus" ]
-    else if name == "helix-s" then [ "inspirion" "marci_desktop" "marci_yoga" "s20-plus" ]
-    # else if name == "helix_b" then [ "inspirion" "marci_helix_a" "marci_desktop" "marci_yoga" ]
-    else if name == "inspirion" then [ "helix-s" "marci_desktop" "marci_yoga" "s20-plus" ]
-    else [];
+  options.marci.services.syncthing = {
+    enable = mkEnableOption "Enable configuration for syncthing service";
 
-  # sync-ids = import "${secrets}/syncthing-ids.nix";
-in {
-  options = {
-    fleet.syncthing = {
-      enable = mkOption {
-        type = types.bool;
-        default = false;
-      };
-      versioning = mkOption {
-        type = types.bool;
-        default = false;
-      };
-      storeInBackupLocation = mkOption {
-        type = types.bool;
-        default = false;
+    homes = mkOption {
+      type = types.listOf types.str;
+      default = [ ];
+      description = "list of devices which should be configured as end user devices";
+    };
+
+    servers = mkOption {
+      type = types.listOf types.str;
+      default = [ ];
+      description = "list of devices which should be configured as server devices with versioning and backup";
+    };
+
+    phones = mkOption {
+      type = types.listOf types.str;
+      default = [ ];
+      description = "list of devices which should be configured as phones";
+    };
+
+    whatsapp = mkOption {
+      type = types.listOf types.str;
+      default = [ ];
+      description = "list of devices which should be configured as a whatsapp device";
+    };
+
+    folders = mkOption {
+      type = types.listOf types.str;
+      default = [ ];
+      description = "list of folders which should be shared";
+    };
+
+    backup = {
+      enable = mkEnableOption "Enable backup for syncthing directories";
+
+      target = mkOption {
+        type = types.str;
+        default = "helix-s";
       };
     };
   };
   
-  config = mkIf (config.fleet.syncthing.enable) {
+  ##############################################################################
+  # CONFIG
+  ##############################################################################
+
+  config = mkIf (cfg.enable) (
+  let
+    # devices = filter (x: x != "${name}") (concatLists [ cfg.homes cfg.servers cfg.other ]); # concatenete together all devices in the mesh and filter out the host
+    path =
+      if (elem "${name}" cfg.homes) then "/home/${user}"
+      else if (elem "${name}" cfg.servers) then "/${service-dir}/syncthing"
+      else "/home/${user}";
+  in
+  {
     services.syncthing = {
       enable = true;
       openDefaultPorts = true; # open firewall
       user = user;
-      dataDir = "/home/${user}/sync";
-      configDir = "/home/${user}/.config/syncthing";
+      dataDir = path;
+      # configDir = "/home/${user}/.config/syncthing";
       overrideDevices = true;
       overrideFolders = true;
       key = config.sops.secrets.syncthing-key.path;
       cert = config.sops.secrets.syncthing-cert.path;
       settings = {
+  
+    ##############################################################################
+    # DEVICES
+    ##############################################################################
+
         devices = {
           "inspirion" = { id = hosts.inspirion.sync-id; };
           # "marci_helix_b" = { id = sync-ids.helix-b; };
           "helix-s" = { id = hosts.helix-s.sync-id; };
-          "marci_desktop" = { id = hosts.desktop.sync-id; };
-          "marci_yoga" = { id = hosts.yoga.sync-id; };
-          "marci_note" = { id = hosts.note-9.sync-id; };
+          "unicorn" = { id = hosts.unicorn.sync-id; };
+          "yoga" = { id = hosts.yoga.sync-id; };
+          "note-9" = { id = hosts.note-9.sync-id; };
           "s20-plus" = { id = hosts.s20-plus.sync-id; };
+          "s20-plus-wa" = { id = hosts.s20-plus-wa.sync-id; };
         };
+
+    ##############################################################################
+    # FOLDERS
+    ##############################################################################
+
         folders = {
-          "wallpapers" = {
-            path =
-              if config.fleet.syncthing.storeInBackupLocation then "/var/lib/syncthing/wallpapers"
-              else "/home/marci/Pictures/wallpapers";
-            devices = devices-with-phone;
+
+      ##############################################################################
+      # NIX
+      ##############################################################################
+
+          "nix" = mkIf (elem "nix" cfg.folders) {
+            path = "${path}/nix";
+            devices = (concatLists [ cfg.homes cfg.servers cfg.phones ]);
           };
-          "obsidian" = {
-            # path = "/home/marci/sync/obsidian";
+
+      ##############################################################################
+      # SECRETS
+      ##############################################################################
+
+          "secrets" = mkIf (elem "secrets" cfg.folders) {
+            path = "${path}/secrets";
+            devices = (concatLists [ cfg.homes cfg.servers cfg.phones ]);
+          };
+
+      ##############################################################################
+      # WALLPAPERS
+      ##############################################################################
+
+          "wallpapers" = mkIf (elem "wallpapers" cfg.folders) {
             path =
-              if config.fleet.syncthing.storeInBackupLocation then "/var/lib/syncthing/obsidian"
-              else "/home/marci/sync/obsidian";
-            devices = devices-with-phone;
-            versioning = mkIf (config.fleet.syncthing.versioning) {
+              if (elem "${name}" cfg.homes) then "${path}/Pictures/wallpapers"
+              else if (elem "${name}" cfg.servers) then "${path}/wallpapers"
+              else "${path}/Pictures/wallpapers";
+            devices = (concatLists [ cfg.homes cfg.servers cfg.phones cfg.whatsapp ]);
+          };
+
+      ##############################################################################
+      # OBSIDIAN
+      ##############################################################################
+
+          "obsidian" = mkIf (elem "obsidian" cfg.folders) {
+            path = "${path}/obsidian";
+            devices = (concatLists [ cfg.homes cfg.servers cfg.phones ]);
+            versioning = mkIf (elem "${name}" cfg.servers) {
               type = "staggered";
               params = {
                 cleanInterval = "3600";
@@ -86,12 +146,15 @@ in {
               };
             };
           };
-          "logseq" = {
-            path =
-              if config.fleet.syncthing.storeInBackupLocation then "/var/lib/syncthing/logseq"
-              else "/home/marci/logseq";
-            devices = devices-with-phone;
-            versioning = mkIf (config.fleet.syncthing.versioning) {
+
+      ##############################################################################
+      # LOGSEQ
+      ##############################################################################
+
+          "logseq" = mkIf (elem "logseq" cfg.folders) {
+            path = "${path}/logseq";
+            devices = (concatLists [ cfg.homes cfg.servers cfg.phones ]);
+            versioning = mkIf (elem "${name}" cfg.servers) {
               type = "staggered";
               params = {
                 cleanInterval = "3600";
@@ -99,12 +162,15 @@ in {
               };
             };
           };
-          "live" = {
-            path =
-              if config.fleet.syncthing.storeInBackupLocation then "/var/lib/syncthing/live"
-              else "/home/marci/sync/live";
-            devices = devices-without-phone;
-            versioning = mkIf (config.fleet.syncthing.versioning) {
+
+      ##############################################################################
+      # PHONE
+      ##############################################################################
+
+          "phone" = mkIf (elem "phone" cfg.folders) {
+            path = "${path}/phone";
+            devices = (concatLists [ cfg.homes cfg.servers cfg.phones ]);
+            versioning = mkIf (elem "${name}" cfg.servers) {
               type = "staggered";
               params = {
                 cleanInterval = "3600";
@@ -112,86 +178,23 @@ in {
               };
             };
           };
-          "linux" = {
-            path =
-              if config.fleet.syncthing.storeInBackupLocation then "/var/lib/syncthing/linux"
-              else "/home/marci/sync/linux";
-            devices = devices-without-phone;
-            versioning = mkIf (config.fleet.syncthing.versioning) {
-              type = "staggered";
-              params = {
-                cleanInterval = "3600";
-                maxAge = "31536000";
-              };
-            };
+
+      ##############################################################################
+      # SIGNAL
+      ##############################################################################
+
+          "signal" = mkIf (elem "signal" cfg.folders) {
+            path = "${path}/signal";
+            devices = (concatLists [ cfg.homes cfg.servers cfg.phones ]);
           };
-          "idle" = {
-            path =
-              if config.fleet.syncthing.storeInBackupLocation then "/var/lib/syncthing/idle"
-              else "/home/marci/sync/idle";
-            devices = devices-without-phone;
-            versioning = mkIf (config.fleet.syncthing.versioning) {
-              type = "staggered";
-              params = {
-                cleanInterval = "3600";
-                maxAge = "31536000";
-              };
-            };
-          };
-          "archive" = {
-            path =
-              if config.fleet.syncthing.storeInBackupLocation then "/var/lib/syncthing/archive"
-              else "/home/marci/sync/archive";
-            devices = devices-without-phone;
-            versioning = mkIf (config.fleet.syncthing.versioning) {
-              type = "staggered";
-              params = {
-                cleanInterval = "3600";
-                maxAge = "31536000";
-              };
-            };
-          };
-          "dev" = {
-            path =
-              if config.fleet.syncthing.storeInBackupLocation then "/var/lib/syncthing/dev"
-              else "/home/marci/dev";
-            devices = devices-without-phone;
-            versioning = mkIf (config.fleet.syncthing.versioning) {
-              type = "staggered";
-              params = {
-                cleanInterval = "3600";
-                maxAge = "31536000";
-              };
-            };
-          };
-          "phone" = {
-            path =
-              if config.fleet.syncthing.storeInBackupLocation then "/var/lib/syncthing/phone"
-              else "/home/marci/phone";
-            devices = devices-with-phone;
-            versioning = mkIf (config.fleet.syncthing.versioning) {
-              type = "staggered";
-              params = {
-                cleanInterval = "3600";
-                maxAge = "31536000";
-              };
-            };
-          };
-          # TODO whatsapp
-          "nix" = { # for nix I dont make a btrfs backup since it is version controlled by git
-            path = "/home/marci/nix";
-            devices = devices-with-phone;
-            versioning = mkIf (config.fleet.syncthing.versioning) {
-              type = "staggered";
-              params = {
-                cleanInterval = "3600";
-                maxAge = "31536000";
-              };
-            };
-          };
-          "secrets" = { # for secrets I dont make a btrfs backup since it is version controlled by git
-            path = "/home/marci/secrets";
-            devices = devices-with-phone;
+
+      ##############################################################################
+      # WHATSAPP
+      ##############################################################################
+
+          "whatsapp" = mkIf (elem "whatsapp" cfg.folders) {
+            path = "${path}/whatsapp";
+            devices = (concatLists [ cfg.homes cfg.servers cfg.whatsapp ]);
           };
         };
       };
@@ -215,9 +218,40 @@ in {
     #     .obsidian
     #   '';
     # };
-    systemd.tmpfiles.rules = mkIf (config.fleet.syncthing.storeInBackupLocation) [
+    systemd.tmpfiles.rules = mkIf (elem "${name}" cfg.servers) [
       "f /var/lib/syncthing/obsidian/.stignore 755 marci syncthing"
       "w /var/lib/syncthing/obsidian/.stignore - - - - .obsidian"
     ];
-  };
+
+    ##############################################################################
+    # DISKO
+    ##############################################################################
+
+    # TODO
+
+  ##############################################################################
+  # BTRFS ON HOST
+  ##############################################################################
+
+    fleet.btrbk = mkIf (cfg.backup.enable) {
+      enable = true;
+
+      instances."btrbk".settings = mkIf (elem "${name}" cfg.servers)  {
+        volume."/".subvolume = {
+          "${service-dir}/syncthing" = {
+            snapshot_create = "always";
+          };
+          snapshot_dir = "/${snapshot-dir}/syncthing";
+          target = "ssh://${hosts.${cfg.backup.target}.tailscale-ip}/${backup-dir}/${name}/syncthing";
+        };
+      };
+
+  ##############################################################################
+  # BTRFS ON TARGET
+  ##############################################################################
+
+      target = mkIf (name == cfg.backup.target) true;
+    };
+
+  });
 }

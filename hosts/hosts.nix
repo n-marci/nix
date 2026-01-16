@@ -25,14 +25,14 @@ in
     public-key = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIMbTG0TMrD6NK8zO8pGzmL6ZybgrZhWJMsiFHvjhMpKH ${emails.web-de}";
   };
 
-  desktop = {
+  unicorn = {
     ip = "dynamic";
     user = "marci";
     graphics = "nvidia";
     tags = [
       "desktop"
     ];
-    sync-id = sync-ids.desktop;
+    sync-id = sync-ids.unicorn;
     bkp-target = "linc-n2";
     access = [ "yoga" ];
   };
@@ -46,6 +46,13 @@ in
       "phone"
     ];
     sync-id = sync-ids.s20-plus;
+  };
+
+  s20-plus-wa = {
+    tags = [
+      "phone"
+    ];
+    sync-id = sync-ids.s20-plus-wa;
   };
 
   note-9 = {

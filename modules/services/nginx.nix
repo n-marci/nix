@@ -83,14 +83,6 @@ with lib; {
         #   locations."/_matrix".proxyPass = "http://[::1]:8008";
         #   locations."/_synapse/client".proxyPass = "http://[::1]:8008";
         # };
-        "immich.inspirion.bearded-bushi.ts.net" = {
-          # forceSSL = true;
-          # enableACME = false;
-          # useACMEHost = "marcelnet.com";
-          # sslCertificate = "/home/marci/inspirion.bearded-bushi.ts.net.crt";
-          # sslCertificateKey = "/home/marci/inspirion.bearded-bushi.ts.net.key";
-          locations."/".proxyPass = "http://localhost:2283";
-        };
       };
     };
 

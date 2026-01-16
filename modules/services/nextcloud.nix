@@ -3,7 +3,7 @@
 { config, pkgs, lib, name, hosts, service-dir, snapshot-dir, backup-dir, ... }:
 
 let
-  cfg = config.fleet.nextcloud;
+  cfg = config.marci.services.nextcloud;
   inherit (lib) mkEnableOption mkOption mkIf mkDefault types;
   database-directory = "var/lib/postgresql";
   db-export-directory = "var/lib/psql-export";
@@ -14,7 +14,7 @@ in
   # OPTIONS
   ##############################################################################
 
-  options.fleet.nextcloud = {
+  options.marci.services.nextcloud = {
     enable = mkEnableOption "Enable nextcloud";
 
     host = mkOption {

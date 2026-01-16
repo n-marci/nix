@@ -19,7 +19,7 @@ in
     # };
     enable = mkOption {
       type = types.bool;
-      default = config.fleet.syncthing.enable;
+      default = config.marci.services.syncthing.enable;
     };
   };
   

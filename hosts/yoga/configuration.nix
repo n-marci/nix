@@ -36,12 +36,13 @@
       common.enable = true;
       gui.enable = true;
       mobile.enable = true;
+      mesh.enable = true;
     };
   };
 
   fleet = {
     plymouth.enable = true;
-    syncthing.enable = true;
+    # syncthing.enable = true;
   };
 
   ##############################################################################

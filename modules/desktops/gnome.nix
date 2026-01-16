@@ -111,7 +111,7 @@ in {
             "system-monitor@gnome-shell-extensions.gcampax.github.com"
             "grand-theft-focus@zalckos.github.com"
             "gsconnect@andyholmes.github.io"
-            "pano@elhan.io" # removed bc build problems - add again next build
+            # "pano@elhan.io" # removed bc build problems - add again next build
             # "clipboard-indicator@tudmotu.com"
             "windowgestures@extension.amarullz.com"
             "gjsosk@vishram1123.com"
@@ -126,6 +126,7 @@ in {
             "system-monitor@gnome-shell-extensions.gcampax.github.com"
             "soft-brightness-plus@joelkitching.com"
             "display-brightness-ddcutil@themightydeity.github.com" # workaround as long as gnome does not have the feature natively
+            "copyous@boerdereinar.dev"
           ];
         };
 
@@ -320,13 +321,13 @@ in {
           tray-location = false;
         };
 
-        "org/gnone/shell/extensions/pano" = {
-          global-shortcut = ["<Super>v"];
-          paste-on-select = false;
-          send-notification-on-copy = false;
-          play-audio-on-copy = false;
-          history-length = 250;
-        };
+        # "org/gnone/shell/extensions/pano" = {
+        #   global-shortcut = ["<Super>v"];
+        #   paste-on-select = false;
+        #   send-notification-on-copy = false;
+        #   play-audio-on-copy = false;
+        #   history-length = 250;
+        # };
 
         "org/gnome/shell/extensions/clipboard-indicator" = {
           history-size = 50;
@@ -372,7 +373,7 @@ in {
         system-monitor
         grand-theft-focus
         gsconnect
-        pano # removed bc build problems - add again next build 
+        # pano # removed bc build problems - add again next build 
         # clipboard-indicator
         # window-gestures
         # gesture-improvements
@@ -388,6 +389,7 @@ in {
         # tiling shell is not in nix repos - I downloaded it from the extensions manager
         soft-brightness-plus
         brightness-control-using-ddcutil
+        copyous
       ];
     };
   };

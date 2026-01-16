@@ -32,11 +32,11 @@
   };
 
   fleet = {
-    syncthing = {
-      enable = true;
-      versioning = true;
-      storeInBackupLocation = true;
-    };
+    # syncthing = {
+    #   enable = true;
+    #   versioning = true;
+    #   storeInBackupLocation = true;
+    # };
     paperless = {
       enable = true;
       backup = true;

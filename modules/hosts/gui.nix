@@ -94,6 +94,7 @@ in
       ###################
 
       # kando # also need to add gnomeExtensions.kando-integration
+      nextcloud-client
     
       ###################
       # cli tools
@@ -204,7 +205,7 @@ in
     
       brave
       firefox
-      librewolf
+      librewolf-bin
 
       ###################
       # engineering

@@ -65,13 +65,13 @@
         meta = {
           nixpkgs = stable;
           nodeNixpkgs = {
-            desktop = unstable;
+            unicorn = unstable;
             yoga = unstable;
           };
           nodeSpecialArgs = {
-            desktop = {
-              user = hosts.desktop.user;
-              graphics = hosts.desktop.graphics;
+            unicorn = {
+              user = hosts.unicorn.user;
+              graphics = hosts.unicorn.graphics;
             };
             yoga = {
               user = hosts.yoga.user;
@@ -305,6 +305,54 @@
   # VMs
   ##############################################################################
 
+      };
+
+  ##############################################################################
+  # 
+  ##############################################################################
+
+      nixosConfigurations = {
+        yoga = nixpkgs.lib.nixosSystem {
+          # inherit system;
+          specialArgs = {
+
+            inherit inputs secrets hosts stable unstable;
+            # host = {
+            #   hostName = "yoga";
+            # };
+          };
+
+          modules = [
+            ./hosts/yoga/configuration.nix
+
+            # disko.nixosModules.disko
+            sops-nix.nixosModules.sops
+            flatpaks.nixosModules.nix-flatpak
+            home-manager.nixosModules.home-manager {
+              home-manager.useGlobalPkgs = true;
+              home-manager.useUserPackages = true;
+              home-manager.extraSpecialArgs.flake-inputs = inputs;
+            }
+          ];
+        };
+        # yoga = { name, ... }: {
+        #   deployment = {
+        #     allowLocalDeployment = true;
+        #     targetHost = null;
+        #     tags = hosts.yoga.tags;
+        #   };
+
+        #   imports = [
+        #     ./hosts/yoga/configuration.nix
+
+        #     flatpaks.nixosModules.nix-flatpak
+        #     home-manager.nixosModules.home-manager {
+        #       home-manager.useGlobalPkgs = true;
+        #       home-manager.useUserPackages = true;
+        #       home-manager.extraSpecialArgs.flake-inputs = inputs;
+        #     }
+        #   ];
+        # };
       };
     };
 }

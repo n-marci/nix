@@ -65,6 +65,8 @@ in {
         dconf-editor
         adw-gtk3
         gettext           # needed for battery-charging-health and also ideapad controls extensions
+        libgda6 # needed for copyous
+        gsound # needed for copyous
       ];
       gnome.excludePackages = (with pkgs; [
         gnome-tour

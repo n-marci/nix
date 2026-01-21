@@ -62,6 +62,7 @@ in
   config = mkIf (cfg.enable) (
   let
     # devices = filter (x: x != "${name}") (concatLists [ cfg.homes cfg.servers cfg.other ]); # concatenete together all devices in the mesh and filter out the host
+    devices = (concatLists [ cfg.homes cfg.servers cfg.phones cfg.whatsapp ]);
     path =
       if (elem "${name}" cfg.homes) then "/home/${user}"
       else if (elem "${name}" cfg.servers) then "/${service-dir}/syncthing"
@@ -105,7 +106,7 @@ in
       # NIX
       ##############################################################################
 
-          "nix" = mkIf (elem "nix" cfg.folders) {
+          "nix" = mkIf (elem "nix" cfg.folders && elem "${name}" devices) {
             path = "${path}/nix";
             devices = (concatLists [ cfg.homes cfg.servers cfg.phones ]);
           };
@@ -114,7 +115,7 @@ in
       # SECRETS
       ##############################################################################
 
-          "secrets" = mkIf (elem "secrets" cfg.folders) {
+          "secrets" = mkIf (elem "secrets" cfg.folders && elem "${name}" devices) {
             path = "${path}/secrets";
             devices = (concatLists [ cfg.homes cfg.servers cfg.phones ]);
           };
@@ -123,7 +124,7 @@ in
       # WALLPAPERS
       ##############################################################################
 
-          "wallpapers" = mkIf (elem "wallpapers" cfg.folders) {
+          "wallpapers" = mkIf (elem "wallpapers" cfg.folders && elem "${name}" devices) {
             path =
               if (elem "${name}" cfg.homes) then "${path}/Pictures/wallpapers"
               else if (elem "${name}" cfg.servers) then "${path}/wallpapers"
@@ -135,7 +136,7 @@ in
       # OBSIDIAN
       ##############################################################################
 
-          "obsidian" = mkIf (elem "obsidian" cfg.folders) {
+          "obsidian" = mkIf (elem "obsidian" cfg.folders && elem "${name}" devices) {
             path = "${path}/obsidian";
             devices = (concatLists [ cfg.homes cfg.servers cfg.phones ]);
             versioning = mkIf (elem "${name}" cfg.servers) {
@@ -151,7 +152,7 @@ in
       # LOGSEQ
       ##############################################################################
 
-          "logseq" = mkIf (elem "logseq" cfg.folders) {
+          "logseq" = mkIf (elem "logseq" cfg.folders && elem "${name}" devices) {
             path = "${path}/logseq";
             devices = (concatLists [ cfg.homes cfg.servers cfg.phones ]);
             versioning = mkIf (elem "${name}" cfg.servers) {
@@ -167,7 +168,7 @@ in
       # PHONE
       ##############################################################################
 
-          "phone" = mkIf (elem "phone" cfg.folders) {
+          "phone" = mkIf (elem "phone" cfg.folders && elem "${name}" devices) {
             path = "${path}/phone";
             devices = (concatLists [ cfg.homes cfg.servers cfg.phones ]);
             versioning = mkIf (elem "${name}" cfg.servers) {
@@ -183,7 +184,7 @@ in
       # SIGNAL
       ##############################################################################
 
-          "signal" = mkIf (elem "signal" cfg.folders) {
+          "signal" = mkIf (elem "signal" cfg.folders && elem "${name}" devices) {
             path = "${path}/signal";
             devices = (concatLists [ cfg.homes cfg.servers cfg.phones ]);
           };
@@ -192,7 +193,7 @@ in
       # WHATSAPP
       ##############################################################################
 
-          "whatsapp" = mkIf (elem "whatsapp" cfg.folders) {
+          "whatsapp" = mkIf (elem "whatsapp" cfg.folders && elem "${name}" devices) {
             path = "${path}/whatsapp";
             devices = (concatLists [ cfg.homes cfg.servers cfg.whatsapp ]);
           };

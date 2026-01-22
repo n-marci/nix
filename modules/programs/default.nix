@@ -7,5 +7,5 @@
   ./bash.nix
   ./vscodium.nix
   ./direnv.nix
-  ./syncthing-home.nix
+  # ./syncthing-home.nix
 ]

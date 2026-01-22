@@ -28,7 +28,7 @@ in
   ##############################################################################
 
   config = mkIf (cfg.enable) {
-    home-manager.users.${user}.home.file."sync/obsidian/.stignore".text = ''
+    home-manager.users.${user}.home.file."obsidian/.stignore".text = ''
       .obsidian
     '';
     # home-manager = {

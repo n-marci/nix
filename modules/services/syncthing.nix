@@ -219,10 +219,10 @@ in
     #     .obsidian
     #   '';
     # };
-    systemd.tmpfiles.rules = mkIf (elem "${name}" cfg.servers) [
-      "f /var/lib/syncthing/obsidian/.stignore 755 marci syncthing"
-      "w /var/lib/syncthing/obsidian/.stignore - - - - .obsidian"
-    ];
+    # systemd.tmpfiles.rules = mkIf (elem "${name}" cfg.servers) [
+    #   "f /var/lib/syncthing/obsidian/.stignore 755 marci syncthing"
+    #   "w /var/lib/syncthing/obsidian/.stignore - - - - .obsidian"
+    # ];
 
     ##############################################################################
     # DISKO

@@ -129,8 +129,10 @@ in
     services.tailscale = {
       # enable = true; # already enabled in common.nix
       # authKeyFile = config.sops.secrets.tailscale-homelab-auth-key-one-time.path;
-      extraUpFlags = [ "--ssh" ];
-      # extraUpFlags = [ "--ssh" "--accept-routes" ];
+      # extraUpFlags = [ "--ssh" ];
+      extraSetFlags = [ "--advertise-exit-node" ];
+      extraUpFlags = [ "--ssh" "--accept-routes" ];
+      useRoutingFeatures = "server";
         # -> used it in proxmox and I was able to use nextcloud
         # - maybe different scenario tho, since there tailscale was inside container - now it is on the host
     };

@@ -42,5 +42,12 @@ in
     environment.systemPackages = with pkgs; [
       gnome-power-manager
     ];
+
+    ##############################################################################
+    # MOBILE CONFIG
+    ##############################################################################
+
+    services.tailscale.useRoutingFeatures = "client"; # apparently this sets reverse path filtering to loose instead of strict - need to research what that means and what is the (security) impact
+  
   };
 }

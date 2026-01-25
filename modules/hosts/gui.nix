@@ -205,7 +205,7 @@ in
     
       brave
       firefox
-      librewolf-bin
+      librewolf
 
       ###################
       # engineering

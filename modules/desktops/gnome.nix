@@ -59,15 +59,24 @@ in {
     # '';
     
     environment = {
-      systemPackages = with pkgs; [      # I have to use stable pkgs here, otherwise there were problems
+      systemPackages = (with pkgs; [      # I have to use stable pkgs here, otherwise there were problems
         nautilus-python            # with integration of nautilus-python for example
         gnome-tweaks
         dconf-editor
         adw-gtk3
-        gettext           # needed for battery-charging-health and also ideapad controls extensions
+        # gettext # needed for battery-charging-health and also ideapad controls extensions
         libgda6 # needed for copyous
         gsound # needed for copyous
-      ];
+      ]) ++ (with pkgs.gnomeExtensions; [
+        copyous
+      ]);
+
+      sessionVariables = {
+        # LD_LIBRARY_PATH = "${pkgs.libgda6}/lib:${pkgs.gsound}/lib:\${LD_LIBRARY_PATH}";
+        LD_LIBRARY_PATH =  [ "${pkgs.libgda6}/lib" "${pkgs.gsound}/lib" ];
+        GI_TYPELIB_PATH = "${pkgs.libgda6}/lib/girepository-1.0:${pkgs.gsound}/lib/girepository-1.0:\${GI_TYPELIB_PATH}";
+      };
+
       gnome.excludePackages = (with pkgs; [
         gnome-tour
         gnome-photos
@@ -371,7 +380,7 @@ in {
         <Super>h:raise-or-register(1)
       '';
 
-      home.packages = with pkgs.gnomeExtensions; [
+      home.packages = (with pkgs.gnomeExtensions; [
         system-monitor
         grand-theft-focus
         gsconnect
@@ -391,8 +400,12 @@ in {
         # tiling shell is not in nix repos - I downloaded it from the extensions manager
         soft-brightness-plus
         brightness-control-using-ddcutil
-        copyous
-      ];
+        # copyous
+      ]) ++ (with pkgs; [
+        gettext # needed for battery-charging-health and also ideapad controls extensions
+        libgda6 # needed for copyous
+        gsound # needed for copyous
+      ]);
     };
   };
 }

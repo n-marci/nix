@@ -99,6 +99,7 @@ in
 
       # kando # also need to add gnomeExtensions.kando-integration
       nextcloud-client
+      signal-desktop
     
       ###################
       # cli tools

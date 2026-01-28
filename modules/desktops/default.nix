@@ -1,3 +1,4 @@
 [
   ./gnome.nix
+  ./niri.nix
 ]

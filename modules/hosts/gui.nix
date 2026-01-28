@@ -34,6 +34,10 @@ in
 
         direnv.enable = false;
       };
+
+      desktops = {
+        niri.enable = true;
+      };
     };
 
     fleet = {

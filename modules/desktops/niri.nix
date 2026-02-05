@@ -33,10 +33,10 @@ in
   # NOCTALIA
   ##############################################################################
 
-    networking.networkmanager.enable = true;
-    hardware.bluetooth.enable = true;
-    services.power-profiles-daemon.enable = true;
-    services.upower.enable = true;
+    # networking.networkmanager.enable = true;
+    # hardware.bluetooth.enable = true;
+    # services.power-profiles-daemon.enable = true;
+    # services.upower.enable = true;
 
   ##############################################################################
   # WAYBAR
@@ -49,10 +49,11 @@ in
   ##############################################################################
 
     environment.systemPackages = with pkgs; [
-      noctalia-shell
+      # noctalia-shell
       
       alacritty
       fuzzel
+      xwayland-satellite
       cliphist
       brightnessctl
       adw-bluetooth

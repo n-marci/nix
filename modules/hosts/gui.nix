@@ -37,6 +37,7 @@ in
 
       desktops = {
         niri.enable = true;
+        dms-shell.enable = true;
       };
     };
 

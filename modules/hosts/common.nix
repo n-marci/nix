@@ -70,6 +70,8 @@ in
 
     # fleet.networking.enable = true;
     networking.hostName = name;
+    networking.firewall.allowedUDPPorts = [ 41641 3478 ]; # UDP for tailscale is blocked if not opened
+    networking.firewall.allowedTCPPorts = [ 22000 38742 ]; # TCP for tailscale is blocked if not opened
     services.tailscale.enable = true;
 
   ##############################################################################

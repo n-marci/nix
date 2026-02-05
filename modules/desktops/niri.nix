@@ -28,21 +28,29 @@ in
 
     programs.niri.enable = true;
     services.iio-niri.enable = true;
-    programs.niri.settings = {
-      outputs."eDP-1".scale = 2.0;
-    };
+
+  ##############################################################################
+  # NOCTALIA
+  ##############################################################################
+
+    networking.networkmanager.enable = true;
+    hardware.bluetooth.enable = true;
+    services.power-profiles-daemon.enable = true;
+    services.upower.enable = true;
 
   ##############################################################################
   # WAYBAR
   ##############################################################################
 
-    programs.waybar.enable = true;
+    # programs.waybar.enable = true;
 
   ##############################################################################
   # PKGS
   ##############################################################################
 
     environment.systemPackages = with pkgs; [
+      noctalia-shell
+      
       alacritty
       fuzzel
       cliphist

@@ -45,7 +45,7 @@ in {
 
         # xkb.layout = "us,de";
 
-      displayManager.gdm.enable = true;
+      # displayManager.gdm.enable = true;
       desktopManager.gnome.enable = true;
       # };
 

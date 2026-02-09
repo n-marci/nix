@@ -1,6 +1,6 @@
 # dms-shell config
 
-{ config, lib, pkgs, ... }:
+{ config, lib, pkgs, user, quickshell, ... }:
 
 let
   cfg = config.marci.desktops.dms-shell;
@@ -26,7 +26,24 @@ in
   # DMS-SHELL
   ##############################################################################
 
-    programs.dms-shell.enable = true;
+    services.displayManager.dms-greeter = {
+      enable = true;
+      compositor.name = "niri";
+      configHome = "/home/${user}";
+      
+      # Save the logs to a file
+      logs = {
+        save = true; 
+        path = "/tmp/dms-greeter.log";
+      };
+      quickshell.package = quickshell.packages.${pkgs.stdenv.hostPlatform.system}.quickshell;
+    };
+
+    programs.dms-shell = {
+      enable = true;
+      enableSystemMonitoring = false;
+      quickshell.package = quickshell.packages.${pkgs.stdenv.hostPlatform.system}.quickshell;
+    };
 
   ##############################################################################
   # DISKO

@@ -54,9 +54,14 @@ in
       alacritty
       fuzzel
       xwayland-satellite
+
+      # on screen keyboard
+      wvkbd
+      onboard
+
       cliphist
       brightnessctl
-      adw-bluetooth
+      # adw-bluetooth
     ];
 
   ##############################################################################

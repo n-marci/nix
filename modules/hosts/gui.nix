@@ -101,6 +101,10 @@ in
       # kando # also need to add gnomeExtensions.kando-integration
       nextcloud-client
       signal-desktop
+
+      swappy
+      satty
+      flameshot
     
       ###################
       # cli tools

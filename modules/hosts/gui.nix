@@ -64,6 +64,7 @@ in
           settings = {
             main = {
               "stop" = "leftmeta";
+              "leftmeta" = "overload(meta, f13)";
             };
           };
         };
@@ -140,7 +141,7 @@ in
       ###################
 
       # cli-visualizer  # it is no longer available on github :((
-      scope-tui
+      scope-tui # run with perfect settings on yoga: scope-tui -s 0.25 -r 96000 pulse pipewire.monitor
 
       ###################
       # language servers

@@ -103,9 +103,12 @@ in
       nextcloud-client
       signal-desktop
 
+      # screenshot and screenshot editing tools
       swappy
       satty
       flameshot
+
+      luminance # control brightness of external monitors
     
       ###################
       # cli tools

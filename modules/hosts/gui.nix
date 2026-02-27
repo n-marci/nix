@@ -195,7 +195,7 @@ in
       # audio
       ###################
     
-      spotify
+      # spotify
       # helvum
       qpwgraph
       alsa-lib
@@ -261,6 +261,7 @@ in
       ###################
 
       # gscan2pdf
+      spotify
     
       ###################
       # source build in unstable

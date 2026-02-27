@@ -63,8 +63,8 @@ in
           ids = [ "*" ];
           settings = {
             main = {
-              "stop" = "leftmeta";
-              "leftmeta" = "overload(meta, f13)";
+              # "stop" = "leftmeta";
+              "leftmeta" = "overload(meta, stop)";
             };
           };
         };

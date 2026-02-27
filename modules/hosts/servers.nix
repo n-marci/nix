@@ -132,7 +132,7 @@ in
       # extraUpFlags = [ "--ssh" ];
       extraSetFlags = [ "--advertise-exit-node" "--advertise-routes=100.0.0.0/8,192.168.66.0/24" ]; # advertise routes for my tailnet and local network
       extraUpFlags = [ "--ssh" "--accept-routes" ];
-      useRoutingFeatures = "server";
+      useRoutingFeatures = "server"; # enable ip forwarding needed for exit node
         # -> used it in proxmox and I was able to use nextcloud
         # - maybe different scenario tho, since there tailscale was inside container - now it is on the host
     };

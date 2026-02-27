@@ -41,7 +41,7 @@
   };
 
   fleet = {
-    # plymouth.enable = true;
+    plymouth.enable = true;
     # syncthing.enable = true;
   };
 

@@ -31,13 +31,13 @@ in
     };
     
     # Enable SANE to scan documents
-    hardware.sane = {
-      enable = true;
-      extraBackends = [ pkgs.sane-airscan ];
-      brscan4 = {
-        enable = true;
-      };
-    };
+    # hardware.sane = {
+    #   enable = true;
+    #   extraBackends = [ pkgs.sane-airscan ];
+    #   brscan4 = {
+    #     enable = true;
+    #   };
+    # };
 
     # enables network printers? - so far not used?
     services.ipp-usb.enable = true;

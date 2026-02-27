@@ -132,7 +132,7 @@ in
       keyd  # key remapper for my sweet super key on the mouse button
       piper-tts
 
-      # shell-gpt
+      shell-gpt
       aichat
       # llm
       inotify-tools
@@ -260,7 +260,6 @@ in
       # build problems in unstable
       ###################
 
-      shell-gpt
       # gscan2pdf
     
       ###################

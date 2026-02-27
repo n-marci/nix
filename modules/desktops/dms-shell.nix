@@ -43,7 +43,6 @@ in
       enable = true;
       enableSystemMonitoring = false;
       quickshell.package = quickshell.packages.${pkgs.stdenv.hostPlatform.system}.quickshell;
-      enableCalendarEvents = false;
     };
 
   ##############################################################################

@@ -130,7 +130,7 @@ in
       # enable = true; # already enabled in common.nix
       # authKeyFile = config.sops.secrets.tailscale-homelab-auth-key-one-time.path;
       # extraUpFlags = [ "--ssh" ];
-      extraSetFlags = [ "--advertise-exit-node" ];
+      extraSetFlags = [ "--advertise-exit-node" "--advertise-routes=100.0.0.0/8,192.168.66.0/24" ]; # advertise routes for my tailnet and local network
       extraUpFlags = [ "--ssh" "--accept-routes" ];
       useRoutingFeatures = "server";
         # -> used it in proxmox and I was able to use nextcloud

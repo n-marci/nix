@@ -132,7 +132,7 @@ in
       keyd  # key remapper for my sweet super key on the mouse button
       piper-tts
 
-      shell-gpt
+      # shell-gpt
       aichat
       # llm
       inotify-tools
@@ -205,7 +205,7 @@ in
       # documents
       ###################
     
-      libreoffice-still
+      # libreoffice-still
       xournalpp
       rnote                  # https://github.com/flxzt/rnote
       zotero
@@ -235,7 +235,7 @@ in
       # gui program
       ###################
 
-      thunderbird
+      # thunderbird
       remmina
       keepassxc
       gnome-extension-manager
@@ -261,6 +261,9 @@ in
       ###################
 
       # gscan2pdf
+      shell-gpt
+      thunderbird
+      libreoffice-still
     
       ###################
       # source build in unstable

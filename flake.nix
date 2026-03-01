@@ -215,9 +215,9 @@
   #         ];
   #       };
 
-  # ##############################################################################
-  # # HOMELAB
-  # ##############################################################################
+  ##############################################################################
+  # HOMELAB
+  ##############################################################################
 
         inspirion = { name, ... }: {
           deployment = {
@@ -306,6 +306,25 @@
   #           { nixpkgs.config.pkgs = import nixpkgs-stable { inherit system; }; } # use stable nixpkgs
   #         ];
   #       };
+
+  ##############################################################################
+  # VPS
+  ##############################################################################
+
+        ovh-vps = { name, ... }: {
+          deployment = {
+            # allowLocalDeployment = true;
+            # targetUser = hosts.inspirion.user; 
+            targetHost = "neugebauer.marcel.com";
+            targetUser = "colmena";
+            buildOnTarget = false; # don't build vps nix config on target
+            tags = hosts.ovh-vps.tags;
+          };
+
+          imports = [
+            ./hosts/ovh-vps/configuration.nix
+          ];
+        };
 
   ##############################################################################
   # VMs

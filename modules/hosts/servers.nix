@@ -77,7 +77,6 @@ in
         isSystemUser = true;
         group = "${config.deployment.targetUser}";
         shell = pkgs.bashInteractive;
-        hashedPassword = "$y$j9T$6o4jx6ETFvA4bpvD6wVnk.$y10w5xTuzEeufz8vvTvoziZRKtAPfV8DB44WC3rffcD";
       };
     };
 

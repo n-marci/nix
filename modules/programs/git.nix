@@ -1,8 +1,9 @@
-{ config, lib, pkgs, user, ... }:
+{ config, lib, pkgs, user, secrets, ... }:
 
 let
   cfg = config.marci.programs.git;
   inherit (lib) mkEnableOption mkIf;
+  emails = import "${secrets}/email-addresses.nix";
 in
 {
   ##############################################################################
@@ -24,7 +25,7 @@ in
           enable = true;
           settings = {
             user.name = "n-marci";
-            user.email = "neugebauer.marcel@web.de";
+            user.email = emails.web-de;
             alias = {
               a = "add";
               c = "commit";

@@ -1,7 +1,10 @@
 # nginx configuration
 
-{config, vars, lib, unstable, host, ...}:
+{config, vars, lib, unstable, host, secrets, ...}:
 
+let
+  emails = import "${secrets}/email-addresses.nix";
+in
 with lib; {
   options = {
     fleet.nginx = {
@@ -88,7 +91,7 @@ with lib; {
 
     security.acme = {
       acceptTerms = true;   
-      defaults.email = "neugebauer.marcel@web.de";
+      defaults.email = emails.web-de;
       certs."marcelnet.com" = { 
         # ${config.services.nextcloud.hostName} = {
         # "bearded-bushi.ts.net" = {

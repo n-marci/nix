@@ -7,7 +7,8 @@
       # import ../../modules/programs ++
       import ../../modules/services
     ) ++ ([
-      ../../modules/hosts/baremetals.nix
+      # ../../modules/hosts/baremetals.nix
+      # ../../modules/hosts/vms.nix
       ../../modules/hosts/common.nix
       ../../modules/hosts/servers.nix
       ../../modules/hosts/mesh.nix

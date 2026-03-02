@@ -77,8 +77,10 @@ in
       # configDir = "/home/${user}/.config/syncthing";
       overrideDevices = true;
       overrideFolders = true;
-      key = "/run/keys/syncthing-key";
-      cert = "/run/keys/syncthing-cert";
+      # key = "/run/keys/syncthing-key";
+      # cert = "/run/keys/syncthing-cert";
+      key = config.sops.secrets.syncthing-key.path;
+      cert = config.sops.secrets.syncthing-cert.path;
       settings = {
   
     ##############################################################################

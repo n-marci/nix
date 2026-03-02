@@ -1,4 +1,4 @@
-{ secrets, config, ... }:
+{ secrets }:
 
 # disable password login over ssh
 # only allow ssh key login
@@ -18,14 +18,19 @@ in
     tags = [
       "desktop"
     ];
-    sync-id = sync-ids.yoga;
+    # sync = {
+    #   id = sync-ids.yoga;
+    #   key = "syncthing-key";
+    #   cert = "syncthing-cert";
+    # };
     bkp-target = "linc-n2";
     access = [ ];
     public-key = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIGMucFkgLycRIhAprDtT2yTGmH7vz3T87LhljLkNJ65V yoga";
-    keys = {
-      "syncthing.key" = { keyFile = config.sops.secrets.syncthing-key.path; };
-      "syncthing.cert" = { keyFile = config.sops.secrets.syncthing-cert.path; };
-    };
+    sync-id = sync-ids.yoga;
+    # keys = {
+    #   sync-key = "syncthing-key";
+    #   sync-cert = "syncthing-cert";
+    # };
   };
 
   unicorn = {
@@ -95,6 +100,10 @@ in
       "vps"
     ];
     access = [ "yoga" "desktop" ];
+    # keys = {
+    #   sync-key = "ovh-syncthing-key";
+    #   sync-cert = "ovh-syncthing-cert";
+    # };
   };
 
   ##############################################################################

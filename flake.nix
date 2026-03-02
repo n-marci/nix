@@ -51,9 +51,9 @@
   # OUTPUTS
   ##############################################################################
 
-  outputs = inputs @ { self, nixpkgs, nixpkgs-stable, nixpkgs-unstable, sops-nix, home-manager, disko, microvm, colmena, flatpaks, secrets, config, ... }:
+  outputs = inputs @ { self, nixpkgs, nixpkgs-stable, nixpkgs-unstable, sops-nix, home-manager, disko, microvm, colmena, flatpaks, secrets, ... }:
     let
-      hosts = import ./hosts/hosts.nix { inherit secrets config; };
+      hosts = import ./hosts/hosts.nix { inherit secrets; };
       stable = import nixpkgs-stable {
         system = "x86_64-linux";
         config.allowUnfree = true;
@@ -153,7 +153,7 @@
             allowLocalDeployment = true;
             targetHost = null;
             tags = hosts.yoga.tags;
-            keys = hosts.yoga.keys;
+            # keys = hosts.yoga.keys;
           };
 
           imports = [

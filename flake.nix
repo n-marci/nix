@@ -323,7 +323,7 @@
             # allowLocalDeployment = true;
             # targetUser = hosts.inspirion.user; 
             targetHost = "neugebauer-marcel.com";
-            targetUser = "colmena";
+            targetUser = "root";
             buildOnTarget = false; # don't build vps nix config on target
             tags = hosts.ovh-vps.tags;
             keys = {

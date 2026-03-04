@@ -48,6 +48,8 @@ in
     # TODO
   };
 
+  nix.settings.trusted-users = [ "colmena" ];
+
   ##############################################################################
   # PANGOLIN
   ##############################################################################
@@ -85,7 +87,7 @@ in
     enable = true;
     settings = {
       PasswordAuthentication = false;
-      PermitRootLogin = "no";
+      # PermitRootLogin = "no";
     };
   };
 
@@ -98,9 +100,11 @@ in
       hosts.yoga.public-key
     ];
 
-    ${config.deployment.targetUser} = { # create priviliged user for the deployment of colmena
+    colmena = { # create priviliged user for the deployment of colmena
+    # ${config.deployment.targetUser} = { # create priviliged user for the deployment of colmena
       isSystemUser = true;
-      group = "${config.deployment.targetUser}";
+      group = "colmena";
+      # group = "${config.deployment.targetUser}";
       shell = pkgs.bashInteractive;
       openssh.authorizedKeys.keys = [
         hosts.yoga.public-key
@@ -108,7 +112,8 @@ in
     };
   };
 
-  users.groups.${config.deployment.targetUser} = { };
+  users.groups.colmena = { };
+  # users.groups.${config.deployment.targetUser} = { };
 
   ##############################################################################
   # SECURITY

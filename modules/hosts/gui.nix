@@ -64,7 +64,7 @@ in
           settings = {
             main = {
               # "stop" = "leftmeta";
-              "leftmeta" = "overload(meta, stop)";
+              "leftmeta" = "overload(meta, f12)";
             };
           };
         };

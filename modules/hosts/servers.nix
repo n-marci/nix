@@ -77,6 +77,9 @@ in
         isSystemUser = true;
         group = "${config.deployment.targetUser}";
         shell = pkgs.bashInteractive;
+        openssh.authorizedKeys.keys = [
+          hosts.yoga.public-key
+        ];
       };
     };
 
@@ -86,13 +89,6 @@ in
     # SECURITY
     ##############################################################################
 
-    # security.sudo.extraRules = [{
-    #   users = [ "colmena" ];
-    #   commands = [{
-    #     command = "ALL";
-    #     options = [ "NOPASSWD" ];
-    #   }];
-    # }];
     security.sudo.extraRules = [{
       users = [ "${config.deployment.targetUser}" ];
       commands = [{

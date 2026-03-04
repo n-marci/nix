@@ -69,11 +69,35 @@ in
     # PANGOLIN
     ##############################################################################
       
-      pangolin = {
-        enable = true;
-        newt-nodes = [ "inspirion" ];
-        pangolin-nodes = [ "ovh-vps" ];
-      };
+      # pangolin = {
+      #   enable = true;
+      #   newt-nodes = [ "inspirion" ];
+      #   pangolin-nodes = [ "ovh-vps" ];
+      # };
     };
+
+    ##############################################################################
+    # NETWORKING
+    ##############################################################################
+
+    # What I want
+    # access[ . . ]
+
+    # users.users = {
+    #   ${user}.openssh.authorizedKeys.keys = mkIf (host elem ) [ # allow user marci to login with my devices
+    #     hosts.yoga.public-key
+    #   ];
+
+    #   ${config.deployment.targetUser} = { # create priviliged user for the deployment of colmena
+    #     isSystemUser = true;
+    #     group = "${config.deployment.targetUser}";
+    #     shell = pkgs.bashInteractive;
+    #     openssh.authorizedKeys.keys = [
+    #       hosts.yoga.public-key
+    #     ];
+    #   };
+    # };
+
+
   };
 }

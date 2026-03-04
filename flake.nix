@@ -100,6 +100,11 @@
               ip = hosts.helix-s.ip;
               interface = hosts.helix-s.interface;
             };
+            ovh-vps = {
+              user = hosts.ovh-vps.user;
+              ip = hosts.ovh-vps.ip;
+              # interface = hosts.ovh-vps.interface;
+            };
           };
           specialArgs = {
             stable = stable;
@@ -316,14 +321,16 @@
           deployment = {
             # allowLocalDeployment = true;
             # targetUser = hosts.inspirion.user; 
-            targetHost = "neugebauer.marcel.com";
-            targetUser = "colmena";
+            targetHost = "neugebauer-marcel.com";
+              targetUser = "root";
             buildOnTarget = false; # don't build vps nix config on target
             tags = hosts.ovh-vps.tags;
           };
 
           imports = [
             ./hosts/ovh-vps/configuration.nix
+
+            disko.nixosModules.disko
           ];
         };
 

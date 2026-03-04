@@ -54,6 +54,7 @@ in
     environment.systemPackages = with pkgs; [
       kdePackages.kdeconnect-kde
       sshfs
+      pywalfox-native # enable pywalfox to theme firefox/librewolf with the dank colors
     ];
 
   ##############################################################################

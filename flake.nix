@@ -108,6 +108,7 @@
           };
           specialArgs = {
             stable = stable;
+            unstable = unstable;
             sops-nix = sops-nix;
             secrets = secrets;
             hosts = hosts;
@@ -325,6 +326,9 @@
             targetUser = "colmena";
             buildOnTarget = false; # don't build vps nix config on target
             tags = hosts.ovh-vps.tags;
+            keys = {
+              "pangolin-env" = { keyFile = "/run/secrets/pangolin-env"; };
+            };
           };
 
           imports = [

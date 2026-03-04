@@ -27,6 +27,7 @@ in
     access = [ ];
     public-key = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIGMucFkgLycRIhAprDtT2yTGmH7vz3T87LhljLkNJ65V yoga";
     sync-id = sync-ids.yoga;
+    secrets = "sops";
     # keys = {
     #   sync-key = "syncthing-key";
     #   sync-cert = "syncthing-cert";
@@ -43,6 +44,7 @@ in
     sync-id = sync-ids.unicorn;
     bkp-target = "linc-n2";
     access = [ "yoga" ];
+    secrets = "sops";
   };
 
   ##############################################################################
@@ -60,6 +62,7 @@ in
     sync-id = sync-ids.inspirion;
     bkp-target = "linc-n2";
     access = [ "yoga" "desktop" ];
+    secrets = "sops";
   };
 
   linc-n2 = {
@@ -72,6 +75,7 @@ in
     sync-id = sync-ids.linc-n2;
     bkp-target = "linc-n2";
     access = [ "yoga" "desktop" "inspirion" ];
+    secrets = "sops";
   };
 
   helix-s = {
@@ -87,6 +91,7 @@ in
     sync-id = sync-ids.helix-s;
     bkp-target = "linc-n2";
     access = [ "yoga" "desktop" "linc-n2" ];
+    secrets = "sops";
   };
 
   ##############################################################################
@@ -104,6 +109,7 @@ in
     #   sync-key = "ovh-syncthing-key";
     #   sync-cert = "ovh-syncthing-cert";
     # };
+    secrets = "deploy";
   };
 
   ##############################################################################

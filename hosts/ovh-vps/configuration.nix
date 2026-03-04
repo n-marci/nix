@@ -1,5 +1,8 @@
-{ config, pkgs, modulesPath, name, user, hosts, lts-kernel, ... }:
+{ config, pkgs, modulesPath, name, user, hosts, secrets, lts-kernel, ... }:
 
+let
+  emails = import "${secrets}/email-addresses.nix";
+in
 {
   imports = (
       # import ../../modules/configurations ++
@@ -46,6 +49,17 @@
   };
 
   ##############################################################################
+  # PANGOLIN
+  ##############################################################################
+
+  services.pangolin = {
+    enable = true;
+    openFirewall = true;
+    baseDomain = "neugebauer-marcel.com";
+    letsEncryptEmail = emails.web-de;
+  };
+
+  ##############################################################################
   # BOOT
   ##############################################################################
 
@@ -67,6 +81,10 @@
 
   services.openssh = {
     enable = true;
+    settings = {
+      PasswordAuthentication = false;
+      PermitRootLogin = "no";
+    };
   };
 
   users.users = {
@@ -78,10 +96,9 @@
       hosts.yoga.public-key
     ];
 
-    # ${config.deployment.targetUser} = { # create priviliged user for the deployment of colmena
-    colmena = { # create priviliged user for the deployment of colmena
+    ${config.deployment.targetUser} = { # create priviliged user for the deployment of colmena
       isSystemUser = true;
-      group = "colmena";
+      group = "${config.deployment.targetUser}";
       shell = pkgs.bashInteractive;
       openssh.authorizedKeys.keys = [
         hosts.yoga.public-key
@@ -89,7 +106,7 @@
     };
   };
 
-  users.groups.colmena = { };
+  users.groups.${config.deployment.targetUser} = { };
 
   ##############################################################################
   # SECURITY

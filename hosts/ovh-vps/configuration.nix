@@ -61,6 +61,17 @@ in
     baseDomain = "neugebauer-marcel.com";
     letsEncryptEmail = emails.web-de;
     environmentFile = "/run/keys/pangolin-env";
+    dnsProvider = "ovh";
+    # settings = {
+    #   domains.domain1 = {
+    #     prefer_wildcard_cert = true;
+    #   };
+    # };
+  };
+
+  services.traefik = {
+    package = unstable.pkgs.traefik;
+    environmentFiles = [ "/run/keys/traefik-env" ];
   };
 
   ##############################################################################

@@ -327,7 +327,8 @@
             buildOnTarget = false; # don't build vps nix config on target
             tags = hosts.ovh-vps.tags;
             keys = {
-              "pangolin-env" = { keyFile = "/run/secrets/pangolin-env"; };
+              "pangolin-env" = { keyFile = "/run/secrets/pangolin-env"; uploadAt = "post-activation"; };
+              "traefik-env" = { keyFile = "/run/secrets/traefik-env"; uploadAt = "post-activation"; };
             };
           };
 

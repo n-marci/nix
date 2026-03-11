@@ -62,11 +62,11 @@ in
     letsEncryptEmail = emails.web-de;
     environmentFile = "/run/keys/pangolin-env";
     dnsProvider = "ovh";
-    # settings = {
-    #   domains.domain1 = {
-    #     prefer_wildcard_cert = true;
-    #   };
-    # };
+    settings = {
+      domains.immich = {
+        prefer_wildcard_cert = true;
+      };
+    };
   };
 
   services.traefik = {

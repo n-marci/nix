@@ -69,11 +69,11 @@ in
     # PANGOLIN
     ##############################################################################
       
-      # pangolin = {
-      #   enable = true;
-      #   newt-nodes = [ "inspirion" ];
-      #   pangolin-nodes = [ "ovh-vps" ];
-      # };
+      pangolin = {
+        enable = true;
+        newt-nodes = [ "inspirion" ];
+        pangolin-nodes = [ "ovh-vps" ];
+      };
     };
 
     ##############################################################################

@@ -63,7 +63,7 @@ in
     environmentFile = "/run/keys/pangolin-env";
     dnsProvider = "ovh";
     settings = {
-      domains.immich = {
+      domains.domain1 = {
         prefer_wildcard_cert = true;
       };
     };

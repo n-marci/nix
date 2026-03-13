@@ -50,7 +50,7 @@ in
       enable = true;
       package = unstable.pkgs.fosrl-newt;
       environmentFile = config.sops.secrets.newt-env.path;
-      settings.endpoint = "pangolin.neugebauer-marcel.com";
+      settings.endpoint = "https://pangolin.neugebauer-marcel.com";
     };
     networking.firewall.allowedUDPPorts = mkIf (elem name cfg.newt-nodes) [ 21820 ]; # I am not 100% if this is needed on newt or on pangolin - maybe revise later
 

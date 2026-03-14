@@ -4,7 +4,7 @@
 
 let
   cfg = config.marci.services.immich;
-  inherit (lib) mkEnableOption mkOption mkIf mkDefault types;
+  inherit (lib) mkEnableOption mkOption mkIf mkDefault types elem;
   database-directory = "var/lib/postgresql";
   db-export-directory = "var/lib/psql-export";
 in
@@ -17,28 +17,22 @@ in
   options.marci.services.immich = {
     enable = mkEnableOption "Enable immich";
 
-    host = mkOption {
-      type = types.str;
-      default = "inspirion";
-    };
+    nodes = {
+      service = mkOption {
+        type = types.listOf types.str;
+        default = [ "inspirion" ];
+      };
 
-    backup = {
-      # enable = mkEnableOption "Enable backup for immich data directory and database";
+      storage = mkOption {
+        type = types.listOf types.str;
+        default = [ "linc-n2" ];
+      };
 
-      target = mkOption {
-        type = types.str;
-        default = "helix-s";
+      backup = mkOption {
+        type = types.listOf types.str;
+        default = [ "helix-s" ];
       };
     };
-    # backup = mkOption {
-    #   type = types.bool;
-    #   default = false;
-    # };
-
-    # backupTarget = mkOption {
-    #   type = types.str;
-    #   default = "helix-s";
-    # };
   };
   
   ##############################################################################
@@ -51,7 +45,7 @@ in
   # SERVICE
   ##############################################################################
 
-    services.immich = mkIf (name == cfg.host) {
+    services.immich = mkIf (elem name cfg.nodes.service) {
       enable = true;
       environment.IMMICH_MACHINE_LEARNING_URL = "http://localhost:3003";
       openFirewall = true;
@@ -62,7 +56,7 @@ in
   # NGINX
   ##############################################################################
 
-    services.nginx = mkIf (name == cfg.host) {
+    services.nginx = mkIf (elem name cfg.nodes.service) {
       enable = mkDefault true;
       virtualHosts = {
         "immich.marcelnet.com" = {
@@ -92,7 +86,7 @@ in
   ##############################################################################
 
     # services.postgresqlBackup = mkIf (cfg.backup.enable && (name == cfg.host)) {
-    services.postgresqlBackup = mkIf (name == cfg.host) {
+    services.postgresqlBackup = mkIf (elem name cfg.nodes.service) {
       enable = mkDefault true;
       startAt = "*-*-* 04:05:00";
       location = "/${db-export-directory}";
@@ -126,7 +120,7 @@ in
     fleet.btrbk = {
       enable = true;
 
-      instances."immich".settings = mkIf (name == cfg.host) {
+      instances."immich".settings = mkIf (elem name cfg.nodes.service) {
         volume."/".subvolume = {
           "${service-dir}/immich" = {
             snapshot_create = "always";
@@ -146,7 +140,7 @@ in
   # BTRFS ON TARGET
   ##############################################################################
 
-      target = mkIf (name == cfg.backup.target) true;
+      target = mkIf (elem name cfg.nodes.backup) true;
     };
 
   };

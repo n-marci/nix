@@ -27,8 +27,11 @@ in
 
       immich = {
         enable = true;
-        host = "inspirion";
-        backup.target = "helix-s";
+        nodes = {
+          service = [ "inspirion" ];
+          storage = [ "linc-n2" ]; # store in /srv/store
+          backup = [ "helix-s" ]; # backup in /srv/backup
+        };
       };
 
     ##############################################################################
@@ -63,13 +66,27 @@ in
       };
 
     ##############################################################################
+    # ACTUAL
+    ##############################################################################
+
+      actualbudget = {
+        enable = true;
+        nodes = {
+          service = [ "inspirion" ];
+          backup = [ "helix-s" ]; # backup in /srv/backup
+        };
+      };
+
+    ##############################################################################
     # PANGOLIN
     ##############################################################################
       
       pangolin = {
         enable = true;
-        newt-nodes = [ "inspirion" ];
-        pangolin-nodes = [ "ovh-vps" ];
+        nodes = {
+          newt = [ "inspirion" ];
+          pangolin = [ "ovh-vps" ];
+        };
       };
     };
 

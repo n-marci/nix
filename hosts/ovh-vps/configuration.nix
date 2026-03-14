@@ -1,8 +1,8 @@
 { config, pkgs, unstable, modulesPath, name, user, hosts, secrets, lts-kernel, ... }:
 
-let
-  emails = import "${secrets}/email-addresses.nix";
-in
+# let
+#   emails = import "${secrets}/email-addresses.nix";
+# in
 {
   imports = (
       # import ../../modules/configurations ++
@@ -40,7 +40,7 @@ in
     hosts = {
       common.enable = true; # common enables sops and tailscale. May be not necessary for the vps
     #   server.enable = true;
-    #   mesh.enable = true;
+      mesh.enable = true;
     };
   };
 
@@ -54,25 +54,25 @@ in
   # PANGOLIN
   ##############################################################################
 
-  services.pangolin = {
-    enable = true;
-    package = unstable.pkgs.fosrl-pangolin;
-    openFirewall = true;
-    baseDomain = "neugebauer-marcel.com";
-    letsEncryptEmail = emails.web-de;
-    environmentFile = "/run/keys/pangolin-env";
-    dnsProvider = "ovh";
-    settings = {
-      domains.domain1 = {
-        prefer_wildcard_cert = true;
-      };
-    };
-  };
+  # services.pangolin = {
+  #   enable = true;
+  #   package = unstable.pkgs.fosrl-pangolin;
+  #   openFirewall = true;
+  #   baseDomain = "neugebauer-marcel.com";
+  #   letsEncryptEmail = emails.web-de;
+  #   environmentFile = "/run/keys/pangolin-env";
+  #   dnsProvider = "ovh";
+  #   settings = {
+  #     domains.domain1 = {
+  #       prefer_wildcard_cert = true;
+  #     };
+  #   };
+  # };
 
-  services.traefik = {
-    package = unstable.pkgs.traefik;
-    environmentFiles = [ "/run/keys/traefik-env" ];
-  };
+  # services.traefik = {
+  #   package = unstable.pkgs.traefik;
+  #   environmentFiles = [ "/run/keys/traefik-env" ];
+  # };
 
   ##############################################################################
   # BOOT

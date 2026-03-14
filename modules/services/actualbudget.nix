@@ -3,8 +3,8 @@
 { config, lib, name, hosts, service-dir, snapshot-dir, backup-dir, ... }:
 
 let
-  cfg = config.fleet.actualbudget;
-  inherit (lib) mkEnableOption mkOption mkIf mkDefault types;
+  cfg = config.marci.services.actualbudget;
+  inherit (lib) mkEnableOption mkOption mkIf mkDefault types elem;
 in
 {
   
@@ -12,17 +12,24 @@ in
   # OPTIONS
   ##############################################################################
 
-  options.fleet.actualbudget = {
+  options.marci.services.actualbudget = {
     enable = mkEnableOption "Enable actualbudget";
 
-    backup = mkOption {
-      type = types.bool;
-      default = false;
-    };
+    nodes = {
+      service = mkOption {
+        type = types.listOf types.str;
+        default = [ "inspirion" ];
+      };
 
-    backupTarget = mkOption {
-      type = types.str;
-      default = "helix-s";
+      storage = mkOption {
+        type = types.listOf types.str;
+        default = [ "linc-n2" ];
+      };
+
+      backup = mkOption {
+        type = types.listOf types.str;
+        default = [ "helix-s" ];
+      };
     };
   };
   
@@ -36,7 +43,7 @@ in
   # SERVICE
   ##############################################################################
 
-    services.actual = {
+    services.actual = mkIf (elem name cfg.nodes.service) {
       enable = true;
       openFirewall = true;
       settings = {
@@ -49,7 +56,7 @@ in
   # NGINX
   ##############################################################################
 
-    services.nginx = {
+    services.nginx = mkIf (elem name cfg.nodes.service) {
       enable = mkDefault true;
       virtualHosts = {
         "actual.marcelnet.com" = {
@@ -76,12 +83,25 @@ in
   # BTRFS
   ##############################################################################
 
-    services.btrbk.instances.btrbk.settings.volume."/".subvolume = mkIf (cfg.backup) {
-      "${service-dir}/private/actual" = {
-        snapshot_create = "always";
-        snapshot_dir = "/${snapshot-dir}/private/actual";
-        target = "ssh://${hosts.${cfg.backupTarget}.tailscale-ip}/${backup-dir}/${name}/private/actual";
+    fleet.btrbk = {
+      enable = true;
+
+      instances.btrbk.settings = mkIf (elem name cfg.nodes.service) {
+        volume."/".subvolume = {
+          "${service-dir}/private/actual" = {
+            snapshot_create = "always";
+            snapshot_dir = "/${snapshot-dir}/private/actual";
+            target = "ssh://${hosts.${cfg.backup.target}.tailscale-ip}/${backup-dir}/${name}/private/actual";
+          };
+        };
       };
+
+  ##############################################################################
+  # BTRFS ON TARGET
+  ##############################################################################
+
+      target = mkIf (elem name cfg.nodes.backup) true;
     };
+
   };
 }

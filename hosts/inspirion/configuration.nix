@@ -49,10 +49,10 @@
     #   enable = true;
     #   backup = true;
     # };
-    actualbudget = {
-      enable = true;
-      backup = true;
-    };
+    # actualbudget = {
+    #   enable = true;
+    #   backup = true;
+    # };
     adguard.enable = true;
     mealie = {
       enable = true;

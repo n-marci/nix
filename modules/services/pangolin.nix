@@ -1,10 +1,11 @@
 # pangolin config
 
-{ config, lib, unstable, name, hosts, service-dir, snapshot-dir, backup-dir, ... }:
+{ config, lib, unstable, name, hosts, secrets, service-dir, snapshot-dir, backup-dir, ... }:
 
 let
   cfg = config.marci.services.pangolin;
   inherit (lib) mkEnableOption mkOption mkIf mkDefault types elem;
+  emails = import "${secrets}/email-addresses.nix";
   # database-directory = "var/lib/postgresql";
   # db-export-directory = "var/lib/psql-export";
 in
@@ -17,14 +18,16 @@ in
   options.marci.services.pangolin = {
     enable = mkEnableOption "Enable pangolin";
 
-    newt-nodes = mkOption {
-      type = types.listOf types.str;
-      default = [ "inspirion" ];
-    };
+    nodes = {
+      newt = mkOption {
+        type = types.listOf types.str;
+        default = [ "inspirion" ];
+      };
 
-    pangolin-nodes = mkOption {
-      type = types.listOf types.str;
-      default = [ "ovh-vps" ];
+      pangolin = mkOption {
+        type = types.listOf types.str;
+        default = [ "ovh-vps" ];
+      };
     };
   };
   
@@ -38,24 +41,44 @@ in
   # PANGOLIN SERVICE
   ##############################################################################
 
-    services.pangolin = mkIf (elem name cfg.pangolin-nodes) {
+    # services.pangolin = mkIf (elem name cfg.nodes.pangolin) {
+    #   enable = true;
+    # };
+    services.pangolin = mkIf (elem name cfg.nodes.pangolin) {
       enable = true;
+      package = unstable.pkgs.fosrl-pangolin;
+      openFirewall = true;
+      baseDomain = "neugebauer-marcel.com";
+      letsEncryptEmail = emails.web-de;
+      environmentFile = "/run/keys/pangolin-env";
+      dnsProvider = "ovh";
+      settings = {
+        domains.domain1 = {
+          prefer_wildcard_cert = true;
+        };
+      };
     };
+
+    services.traefik = mkIf (elem name cfg.nodes.pangolin) {
+      package = unstable.pkgs.traefik;
+      environmentFiles = [ "/run/keys/traefik-env" ];
+    };
+
 
   ##############################################################################
   # NEWT SERVICE
   ##############################################################################
 
-    services.newt = mkIf (elem name cfg.newt-nodes) {
+    services.newt = mkIf (elem name cfg.nodes.newt) {
       enable = true;
       package = unstable.pkgs.fosrl-newt;
       environmentFile = config.sops.secrets.newt-env.path;
       settings.endpoint = "https://pangolin.neugebauer-marcel.com";
     };
-    networking.firewall.allowedUDPPorts = mkIf (elem name cfg.newt-nodes) [ 21820 ]; # I am not 100% if this is needed on newt or on pangolin - maybe revise later
+    # networking.firewall.allowedUDPPorts = mkIf (elem name cfg.nodes.newt) [ 21820 ]; # I am not 100% if this is needed on newt or on pangolin - maybe revise later
 
   # --- SECRETS ---
-    sops.secrets.newt-env = mkIf (elem name cfg.newt-nodes) { };
+    sops.secrets.newt-env = mkIf (elem name cfg.nodes.newt) { };
 
   ##############################################################################
   # DISKO

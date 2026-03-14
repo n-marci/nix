@@ -23,7 +23,7 @@ in
     };
 
     backup = {
-      enable = mkEnableOption "Enable backup for immich data directory and database";
+      # enable = mkEnableOption "Enable backup for immich data directory and database";
 
       target = mkOption {
         type = types.str;
@@ -91,7 +91,8 @@ in
   # POSTGRES DB EXPORT
   ##############################################################################
 
-    services.postgresqlBackup = mkIf (cfg.backup.enable && (name == cfg.host)) {
+    # services.postgresqlBackup = mkIf (cfg.backup.enable && (name == cfg.host)) {
+    services.postgresqlBackup = mkIf (name == cfg.host) {
       enable = mkDefault true;
       startAt = "*-*-* 04:05:00";
       location = "/${db-export-directory}";
@@ -122,7 +123,7 @@ in
     #   target = "ssh://${hosts.${cfg.backup.target}.tailscale-ip}/${backup-dir}/${name}/immich";
     # };
 
-    fleet.btrbk = mkIf (cfg.backup.enable) {
+    fleet.btrbk = {
       enable = true;
 
       instances."immich".settings = mkIf (name == cfg.host) {

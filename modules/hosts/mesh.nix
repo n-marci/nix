@@ -28,10 +28,7 @@ in
       immich = {
         enable = true;
         host = "inspirion";
-        backup = {
-          enable = true;
-          target = "helix-s";
-        };
+        backup.target = "helix-s";
       };
 
     ##############################################################################

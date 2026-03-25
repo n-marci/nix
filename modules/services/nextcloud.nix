@@ -50,7 +50,7 @@ in
     services.nextcloud = mkIf (name == cfg.host) {
       enable = true;
       hostName = "nextcloud.marcelnet.com";
-      package = pkgs.nextcloud32;
+      package = pkgs.nextcloud33;
       configureRedis = true;
       database.createLocally = true;
       maxUploadSize = "16G";

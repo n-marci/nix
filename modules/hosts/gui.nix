@@ -63,7 +63,7 @@ in
           ids = [ "*" ];
           settings = {
             main = {
-              # "stop" = "leftmeta";
+              "stop" = "overload(meta, f12)";
               "leftmeta" = "overload(meta, f12)";
             };
           };
@@ -169,7 +169,7 @@ in
 
       distrobox
       virt-manager
-      winboat # windows apps
+      # winboat # windows apps
       freerdp
 
       ###################

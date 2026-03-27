@@ -5,6 +5,7 @@ keys:
   - &yoga age15f6mqs3gm9cn49m8rp3sdqp274ar3qc4tacy9hea784lkquygs2s836aep
   - &desktop age1u83pdth54z7zcf8e5mraz56z8nay55v9flx02na6mqsewnvppqqqqjsnuh
   - &helix-s age1unk445zeh45xlmwzds72pfar3w7ycyasnw3g5p0hf73wlfw79y5qfk8695
+  - &ovh-vps age1shnvy8xlcqew7z4qy5exvyqm40u795lc0723ceuml9qqy9kumf3sujkj9c
 creation_rules:
   - path_regex: secrets/inspirion.yaml$
     key_groups:
@@ -22,3 +23,7 @@ creation_rules:
     key_groups:
     - age:
       - *helix-s
+  - path_regex: secrets/ovh-vps.yaml$
+    key_groups:
+    - age:
+      - *ovh-vps

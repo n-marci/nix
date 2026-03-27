@@ -4,8 +4,13 @@
 {config, vars, lib, unstable, host, pkgs, ...}:
 
 with lib; {
+
+  imports = [
+    ./mautrix-whatsapp.nix
+  ];
+
   options = {
-    synapse = {
+    fleet.synapse = {
       enable = mkOption {
         type = types.bool;
         default = false;
@@ -13,14 +18,11 @@ with lib; {
     };
   };
   
-  config = mkIf (config.synapse.enable) {
+  config = mkIf (config.fleet.synapse.enable) {
     # nixpkgs.config.permittedInsecurePackages = [
     #   "olm-3.2.16"
     # ];
-    imports = [
-      ./mautrix-whatsapp.nix
-    ];
-
+    
     services = {
       matrix-synapse = {
         enable = true;
@@ -30,11 +32,14 @@ with lib; {
           server_name = "marcelnet.com";
           public_baseurl = "https://matrix.marcelnet.com";
           # enable_metrics = true;
-          enable_registration = true;
+          enable_registration = false;
+          # enable_registration_without_verification = true;
+          # registration_requires_token = true;
+          # registration_shared_secret_path = [ config.sops.secrets.matrix-shared-secret.path ];
           listeners = [{
             port = 8008;
-            # bind_addresses = [ "::1" ];
-            bind_addresses = [ "0.0.0.0" ];
+            bind_addresses = [ "::1" ];
+            # bind_addresses = [ "0.0.0.0" ];
             type = "http";
             tls = false;
             x_forwarded = true;
@@ -44,7 +49,7 @@ with lib; {
             }];
           }];
         };
-        extraConfigFiles = [ config.sops.secrets.matrix-shared-secret.path ];
+        # extraConfigFiles = [ config.sops.secrets.matrix-shared-secret.path ]; # moved to option registration_shared_secret_path above - untested
       };
 
       postgresql = {
@@ -85,6 +90,16 @@ with lib; {
       allowedUDPPorts = [ 5349 5350 ];
       allowedTCPPorts = [ 80 443 3478 3479 8008 ];
     };
+
+    systemd.services.postgresql.postStart = lib.mkAfter ''
+      $PSQL -f ${pkgs.writeText "matrix-synapse-init.sql" ''
+          CREATE ROLE "matrix-synapse";
+          CREATE DATABASE "matrix-synapse" WITH OWNER "matrix-synapse"
+          TEMPLATE template0
+          LC_COLLATE = "C"
+          LC_CTYPE = "C";
+      ''}
+    '';
     # users.users.matrix-synapse = {
     #   isSystemUser = true;
     #   createHome = true;

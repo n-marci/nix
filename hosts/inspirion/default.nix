@@ -16,31 +16,35 @@
   # boot.loader.systemd-boot.configurationLimit = 3;
   # boot.loader.efi.canTouchEfiVariables = true;
 
-  boot.loader.grub.enable = true;
-  boot.loader.grub.device = "/dev/sda";
-  boot.loader.grub.useOSProber = true;
+  # boot.loader.grub.enable = true;
+  # boot.loader.grub.device = "/dev/sda";
+  # boot.loader.grub.useOSProber = true;
 
-  # set the timeout for the screen going dark - value in seconds
-  boot.kernelParams = [ "consoleblank=120" ];
+  # # set the timeout for the screen going dark - value in seconds
+  # boot.kernelParams = [ "consoleblank=120" ];
 
-  # update the kernel
-  boot.kernelPackages = pkgs.linuxPackages_6_6;
-  # boot.initrd.kernelModules = [ "amdgpu" ];
+  # # update the kernel
+  # boot.kernelPackages = pkgs.linuxPackages_6_6;
+  # # boot.initrd.kernelModules = [ "amdgpu" ];
 
-  networking = {
-    hostName = "inspirion"; # Define your hostname.
-    nameservers = [
-      "127.0.0.1"
-      "9.9.9.9"
-    ];
-    interfaces.enp0s20u3.ipv4.addresses = [{
-      address = "192.168.66.21";
-      prefixLength = 24;
-    }];
-  };
+  # networking = {
+  #   hostName = "inspirion"; # Define your hostname.
+  #   defaultGateway = {
+  #     address = "192.168.66.1";
+  #     interface = "enp0s20u3";
+  #   };
+  #   nameservers = [
+  #     "127.0.0.1"
+  #     "9.9.9.9"
+  #   ];
+  #   interfaces.enp0s20u3.ipv4.addresses = [{
+  #     address = "192.168.66.21";
+  #     prefixLength = 24;
+  #   }];
+  # };
 
   # Configure console keymap
-  console.keyMap = "de";
+  # console.keyMap = "de";
 
   # users.users.marci.createHome = true;
   # users.users.marci.homeMode = "750";
@@ -48,18 +52,18 @@
   # gnome.enable = true;
 
   # secrets
-  sops = {
-    defaultSopsFile = ../../secrets/inspirion.yaml;
-    defaultSopsFormat = "yaml";
-    age.keyFile = "/home/marci/.config/sops/age/keys.txt";
+  # sops = {
+    # defaultSopsFile = ../../secrets/inspirion.yaml;
+    # defaultSopsFormat = "yaml";
+    # age.keyFile = "/home/marci/.config/sops/age/keys.txt";
 
-    secrets.syncthing-key = { };
-    secrets.syncthing-cert = { };
-    secrets.paperless-pass = { };
-    secrets.nextcloud-pass = {
-      owner = "nextcloud";
-    };
-    secrets.cloudflare-marcelnet = { };
+    # secrets.syncthing-key = { };
+    # secrets.syncthing-cert = { };
+    # secrets.paperless-pass = { };
+    # secrets.nextcloud-pass = {
+    #   owner = "nextcloud";
+    # };
+    # secrets.cloudflare-marcelnet = { };
     # secrets.matrix-shared-secret = {
     #   owner = "matrix-synapse";
     # };
@@ -70,7 +74,7 @@
     # secrets.sync-id-note = { };
     # secrets.sync-id-helix-a = { };
     # secrets.sync-id-helix-b = { };
-  };
+  # };
 
   environment.systemPackages = with unstable; [
     lshw
@@ -91,7 +95,7 @@
   # };
 
   # optimize for more battery life
-  powerManagement.powertop.enable = true;
+  # powerManagement.powertop.enable = true;
   # powerManagement.cpuFreqGovernor = "schedutil";
 
   # Some programs need SUID wrappers, can be configured further or are
@@ -120,21 +124,21 @@
   # Before changing this value read the documentation for this option
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
   # system.stateVersion = "23.05"; # Did you read the comment?
-  system.stateVersion = "23.11"; # Did you read the comment?
+  # system.stateVersion = "23.11"; # Did you read the comment?
 
-  home-manager.users.${vars.user} = {
-    home = {
-      stateVersion = "23.11";
-    };
+  # home-manager.users.${vars.user} = {
+  #   home = {
+  #     stateVersion = "23.11";
+  #   };
 
-    programs = {
-      home-manager.enable = true;
-    };
+  #   programs = {
+  #     home-manager.enable = true;
+  #   };
 
-    nix = {
-      # package = pkgs.nix;
-      settings.experimental-features = [ "nix-command" "flakes" ];
-    };
-  };
+  #   nix = {
+  #     # package = pkgs.nix;
+  #     settings.experimental-features = [ "nix-command" "flakes" ];
+  #   };
+  # };
 
 }

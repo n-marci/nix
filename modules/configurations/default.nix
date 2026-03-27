@@ -1,0 +1,10 @@
+[
+  ./audio.nix
+  ./virtualisation.nix
+  ./printer.nix
+  ./plymouth.nix
+  ./graphics.nix
+  ./fonts.nix
+  ./development.nix
+  ./networking.nix
+]

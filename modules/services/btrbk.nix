@@ -1,52 +1,70 @@
+# btrbk config
 
-# btrbk configuration
+{ config, pkgs, lib, name, hosts, service-dir, snapshot-dir, backup-dir, ... }:
 
-{config, pkgs, vars, lib, unstable, host, ...}:
+let
+  cfg = config.fleet.btrbk;
+  inherit (lib) mkEnableOption mkOption mkIf mkDefault mkMerge mapAttrsToList attrNames types;
+in
+{
+  
+  ##############################################################################
+  # OPTIONS
+  ##############################################################################
 
-with lib; {
-  options = {
-    btrbk = {
-      enable = mkOption {
-        type = types.bool;
-        default = false;
-      };
+  options.fleet.btrbk = {
+    enable = mkEnableOption "Enable btrbk";
 
-      node = mkOption {
-        description = "Specifies if the device should send or receive backups in the case of ssh target";
-        type = types.enum [
-          "source"
-          "target"
-          "both"
-        ];
-        default = "source";
-      };
+    instances = mkOption {
+      # type = types.str;
+      # default = "btrbk";
+      type = types.attrsOf (types.submodule ({
+        options = {
+          # instance = mkOption {
+          #   type = types.str;
+          #   default = "btrbk";
+          # };
+          # 
+          # enable = mkEnableOption "Enable specific instance of btrbk";
 
-      # versioning = mkOption {
-      #   type = types.bool;
-      #   default = false;
-      # };
+          settings = mkOption {
+            type = types.attrs;
+            default = { };
+          };
+
+        };
+      }));
+      default = { };
+    };
+
+    target = mkEnableOption "Enable target configuration for btrbk";
+
+    publicKey = mkOption {
+      type = types.str;
+      default = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIH+C3Nnd5EOTg52l8M3jJsfq8lr6tXXSgREaNP1Lx8OQ inspirion";
     };
   };
   
-  config = mkIf (config.btrbk.enable) {
+  ##############################################################################
+  # CONFIG
+  ##############################################################################
 
-    # btrfs-progs is a prerequisite in the documentation
-    # not sure if needed
-    # environment.systemPackages = with pkgs; [
-    #   btrfs-progs
-    # ];
+  config = mkIf (cfg.enable) {
 
-    services = {
-      btrbk = {
-        sshAccess = mkIf (config.btrbk.node == "target" ) [{
-          key = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIH+C3Nnd5EOTg52l8M3jJsfq8lr6tXXSgREaNP1Lx8OQ inspirion";
-          roles = [ "info" "source" "target" "delete" "snapshot" "send" "receive" ];
-        }];
+    # assertions = [{
+    #   assertion = !(cfg.source && cfg.target);
+    #   message = "Node must be either `source` or `target`, not both";
+    # }];
 
+  ##############################################################################
+  # SOURCE SERVICE
+  ##############################################################################
 
-        instances.btrbk = mkIf (config.btrbk.node == "source" ) {
+    services.btrbk.instances = mkMerge (
+      mapAttrsToList (instance: cfg: mkIf (attrNames cfg.settings == []) {
+        ${instance} = {
           onCalendar = "hourly";
-          settings = {
+          settings = cfg.settings // {
             # good explanation on gentoo wiki https://wiki.calculate-linux.org/btrbk
             preserve_hour_of_day = "0"; # the daily backup is the first one after midnight
             preserve_day_of_week = "monday"; # Monday is the first day of week
@@ -57,91 +75,21 @@ with lib; {
             stream_compress = "zstd";
             backend_remote = "btrfs-progs-sudo"; # so that i dont need root login for send
             ssh_user = "btrbk"; # so that i dont need root login for send
-            volume = {
-              "/" = {
-                subvolume = {
 
-                  ###########################
-                  # Server Applications
-                  ###########################
+            # volume."/".subvolume = {
 
-                  "var/lib/paperless" = {
-                    snapshot_create = "always";
-                  };
-                  "var/lib/nextcloud" = {
-                    snapshot_create = "always";
-                  };
-                  "var/lib/postgresql" = {
-                    snapshot_create = "always";
-                  };
-                  "var/lib/immich" = {
-                    snapshot_create = "always";
-                  };
-                  "var/lib/actualbudget" = {
-                    snapshot_create = "always";
-                  };
-                  
-                  ###########################
-                  # Postgres Database Dump
-                  ###########################
-
-                  "var/bkp/pg-dump" = {
-                    snapshot_create = "always";
-                  };
-
-                  ###########################
-                  # Syncthing Folders
-                  ###########################
-
-                  "var/lib/syncthing/obsidian" = {
-                    snapshot_create = "always";
-                  };
-                  "var/lib/syncthing/logseq" = {
-                    snapshot_create = "always";
-                  };
-                  "var/lib/syncthing/live" = {
-                    snapshot_create = "always";
-                  };
-                  "var/lib/syncthing/linux" = {
-                    snapshot_create = "always";
-                  };
-                  "var/lib/syncthing/idle" = {
-                    snapshot_create = "always";
-                  };
-                  "var/lib/syncthing/archive" = {
-                    snapshot_create = "always";
-                  };
-                  "var/lib/syncthing/dev" = {
-                    snapshot_create = "always";
-                  };
-                  "home/marci/nix" = {
-                    snapshot_create = "always";
-                  };
-                  "home/marci/secrets" = {
-                    snapshot_create = "always";
-                  };
-                  # rootfs = { };
-                };
-                snapshot_dir = "/var/bkp/btrfs-snaps";
-                # target = "/var/bkp/btrfs-target";
-                target = "ssh://100.83.225.75/media/bkp/inspirion-target";
-
-              };
-            };
+            # };
           };
         };
-      };
-    };
+      })
+      cfg.instances
+    );
 
-    # Define a user account. Don't forget to set a password with ‘passwd’.
-    users.users.btrbk = mkIf (config.btrbk.node == "target" ) {
-      isSystemUser = true;
-      description = "Btrbk ssh user";
-      # extraGroups = [ "networkmanager" "wheel" ];
-    };
+  ##############################################################################
+  # SOURCE SECURITY
+  ##############################################################################
 
-
-    security.sudo = {
+    security.sudo = mkIf (!cfg.target) {
       enable = true;
       extraRules = [{
         commands = [{
@@ -164,5 +112,33 @@ with lib; {
        ]}:/nix/var/nix/profiles/default/bin:/run/current-system/sw/bin"
       '';
     };
+
+  ##############################################################################
+  # DISKO
+  ##############################################################################
+
+  # TODO
+  
+  ##############################################################################
+  # DISKO ON BTRFS TARGET
+  ##############################################################################
+
+  # TODO
+  
+  ##############################################################################
+  # TARGET USER
+  ##############################################################################
+
+    # Define a user account. Don't forget to set a password with ‘passwd’.
+    users.users.btrbk = mkIf (cfg.target) {
+      isSystemUser = true;
+      description = "Btrbk ssh user";
+      hashedPassword = "$y$j9T$zLd4QQEe0StSokJHXbxby1$v.7TpY9aVKPGHC.rYoMmHKZnIDny7ZiKjQ9BvUs19v7";
+    };
+
+    services.btrbk.sshAccess = mkIf (cfg.target) [{
+      key = cfg.publicKey;
+      roles = [ "info" "source" "target" "delete" "snapshot" "send" "receive" ];
+    }];
   };
 }

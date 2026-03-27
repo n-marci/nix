@@ -1,24 +1,57 @@
-# cockpit configuration
+# cockpit config
 
-{config, vars, lib, unstable, host, ...}:
+{ config, lib, ... }:
 
-with lib; {
-  options = {
-    cockpit = {
-      enable = mkOption {
-        type = types.bool;
-        default = false;
-      };
-    };
+let
+  cfg = config.fleet.cockpit;
+  inherit (lib) mkEnableOption mkIf mkDefault;
+in
+{
+  
+  ##############################################################################
+  # OPTIONS
+  ##############################################################################
+
+  options.fleet.cockpit = {
+    enable = mkEnableOption "Enable cockpit";
   };
   
-  config = mkIf (config.cockpit.enable) {
-    services = {
-      cockpit = {
-        enable = true;
-        openFirewall = true;
-        # port = 9090;
+  ##############################################################################
+  # CONFIG
+  ##############################################################################
+
+  config = mkIf (cfg.enable) {
+
+  ##############################################################################
+  # SERVICE
+  ##############################################################################
+
+    services.cockpit = {
+      enable = true;
+      port = 9090;
+      openFirewall = true;
+    };
+
+  ##############################################################################
+  # NGINX
+  ##############################################################################
+
+    services.nginx = {
+      enable = mkDefault true;
+      virtualHosts = {
+        "cockpit.marcelnet.com" = {
+          forceSSL = true;
+          useACMEHost = "marcelnet.com";
+          locations."/".proxyPass = "http://127.0.0.1:9090";
+        };
       };
     };
+
+  ##############################################################################
+  # DISKO
+  ##############################################################################
+
+  # TODO
+  
   };
 }

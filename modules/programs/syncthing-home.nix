@@ -1,0 +1,44 @@
+# syncthing home config
+
+{ config, lib, user, ... }:
+
+let
+  cfg = config.marci.syncthing-home;
+  inherit (lib) mkEnableOption mkOption mkIf mkDefault types;
+in
+{
+  
+  ##############################################################################
+  # OPTIONS
+  ##############################################################################
+
+  options.marci.syncthing-home = {
+    # enable = mkEnableOption {
+    #   name = "Enable syncthing-home";
+    #   default = config.fleet.syncthing.enable;
+    # };
+    enable = mkOption {
+      type = types.bool;
+      default = config.marci.services.syncthing.enable;
+    };
+  };
+  
+  ##############################################################################
+  # CONFIG
+  ##############################################################################
+
+  config = mkIf (cfg.enable) {
+    home-manager.users.${user}.home.file."obsidian/.stignore".text = ''
+      .obsidian
+    '';
+    # home-manager = {
+    #   users = mkIf (config.fleet.syncthing.storeInBackupLocation == false) {
+    #     "${user}" = {
+    #       home.file."sync/obsidian/.stignore".text = ''
+    #         .obsidian
+    #       '';
+    #     };
+    #   };
+    # };
+  };
+}

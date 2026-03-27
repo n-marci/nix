@@ -1,27 +1,35 @@
-# adguardhome configuration
+# adguardhome config
 
-{ config, lib,  pkgs, unstable, host, ... }:
+{ config, lib, ... }:
 
-with lib; {
-  options = {
-    adguard = {
-      enable = mkOption {
-        type = types.bool;
-        default = false;
-      };
-      # versioning = mkOption {
-      #   type = types.bool;
-      #   default = false;
-      # };
-    };
+let
+  cfg = config.fleet.adguard;
+  inherit (lib) mkEnableOption mkIf mkDefault;
+in
+{
+  
+  ##############################################################################
+  # OPTIONS
+  ##############################################################################
+
+  options.fleet.adguard = {
+    enable = mkEnableOption "Enable adguard";
   };
   
-  config = mkIf (config.adguard.enable) {
+  ##############################################################################
+  # CONFIG
+  ##############################################################################
+
+  config = mkIf (cfg.enable) {
+
+  ##############################################################################
+  # SERVICE
+  ##############################################################################
 
     services.adguardhome = {
       enable = true;
-      openFirewall = true;
       port = 3000;
+      openFirewall = true;
       # mutableSettings = false;
       settings = {
         address = "0.0.0.0:3000";
@@ -37,5 +45,27 @@ with lib; {
 
     networking.firewall.allowedTCPPorts = [ 53 ];
     networking.firewall.allowedUDPPorts = [ 53 ];
+
+  ##############################################################################
+  # NGINX
+  ##############################################################################
+
+    services.nginx = {
+      enable = mkDefault true;
+      virtualHosts = {
+        "adguard.marcelnet.com" = {
+          forceSSL = true;
+          useACMEHost = "marcelnet.com";
+          locations."/".proxyPass = "http://127.0.0.1:3000";
+        };
+      };
+    };
+
+  ##############################################################################
+  # DISKO
+  ##############################################################################
+
+  # TODO
+  
   };
 }

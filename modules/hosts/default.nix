@@ -1,0 +1,9 @@
+[
+  ./baremetals.nix
+  ./common.nix
+  ./mobile.nix
+  ./vms.nix
+  ./mesh.nix
+  ./servers.nix
+  ./gui.nix
+]

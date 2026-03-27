@@ -4,16 +4,16 @@
 {config, vars, lib, unstable, host, pkgs, ...}:
 
 with lib; {
-  options = {
-    synapse = {
-      enable = mkOption {
-        type = types.bool;
-        default = false;
-      };
-    };
-  };
+  # options = {
+  #   fleet.synapse = {
+  #     enable = mkOption {
+  #       type = types.bool;
+  #       default = false;
+  #     };
+  #   };
+  # };
   
-  config = mkIf (config.synapse.enable) {
+  config = mkIf (config.fleet.synapse.enable) {
     nixpkgs.config.permittedInsecurePackages = [
       "olm-3.2.16"
     ];
@@ -59,6 +59,8 @@ with lib; {
           logging.writers = [{
             type = "journald";
           }];
+        };
+      };
       #     appservice = {
       #       # as_token = "autogen";
       #       # bot = {

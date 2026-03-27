@@ -1,10 +1,13 @@
 # nginx configuration
 
-{config, vars, lib, unstable, host, ...}:
+{config, vars, lib, unstable, host, secrets, ...}:
 
+let
+  emails = import "${secrets}/email-addresses.nix";
+in
 with lib; {
   options = {
-    nginx = {
+    fleet.nginx = {
       enable = mkOption {
         type = types.bool;
         default = false;
@@ -12,76 +15,83 @@ with lib; {
     };
   };
   
-  config = mkIf (config.nginx.enable) {
+  config = mkIf (config.fleet.nginx.enable) {
     services.nginx = {
       enable = true;
       clientMaxBodySize = "1G";
 
       virtualHosts = {
-        "nextcloud.marcelnet.com" = {
-          forceSSL = true;
-          useACMEHost = "marcelnet.com";
-        #   locations."/" = {
-        #     proxyPass = "http://localhost";
-        #     proxyWebsockets = true;
-        #     extraConfig = ''
-        #       proxy_redirect http://$host https://$host; # apparently required for apps: https://codeberg.org/balint/nixos-configs/src/branch/main/hosts/vps/nextcloud.nix
-        #     '';
-        #   };
-        };
-        "immich.marcelnet.com" = {
-          forceSSL = true;
-          useACMEHost = "marcelnet.com";
-          locations."/".proxyPass = "http://100.125.148.107:2283";
-        };
-        "adguard.marcelnet.com" = {
-          forceSSL = true;
-          useACMEHost = "marcelnet.com";
-          locations."/".proxyPass = "http://100.125.148.107:3000";
-        };
-        "paperless.marcelnet.com" = {
-          forceSSL = true;
-          useACMEHost = "marcelnet.com";
-          locations."/".proxyPass = "http://100.125.148.107:28981";
-        };
-        "actual.marcelnet.com" = {
-          forceSSL = true;
-          useACMEHost = "marcelnet.com";
-          locations."/".proxyPass = "http://100.125.148.107:5006";
-        };
-        "cockpit.marcelnet.com" = {
-          forceSSL = true;
-          useACMEHost = "marcelnet.com";
-          locations."/".proxyPass = "http://100.125.148.107:9090";
-        };
+        # "nextcloud.marcelnet.com" = {
+        #   forceSSL = true;
+        #   useACMEHost = "marcelnet.com";
+        #   #   locations."/" = {
+        #   #     proxyPass = "http://localhost";
+        #   #     proxyWebsockets = true;
+        #   #     extraConfig = ''
+        #   #       proxy_redirect http://$host https://$host; # apparently required for apps: https://codeberg.org/balint/nixos-configs/src/branch/main/hosts/vps/nextcloud.nix
+        #   #     '';
+        #   #   };
+        #   # extraConfig = ''
+        #   #   client_max_body_size 1G;
+        #   # '';
+        # };
+        # "adguard.marcelnet.com" = {
+        #   forceSSL = true;
+        #   useACMEHost = "marcelnet.com";
+        #   locations."/".proxyPass = "http://100.125.148.107:3000";
+        # };
+        # "paperless.marcelnet.com" = {
+        #   forceSSL = true;
+        #   useACMEHost = "marcelnet.com";
+        #   locations."/".proxyPass = "http://100.125.148.107:28981";
+        #   # locations."/" = {
+        #   #   proxyPass = "http://100.125.148.107:28981";
+        #   #   proxyWebsockets = true;
+        #   # };
+        # };
+        # "actual.marcelnet.com" = {
+        #   forceSSL = true;
+        #   useACMEHost = "marcelnet.com";
+        #   locations."/".proxyPass = "http://100.125.148.107:5006";
+        # };
+        # "cockpit.marcelnet.com" = {
+        #   forceSSL = true;
+        #   useACMEHost = "marcelnet.com";
+        #   locations."/".proxyPass = "http://100.125.148.107:9090";
+        # };
         "traccar.marcelnet.com" = {
           forceSSL = true;
           useACMEHost = "marcelnet.com";
           locations."/".proxyPass = "http://100.125.148.107:8082";
         };
-        "matrix.marcelnet.com" = {
-          forceSSL = true;
-          useACMEHost = "marcelnet.com";
-          locations."/".extraConfig = ''
-            return 404;
-          '';
-          locations."/_matrix".proxyPass = "http://[::1]:8008";
-          locations."/_synapse/client".proxyPass = "http://[::1]:8008";
-        };
-        "immich.inspirion.bearded-bushi.ts.net" = {
-          # forceSSL = true;
-          # enableACME = false;
-          # useACMEHost = "marcelnet.com";
-          # sslCertificate = "/home/marci/inspirion.bearded-bushi.ts.net.crt";
-          # sslCertificateKey = "/home/marci/inspirion.bearded-bushi.ts.net.key";
-          locations."/".proxyPass = "http://localhost:2283";
-        };
+        # "audiobookshelf.marcelnet.com" = {
+        #   forceSSL = true;
+        #   useACMEHost = "marcelnet.com";
+        #   locations."/" = {
+        #     proxyPass = "http://100.125.148.107:8000";
+        #     proxyWebsockets = true;
+        #   };
+        # };
+        # "mealie.marcelnet.com" = {
+        #   forceSSL = true;
+        #   useACMEHost = "marcelnet.com";
+        #   locations."/".proxyPass = "http://100.125.148.107:9925";
+        # };
+        # "matrix.marcelnet.com" = {
+        #   forceSSL = true;
+        #   useACMEHost = "marcelnet.com";
+        #   locations."/".extraConfig = ''
+        #     return 404;
+        #   '';
+        #   locations."/_matrix".proxyPass = "http://[::1]:8008";
+        #   locations."/_synapse/client".proxyPass = "http://[::1]:8008";
+        # };
       };
     };
 
     security.acme = {
       acceptTerms = true;   
-      defaults.email = "neugebauer.marcel@web.de";
+      defaults.email = emails.web-de;
       certs."marcelnet.com" = { 
         # ${config.services.nextcloud.hostName} = {
         # "bearded-bushi.ts.net" = {
@@ -98,5 +108,12 @@ with lib; {
     
     networking.firewall.allowedTCPPorts = [ 80 443 ];
     users.users.nginx.extraGroups = [ "acme" ];
+
+  ##############################################################################
+  # SOPS
+  ##############################################################################
+
+    sops.secrets.cloudflare-marcelnet = { };
+
   };
 }

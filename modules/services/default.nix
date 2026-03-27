@@ -5,11 +5,15 @@
   ./immich.nix
   ./actualbudget.nix
   ./btrbk.nix
+  ./btrbk-instance.nix
   ./postgresql-bkp.nix
   ./adguardhome.nix
   ./mealie.nix
   ./nginx.nix
   ./cockpit.nix
   ./traccar.nix
+  ./audiobookshelf.nix
   ./synapse.nix
+  ./prometheus-node-exporter.nix
+  ./pangolin.nix
 ]

@@ -59,7 +59,7 @@ in
   # CONFIG
   ##############################################################################
 
-  config = mkIf (cfg.enable) (
+  config = mkIf (cfg.enable && elem "${name}" [ cfg.homes cfg.servers cfg.phones cfg.whatsapp ]) (
   let
     # devices = filter (x: x != "${name}") (concatLists [ cfg.homes cfg.servers cfg.other ]); # concatenete together all devices in the mesh and filter out the host
     devices = (concatLists [ cfg.homes cfg.servers cfg.phones cfg.whatsapp ]);

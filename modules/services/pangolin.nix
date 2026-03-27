@@ -4,7 +4,7 @@
 
 let
   cfg = config.marci.services.pangolin;
-  inherit (lib) mkEnableOption mkOption mkIf mkDefault types elem;
+  inherit (lib) mkEnableOption mkOption mkIf mkDefault mkMerge types elem;
   emails = import "${secrets}/email-addresses.nix";
   # database-directory = "var/lib/postgresql";
   # db-export-directory = "var/lib/psql-export";
@@ -50,7 +50,7 @@ in
       openFirewall = true;
       baseDomain = "neugebauer-marcel.com";
       letsEncryptEmail = emails.web-de;
-      environmentFile = "/run/keys/pangolin-env";
+      environmentFile = config.sops.secrets.pangolin-env.path;
       dnsProvider = "ovh";
       settings = {
         domains.domain1 = {
@@ -61,9 +61,12 @@ in
 
     services.traefik = mkIf (elem name cfg.nodes.pangolin) {
       package = unstable.pkgs.traefik;
-      environmentFiles = [ "/run/keys/traefik-env" ];
+      environmentFiles = [ config.sops.secrets.traefik-env.path ];
     };
 
+  # --- SECRETS ---
+    sops.secrets.pangolin-env = mkIf (elem name cfg.nodes.pangolin) { };
+    sops.secrets.traefik-env = mkIf (elem name cfg.nodes.pangolin) { };
 
   ##############################################################################
   # NEWT SERVICE

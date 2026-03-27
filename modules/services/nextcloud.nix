@@ -49,8 +49,7 @@ in
 
     services.nextcloud = mkIf (name == cfg.host) {
       enable = true;
-      # hostName = "nextcloud.marcelnet.com";
-      hostName = "0.0.0.0";
+      hostName = "nextcloud.marcelnet.com";
       package = pkgs.nextcloud33;
       configureRedis = true;
       database.createLocally = true;
@@ -78,7 +77,7 @@ in
       };
 
       settings = {
-        trusted_domains = [ "100.125.148.107" "192.168.66.21" ]; # add the tailscale server ip to the trusted domains
+        trusted_domains = [ "nextcloud.neugebauer-marcel.com" "100.125.148.107" "192.168.66.21" ]; # add the tailscale server ip to the trusted domains
         overwriteProtocol = "https";
         maintenance_window_start = 2;
         opcache.interned_strings_buffer = 9;

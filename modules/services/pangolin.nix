@@ -56,6 +56,11 @@ in
         domains.domain1 = {
           prefer_wildcard_cert = true;
         };
+        apps.test-pango = {
+          domain = "test.neugebauer-marcel.com";
+          type = "external";
+          upstream = "http://localhost:9000";
+        };
       };
     };
 

@@ -49,7 +49,8 @@ in
 
     services.nextcloud = mkIf (name == cfg.host) {
       enable = true;
-      hostName = "nextcloud.marcelnet.com";
+      # hostName = "nextcloud.marcelnet.com";
+      hostName = "0.0.0.0";
       package = pkgs.nextcloud33;
       configureRedis = true;
       database.createLocally = true;

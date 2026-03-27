@@ -4,7 +4,7 @@
 
 let
   cfg = config.marci.services.nextcloud;
-  inherit (lib) mkEnableOption mkOption mkIf mkDefault types;
+  inherit (lib) mkEnableOption mkOption mkIf mkDefault mkForce types;
   database-directory = "var/lib/postgresql";
   db-export-directory = "var/lib/psql-export";
 in
@@ -50,6 +50,7 @@ in
     services.nextcloud = mkIf (name == cfg.host) {
       enable = true;
       hostName = "nextcloud.marcelnet.com";
+      # hostName = "192.168.66.21";
       package = pkgs.nextcloud33;
       configureRedis = true;
       database.createLocally = true;
@@ -77,7 +78,7 @@ in
       };
 
       settings = {
-        trusted_domains = [ "nextcloud.neugebauer-marcel.com" "100.125.148.107" "192.168.66.21" ]; # add the tailscale server ip to the trusted domains
+        trusted_domains = [ "nextcloud.neugebauer-marcel.com" "nextcloud.marcelnet.com" "100.125.148.107" "192.168.66.21" ]; # add the tailscale server ip to the trusted domains
         overwriteProtocol = "https";
         maintenance_window_start = 2;
         opcache.interned_strings_buffer = 9;
@@ -103,18 +104,28 @@ in
         "nextcloud.marcelnet.com" = {
           forceSSL = true;
           useACMEHost = "marcelnet.com";
+          # listen = [{ addr = "127.0.0.1"; port = 8185; ssl = false; }];
           locations."/" = {
               # clientMaxBodySize = "1G";
-          #     proxyPass = "http://localhost";
+            # proxyPass = "http://127.0.0.1";
           #     proxyWebsockets = true;
           #     extraConfig = ''
           #       proxy_redirect http://$host https://$host; # apparently required for apps: https://codeberg.org/balint/nixos-configs/src/branch/main/hosts/vps/nextcloud.nix
           #     '';
+            # extraConfig = ''
+            #   try_files $uri $uri/ /index.php$request_uri;
+            # '';
             extraConfig = ''
               client_max_body_size 1G;
             '';
           };
         };
+        # "_" = {
+        #   listen = [{ addr = "0.0.0.0"; port = 8080; }];
+        #   locations."/" = {
+        #     proxyPass = "http://unix:/run/nextcloud/php-fpm.sock";
+        #   };
+        # };
       };
     };
 

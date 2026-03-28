@@ -3,6 +3,7 @@
   ./paperless.nix
   ./nextcloud.nix
   ./immich.nix
+  ./opencloud.nix
   ./actualbudget.nix
   ./btrbk.nix
   ./btrbk-instance.nix

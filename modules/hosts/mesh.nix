@@ -35,6 +35,19 @@ in
       };
 
     ##############################################################################
+    # OWNCLOUD
+    ##############################################################################
+
+      owncloud = { # for a full setup with caldav/carddav sync look at https://wiki.nixos.org/wiki/OpenCloud
+        enable = true;
+        nodes = {
+          service = [ "inspirion" ];
+          storage = [ "linc-n2" ]; # store in /srv/store
+          backup = [ "helix-s" ]; # backup in /srv/backup
+        };
+      };
+
+    ##############################################################################
     # NEXTCLOUD
     ##############################################################################
 

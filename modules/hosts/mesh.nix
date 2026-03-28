@@ -35,10 +35,10 @@ in
       };
 
     ##############################################################################
-    # OWNCLOUD
+    # OPENCLOUD
     ##############################################################################
 
-      owncloud = { # for a full setup with caldav/carddav sync look at https://wiki.nixos.org/wiki/OpenCloud
+      opencloud = { # for a full setup with caldav/carddav sync look at https://wiki.nixos.org/wiki/OpenCloud
         enable = true;
         nodes = {
           service = [ "inspirion" ];

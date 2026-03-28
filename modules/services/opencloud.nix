@@ -48,13 +48,105 @@ in
     services.opencloud = mkIf (elem name cfg.nodes.service) {
       enable = true; # https://wiki.nixos.org/wiki/OpenCloud - here is a full to configure radicale for caldav/carddav sync
       url = "https://opencloud.marcelnet.com";
-      address = "127.0.0.1";
-      # port = 9200;
+      # url = "https://0.0.0.0:9200";
+      address = "0.0.0.0";
+      # address = "127.0.0.1";
+      port = 9200;
       environment = {
         PROXY_TLS = "false"; # disable https when behind reverse proxy
-        INITIAL_ADMIN_PASSWORD = "xxx";
+        INITIAL_ADMIN_PASSWORD = "Super*Secure*Signs";
+      #   OC_DOMAIN = "opencloud.marcelnet.com";
+      #   OC_INSECURE = "true";
+      #   # PROXY_INSECURE_BACKENDS = "true";
       };
+
+      environmentFile = config.sops.secrets.opencloud-env.path;
+
+      settings = {
+        # An override of the default CSP: every parameter has to be re-written, default can be found on opencloud's compose files
+        csp = {                                      
+          directives = {
+            child-src = [
+              "'self'"
+            ];
+
+            connect-src = [
+              "'self'"
+              "blob:"
+              "https://\${COMPANION_DOMAIN|companion.opencloud.test}\${TRAEFIK_PORT_HTTPS}/"
+              "wss://\${COMPANION_DOMAIN|companion.opencloud.test}\${TRAEFIK_PORT_HTTPS}/"
+              "https://raw.githubusercontent.com/opencloud-eu/awesome-apps/"
+              "https://\${IDP_DOMAIN|keycloak.opencloud.test}\${TRAEFIK_PORT_HTTPS}/"
+              "https://update.opencloud.eu/"
+            ];
+            default-src = [
+              "'none'"
+            ];
+            font-src = [
+              "'self'"
+            ];
+            frame-ancestors = [
+              "'self'"
+            ];
+            frame-src = [
+              "'self'"
+              "blob:"
+              "https://embed.diagrams.net"
+      
+              # Here is the culprit, put your own office service's URL
+              "https://office.marcelnet.com"
+
+              # This is needed for the external-sites web extension when embedding sites
+              "https://docs.opencloud.eu"
+            ];
+            img-src = [
+              "'self'"
+              "data:"
+              "blob:"
+              "https://raw.githubusercontent.com/opencloud-eu/awesome-apps/"
+              "https://tile.openstreetmap.org/"
+              "https://office.marcelnet.com/"
+            ];
+            manifest-src = [
+              "'self'"
+            ];
+
+            media-src = [
+              "'self'"
+            ];
+
+            object-src = [
+              "'self'"
+              "blob:"
+            ];
+
+            script-src = [
+              "'self'"
+              "'unsafe-inline'"
+              "https://\${IDP_DOMAIN|keycloak.opencloud.test}\${TRAEFIK_PORT_HTTPS}/"
+            ];
+
+            style-src = [
+              "'self'"
+              "'unsafe-inline'"
+            ];
+          };
+        };
+
+        proxy = {
+          # Tell your proxy to look at that CSP file you created
+          csp_config_file_location = "/etc/opencloud/csp.yaml";           
+        };
+      };
+
+      # settings = {
+      #   proxy = {
+      #     csp_config_file_location = "/etc/opencloud/csp.yaml";
+      #   };
+      # };
     };
+
+    sops.secrets.opencloud-env = mkIf (elem name cfg.nodes.service) { };
 
   ##############################################################################
   # NGINX

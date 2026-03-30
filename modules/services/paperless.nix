@@ -52,6 +52,32 @@ in
     };
 
   ##############################################################################
+  # SAMBA
+  ##############################################################################
+
+    services.samba = {
+      enable = true;
+      openFirewall = true;
+      settings = {
+        global = {
+          "invalid users" = [
+            "root"
+          ];
+          "passwd program" = "/run/wrappers/bin/passwd %u";
+          security = "user";
+        };
+
+        paperless-consume = {
+          browseable = "yes";
+          comment = "private samba share for the paperless consume directory";
+          "guest ok" = "no";
+          path = "/var/lib/paperless/consume";
+          "read only" = "no";
+        };
+      };
+    };
+
+  ##############################################################################
   # NGINX
   ##############################################################################
 

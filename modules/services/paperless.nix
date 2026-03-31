@@ -68,14 +68,27 @@ in
         };
 
         paperless-consume = {
-          browseable = "yes";
-          comment = "private samba share for the paperless consume directory";
-          "guest ok" = "no";
           path = "/var/lib/paperless/consume";
+          "valid users" = "paperless-consume";
+          "create mask" = "0664";
+          "directory mask" = "2775";
+          browseable = "yes";
+          "guest ok" = "no";
           "read only" = "no";
+          comment = "private samba share for the paperless consume directory";
         };
       };
     };
+
+    # --- SAMBA USER ---
+
+    users.users.paperless-consume = {
+      name = "paperless-consume";
+      group = "paperless-consume";
+      extraGroups = [ "paperless" ];
+      isSystemUser = true;
+    };
+    users.groups.paperless-consume = { };
 
   ##############################################################################
   # NGINX

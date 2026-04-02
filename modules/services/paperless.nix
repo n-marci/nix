@@ -80,6 +80,10 @@ in
       };
     };
 
+    systemd.tmpfiles.rules = [ # had to set it manually in existing setup - this should set it declaratively
+      "d /var/lib/paperless/consume 2775 paperless paperless - -"
+    ];
+
     # --- SAMBA USER ---
 
     users.users.paperless-consume = {

@@ -146,6 +146,8 @@ in
       # };
     };
 
+    networking.firewall.allowedUDPPorts = [ 9200 ]; # not sure if needed - just trying out
+    networking.firewall.allowedTCPPorts = [ 9200 ]; # not sure if needed - just trying out
     sops.secrets.opencloud-env = mkIf (elem name cfg.nodes.service) { };
 
   ##############################################################################

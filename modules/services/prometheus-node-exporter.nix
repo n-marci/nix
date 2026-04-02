@@ -17,7 +17,7 @@ in
 
     port = mkOption {
       type = types.port;
-      default = 9100;
+      default = 21000; # changed it from 9100 because ocis required it
       description = "Port for Node Exporter metrics";
     };
 

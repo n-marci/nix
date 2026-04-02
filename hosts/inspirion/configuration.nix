@@ -60,7 +60,7 @@
     };
     nginx.enable = true;
     cockpit.enable = true;
-    traccar.enable = true;
+    # traccar.enable = true;
     synapse.enable = false;
     audiobookshelf.enable = true;
 

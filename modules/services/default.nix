@@ -17,4 +17,5 @@
   ./synapse.nix
   ./prometheus-node-exporter.nix
   ./pangolin.nix
+  ./owncloud.nix
 ]

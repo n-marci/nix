@@ -134,11 +134,28 @@ in
 
       shell-gpt
       aichat
+      opencode
       # llm
       inotify-tools
       # waypipe
       mesa
 
+      ###################
+      # ai
+      ###################
+
+      opencode-desktop
+
+      ###################
+      # engineering
+      ###################
+
+      kicad-small
+      simulide
+
+      # LLMs
+      # newelle
+    
       ###################
       # eye candy cli
       ###################
@@ -221,16 +238,6 @@ in
       firefox
       librewolf
 
-      ###################
-      # engineering
-      ###################
-
-      kicad-small
-      simulide
-
-      # LLMs
-      # newelle
-    
       ###################
       # gui program
       ###################

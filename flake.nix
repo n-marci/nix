@@ -265,6 +265,7 @@
 
           imports = [
             ./hosts/helix-s/configuration.nix
+            disko.nixosModules.disko
           ];
         };
 
@@ -334,7 +335,6 @@
 
           imports = [
             ./hosts/ovh-vps/configuration.nix
-
             disko.nixosModules.disko
           ];
         };

@@ -23,6 +23,7 @@ in
       programs = {
         git = {
           enable = true;
+          signing.format = "openpgp";
           settings = {
             user.name = "n-marci";
             user.email = emails.web-de;

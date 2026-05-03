@@ -227,7 +227,7 @@ in
       rnote                  # https://github.com/flxzt/rnote
       zotero
       papers
-      gscan2pdf
+      # gscan2pdf
       naps2 # scanning application - wanted to try it out instead of gscan2pdf
 
       ###################
@@ -267,7 +267,7 @@ in
       # build problems in unstable
       ###################
 
-      # gscan2pdf
+      gscan2pdf
       # shell-gpt
       # thunderbird
       # libreoffice-still

@@ -215,8 +215,8 @@ in
       spotify
       # helvum
       qpwgraph
-      alsa-lib
-      alsa-utils
+      # alsa-lib
+      # alsa-utils
 
       ###################
       # documents

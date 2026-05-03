@@ -215,8 +215,8 @@ in
       spotify
       # helvum
       qpwgraph
-      alsa-lib
-      alsa-utils
+      # alsa-lib
+      # alsa-utils
 
       ###################
       # documents
@@ -267,7 +267,7 @@ in
       # build problems in unstable
       ###################
 
-      gscan2pdf
+      # gscan2pdf
       # shell-gpt
       # thunderbird
       # libreoffice-still

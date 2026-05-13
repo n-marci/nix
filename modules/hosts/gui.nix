@@ -109,6 +109,7 @@ in
       flameshot
 
       luminance # control brightness of external monitors
+      android-tools # to install grapheneos as non root
     
       ###################
       # cli tools

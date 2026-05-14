@@ -96,11 +96,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1778706808,
-        "narHash": "sha256-ihH1UnI6nYSOkjAg4QsOadg6sp2LxXnWO9urPbo3/hw=",
+        "lastModified": 1778781368,
+        "narHash": "sha256-t7GW8f4So0b+ATPACjTkCy9UesbSidDW3X9w3utVC1A=",
         "owner": "nix-community",
         "repo": "home-manager",
-        "rev": "9760b31dab3016fc6e422ca241cfeac605fb89c9",
+        "rev": "c68d2a24376da3860ef161373d91348b1542356b",
         "type": "github"
       },
       "original": {
@@ -250,11 +250,11 @@
         "nixpkgs": "nixpkgs_3"
       },
       "locked": {
-        "lastModified": 1772403413,
-        "narHash": "sha256-gA4ua51XfiP7PCgRXQ108TRrl2gjG8MUHIYbBudNYw8=",
+        "lastModified": 1778749072,
+        "narHash": "sha256-PQfgXG6h6+S7K5HY6BKfeKzmW2XqEMcalcDHkPsUZ3s=",
         "ref": "refs/heads/master",
-        "rev": "baa5833effd306c7e7596142d3e7845fc5bdc6d5",
-        "revCount": 20,
+        "rev": "ba662510d0c8059dd22e587bf75351b51003710f",
+        "revCount": 21,
         "type": "git",
         "url": "ssh://git@github.com/n-marci/secrets.git"
       },

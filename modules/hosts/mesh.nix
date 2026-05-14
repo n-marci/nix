@@ -73,7 +73,7 @@ in
         enable = true;
         homes = [ "yoga" "unicorn" ];
         servers = [ "inspirion" ];
-        phones = [ "s20-plus" "note-9" ];
+        phones = [ "s20-plus" "note-9" "pixel-8" ];
         whatsapp = [ "s20-plus-wa" ];
         folders = [ "nix" "secrets" "wallpapers" "obsidian" "logseq" "phone" "signal" "whatsapp"];
 

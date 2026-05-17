@@ -369,6 +369,10 @@
   # 
   ##############################################################################
 
+      diskoConfigurations = {
+        helix-b = import ./hosts/helix-b/disks.nix;
+      };
+  
       nixosConfigurations = {
         yoga = nixpkgs.lib.nixosSystem {
           # inherit system;
@@ -394,16 +398,16 @@
           ];
         };
 
-        helix-b = nixpkgs.lib.nixosSystem {
-          # specialArgs = {
-          #   inherit inputs secrets hosts stable unstable;
-          # };
+        # helix-b = nixpkgs.lib.nixosSystem {
+        #   # specialArgs = {
+        #   #   inherit inputs secrets hosts stable unstable;
+        #   # };
 
-          modules = [
-            ./hosts/helix-b/configuration.nix
-            disko.nixosModules.disko
-          ];
-        };
+        #   modules = [
+        #     ./hosts/helix-b/configuration.nix
+        #     disko.nixosModules.disko
+        #   ];
+        # };
 
         # yoga = { name, ... }: {
         #   deployment = {

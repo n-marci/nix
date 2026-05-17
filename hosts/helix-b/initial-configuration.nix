@@ -13,6 +13,7 @@
       ../../modules/hosts/nixos-install.nix
       ../../modules/hosts/mesh.nix
       ./hardware-configuration.nix
+      ./disks.nix
 
       ../../modules/configurations/networking.nix
       ../../modules/configurations/virtualisation.nix
@@ -49,13 +50,13 @@
   # STORAGE SETUP
   ##############################################################################
 
-  fileSystems."/media/bkp" = {
-    device = "/dev/disk/by-uuid/a6237260-b23e-49c2-963c-c9a9b97b5190";
-    fsType = "btrfs";
-    options = [
-      "nofail" # Prevent system from failing if this drive doesn't mount
-    ];
-  };
+  # fileSystems."/media/bkp" = {
+  #   device = "/dev/disk/by-uuid/a6237260-b23e-49c2-963c-c9a9b97b5190";
+  #   fsType = "btrfs";
+  #   options = [
+  #     "nofail" # Prevent system from failing if this drive doesn't mount
+  #   ];
+  # };
 
   ##############################################################################
   # NETWORKING

@@ -401,11 +401,12 @@
         helix-b = nixpkgs.lib.nixosSystem {
           specialArgs = {
             inherit inputs stable unstable sops-nix secrets hosts;
-            helix-b = {
-              user = hosts.helix-b.user;
-              ip = hosts.helix-b.ip;
-              interface = hosts.helix-b.interface;
-            };
+          };
+
+          _module.args = {
+            user = hosts.helix-b.user;
+            ip = hosts.helix-b.ip;
+            interface = hosts.helix-b.interface;
           };
 
           modules = [
@@ -414,23 +415,6 @@
           ];
         };
 
-          # specialArgs = {
-          #   stable = stable;
-          #   unstable = unstable;
-          #   sops-nix = sops-nix;
-          #   secrets = secrets;
-          #   hosts = hosts;
-          #   lts-kernel = stable.linuxPackages_6_6;
-          #   latest-kernel = unstable.linuxPackages_latest;
-          #   quickshell = inputs.quickshell;
-          # };
-
-          #   helix-b = {
-          #     user = hosts.helix-b.user;
-          #     ip = hosts.helix-b.ip;
-          #     interface = hosts.helix-b.interface;
-          #   };
-          
         # yoga = { name, ... }: {
         #   deployment = {
         #     allowLocalDeployment = true;

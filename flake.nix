@@ -401,13 +401,16 @@
         helix-b = nixpkgs.lib.nixosSystem {
           specialArgs = {
             inherit inputs stable unstable sops-nix secrets hosts;
-          };
-
-          _module.args = {
             user = hosts.helix-b.user;
             ip = hosts.helix-b.ip;
             interface = hosts.helix-b.interface;
           };
+
+          # _module.args = {
+          #   user = hosts.helix-b.user;
+          #   ip = hosts.helix-b.ip;
+          #   interface = hosts.helix-b.interface;
+          # };
 
           modules = [
             ./hosts/helix-b/configuration.nix

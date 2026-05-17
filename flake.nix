@@ -405,6 +405,8 @@
             ip = hosts.helix-b.ip;
             interface = hosts.helix-b.interface;
 
+            lts-kernel = stable.linuxPackages_6_6;
+
             name = "helix-b";
             deployment = {
               targetUser = "colmena";

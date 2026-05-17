@@ -10,6 +10,7 @@
       ../../modules/hosts/baremetals.nix
       ../../modules/hosts/common.nix
       ../../modules/hosts/servers.nix
+      ../../modules/hosts/nixos-install.nix
       ../../modules/hosts/mesh.nix
       ./hardware-configuration.nix
 

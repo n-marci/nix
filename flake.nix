@@ -406,6 +406,9 @@
             interface = hosts.helix-b.interface;
 
             name = "helix-b";
+            deployment = {
+              targetUser = "colmena";
+            };
           };
 
           # _module.args = {

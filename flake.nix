@@ -369,9 +369,9 @@
   # 
   ##############################################################################
 
-      diskoConfigurations = {
-        helix-b = import ./hosts/helix-b/disks.nix;
-      };
+      # diskoConfigurations = {
+      #   helix-b = import ./hosts/helix-b/disks.nix;
+      # };
   
       nixosConfigurations = {
         yoga = nixpkgs.lib.nixosSystem {
@@ -398,17 +398,39 @@
           ];
         };
 
-        # helix-b = nixpkgs.lib.nixosSystem {
-        #   # specialArgs = {
-        #   #   inherit inputs secrets hosts stable unstable;
-        #   # };
+        helix-b = nixpkgs.lib.nixosSystem {
+          specialArgs = {
+            inherit inputs stable unstable sops-nix secrets hosts;
+            helix-b = {
+              user = hosts.helix-b.user;
+              ip = hosts.helix-b.ip;
+              interface = hosts.helix-b.interface;
+            };
+          };
 
-        #   modules = [
-        #     ./hosts/helix-b/configuration.nix
-        #     disko.nixosModules.disko
-        #   ];
-        # };
+          modules = [
+            ./hosts/helix-b/configuration.nix
+            disko.nixosModules.disko
+          ];
+        };
 
+          # specialArgs = {
+          #   stable = stable;
+          #   unstable = unstable;
+          #   sops-nix = sops-nix;
+          #   secrets = secrets;
+          #   hosts = hosts;
+          #   lts-kernel = stable.linuxPackages_6_6;
+          #   latest-kernel = unstable.linuxPackages_latest;
+          #   quickshell = inputs.quickshell;
+          # };
+
+          #   helix-b = {
+          #     user = hosts.helix-b.user;
+          #     ip = hosts.helix-b.ip;
+          #     interface = hosts.helix-b.interface;
+          #   };
+          
         # yoga = { name, ... }: {
         #   deployment = {
         #     allowLocalDeployment = true;

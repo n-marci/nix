@@ -5,5 +5,6 @@
   ./vms.nix
   ./mesh.nix
   ./servers.nix
+  ./nixos-install.nix
   ./gui.nix
 ]

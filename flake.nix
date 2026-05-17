@@ -100,6 +100,11 @@
               ip = hosts.helix-s.ip;
               interface = hosts.helix-s.interface;
             };
+            helix-b = {
+              user = hosts.helix-b.user;
+              ip = hosts.helix-b.ip;
+              interface = hosts.helix-b.interface;
+            };
             ovh-vps = {
               user = hosts.ovh-vps.user;
               ip = hosts.ovh-vps.ip;
@@ -265,6 +270,21 @@
 
           imports = [
             ./hosts/helix-s/configuration.nix
+            disko.nixosModules.disko
+          ];
+        };
+
+        helix-b = { name, ... }: {
+          deployment = {
+            # allowLocalDeployment = true;
+            # targetUser = hosts.helix-b.user; 
+            targetUser = "colmena";
+            buildOnTarget = true;
+            tags = hosts.helix-b.tags;
+          };
+
+          imports = [
+            ./hosts/helix-b/configuration.nix
             disko.nixosModules.disko
           ];
         };

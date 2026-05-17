@@ -91,6 +91,7 @@ in
           "inspirion" = { id = hosts.inspirion.sync-id; };
           # "marci_helix_b" = { id = sync-ids.helix-b; };
           "helix-s" = { id = hosts.helix-s.sync-id; };
+          # "helix-b" = { id = hosts.helix-b.sync-id; };
           "unicorn" = { id = hosts.unicorn.sync-id; };
           "yoga" = { id = hosts.yoga.sync-id; };
           "note-9" = { id = hosts.note-9.sync-id; };

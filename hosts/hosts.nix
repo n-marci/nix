@@ -94,6 +94,22 @@ in
     secrets = "sops";
   };
 
+  helix-b = {
+    ip = "dynamic"; # dynamic since otherwise i need to configure wifi manually
+    tailscale-ip = "100.83.225.75";
+    interface = "wlp6s0";
+    user = "marci";
+    tags = [
+      "homelab"
+      "storage"
+      "bkp"
+    ];
+    sync-id = sync-ids.helix-b;
+    bkp-target = "linc-n2";
+    access = [ "yoga" "desktop" "linc-n2" ];
+    secrets = "sops";
+  };
+
   ##############################################################################
   # VPS
   ##############################################################################

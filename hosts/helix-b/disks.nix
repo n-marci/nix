@@ -3,7 +3,7 @@
 {
   disko.devices = {
     disk.internal = {
-      device = lib.mkDefault "...";
+      device = lib.mkDefault "/dev/disk/by-id/ata-INTEL_SSDSCKJF240A5L_CVTT5173013J240M";
       type = "disk";
       content = {
         type = "gpt";

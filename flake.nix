@@ -404,6 +404,8 @@
             user = hosts.helix-b.user;
             ip = hosts.helix-b.ip;
             interface = hosts.helix-b.interface;
+
+            name = "helix-b";
           };
 
           # _module.args = {

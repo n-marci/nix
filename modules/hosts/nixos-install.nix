@@ -90,7 +90,7 @@ in
     ##############################################################################
 
     security.sudo.extraRules = [{
-      users = [ "${config.deployment.targetUser}" ];
+      users = [ "colmena" ];
       commands = [{
         command = "ALL";
         options = [ "NOPASSWD" ];

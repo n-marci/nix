@@ -393,6 +393,18 @@
             }
           ];
         };
+
+        helix-b = nixpkgs.lib.nixosSystem {
+          # specialArgs = {
+          #   inherit inputs secrets hosts stable unstable;
+          # };
+
+          modules = [
+            ./hosts/helix-b/configuration.nix
+            disko.nixosModules.disko
+          ];
+        };
+
         # yoga = { name, ... }: {
         #   deployment = {
         #     allowLocalDeployment = true;

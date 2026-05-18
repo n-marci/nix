@@ -27,8 +27,32 @@
       baremetal.enable = true;
       common.enable = true;
       server.enable = true;
-      mesh.enable = true;
+      # mesh.enable = true;
     };
+
+  ##############################################################################
+  # RESCUE
+  ##############################################################################
+
+    services = {
+      immich = {
+        enable = true;
+        nodes = {
+          service = [ "helix-b" ];
+        };
+      };
+
+      nextcloud = {
+        enable = true;
+        host = "helix-b";
+      };
+    };
+  };
+  fleet = {
+    paperless = {
+      enable = true;
+    };
+    nginx.enable = true;
   };
 
   ##############################################################################

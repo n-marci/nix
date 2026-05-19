@@ -1,4 +1,4 @@
-{ pkgs, name, user, lts-kernel, ... }:
+{ pkgs, name, user, lib, lts-kernel, ... }:
 
 {
   imports = (
@@ -34,7 +34,32 @@
   # RESCUE
   ##############################################################################
 
+  disko.devices = {
+    disk.internal = {
+      content = {
+        partitions = {
+          root = {
+            content = {
+              extraArgs = [ ];
+              subvolumes = {
+                # "@test" = {
+                #   mountpoint = "/var/lib/test";
+                #   mountOptions = [ "compress=zstd" "noatime" ];
+                # };
+              };
+            };
+          };
+        };
+      };
+    };
+
     services = {
+      btrfs-create-subvolumes = {
+        enable = true;
+        device = "/dev/disk/by-label/nixos";
+        subvolumes = lib.mkAfter [ "@test" ];
+      };
+
       immich = {
         enable = true;
         nodes = {

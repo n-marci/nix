@@ -11,7 +11,7 @@
         partitions = {
           root = {
             content = {
-              extraArgs = [ ];
+              # extraArgs = [ ];
               subvolumes = {
                 "@test2" = {
                   mountpoint = "/var/lib/test2";

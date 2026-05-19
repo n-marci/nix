@@ -420,7 +420,7 @@
           # };
 
           modules = [
-            ./hosts/helix-b/configuration-initial.nix
+            ./hosts/helix-b/initial-configuration.nix
             disko.nixosModules.disko
             sops-nix.nixosModules.sops
           ];

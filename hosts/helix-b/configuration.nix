@@ -37,7 +37,7 @@
     services = {
       btrfs-create-subvolumes = {
         enable = true;
-        device = "/dev/disk/by-label/nixos";
+        device = "/dev/disk/by-partlabel/nixos";
         subvolumes = lib.mkAfter [ "@test" ];
       };
 

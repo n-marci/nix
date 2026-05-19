@@ -95,11 +95,11 @@ in
 
           mkdir -p ${escapeShellArg cfg.topLevelMount}
 
-          mount -t btrfs -o subvolid=5 ${escapeShellArg cfg.device} ${escapeShellArg cfg.topLevelMount}
+          ${pkgs.util-linux}/bin/mount -t btrfs -o subvolid=5 ${escapeShellArg cfg.device} ${escapeShellArg cfg.topLevelMount}
 
           ${mkCreateLines}
 
-          umount ${escapeShellArg cfg.topLevelMount}
+          ${pkgs.util-linux}/bin/umount ${escapeShellArg cfg.topLevelMount}
         '';
       };
     };

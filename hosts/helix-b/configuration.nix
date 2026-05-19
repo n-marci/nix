@@ -34,6 +34,27 @@
   # RESCUE
   ##############################################################################
 
+    services = {
+      btrfs-create-subvolumes = {
+        enable = true;
+        device = "/dev/disk/by-label/nixos";
+        subvolumes = lib.mkAfter [ "@test" ];
+      };
+
+      # immich = {
+      #   enable = true;
+      #   nodes = {
+      #     service = [ "helix-b" ];
+      #   };
+      # };
+
+      # nextcloud = {
+      #   enable = true;
+      #   host = "helix-b";
+      # };
+    };
+  };
+  
   disko.devices = {
     disk.internal = {
       content = {
@@ -52,32 +73,13 @@
         };
       };
     };
-
-    services = {
-      btrfs-create-subvolumes = {
-        enable = true;
-        device = "/dev/disk/by-label/nixos";
-        subvolumes = lib.mkAfter [ "@test" ];
-      };
-
-      immich = {
-        enable = true;
-        nodes = {
-          service = [ "helix-b" ];
-        };
-      };
-
-      nextcloud = {
-        enable = true;
-        host = "helix-b";
-      };
-    };
   };
+
   fleet = {
-    paperless = {
-      enable = true;
-    };
-    nginx.enable = true;
+    # paperless = {
+    #   enable = true;
+    # };
+    # nginx.enable = true;
   };
 
   ##############################################################################

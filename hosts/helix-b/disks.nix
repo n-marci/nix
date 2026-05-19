@@ -52,6 +52,10 @@
                   mountpoint = "/var/lib/postgresql";
                   mountOptions = [ "compress=zstd" "noatime" ];
                 };
+                "@test" = {
+                  mountpoint = "/var/lib/test";
+                  mountOptions = [ "compress=zstd" "noatime" ];
+                };
               };
             };
           };

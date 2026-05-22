@@ -33,7 +33,7 @@ in
               size = "100%";
               content = {
                 type = "btrfs";
-                extraArgs = lib.mkDefault [ "-f" "-d raid1" "-m raid1" "/dev/disk/by-label/nixos-2" ];
+                extraArgs = lib.mkDefault [ "-f" "-d raid1" "-m raid1" disk-2 ];
                 subvolumes = {
                   "@" = {
                     mountpoint = "/";

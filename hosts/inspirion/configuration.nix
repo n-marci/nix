@@ -12,6 +12,7 @@
       ../../modules/hosts/servers.nix
       ../../modules/hosts/mesh.nix
       ./hardware-configuration.nix
+      ./disks.nix
 
       # ../../modules/programs/helix.nix
       ../../modules/configurations/networking.nix
@@ -59,7 +60,7 @@
       backup = true;
     };
     nginx.enable = true;
-    cockpit.enable = true;
+    # cockpit.enable = true;
     # traccar.enable = true;
     synapse.enable = false;
     audiobookshelf.enable = true;
@@ -86,13 +87,9 @@
   ##############################################################################
 
   # Bootloader.
-  # boot.loader.systemd-boot.enable = true;
-  # boot.loader.systemd-boot.configurationLimit = 3;
-  # boot.loader.efi.canTouchEfiVariables = true;
-  # boot.loader.timeout = 5;
-  boot.loader.grub.enable = true;
-  boot.loader.grub.device = "/dev/sda";
-  boot.loader.grub.useOSProber = true;
+  boot.loader.systemd-boot.enable = true;
+  boot.loader.systemd-boot.configurationLimit = 10;
+  boot.loader.efi.canTouchEfiVariables = true;
 
   # set the timeout for the screen going dark - value in seconds
   boot.kernelParams = [ "consoleblank=120" ];

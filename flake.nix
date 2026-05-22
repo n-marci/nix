@@ -242,6 +242,7 @@
 
           imports = [
             ./hosts/inspirion/configuration.nix
+            disko.nixosModules.disko
           ];
         };
 

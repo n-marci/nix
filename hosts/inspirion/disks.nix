@@ -1,8 +1,8 @@
 # Example to create a bios compatible gpt partition
 { lib, ... }:
 let
-  disk-1 = "";
-  disk-2 = "";
+  disk-1 = "ata-SanDisk_SSD_PLUS_1000GB_23132T801154";
+  disk-2 = "ata-SanDisk_SSD_PLUS_1000GB_23011F466308";
 in
 {
   disko.devices = {
@@ -29,12 +29,11 @@ in
 
             root = {
               name = "root-1";
-              label = "nixos";
+              label = "nixos-1";
               size = "100%";
               content = {
                 type = "btrfs";
-                extraArgs = lib.mkDefault [ "-f" "-d" "raid1" "-m" "raid1" ];
-                additionalDevices = [ disk-2 ];
+                extraArgs = lib.mkDefault [ "-f" "-d raid1" "-m raid1" "/dev/disk/by-label/nixos-2" ];
                 subvolumes = {
                   "@" = {
                     mountpoint = "/";
@@ -142,6 +141,7 @@ in
       };
 
       internal-2 = {
+        device = lib.mkDefault disk-2;
         type = "disk";
         content = {
           type = "gpt";
@@ -160,13 +160,13 @@ in
 
             root = {
               name = "root-2";
+              label = "nixos-2";
               size = "100%";
               # No standalone filesystem here: disk2's root partition becomes
               # the second device of the btrfs filesystem created on disk1,
               # via additionalDevices above.
               content = {
-                type = "filesystem";
-                format = "btrfs";
+                type = "btrfs";
               };
             };
           };

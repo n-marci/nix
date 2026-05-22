@@ -1,8 +1,8 @@
 # Example to create a bios compatible gpt partition
 { lib, ... }:
 let
-  disk-1 = "ata-SanDisk_SSD_PLUS_1000GB_23132T801154";
-  disk-2 = "ata-SanDisk_SSD_PLUS_1000GB_23011F466308";
+  disk-1 = "/dev/disk/by-id/ata-SanDisk_SSD_PLUS_1000GB_23132T801154";
+  disk-2 = "/dev/disk/by-id/ata-SanDisk_SSD_PLUS_1000GB_23011F466308";
 in
 {
   disko.devices = {

@@ -29,11 +29,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1779135526,
-        "narHash": "sha256-glCununz6lmaK5fs2X946HA3EkNxB2JagdAAvInuRYU=",
+        "lastModified": 1779226674,
+        "narHash": "sha256-wuOkjI6pRiN4sEn/EPBRnNW5cmcpvd7xtIM8y5LooAs=",
         "owner": "nix-community",
         "repo": "disko",
-        "rev": "d405a179887d52b24c0ddd31e09a150bd1f66779",
+        "rev": "65fb947964bd44fc0008faf77d1fcb7a9f40bb32",
         "type": "github"
       },
       "original": {
@@ -96,11 +96,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1779202205,
-        "narHash": "sha256-UFt7q51IIhBzo1L+4MqNNljIrMOtrrjiT4vrOmz+wDA=",
+        "lastModified": 1779336838,
+        "narHash": "sha256-n1+l78hJRABp4cQHKeD0BVByT0vZLPqd09Tvoq8Q+d8=",
         "owner": "nix-community",
         "repo": "home-manager",
-        "rev": "16663cb13826d6aa519fb8c622460e3ce2a04dc1",
+        "rev": "928d72376949e222ea4f07b44828a55b0136422e",
         "type": "github"
       },
       "original": {
@@ -117,11 +117,11 @@
         "spectrum": "spectrum"
       },
       "locked": {
-        "lastModified": 1779043402,
-        "narHash": "sha256-1dH6yiwEck1n3oz5TDUV5TGbwNqu46eNTVHbhFO2U5k=",
+        "lastModified": 1779300350,
+        "narHash": "sha256-slQySSmaIewOxdZXF0/g0GSiVg7vJy209Yjs7fDNms8=",
         "owner": "microvm-nix",
         "repo": "microvm.nix",
-        "rev": "77024c22f4ddf509137fc732094888d1ffe631e2",
+        "rev": "9755fd345bd64d1c75ba12b63089c926dd5d886e",
         "type": "github"
       },
       "original": {
@@ -148,11 +148,11 @@
     },
     "nixpkgs-stable": {
       "locked": {
-        "lastModified": 1778737229,
-        "narHash": "sha256-6xWoytx8jFW4PF1GjRm/i/53trbpKGfz6zjzQGBr4cI=",
+        "lastModified": 1779102034,
+        "narHash": "sha256-vZJZjLo513IeI8hjzHFc6TDezUd4uCE2Eq4SNO3DNNg=",
         "owner": "nixos",
         "repo": "nixpkgs",
-        "rev": "d7a713c0b7e47c908258e71cba7a2d77cc8d71d5",
+        "rev": "687f05a9184cad4eaf905c48b63649e3a86f5433",
         "type": "github"
       },
       "original": {
@@ -217,11 +217,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1778488696,
-        "narHash": "sha256-QSWgYuZUCNUJ/cxmaq83WkcT7lHQDDfsPVgH+96kIl0=",
+        "lastModified": 1779430452,
+        "narHash": "sha256-zTslhsxLqUlRTML506iougTGzyR38Fzhzn7t4KDEuuE=",
         "ref": "refs/heads/master",
-        "rev": "7d1c9a9c6721606b129829134d6f614f015621e2",
-        "revCount": 818,
+        "rev": "4b4fca3224ab977dc515ac0bb78d00b3dfa71e00",
+        "revCount": 819,
         "type": "git",
         "url": "https://git.outfoxxed.me/quickshell/quickshell"
       },
@@ -250,11 +250,11 @@
         "nixpkgs": "nixpkgs_3"
       },
       "locked": {
-        "lastModified": 1778749072,
-        "narHash": "sha256-PQfgXG6h6+S7K5HY6BKfeKzmW2XqEMcalcDHkPsUZ3s=",
+        "lastModified": 1779457156,
+        "narHash": "sha256-ri6/QAQSMnIDlRpt5xaLJ8KfYVPYSUNZRmvVbUF3wek=",
         "ref": "refs/heads/master",
-        "rev": "ba662510d0c8059dd22e587bf75351b51003710f",
-        "revCount": 21,
+        "rev": "6d62cd8e51016d3e002d682b6f8eeaca8f46460e",
+        "revCount": 22,
         "type": "git",
         "url": "ssh://git@github.com/n-marci/secrets.git"
       },

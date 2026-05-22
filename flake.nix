@@ -426,6 +426,34 @@
           ];
         };
 
+        inspirion = nixpkgs.lib.nixosSystem {
+          specialArgs = {
+            inherit inputs stable unstable sops-nix secrets hosts;
+            user = hosts.inspirion.user;
+            ip = hosts.inspirion.ip;
+            interface = hosts.inspirion.interface;
+
+            lts-kernel = stable.linuxPackages_6_6;
+
+            name = "inspirion";
+            deployment = {
+              targetUser = "colmena";
+            };
+          };
+
+          # _module.args = {
+          #   user = hosts.inspirion.user;
+          #   ip = hosts.inspirion.ip;
+          #   interface = hosts.inspirion.interface;
+          # };
+
+          modules = [
+            ./hosts/inspirion/initial-configuration.nix
+            disko.nixosModules.disko
+            sops-nix.nixosModules.sops
+          ];
+        };
+
         # yoga = { name, ... }: {
         #   deployment = {
         #     allowLocalDeployment = true;

@@ -30,7 +30,7 @@
       common.enable = true;
       # server.enable = true;
       nixos-install.enable = true;
-      mesh.enable = true;
+      # mesh.enable = true;
     };
   };
 

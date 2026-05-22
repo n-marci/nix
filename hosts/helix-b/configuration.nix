@@ -38,7 +38,7 @@
       btrfs-create-subvolumes = {
         enable = true;
         device = "/dev/disk/by-partlabel/nixos";
-        subvolumes = lib.mkAfter [ "@test" "@test2" ];
+        subvolumes = lib.mkAfter [ "@test" "@test2" "@test3" ];
       };
 
       # immich = {
@@ -69,6 +69,10 @@
                 };
                 "@test2" = {
                   mountpoint = "/var/lib/test2";
+                  mountOptions = [ "compress=zstd" "noatime" "nofail" ];
+                };
+                "@test3" = {
+                  mountpoint = "/var/lib/test3";
                   mountOptions = [ "compress=zstd" "noatime" "nofail" ];
                 };
               };

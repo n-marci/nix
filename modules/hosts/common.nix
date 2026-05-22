@@ -98,6 +98,7 @@ in
 
     environment.systemPackages = with pkgs; [
       # cli tools
+      disko
       sops
       wget
       git

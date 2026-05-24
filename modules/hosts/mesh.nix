@@ -100,7 +100,7 @@ in
     ##############################################################################
       
       pangolin = {
-        enable = false;
+        enable = true;
         nodes = {
           newt = [ "inspirion" ];
           pangolin = [ "ovh-vps" ];

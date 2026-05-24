@@ -25,10 +25,10 @@ in
 
     fleet = {
       node-exporter.enable = true;
-      virtualisation = {
-        enable = true;
-        tools = [ "docker" ];
-      };
+      # virtualisation = {
+      #   enable = true;
+      #   tools = [ "docker" ];
+      # };
     };
 
     ##############################################################################

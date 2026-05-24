@@ -1,4 +1,3 @@
-# Example to create a bios compatible gpt partition
 { lib, ... }:
 let
   disk-1 = "/dev/disk/by-id/ata-SanDisk_SSD_PLUS_1000GB_23132T801154";
@@ -29,7 +28,7 @@ in
 
             root = {
               name = "root-1";
-              label = "nixos-1";
+              # label = "nixos-1";
               size = "100%";
               content = {
                 type = "btrfs";
@@ -160,7 +159,7 @@ in
 
             root = {
               name = "root-2";
-              label = "nixos-2";
+              # label = "nixos-2";
               size = "100%";
               # No standalone filesystem here: disk2's root partition becomes
               # the second device of the btrfs filesystem created on disk1,

@@ -36,7 +36,7 @@ in
         save = true; 
         path = "/tmp/dms-greeter.log";
       };
-      quickshell.package = quickshell.packages.${pkgs.stdenv.hostPlatform.system}.quickshell;
+      # quickshell.package = quickshell.packages.${pkgs.stdenv.hostPlatform.system}.quickshell;
     };
 
   ##############################################################################
@@ -46,7 +46,7 @@ in
     programs.dms-shell = {
       enable = true;
       # enableSystemMonitoring = false; # disabled it because it showed high cpu usage, but apparently it is not too bad https://github.com/AvengeMedia/dgop/issues/23
-      quickshell.package = quickshell.packages.${pkgs.stdenv.hostPlatform.system}.quickshell;
+      # quickshell.package = quickshell.packages.${pkgs.stdenv.hostPlatform.system}.quickshell;
     };
 
     programs.kdeconnect.enable = true; # need to enable it specifically because it is a dms plugin

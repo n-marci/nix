@@ -170,7 +170,7 @@ in
     
       nil # nix lsp
       clang-tools  # c lsp
-      python312Packages.python-lsp-server  # python lsp (unfort. there is no 'latest' option)
+      # python312Packages.python-lsp-server  # python lsp (unfort. there is no 'latest' option)
       marksman  # markdown lsp
       # nodePackages.bash-language-server  # bash lsp
       cmake-language-server  # cmake lsp
@@ -179,7 +179,7 @@ in
       ltex-ls
       arduino-language-server
       ruff
-      python313Packages.python-lsp-ruff
+      # python313Packages.python-lsp-ruff # took it out because build problems
 
       ###################
       # virtualisation

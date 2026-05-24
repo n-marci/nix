@@ -48,6 +48,10 @@ in
                   };
 
                   # /var/lib
+                  "@tailscale" = {
+                    mountpoint = "/var/lib/tailscale";
+                    mountOptions = [ "compress=zstd" "noatime" ];
+                  };
                   "@immich" = {
                     mountpoint = "/var/lib/immich";
                     mountOptions = [ "compress=zstd" "noatime" ];

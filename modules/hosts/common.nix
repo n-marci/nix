@@ -49,6 +49,7 @@ in
       gc = {
         automatic = true;
         dates = "weekly";
+        options = mkDefault "--delete-older-than 7d";
       };
     };
 

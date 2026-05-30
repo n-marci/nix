@@ -67,11 +67,44 @@ in
     services.traefik = mkIf (elem name cfg.nodes.pangolin) {
       package = unstable.pkgs.traefik;
       environmentFiles = [ config.sops.secrets.traefik-env.path ];
+      staticConfigOptions = {
+
+        providers = {
+          http = {
+            endpoint = "http://localhost:3001/api/v1/traefik-config";
+            pollInterval = "5s";
+          };
+        };
+
+        # Experimental plugins for Pangolin
+        # experimental = {
+        #   plugins = {
+        #     badger = {
+        #       moduleName = "github.com/fosrl/badger";
+        #       version = "v1.2.1";
+        #     };
+        #   };
+        # };
+        # certificatesResolvers = {
+        #   le = {
+        #     acme = {
+        #       email = emails.web-de;
+        #       storage = "/var/lib/traefik/acme.json";
+        #       dnsChallenge = {
+        #         provider = "ovh";
+        #       };
+        #     };
+        #   };
+        # };
+      };
     };
 
   # --- SECRETS ---
     sops.secrets.pangolin-env = mkIf (elem name cfg.nodes.pangolin) { };
-    sops.secrets.traefik-env = mkIf (elem name cfg.nodes.pangolin) { };
+    sops.secrets.traefik-env = mkIf (elem name cfg.nodes.pangolin) {
+      owner = config.users.users.traefik.name;
+      group = config.users.users.traefik.group;
+    };
 
   ##############################################################################
   # NEWT SERVICE

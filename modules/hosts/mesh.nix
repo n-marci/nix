@@ -103,8 +103,8 @@ in
         enable = true;
         nodes = {
           newt = [ "inspirion" ];
-          # pangolin = [ "ovh-vps" ];
-          pangolin = [ "helix-b" ];
+          pangolin = [ "ovh-vps" ];
+          # pangolin = [ "helix-b" ];
         };
       };
     };

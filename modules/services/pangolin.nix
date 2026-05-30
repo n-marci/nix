@@ -135,7 +135,7 @@ in
       };
     };
 
-    systemd.services.pangolin = {
+    systemd.services.pangolin = mkIf (elem name cfg.nodes.pangolin) {
       # after = mkIf cfg.geoBlocking.enable [ "pangolin-geolite2-update.service" ];
       # wants = mkIf cfg.geoBlocking.enable [ "pangolin-geolite2-update.service" ];
       # HACK: Upstream pangolin module copies .next from nix store with read-only permissions,
@@ -184,7 +184,7 @@ in
       #   # };
       # };
     };
-    systemd.services.traefik.after = [ "sops-nix.service" ];
+    systemd.services.traefik.after = mkIf (elem name cfg.nodes.pangolin) [ "sops-nix.service" ];
 
   # --- SECRETS ---
     sops.secrets.pangolin-env = mkIf (elem name cfg.nodes.pangolin) {
@@ -194,6 +194,16 @@ in
     sops.secrets.traefik-env = mkIf (elem name cfg.nodes.pangolin) {
       owner = config.users.users.traefik.name;
       group = config.users.users.traefik.group;
+    };
+
+  ##############################################################################
+  # USERS
+  ##############################################################################
+
+    # Override upstream's fossorial group with pangolin
+    users = mkIf (elem name cfg.nodes.pangolin) {
+      users.pangolin.group = lib.mkForce "pangolin";
+      groups.pangolin = { };
     };
 
   ##############################################################################
@@ -210,14 +220,6 @@ in
 
   # --- SECRETS ---
     sops.secrets.newt-env = mkIf (elem name cfg.nodes.newt) { };
-
-  ##############################################################################
-  # USERS
-  ##############################################################################
-
-    # Override upstream's fossorial group with pangolin
-    users.users.pangolin.group = lib.mkForce "pangolin";
-    users.groups.pangolin = { };
 
   ##############################################################################
   # DISKO

@@ -55,6 +55,8 @@ in
   # SAMBA
   ##############################################################################
 
+    # NON DECLARITIVE SETUP : run 'sudo smbpasswd -a paperless-consume' once
+    
     services.samba = {
       enable = true;
       openFirewall = true;

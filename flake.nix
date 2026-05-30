@@ -72,6 +72,7 @@
           nodeNixpkgs = {
             unicorn = unstable;
             yoga = unstable;
+            ovh-vps = unstable;
           };
           nodeSpecialArgs = {
             unicorn = {
@@ -346,7 +347,7 @@
             # targetUser = hosts.inspirion.user; 
             targetHost = "neugebauer-marcel.com";
             targetUser = "colmena";
-            buildOnTarget = false; # don't build vps nix config on target
+            buildOnTarget = true; # don't build vps nix config on target
             tags = hosts.ovh-vps.tags;
             # keys = {
             #   "pangolin-env" = { keyFile = "/run/secrets/pangolin-env"; uploadAt = "post-activation"; };

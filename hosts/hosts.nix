@@ -139,6 +139,20 @@ in
     sync-id = sync-ids.pixel-8;
   };
 
+  pixel-8-whatsapp = {
+    tags = [
+      "phone"
+    ];
+    sync-id = sync-ids.pixel-8-whatsapp;
+  };
+
+  pixel-8-banking = {
+    tags = [
+      "phone"
+    ];
+    sync-id = sync-ids.pixel-8-banking;
+  };
+
   s20-plus = {
     tags = [
       "phone"

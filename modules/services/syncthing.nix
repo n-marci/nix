@@ -96,6 +96,8 @@ in
           "yoga" = { id = hosts.yoga.sync-id; };
           "note-9" = { id = hosts.note-9.sync-id; };
           "pixel-8" = { id = hosts.pixel-8.sync-id; };
+          "pixel-8-whatsapp" = { id = hosts.pixel-8-whatsapp.sync-id; };
+          "pixel-8-banking" = { id = hosts.pixel-8-banking.sync-id; };
           "s20-plus" = { id = hosts.s20-plus.sync-id; };
           "s20-plus-wa" = { id = hosts.s20-plus-wa.sync-id; };
         };

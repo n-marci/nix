@@ -20,7 +20,7 @@ in
   config = mkIf (cfg.enable) {
     home-manager.users.${user} = {
       programs = {
-        vscode = {
+        vscodium = {
           enable = true;
           package = pkgs.vscodium.fhsWithPackages (ps: with ps; [ python3Minimal libusb1 ]);
         };

@@ -39,6 +39,12 @@ in
       description = "list of devices which should be configured as a whatsapp device";
     };
 
+    banking = mkOption {
+      type = types.listOf types.str;
+      default = [ ];
+      description = "list of devices which should be configured as a banking device";
+    };
+
     folders = mkOption {
       type = types.listOf types.str;
       default = [ ];
@@ -123,7 +129,7 @@ in
 
           "secrets" = mkIf (elem "secrets" cfg.folders && elem "${name}" devices) {
             path = "${path}/secrets";
-            devices = (concatLists [ cfg.homes cfg.servers cfg.phones ]);
+            devices = (concatLists [ cfg.homes cfg.servers cfg.phones cfg.banking ]);
           };
 
       ##############################################################################
@@ -135,7 +141,7 @@ in
               if (elem "${name}" cfg.homes) then "${path}/Pictures/wallpapers"
               else if (elem "${name}" cfg.servers) then "${path}/wallpapers"
               else "${path}/Pictures/wallpapers";
-            devices = (concatLists [ cfg.homes cfg.servers cfg.phones cfg.whatsapp ]);
+            devices = (concatLists [ cfg.homes cfg.servers cfg.phones ]);
           };
 
       ##############################################################################

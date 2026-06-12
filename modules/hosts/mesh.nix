@@ -73,10 +73,10 @@ in
         enable = true;
         homes = [ "yoga" "unicorn" ];
         servers = [ "inspirion" ];
-        phones = [ "s20-plus" "note-9" "pixel-8" ];
-        whatsapp = [ "s20-plus-wa" "pixel-8-whatsapp" ];
+        phones = [ "s20-plus" "pixel-8" ];
+        whatsapp = [ "pixel-8-whatsapp" ];
         banking = [ "pixel-8-banking" ];
-        folders = [ "nix" "secrets" "wallpapers" "obsidian" "logseq" "phone" "signal" "whatsapp"];
+        folders = [ "nix" "secrets" "wallpapers" "obsidian" /*"logseq"*/ "phone" "signal" "whatsapp"];
 
         backup = {
           enable = true;

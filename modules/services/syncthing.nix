@@ -164,17 +164,17 @@ in
       # LOGSEQ
       ##############################################################################
 
-          "logseq" = mkIf (elem "logseq" cfg.folders && elem "${name}" devices) {
-            path = "${path}/logseq";
-            devices = (concatLists [ cfg.homes cfg.servers cfg.phones ]);
-            versioning = mkIf (elem "${name}" cfg.servers) {
-              type = "staggered";
-              params = {
-                cleanInterval = "3600";
-                maxAge = "31536000";
-              };
-            };
-          };
+          # "logseq" = mkIf (elem "logseq" cfg.folders && elem "${name}" devices) {
+          #   path = "${path}/logseq";
+          #   devices = (concatLists [ cfg.homes cfg.servers cfg.phones ]);
+          #   versioning = mkIf (elem "${name}" cfg.servers) {
+          #     type = "staggered";
+          #     params = {
+          #       cleanInterval = "3600";
+          #       maxAge = "31536000";
+          #     };
+          #   };
+          # };
 
       ##############################################################################
       # PHONE

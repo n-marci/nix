@@ -72,7 +72,7 @@
           nodeNixpkgs = {
             unicorn = unstable;
             yoga = unstable;
-            ovh-vps = unstable;
+            # ovh-vps = unstable;
           };
           nodeSpecialArgs = {
             unicorn = {

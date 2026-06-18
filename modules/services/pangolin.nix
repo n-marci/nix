@@ -47,7 +47,7 @@ in
     # };
     services.pangolin = mkIf (elem name cfg.nodes.pangolin) {
       enable = true;
-      # package = unstable.pkgs.fosrl-pangolin;
+      package = unstable.pkgs.fosrl-pangolin;
       openFirewall = true;
       baseDomain = "neugebauer-marcel.com";
       letsEncryptEmail = emails.web-de;

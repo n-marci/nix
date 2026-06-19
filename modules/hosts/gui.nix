@@ -236,7 +236,7 @@ in
     
       brave
       firefox
-      librewolf
+      # librewolf
 
       ###################
       # gui program

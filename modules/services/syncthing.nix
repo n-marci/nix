@@ -45,6 +45,12 @@ in
       description = "list of devices which should be configured as a banking device";
     };
 
+    notepad = mkOption {
+      type = types.listOf types.str;
+      default = [ ];
+      description = "list of devices which should be configured as a notepad device";
+    };
+
     folders = mkOption {
       type = types.listOf types.str;
       default = [ ];
@@ -104,6 +110,7 @@ in
           "pixel-8" = { id = hosts.pixel-8.sync-id; };
           "pixel-8-whatsapp" = { id = hosts.pixel-8-whatsapp.sync-id; };
           "pixel-8-banking" = { id = hosts.pixel-8-banking.sync-id; };
+          "supernote" = { id = hosts.supernote.sync-id; };
           "s20-plus" = { id = hosts.s20-plus.sync-id; };
           "s20-plus-wa" = { id = hosts.s20-plus-wa.sync-id; };
         };
@@ -150,7 +157,7 @@ in
 
           "obsidian" = mkIf (elem "obsidian" cfg.folders && elem "${name}" devices) {
             path = "${path}/obsidian";
-            devices = (concatLists [ cfg.homes cfg.servers cfg.phones ]);
+            devices = (concatLists [ cfg.homes cfg.servers cfg.phones cfg.notepad ]);
             versioning = mkIf (elem "${name}" cfg.servers) {
               type = "staggered";
               params = {
@@ -183,6 +190,22 @@ in
           "phone" = mkIf (elem "phone" cfg.folders && elem "${name}" devices) {
             path = "${path}/phone";
             devices = (concatLists [ cfg.homes cfg.servers cfg.phones ]);
+            versioning = mkIf (elem "${name}" cfg.servers) {
+              type = "staggered";
+              params = {
+                cleanInterval = "3600";
+                maxAge = "31536000";
+              };
+            };
+          };
+
+      ##############################################################################
+      # SUPERNOTE
+      ##############################################################################
+
+          "supernote" = mkIf (elem "supernote" cfg.folders && elem "${name}" devices) {
+            path = "${path}/supernote";
+            devices = (concatLists [ cfg.homes cfg.servers cfg.phones cfg.notepad ]);
             versioning = mkIf (elem "${name}" cfg.servers) {
               type = "staggered";
               params = {

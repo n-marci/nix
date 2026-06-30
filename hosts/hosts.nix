@@ -153,6 +153,13 @@ in
     sync-id = sync-ids.pixel-8-banking;
   };
 
+  supernote = {
+    tags = [
+      "supernote"
+    ];
+    sync-id = sync-ids.supernote;
+  };
+
   s20-plus = {
     tags = [
       "phone"

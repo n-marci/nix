@@ -110,7 +110,7 @@ in
           "pixel-8" = { id = hosts.pixel-8.sync-id; };
           "pixel-8-whatsapp" = { id = hosts.pixel-8-whatsapp.sync-id; };
           "pixel-8-banking" = { id = hosts.pixel-8-banking.sync-id; };
-          "supernote" = { id = hosts.supernote.sync-id; };
+          "nomad" = { id = hosts.nomad.sync-id; };
           "s20-plus" = { id = hosts.s20-plus.sync-id; };
           "s20-plus-wa" = { id = hosts.s20-plus-wa.sync-id; };
         };
@@ -200,11 +200,11 @@ in
           };
 
       ##############################################################################
-      # SUPERNOTE
+      # NOMAD
       ##############################################################################
 
-          "supernote" = mkIf (elem "supernote" cfg.folders && elem "${name}" devices) {
-            path = "${path}/supernote";
+          "nomad" = mkIf (elem "nomad" cfg.folders && elem "${name}" devices) {
+            path = "${path}/nomad";
             devices = (concatLists [ cfg.homes cfg.servers cfg.phones cfg.notepad ]);
             versioning = mkIf (elem "${name}" cfg.servers) {
               type = "staggered";

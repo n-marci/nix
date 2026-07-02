@@ -76,8 +76,8 @@ in
         phones = [ "s20-plus" "pixel-8" ];
         whatsapp = [ "pixel-8-whatsapp" ];
         banking = [ "pixel-8-banking" ];
-        notepad = [ "supernote" ];
-        folders = [ "nix" "secrets" "wallpapers" "obsidian" /*"logseq"*/ "phone" "signal" "whatsapp"];
+        notepad = [ "nomad" ];
+        folders = [ "nix" "secrets" "wallpapers" "obsidian" /*"logseq"*/ "phone" "signal" "whatsapp" "nomad" ];
 
         backup = {
           enable = true;

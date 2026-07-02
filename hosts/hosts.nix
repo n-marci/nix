@@ -153,11 +153,11 @@ in
     sync-id = sync-ids.pixel-8-banking;
   };
 
-  supernote = {
+  nomad = {
     tags = [
-      "supernote"
+      "nomad"
     ];
-    sync-id = sync-ids.supernote;
+    sync-id = sync-ids.nomad;
   };
 
   s20-plus = {

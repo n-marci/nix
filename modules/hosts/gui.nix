@@ -77,16 +77,16 @@ in
 
     hardware.bluetooth.settings = {
       General = {
-        # Experimental = true;
+        Experimental = true;
       };
     };
-    services.pipewire.wireplumber.extraConfig = {
-      "bluetooth" = {
-        "monitor.bluez.properties" = {
-          "bluez5.codecs" = [ "sbc" "sbc_xq" "aac" "aptx" "aptx_hd" ];
-        };
-      };
-    };
+    # services.pipewire.wireplumber.extraConfig = {
+    #   "bluetooth" = {
+    #     "monitor.bluez.properties" = {
+    #       "bluez5.codecs" = [ "sbc" "sbc_xq" "aac" "aptx" "aptx_hd" ];
+    #     };
+    #   };
+    # };
 
   ##############################################################################
   # PKGS

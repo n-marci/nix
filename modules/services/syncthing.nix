@@ -158,6 +158,7 @@ in
           "obsidian" = mkIf (elem "obsidian" cfg.folders && elem "${name}" devices) {
             path = "${path}/obsidian";
             devices = (concatLists [ cfg.homes cfg.servers cfg.phones cfg.notepad ]);
+            group = "test";
             versioning = mkIf (elem "${name}" cfg.servers) {
               type = "staggered";
               params = {

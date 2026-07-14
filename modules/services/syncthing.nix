@@ -200,22 +200,6 @@ in
           };
 
       ##############################################################################
-      # NOMAD
-      ##############################################################################
-
-          "nomad" = mkIf (elem "nomad" cfg.folders && elem "${name}" devices) {
-            path = "${path}/nomad";
-            devices = (concatLists [ cfg.homes cfg.servers cfg.phones cfg.notepad ]);
-            versioning = mkIf (elem "${name}" cfg.servers) {
-              type = "staggered";
-              params = {
-                cleanInterval = "3600";
-                maxAge = "31536000";
-              };
-            };
-          };
-
-      ##############################################################################
       # SIGNAL
       ##############################################################################
 

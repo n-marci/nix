@@ -20,16 +20,18 @@ in
       default = [
         "app.zen_browser.zen"
         "com.github.tchx84.Flatseal"
-        "io.github.kelvinnovais.Kasasa"
+        # "io.github.kelvinnovais.Kasasa"
         "io.github.qwersyk.Newelle"
         "md.obsidian.Obsidian"
-        "org.blender.Blender"
-        "org.gaphor.Gaphor"
+        # "org.blender.Blender"
+        # "org.gaphor.Gaphor"
         "space.gaiasky.GaiaSky"
         "org.gtk.Gtk3theme.adw-gtk3"
-        "dev.fredol.open-tv"
-        "io.github.josephmawa.Egghead"
-        "io.github.v81d.Wattage"
+        # "dev.fredol.open-tv"
+        # "io.github.josephmawa.Egghead"
+        # "io.github.v81d.Wattage"
+        "net.waterfox.waterfox"
+        "com.github.PintaProject.Pinta"
       ];
       description = "my default flatpak apps";
     };

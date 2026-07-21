@@ -30,5 +30,10 @@ in
       pulse.enable = true;
       jack.enable = true;
     };
+
+    environment.systemPackages = with pkgs; [
+      pulseaudio # just to have the command line tools available
+    ];
+
   };
 }

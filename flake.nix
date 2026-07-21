@@ -27,10 +27,10 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    quickshell = {
-      url = "git+https://git.outfoxxed.me/quickshell/quickshell";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
+    # quickshell = {
+    #   url = "git+https://git.outfoxxed.me/quickshell/quickshell";
+    #   inputs.nixpkgs.follows = "nixpkgs";
+    # };
 
     disko = {
       url = "github:nix-community/disko";
@@ -120,7 +120,7 @@
             hosts = hosts;
             lts-kernel = stable.linuxPackages_6_6;
             latest-kernel = unstable.linuxPackages_latest;
-            quickshell = inputs.quickshell;
+            # quickshell = inputs.quickshell;
           };
         };
         

@@ -108,7 +108,7 @@ in
       flameshot
 
       luminance # control brightness of external monitors
-      android-tools # to install grapheneos as non root
+      # android-tools # to install grapheneos as non root
     
       ###################
       # cli tools
@@ -132,13 +132,13 @@ in
       keyd  # key remapper for my sweet super key on the mouse button
       piper-tts
 
-      shell-gpt
-      aichat
+      # shell-gpt
+      # aichat
       opencode
       # llm
       inotify-tools
       # waypipe
-      mesa
+      # mesa
 
       ###################
       # ai
@@ -150,8 +150,8 @@ in
       # engineering
       ###################
 
-      kicad-small
-      simulide
+      # kicad-small
+      # simulide
 
       # LLMs
       # newelle
@@ -173,10 +173,10 @@ in
       marksman  # markdown lsp
       # nodePackages.bash-language-server  # bash lsp
       cmake-language-server  # cmake lsp
-      texlab
-      bibtex-tidy
-      ltex-ls
-      arduino-language-server
+      # texlab
+      # bibtex-tidy
+      # ltex-ls
+      # arduino-language-server
       ruff
       # python313Packages.python-lsp-ruff # took it out because build problems
 
@@ -185,9 +185,9 @@ in
       ###################
 
       distrobox
-      virt-manager
+      # virt-manager
       # winboat # windows apps
-      freerdp
+      # freerdp
 
       ###################
       # terminals 
@@ -202,8 +202,8 @@ in
       # images
       ###################
     
-      inkscape
-      gimp
+      # inkscape
+      # gimp
       # oculante
       drawio
       gradia
@@ -228,14 +228,14 @@ in
       zotero
       papers
       # gscan2pdf
-      naps2 # scanning application - wanted to try it out instead of gscan2pdf
+      # naps2 # scanning application - wanted to try it out instead of gscan2pdf
 
       ###################
       # browser
       ###################
     
       brave
-      firefox
+      # firefox
       # librewolf
 
       ###################
@@ -243,7 +243,7 @@ in
       ###################
 
       thunderbird
-      remmina
+      # remmina
       keepassxc
       gnome-extension-manager
       # freecad

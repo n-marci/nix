@@ -145,6 +145,7 @@ in
       ###################
 
       opencode-desktop
+      jan
 
       ###################
       # engineering

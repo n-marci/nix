@@ -30,8 +30,8 @@ in
         # "dev.fredol.open-tv"
         # "io.github.josephmawa.Egghead"
         # "io.github.v81d.Wattage"
-        "net.waterfox.waterfox"
-        "com.github.PintaProject.Pinta"
+        # "com.github.PintaProject.Pinta"
+        "ai.jan.Jan"
       ];
       description = "my default flatpak apps";
     };

@@ -145,7 +145,7 @@ in
       ###################
 
       opencode-desktop
-      jan
+      # jan # added it as flatpak app
 
       ###################
       # engineering
@@ -198,6 +198,12 @@ in
       ptyxis
       ghostty
       alacritty
+
+      ###################
+      # utilities
+      ###################
+    
+      file-roller
 
       ###################
       # images

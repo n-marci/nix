@@ -89,6 +89,15 @@ in
     # };
 
   ##############################################################################
+  # NETWORKING
+  ##############################################################################
+
+  networking.stevenblack = {
+    enable = true;
+    block = [ "fakenews" "gambling" "porn" "social" ];
+  };
+
+  ##############################################################################
   # PKGS
   ##############################################################################
 
@@ -101,6 +110,7 @@ in
       # kando # also need to add gnomeExtensions.kando-integration
       nextcloud-client
       signal-desktop
+      freenet
 
       # screenshot and screenshot editing tools
       swappy

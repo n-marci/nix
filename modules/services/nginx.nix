@@ -101,7 +101,9 @@ with lib; {
         group = "nginx";
         dnsProvider = "cloudflare";
         dnsPropagationCheck = true;
-        credentialsFile = config.sops.secrets.cloudflare-marcelnet.path;
+        credentialFiles = {
+          CLOUDFLARE_DNS_API_TOKEN_FILE = config.sops.secrets.cloudflare-marcelnet.path;
+        };
         # };
       }; 
     };

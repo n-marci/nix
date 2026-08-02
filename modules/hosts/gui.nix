@@ -197,7 +197,7 @@ in
 
       distrobox
       # virt-manager
-      # winboat # windows apps
+      winboat # windows apps
       # freerdp
 
       ###################

@@ -167,6 +167,56 @@ in
             };
           };
 
+          # "life" = mkIf (elem "obsidian" cfg.folders && elem "${name}" devices) {
+          #   path = "${path}/obsidian/life";
+          #   devices = (concatLists [ cfg.homes cfg.servers cfg.phones cfg.notepad ]);
+          #   versioning = mkIf (elem "${name}" cfg.servers) {
+          #     type = "staggered";
+          #     params = {
+          #       cleanInterval = "3600";
+          #       maxAge = "31536000";
+          #     };
+          #   };
+          # };
+
+          # "work" = mkIf (elem "obsidian" cfg.folders && elem "${name}" devices) {
+          #   path = "${path}/obsidian/work";
+          #   devices = (concatLists [ cfg.homes cfg.servers cfg.phones cfg.notepad cfg.work-devices ]);
+          #   versioning = mkIf (elem "${name}" cfg.servers) {
+          #     type = "staggered";
+          #     params = {
+          #       cleanInterval = "3600";
+          #       maxAge = "31536000";
+          #     };
+          #   };
+          # };
+
+          # /* do i need private?
+          # "private" = mkIf (elem "obsidian" cfg.folders && elem "${name}" devices) {
+          #   path = "${path}/obsidian/private";
+          #   devices = (concatLists [ cfg.homes cfg.servers cfg.phones cfg.work-devices ]);
+          #   versioning = mkIf (elem "${name}" cfg.servers) {
+          #     type = "staggered";
+          #     params = {
+          #       cleanInterval = "3600";
+          #       maxAge = "31536000";
+          #     };
+          #   };
+          # };
+          # */
+
+          # "archive" = mkIf (elem "obsidian" cfg.folders && elem "${name}" devices) {
+          #   path = "${path}/obsidian/archive";
+          #   devices = (concatLists [ cfg.homes cfg.servers cfg.phones ]);
+          #   versioning = mkIf (elem "${name}" cfg.servers) {
+          #     type = "staggered";
+          #     params = {
+          #       cleanInterval = "3600";
+          #       maxAge = "31536000";
+          #     };
+          #   };
+          # };
+
       ##############################################################################
       # LOGSEQ
       ##############################################################################

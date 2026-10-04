@@ -75,11 +75,12 @@ in
   # BLUETOOTH
   ##############################################################################
 
-    hardware.bluetooth.settings = {
-      General = {
-        Experimental = true;
-      };
-    };
+    # hardware.bluetooth.settings = {
+    #   General = {
+    #     Experimental = true;
+    #   };
+    # };
+
     # services.pipewire.wireplumber.extraConfig = {
     #   "bluetooth" = {
     #     "monitor.bluez.properties" = {
@@ -113,8 +114,8 @@ in
       freenet
 
       # screenshot and screenshot editing tools
-      swappy
-      satty
+      # swappy
+      # satty
       flameshot
 
       luminance # control brightness of external monitors
@@ -205,9 +206,9 @@ in
       ###################
 
       gnome-terminal
-      ptyxis
+      # ptyxis
       ghostty
-      alacritty
+      # alacritty
 
       ###################
       # utilities

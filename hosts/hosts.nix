@@ -11,6 +11,19 @@ in
   # DESKTOPS
   ##############################################################################
 
+  unicorn = {
+    ip = "dynamic";
+    user = "marci";
+    graphics = "nvidia";
+    tags = [
+      "desktop"
+    ];
+    sync-id = sync-ids.unicorn;
+    bkp-target = "linc-n2";
+    access = [ "yoga" ];
+    secrets = "sops";
+  };
+
   yoga = {
     ip = "dynamic";
     user = "marci";
@@ -34,16 +47,17 @@ in
     # };
   };
 
-  unicorn = {
+  11e-yoga = {
     ip = "dynamic";
     user = "marci";
-    graphics = "nvidia";
+    graphics = "intel";
     tags = [
       "desktop"
     ];
-    sync-id = sync-ids.unicorn;
     bkp-target = "linc-n2";
-    access = [ "yoga" ];
+    access = [ ];
+    public-key = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIGMucFkgLycRIhAprDtT2yTGmH7vz3T87LhljLkNJ65V 11e-yoga";
+    sync-id = sync-ids.11e-yoga;
     secrets = "sops";
   };
 

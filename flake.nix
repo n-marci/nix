@@ -72,6 +72,7 @@
           nodeNixpkgs = {
             unicorn = unstable;
             yoga = unstable;
+            11e-yoga = unstable;
             # ovh-vps = unstable;
           };
           nodeSpecialArgs = {
@@ -82,6 +83,10 @@
             yoga = {
               user = hosts.yoga.user;
               graphics = hosts.yoga.graphics;
+            };
+            11e-yoga = {
+              user = hosts.11e-yoga.user;
+              graphics = hosts.11e-yoga.graphics;
             };
             inspirion = {
               user = hosts.inspirion.user;
@@ -179,6 +184,27 @@
             }
           ];
         };
+
+        11e-yoga = { name, ... }: {
+          deployment = {
+            allowLocalDeployment = true;
+            targetHost = null;
+            tags = hosts.11e-yoga.tags;
+            # keys = hosts.11e-yoga.keys;
+          };
+
+          imports = [
+            ./hosts/11e-yoga/configuration.nix
+
+            flatpaks.nixosModules.nix-flatpak
+            home-manager.nixosModules.home-manager {
+              home-manager.useGlobalPkgs = true;
+              home-manager.useUserPackages = true;
+              home-manager.extraSpecialArgs.flake-inputs = inputs;
+            }
+          ];
+        };
+
         #   inherit system;
 
         #   specialArgs = {

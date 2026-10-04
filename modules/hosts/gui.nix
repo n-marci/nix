@@ -243,7 +243,7 @@ in
       xournalpp
       rnote                  # https://github.com/flxzt/rnote
       zotero
-      papers
+      # papers
       # gscan2pdf
       # naps2 # scanning application - wanted to try it out instead of gscan2pdf
 

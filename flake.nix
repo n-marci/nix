@@ -72,7 +72,7 @@
           nodeNixpkgs = {
             unicorn = unstable;
             yoga = unstable;
-            11e-yoga = unstable;
+            e-yoga = unstable;
             # ovh-vps = unstable;
           };
           nodeSpecialArgs = {
@@ -84,9 +84,9 @@
               user = hosts.yoga.user;
               graphics = hosts.yoga.graphics;
             };
-            11e-yoga = {
-              user = hosts.11e-yoga.user;
-              graphics = hosts.11e-yoga.graphics;
+            e-yoga = {
+              user = hosts.e-yoga.user;
+              graphics = hosts.e-yoga.graphics;
             };
             inspirion = {
               user = hosts.inspirion.user;
@@ -185,16 +185,16 @@
           ];
         };
 
-        11e-yoga = { name, ... }: {
+        e-yoga = { name, ... }: {
           deployment = {
             allowLocalDeployment = true;
             targetHost = null;
-            tags = hosts.11e-yoga.tags;
-            # keys = hosts.11e-yoga.keys;
+            tags = hosts.e-yoga.tags;
+            # keys = hosts.e-yoga.keys;
           };
 
           imports = [
-            ./hosts/11e-yoga/configuration.nix
+            ./hosts/e-yoga/configuration.nix
 
             flatpaks.nixosModules.nix-flatpak
             home-manager.nixosModules.home-manager {
@@ -414,6 +414,38 @@
 
           modules = [
             ./hosts/yoga/configuration.nix
+
+            # disko.nixosModules.disko
+            sops-nix.nixosModules.sops
+            flatpaks.nixosModules.nix-flatpak
+            home-manager.nixosModules.home-manager {
+              home-manager.useGlobalPkgs = true;
+              home-manager.useUserPackages = true;
+              home-manager.extraSpecialArgs.flake-inputs = inputs;
+            }
+          ];
+        };
+
+        e-yoga = nixpkgs.lib.nixosSystem {
+          # inherit system;
+          specialArgs = {
+
+            inherit inputs secrets hosts stable unstable;
+            # host = {
+            #   hostName = "e-yoga";
+            # };
+            user = hosts.e-yoga.user;
+            # ip = hosts.e-yoga.ip;
+            # interface = hosts.e-yoga.interface;
+
+            name = "e-yoga";
+            deployment = {
+              targetUser = "colmena";
+            };
+          };
+
+          modules = [
+            ./hosts/e-yoga/initial-configuration.nix
 
             # disko.nixosModules.disko
             sops-nix.nixosModules.sops

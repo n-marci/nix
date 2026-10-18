@@ -47,7 +47,7 @@ in
     # };
   };
 
-  11e-yoga = {
+  e-yoga = {
     ip = "dynamic";
     user = "marci";
     graphics = "intel";
@@ -56,8 +56,8 @@ in
     ];
     bkp-target = "linc-n2";
     access = [ ];
-    public-key = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIGMucFkgLycRIhAprDtT2yTGmH7vz3T87LhljLkNJ65V 11e-yoga";
-    sync-id = sync-ids.11e-yoga;
+    public-key = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIGMucFkgLycRIhAprDtT2yTGmH7vz3T87LhljLkNJ65V e-yoga";
+    sync-id = sync-ids.e-yoga;
     secrets = "sops";
   };
 

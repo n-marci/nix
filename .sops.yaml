@@ -3,7 +3,7 @@
 keys:
   - &inspirion age12kzru9qf09hr22vaxessg97kf0v047hqqdpyaa2q3kamjpgk4yaq3069m4
   - &yoga age15f6mqs3gm9cn49m8rp3sdqp274ar3qc4tacy9hea784lkquygs2s836aep
-  - &11e-yoga age1nx92dj76c6jnpa9e6uetxt60jz7smlp9hrpdcuf5kgxakmp3258q8qhqzk
+  - &e-yoga age1nx92dj76c6jnpa9e6uetxt60jz7smlp9hrpdcuf5kgxakmp3258q8qhqzk
   - &desktop age1u83pdth54z7zcf8e5mraz56z8nay55v9flx02na6mqsewnvppqqqqjsnuh
   - &helix-s age1unk445zeh45xlmwzds72pfar3w7ycyasnw3g5p0hf73wlfw79y5qfk8695
   - &helix-b age1h49wmret6q25e9tyy0hzhwgr30rv22g3mg99dffftrpcc8zh35jqmvvrpk
@@ -14,7 +14,7 @@ creation_rules:
     - age:
       - *inspirion
       - *yoga
-      - *11e-yoga
+      - *e-yoga
       - *desktop
       - *helix-s
       - *helix-b
@@ -24,36 +24,36 @@ creation_rules:
     - age:
       - *inspirion
       - *yoga
-      - *11e-yoga
+      - *e-yoga
   - path_regex: secrets/yoga.yaml$
     key_groups:
     - age:
       - *yoga
-  - path_regex: secrets/11e-yoga.yaml$
+  - path_regex: secrets/e-yoga.yaml$
     key_groups:
     - age:
-      - *11e-yoga
+      - *e-yoga
   - path_regex: secrets/desktop.yaml$
     key_groups:
     - age:
       - *desktop
       - *yoga
-      - *11e-yoga
+      - *e-yoga
   - path_regex: secrets/helix-s.yaml$
     key_groups:
     - age:
       - *helix-s
       - *yoga
-      - *11e-yoga
+      - *e-yoga
   - path_regex: secrets/helix-b.yaml$
     key_groups:
     - age:
       - *helix-b
       - *yoga
-      - *11e-yoga
+      - *e-yoga
   - path_regex: secrets/ovh-vps.yaml$
     key_groups:
     - age:
       - *ovh-vps
       - *yoga
-      - *11e-yoga
+      - *e-yoga

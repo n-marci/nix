@@ -435,8 +435,8 @@
             #   hostName = "e-yoga";
             # };
             user = hosts.e-yoga.user;
-            # ip = hosts.e-yoga.ip;
-            # interface = hosts.e-yoga.interface;
+            ip = hosts.e-yoga.ip;
+            interface = hosts.e-yoga.interface;
 
             name = "e-yoga";
             deployment = {

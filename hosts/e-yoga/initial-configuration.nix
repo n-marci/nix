@@ -2,9 +2,9 @@
 
 {
   imports = (
-      # import ../../modules/configurations ++
-      # import ../../modules/desktops ++
-      # import ../../modules/programs ++
+      import ../../modules/configurations ++
+      import ../../modules/desktops ++
+      import ../../modules/programs ++
       import ../../modules/services
     ) ++ ([
       ../../modules/hosts/baremetals.nix
@@ -15,10 +15,10 @@
       ../../modules/hosts/nixos-install.nix
       ../../modules/hosts/mesh.nix
       ./hardware-configuration.nix
-      ./disks.nix
+      # ./disks.nix
 
       # ../../modules/programs/helix.nix
-      ../../modules/configurations/networking.nix
+      # ../../modules/configurations/networking.nix
       ../../modules/configurations/virtualisation.nix
     ]);
 

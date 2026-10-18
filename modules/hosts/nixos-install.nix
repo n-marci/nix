@@ -2,7 +2,7 @@
 
 let
   cfg = config.marci.hosts.nixos-install;
-  inherit (lib) mkEnableOption mkIf;
+  inherit (lib) mkEnableOption mkIf mkDefault;
 in
 {
   ##############################################################################
@@ -125,9 +125,9 @@ in
       # enable = true; # already enabled in common.nix
       # authKeyFile = config.sops.secrets.tailscale-homelab-auth-key-one-time.path;
       # extraUpFlags = [ "--ssh" ];
-      extraSetFlags = [ "--advertise-exit-node" "--advertise-routes=100.0.0.0/8,192.168.66.0/24" ]; # advertise routes for my tailnet and local network
-      extraUpFlags = [ "--ssh" "--accept-routes" ];
-      useRoutingFeatures = "server"; # enable ip forwarding needed for exit node
+      extraSetFlags = mkDefault [ "--advertise-exit-node" "--advertise-routes=100.0.0.0/8,192.168.66.0/24" ]; # advertise routes for my tailnet and local network
+      extraUpFlags = mkDefault [ "--ssh" "--accept-routes" ];
+      useRoutingFeatures = mkDefault "server"; # enable ip forwarding needed for exit node
         # -> used it in proxmox and I was able to use nextcloud
         # - maybe different scenario tho, since there tailscale was inside container - now it is on the host
     };

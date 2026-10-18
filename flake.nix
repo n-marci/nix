@@ -437,6 +437,7 @@
             user = hosts.e-yoga.user;
             ip = hosts.e-yoga.ip;
             interface = hosts.e-yoga.interface;
+            graphics = hosts.e-yoga.graphics;
 
             name = "e-yoga";
             deployment = {

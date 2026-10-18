@@ -1,4 +1,4 @@
-{ pkgs, name, user, lts-kernel, ... }:
+{ pkgs, name, user, ... }:
 
 {
   imports = (
@@ -50,12 +50,27 @@
   # set the timeout for the screen going dark - value in seconds
   boot.kernelParams = [ "consoleblank=120" ];
 
-  boot.kernelPackages = lts-kernel;
+  # boot.kernelPackages = lts-kernel;
 
   ##############################################################################
   # STATE VERSION
   ##############################################################################
 
   system.stateVersion = "23.11"; # Did you read the comment?
+
+  home-manager.users.${user} = {
+    home = {
+      stateVersion = "23.11";
+    };
+
+    programs = {
+      home-manager.enable = true;
+    };
+
+    nix = {
+      # package = pkgs.nix;
+      settings.experimental-features = [ "nix-command" "flakes" ];
+    };
+  };
 
 }

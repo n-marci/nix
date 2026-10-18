@@ -145,25 +145,25 @@
   # DESKTOPS
   ##############################################################################
 
-        # desktop = { name, ... }: {
-        #   deployment = {
-        #     allowLocalDeployment = true;
-        #     targetHost = null;
-        #     tags = hosts.desktop.tags;
-        #   };
+        unicorn = { name, ... }: {
+          deployment = {
+            allowLocalDeployment = true;
+            targetHost = null;
+            tags = hosts.unicorn.tags;
+            # keys = hosts.unicorn.keys;
+          };
 
-        #   imports = [
-        #     ./hosts/desktop
-        #     ./configuration.nix
+          imports = [
+            ./hosts/unicorn/configuration.nix
 
-        #     flatpaks.nixosModules.nix-flatpak
-        #     home-manager.nixosModules.home-manager {
-        #       home-manager.useGlobalPkgs = true;
-        #       home-manager.useUserPackages = true;
-        #       home-manager.extraSpecialArgs.flake-inputs = inputs;
-        #     }
-        #   ];
-        # };
+            flatpaks.nixosModules.nix-flatpak
+            home-manager.nixosModules.home-manager {
+              home-manager.useGlobalPkgs = true;
+              home-manager.useUserPackages = true;
+              home-manager.extraSpecialArgs.flake-inputs = inputs;
+            }
+          ];
+        };
 
         yoga = { name, ... }: {
           deployment = {
@@ -402,6 +402,34 @@
       # };
   
       nixosConfigurations = {
+        unicorn = nixpkgs.lib.nixosSystem {
+          specialArgs = {
+
+            inherit inputs secrets hosts stable unstable;
+            user = hosts.unicorn.user;
+            ip = hosts.unicorn.ip;
+            interface = hosts.unicorn.interface;
+            graphics = hosts.unicorn.graphics;
+            name = "unicorn";
+            deployment = {
+              targetUser = "colmena";
+            };
+          };
+
+          modules = [
+            ./hosts/unicorn/initial-configuration.nix
+
+            # disko.nixosModules.disko
+            sops-nix.nixosModules.sops
+            flatpaks.nixosModules.nix-flatpak
+            home-manager.nixosModules.home-manager {
+              home-manager.useGlobalPkgs = true;
+              home-manager.useUserPackages = true;
+              home-manager.extraSpecialArgs.flake-inputs = inputs;
+            }
+          ];
+        };
+
         yoga = nixpkgs.lib.nixosSystem {
           # inherit system;
           specialArgs = {

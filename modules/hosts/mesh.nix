@@ -71,7 +71,7 @@ in
 
       syncthing = {
         enable = true;
-        homes = [ "yoga" "unicorn" ];
+        homes = [ "yoga" "e-yoga" "unicorn" ];
         servers = [ "inspirion" ];
         phones = [ "s20-plus" "pixel-8" ];
         whatsapp = [ "pixel-8-whatsapp" ];

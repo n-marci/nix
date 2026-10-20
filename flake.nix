@@ -77,6 +77,7 @@
           };
           nodeSpecialArgs = {
             desktop = {
+              name = "unicorn";
               user = hosts.unicorn.user;
               graphics = hosts.unicorn.graphics;
             };
@@ -152,7 +153,7 @@
             allowLocalDeployment = true;
             targetHost = "desktop";
             tags = hosts.unicorn.tags;
-            name = "unicorn";
+            # name = "unicorn";
             # keys = hosts.unicorn.keys;
           };
 

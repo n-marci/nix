@@ -42,7 +42,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    colmena.url = "github:zhaofengli/colmena/?ref=v0.4.0";
+    colmena.url = "github:nix-community/colmena";
     flatpaks.url = "github:gmodena/nix-flatpak/?ref=latest";
     secrets.url = "git+ssh://git@github.com/n-marci/secrets.git";
   };

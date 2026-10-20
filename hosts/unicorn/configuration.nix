@@ -26,14 +26,14 @@
   # environment.systemPackages = [ pkgs.ddcutil ];
   # services.udev.packages = [ pkgs.ddcutil ];
 
-  sops = {
-    secrets.pangolin-env = {
-      owner = "marci";
-    }; # to be moved to pangolin.nix with mesh.nix managing that is only active on key holder (yoga)
-    secrets.traefik-env = {
-      owner = "marci";
-    }; # to be moved to pangolin.nix with mesh.nix managing that is only active on key holder (yoga)
-  };
+  # sops = {
+  #   secrets.pangolin-env = {
+  #     owner = "marci";
+  #   }; # to be moved to pangolin.nix with mesh.nix managing that is only active on key holder (yoga)
+  #   secrets.traefik-env = {
+  #     owner = "marci";
+  #   }; # to be moved to pangolin.nix with mesh.nix managing that is only active on key holder (yoga)
+  # };
   # nix.settings.trusted-users = [ "marci" ];
 
   ##############################################################################

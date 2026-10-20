@@ -141,7 +141,7 @@ in
       # python311Packages.gtts
       python312Packages.langid
       keyd  # key remapper for my sweet super key on the mouse button
-      piper-tts
+      # piper-tts
 
       # shell-gpt
       # aichat

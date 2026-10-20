@@ -79,7 +79,7 @@ in {
 
       gnome.excludePackages = (with pkgs; [
         gnome-tour
-        gnome-photos
+        # gnome-photos
         gnome-console
       ]) ++ (with pkgs; [
         epiphany

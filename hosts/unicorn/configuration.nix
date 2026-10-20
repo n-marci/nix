@@ -19,12 +19,12 @@
   # PLAYGROUND
   ##############################################################################
 
-  hardware.i2c.enable = true;
-  boot.kernelModules = [ "i2c-dev" "ddcci_backlight" ];
-  boot.extraModulePackages = [ config.boot.kernelPackages.ddcci-driver ];
-  services.ddccontrol.enable = true;
-  environment.systemPackages = [ pkgs.ddcutil ];
-  services.udev.packages = [ pkgs.ddcutil ];
+  # hardware.i2c.enable = true;
+  # boot.kernelModules = [ "i2c-dev" "ddcci_backlight" ];
+  # boot.extraModulePackages = [ config.boot.kernelPackages.ddcci-driver ];
+  # services.ddccontrol.enable = true;
+  # environment.systemPackages = [ pkgs.ddcutil ];
+  # services.udev.packages = [ pkgs.ddcutil ];
 
   sops = {
     secrets.pangolin-env = {

@@ -114,7 +114,7 @@ in {
             "md.obsidian.Obsidian.desktop"
             "com.github.xournalpp.xournalpp.desktop"
             "org.gnome.Evince.desktop"
-            "zotero.desktop"
+            # "zotero.desktop"
           ];
 
           # disable-user-extensions = false;
@@ -375,7 +375,7 @@ in {
         <Super>n,xournalpp,,
         <Super><Shift>n,xournalpp
         <Super>p,evince,,
-        <Super>z,zotero,,
+        # <Super>z,zotero,,
         <Super>k:raise-or-register(0)
         <Super>h:raise-or-register(1)
       '';

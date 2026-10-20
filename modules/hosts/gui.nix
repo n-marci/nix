@@ -111,7 +111,7 @@ in
       # kando # also need to add gnomeExtensions.kando-integration
       nextcloud-client
       signal-desktop
-      freenet
+      # hyphanet
 
       # screenshot and screenshot editing tools
       # swappy
@@ -240,10 +240,10 @@ in
       # documents
       ###################
     
-      libreoffice-still
+      libreoffice
       xournalpp
       rnote                  # https://github.com/flxzt/rnote
-      zotero
+      # zotero
       # papers
       # gscan2pdf
       # naps2 # scanning application - wanted to try it out instead of gscan2pdf

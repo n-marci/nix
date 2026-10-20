@@ -106,6 +106,7 @@ in
           # "helix-b" = { id = hosts.helix-b.sync-id; };
           "unicorn" = { id = hosts.unicorn.sync-id; };
           "yoga" = { id = hosts.yoga.sync-id; };
+          "e-yoga" = { id = hosts.e-yoga.sync-id; };
           "note-9" = { id = hosts.note-9.sync-id; };
           "pixel-8" = { id = hosts.pixel-8.sync-id; };
           "pixel-8-whatsapp" = { id = hosts.pixel-8-whatsapp.sync-id; };

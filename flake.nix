@@ -152,6 +152,7 @@
             allowLocalDeployment = true;
             targetHost = "desktop";
             tags = hosts.unicorn.tags;
+            name = "unicorn";
             # keys = hosts.unicorn.keys;
           };
 

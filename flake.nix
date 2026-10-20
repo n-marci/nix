@@ -147,8 +147,10 @@
 
         unicorn = { name, ... }: {
           deployment = {
+            targetUser = "colmena";
+            buildOnTarget = true;
             allowLocalDeployment = true;
-            targetHost = null;
+            targetHost = "desktop";
             tags = hosts.unicorn.tags;
             # keys = hosts.unicorn.keys;
           };

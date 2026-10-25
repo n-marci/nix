@@ -155,6 +155,7 @@ in
       # ai
       ###################
 
+      mcp-nixos
       opencode-desktop
       # jan # added it as flatpak app
 

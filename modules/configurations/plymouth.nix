@@ -35,7 +35,7 @@ in
       };
 
       consoleLogLevel = 0;
-      initrd.verbose = false;
+      # initrd.verbose = false;
       kernelParams = [
         #########################################
         # Silent Boot for plymouth boot animation

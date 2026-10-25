@@ -70,13 +70,13 @@
         meta = {
           nixpkgs = stable;
           nodeNixpkgs = {
-            desktop = unstable;
+            unicorn = unstable;
             yoga = unstable;
             e-yoga = unstable;
             # ovh-vps = unstable;
           };
           nodeSpecialArgs = {
-            desktop = {
+            unicorn = {
               name = "unicorn";
               user = hosts.unicorn.user;
               graphics = hosts.unicorn.graphics;
@@ -146,12 +146,12 @@
   # DESKTOPS
   ##############################################################################
 
-        desktop = { name, ... }: {
+        unicorn = { name, ... }: {
           deployment = {
             targetUser = "colmena";
             buildOnTarget = true;
             allowLocalDeployment = true;
-            targetHost = "desktop";
+            targetHost = "unicorn";
             tags = hosts.unicorn.tags;
             # name = "unicorn";
             # keys = hosts.unicorn.keys;
@@ -406,7 +406,7 @@
       # };
   
       nixosConfigurations = {
-        desktop = nixpkgs.lib.nixosSystem {
+        unicorn = nixpkgs.lib.nixosSystem {
           specialArgs = {
 
             inherit inputs secrets hosts stable unstable;

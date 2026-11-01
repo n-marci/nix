@@ -73,8 +73,8 @@ in
       config = {
         dbtype = "pgsql";
         # dbhost = "localhost";
-        adminuser = "caesar";
-        adminpassFile = config.sops.secrets.nextcloud-pass.path;
+        # adminuser = "caesar";
+        # adminpassFile = config.sops.secrets.nextcloud-pass.path;
       };
 
       settings = {

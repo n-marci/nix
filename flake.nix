@@ -68,11 +68,12 @@
 
       colmena = {
         meta = {
-          nixpkgs = stable;
+          nixpkgs = unstable;
           nodeNixpkgs = {
             unicorn = unstable;
             yoga = unstable;
             e-yoga = unstable;
+            # inspirion = unstable;
             # ovh-vps = unstable;
           };
           nodeSpecialArgs = {
@@ -124,7 +125,7 @@
             sops-nix = sops-nix;
             secrets = secrets;
             hosts = hosts;
-            lts-kernel = stable.linuxPackages_6_6;
+            # lts-kernel = stable.linuxPackages_6_6;
             latest-kernel = unstable.linuxPackages_latest;
             # quickshell = inputs.quickshell;
           };
@@ -527,6 +528,7 @@
             interface = hosts.inspirion.interface;
 
             lts-kernel = stable.linuxPackages_6_6;
+            latest-kernel = unstable.linuxPackages_latest;
 
             name = "inspirion";
             deployment = {

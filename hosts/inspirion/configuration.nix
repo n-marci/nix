@@ -1,4 +1,4 @@
-{ pkgs, name, user, lts-kernel, ... }:
+{ pkgs, name, user, lts-kernel, latest-kernel, ... }:
 
 {
   imports = (
@@ -94,7 +94,7 @@
   # set the timeout for the screen going dark - value in seconds
   boot.kernelParams = [ "consoleblank=120" ];
 
-  boot.kernelPackages = lts-kernel;
+  boot.kernelPackages = latest-kernel;
 
   ##############################################################################
   # STATE VERSION

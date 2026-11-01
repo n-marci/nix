@@ -82,15 +82,15 @@ in
 
           languages= {
 
-            language-server.ltex = {
-              command = "${pkgs.ltex-ls}/bin/ltex-ls";
-              config.ltex.dictionary."en-US" = [ "Modelica" "SysML" "aeroponic" ];
-            };
+            # language-server.ltex = {
+            #   command = "${pkgs.ltex-ls}/bin/ltex-ls";
+            #   config.ltex.dictionary."en-US" = [ "Modelica" "SysML" "aeroponic" ];
+            # };
           
-            language = [{
-              name = "latex";
-              language-servers = [ "texlab" "ltex" ];
-            }];
+            # language = [{
+            #   name = "latex";
+            #   language-servers = [ "texlab" "ltex" ];
+            # }];
           };
 
           # language config for latex - did not build on save tho?

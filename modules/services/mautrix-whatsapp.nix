@@ -1,7 +1,7 @@
 # matrix synapse configuration
 # TODO make secrets folder only accessible by root
 
-{config, vars, lib, unstable, host, pkgs, ...}:
+{config, vars, lib, unstable, host, pkgs, private, ... }:
 
 with lib; {
   # options = {
@@ -25,16 +25,16 @@ with lib; {
 
           homeserver = {
             address = "http://localhost:8008";
-            # address = "https://matrix.marcelnet.com";
-            domain = "marcelnet.com";
+            # address = "https://matrix.${private.domains.home}";
+            domain = "${private.domains.home}";
             async_media = true;
           };
 
           bridge = {
             permissions = {
               "*" = "relay";
-              "marcelnet.com" = "user";
-              "@caesar:matrix.marcelnet.com" = "admin";
+              "${private.domains.home}" = "user";
+              "@caesar:matrix.${private.domains.home}" = "admin";
             };
           };
 
@@ -102,8 +102,8 @@ with lib; {
       #       # };
       #       permissions = {
       #         "*" = "relay";
-      #         "marcelnet.com" = "user";
-      #         "@caesar:matrix.marcelnet.com" = "admin";
+      #         "${private.domains.home}" = "user";
+      #         "@caesar:matrix.${private.domains.home}" = "admin";
       #       };
       #     };
       #     logging = {

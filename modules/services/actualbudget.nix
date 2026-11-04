@@ -1,6 +1,6 @@
 # actualbudget config
 
-{ config, lib, name, hosts, service-dir, snapshot-dir, backup-dir, ... }:
+{ config, lib, name, hosts, service-dir, snapshot-dir, backup-dir, private, ... }:
 
 let
   cfg = config.marci.services.actualbudget;
@@ -59,9 +59,9 @@ in
     services.nginx = mkIf (elem name cfg.nodes.service) {
       enable = mkDefault true;
       virtualHosts = {
-        "actual.marcelnet.com" = {
+        "actual.${private.domains.home}" = {
           forceSSL = true;
-          useACMEHost = "marcelnet.com";
+          useACMEHost = "${private.domains.home}";
           locations."/".proxyPass = "http://127.0.0.1:5006";
         };
       };

@@ -44,16 +44,16 @@
 
     colmena.url = "github:nix-community/colmena";
     flatpaks.url = "github:gmodena/nix-flatpak/?ref=latest";
-    secrets.url = "git+ssh://git@github.com/n-marci/secrets.git";
   };
 
   ##############################################################################
   # OUTPUTS
   ##############################################################################
 
-  outputs = inputs @ { self, nixpkgs, nixpkgs-stable, nixpkgs-unstable, sops-nix, home-manager, disko, microvm, colmena, flatpaks, secrets, ... }:
+  outputs = inputs @ { self, nixpkgs, nixpkgs-stable, nixpkgs-unstable, sops-nix, home-manager, disko, microvm, colmena, flatpaks, ... }:
     let
-      hosts = import ./hosts/hosts.nix { inherit secrets; };
+      private = import ./private;
+      hosts = import ./hosts/hosts.nix { inherit private; };
       stable = import nixpkgs-stable {
         system = "x86_64-linux";
         config.allowUnfree = true;
@@ -123,7 +123,7 @@
             stable = stable;
             unstable = unstable;
             sops-nix = sops-nix;
-            secrets = secrets;
+            private = private;
             hosts = hosts;
             # lts-kernel = stable.linuxPackages_6_6;
             latest-kernel = unstable.linuxPackages_latest;
@@ -376,7 +376,7 @@
           deployment = {
             # allowLocalDeployment = true;
             # targetUser = hosts.inspirion.user; 
-            targetHost = "neugebauer-marcel.com";
+            targetHost = private.domains.vps;
             targetUser = "colmena";
             buildOnTarget = true; # don't build vps nix config on target
             tags = hosts.ovh-vps.tags;
@@ -410,7 +410,7 @@
         unicorn = nixpkgs.lib.nixosSystem {
           specialArgs = {
 
-            inherit inputs secrets hosts stable unstable;
+            inherit inputs private hosts stable unstable;
             user = hosts.unicorn.user;
             ip = hosts.unicorn.ip;
             interface = hosts.unicorn.interface;
@@ -439,7 +439,7 @@
           # inherit system;
           specialArgs = {
 
-            inherit inputs secrets hosts stable unstable;
+            inherit inputs private hosts stable unstable;
             # host = {
             #   hostName = "yoga";
             # };
@@ -463,7 +463,7 @@
           # inherit system;
           specialArgs = {
 
-            inherit inputs secrets hosts stable unstable;
+            inherit inputs private hosts stable unstable;
             # host = {
             #   hostName = "e-yoga";
             # };
@@ -494,7 +494,7 @@
 
         helix-b = nixpkgs.lib.nixosSystem {
           specialArgs = {
-            inherit inputs stable unstable sops-nix secrets hosts;
+            inherit inputs stable unstable sops-nix private hosts;
             user = hosts.helix-b.user;
             ip = hosts.helix-b.ip;
             interface = hosts.helix-b.interface;
@@ -522,7 +522,7 @@
 
         inspirion = nixpkgs.lib.nixosSystem {
           specialArgs = {
-            inherit inputs stable unstable sops-nix secrets hosts;
+            inherit inputs stable unstable sops-nix private hosts;
             user = hosts.inspirion.user;
             ip = hosts.inspirion.ip;
             interface = hosts.inspirion.interface;

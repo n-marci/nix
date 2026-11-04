@@ -1,6 +1,6 @@
 # opencloud config
 
-{ config, lib, name, hosts, service-dir, snapshot-dir, backup-dir, ... }:
+{ config, lib, name, hosts, service-dir, snapshot-dir, backup-dir, private, ... }:
 
 let
   cfg = config.marci.services.opencloud;
@@ -47,7 +47,7 @@ in
 
     services.opencloud = mkIf (elem name cfg.nodes.service) {
       enable = true; # https://wiki.nixos.org/wiki/OpenCloud - here is a full to configure radicale for caldav/carddav sync
-      url = "https://opencloud.marcelnet.com";
+      url = "https://opencloud.${private.domains.home}";
       # url = "https://0.0.0.0:9200";
       address = "0.0.0.0";
       # address = "127.0.0.1";
@@ -55,7 +55,7 @@ in
       environment = {
         PROXY_TLS = "false"; # disable https when behind reverse proxy
         INITIAL_ADMIN_PASSWORD = "Super*Secure*Signs";
-      #   OC_DOMAIN = "opencloud.marcelnet.com";
+      #   OC_DOMAIN = "opencloud.${private.domains.home}";
       #   OC_INSECURE = "true";
       #   # PROXY_INSECURE_BACKENDS = "true";
       };
@@ -94,7 +94,7 @@ in
               "https://embed.diagrams.net"
       
               # Here is the culprit, put your own office service's URL
-              "https://office.marcelnet.com"
+              "https://office.${private.domains.home}"
 
               # This is needed for the external-sites web extension when embedding sites
               "https://docs.opencloud.eu"
@@ -105,7 +105,7 @@ in
               "blob:"
               "https://raw.githubusercontent.com/opencloud-eu/awesome-apps/"
               "https://tile.openstreetmap.org/"
-              "https://office.marcelnet.com/"
+              "https://office.${private.domains.home}/"
             ];
             manifest-src = [
               "'self'"
@@ -157,9 +157,9 @@ in
     services.nginx = mkIf (elem name cfg.nodes.service) {
       enable = mkDefault true;
       virtualHosts = {
-        "opencloud.marcelnet.com" = {
+        "opencloud.${private.domains.home}" = {
           forceSSL = true;
-          useACMEHost = "marcelnet.com";
+          useACMEHost = "${private.domains.home}";
           locations."/" = {
             proxyPass = "http://127.0.0.1:9200";
             proxyWebsockets = true;

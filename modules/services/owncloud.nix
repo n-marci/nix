@@ -1,6 +1,6 @@
 # owncloud config
 
-{ config, lib, name, hosts, service-dir, snapshot-dir, backup-dir, ... }:
+{ config, lib, name, hosts, service-dir, snapshot-dir, backup-dir, private, ... }:
 
 let
   cfg = config.marci.services.owncloud;
@@ -47,7 +47,7 @@ in
 
     services.ocis = mkIf (elem name cfg.nodes.service) {
       enable = true;
-      url = "https://owncloud.marcelnet.com";
+      url = "https://owncloud.${private.domains.home}";
       address = "0.0.0.0";
       # port = 9200;
       environment = {
@@ -63,9 +63,9 @@ in
     services.nginx = mkIf (elem name cfg.nodes.service) {
       enable = mkDefault true;
       virtualHosts = {
-        "owncloud.marcelnet.com" = {
+        "owncloud.${private.domains.home}" = {
           forceSSL = true;
-          useACMEHost = "marcelnet.com";
+          useACMEHost = "${private.domains.home}";
           locations."/" = {
             proxyPass = "http://127.0.0.1:9200";
             extraConfig = ''

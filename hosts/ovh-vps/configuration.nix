@@ -1,7 +1,7 @@
-{ config, pkgs, unstable, modulesPath, name, user, hosts, secrets, lts-kernel, ... }:
+{ config, pkgs, unstable, modulesPath, name, user, hosts, private, lts-kernel, ... }:
 
 # let
-#   emails = import "${secrets}/email-addresses.nix";
+#   inherit (private) emails;
 # in
 {
   imports = (
@@ -58,7 +58,7 @@
   #   enable = true;
   #   package = unstable.pkgs.fosrl-pangolin;
   #   openFirewall = true;
-  #   baseDomain = "neugebauer-marcel.com";
+  #   baseDomain = "${private.domains.vps}";
   #   letsEncryptEmail = emails.web-de;
   #   environmentFile = "/run/keys/pangolin-env";
   #   dnsProvider = "ovh";

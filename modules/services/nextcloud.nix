@@ -1,6 +1,6 @@
 # nextcloud config
 
-{ config, pkgs, lib, name, hosts, service-dir, snapshot-dir, backup-dir, ... }:
+{ config, pkgs, lib, name, hosts, service-dir, snapshot-dir, backup-dir, private, ... }:
 
 let
   cfg = config.marci.services.nextcloud;
@@ -49,7 +49,7 @@ in
 
     services.nextcloud = mkIf (name == cfg.host) {
       enable = true;
-      hostName = "nextcloud.marcelnet.com";
+      hostName = "nextcloud.${private.domains.home}";
       # hostName = "192.168.66.21";
       package = pkgs.nextcloud33;
       configureRedis = true;
@@ -78,7 +78,7 @@ in
       };
 
       settings = {
-        trusted_domains = [ "nextcloud.neugebauer-marcel.com" "nextcloud.marcelnet.com" "100.125.148.107" "192.168.66.21" ]; # add the tailscale server ip to the trusted domains
+        trusted_domains = [ "nextcloud.${private.domains.vps}" "nextcloud.${private.domains.home}" "100.125.148.107" "192.168.66.21" ]; # add the tailscale server ip to the trusted domains
         overwriteProtocol = "https";
         maintenance_window_start = 2;
         opcache.interned_strings_buffer = 9;
@@ -101,9 +101,9 @@ in
     services.nginx = mkIf (name == cfg.host) {
       enable = mkDefault true;
       virtualHosts = {
-        "nextcloud.marcelnet.com" = {
+        "nextcloud.${private.domains.home}" = {
           forceSSL = true;
-          useACMEHost = "marcelnet.com";
+          useACMEHost = "${private.domains.home}";
           # listen = [{ addr = "127.0.0.1"; port = 8185; ssl = false; }];
           locations."/" = {
               # clientMaxBodySize = "1G";

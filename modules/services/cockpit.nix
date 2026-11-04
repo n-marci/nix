@@ -1,6 +1,6 @@
 # cockpit config
 
-{ config, lib, ... }:
+{ config, lib, private, ... }:
 
 let
   cfg = config.fleet.cockpit;
@@ -39,9 +39,9 @@ in
     services.nginx = {
       enable = mkDefault true;
       virtualHosts = {
-        "cockpit.marcelnet.com" = {
+        "cockpit.${private.domains.home}" = {
           forceSSL = true;
-          useACMEHost = "marcelnet.com";
+          useACMEHost = "${private.domains.home}";
           locations."/".proxyPass = "http://127.0.0.1:9090";
         };
       };

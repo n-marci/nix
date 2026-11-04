@@ -1,6 +1,6 @@
 # mealie config
 
-{ config, lib, name, hosts, service-dir, snapshot-dir, backup-dir, ... }:
+{ config, lib, name, hosts, service-dir, snapshot-dir, backup-dir, private, ... }:
 
 let
   cfg = config.fleet.mealie;
@@ -41,7 +41,7 @@ in
       port = 9925;
       listenAddress = "0.0.0.0";
       settings = {
-        BASE_URL = "https://mealie.marcelnet.com";
+        BASE_URL = "https://mealie.${private.domains.home}";
       };
     };
 
@@ -60,9 +60,9 @@ in
     services.nginx = {
       enable = mkDefault true;
       virtualHosts = {
-        "mealie.marcelnet.com" = {
+        "mealie.${private.domains.home}" = {
           forceSSL = true;
-          useACMEHost = "marcelnet.com";
+          useACMEHost = "${private.domains.home}";
           locations."/".proxyPass = "http://127.0.0.1:9925";
         };
       };

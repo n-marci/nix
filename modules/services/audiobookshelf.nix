@@ -1,6 +1,6 @@
 # audiobookshelf config
 
-{ config, lib, name, hosts, service-dir, snapshot-dir, backup-dir, ... }:
+{ config, lib, name, hosts, service-dir, snapshot-dir, backup-dir, private, ... }:
 
 let
   cfg = config.fleet.audiobookshelf;
@@ -50,9 +50,9 @@ in
     services.nginx = {
       enable = mkDefault true;
       virtualHosts = {
-        "audiobookshelf.marcelnet.com" = {
+        "audiobookshelf.${private.domains.home}" = {
           forceSSL = true;
-          useACMEHost = "marcelnet.com";
+          useACMEHost = "${private.domains.home}";
           locations."/" = {
             proxyPass = "http://127.0.0.1:8000";
             proxyWebsockets = true;

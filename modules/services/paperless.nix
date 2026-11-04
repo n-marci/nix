@@ -1,6 +1,6 @@
 # paperless config
 
-{ config, lib, name, hosts, service-dir, snapshot-dir, backup-dir, ... }:
+{ config, lib, name, hosts, service-dir, snapshot-dir, backup-dir, private, ... }:
 
 let
   cfg = config.fleet.paperless;
@@ -44,7 +44,7 @@ in
         PAPERLESS_OCR_LANGUAGE = "deu+eng";
         PAPERLESS_ADMIN_USER = "caesar";
         # PAPERLESS_DEBUG = "true";
-        PAPERLESS_URL = "https://paperless.marcelnet.com";
+        PAPERLESS_URL = "https://paperless.${private.domains.home}";
       };
       passwordFile = config.sops.secrets.paperless-pass.path;
 
@@ -103,9 +103,9 @@ in
     services.nginx = {
       enable = mkDefault true;
       virtualHosts = {
-        "paperless.marcelnet.com" = {
+        "paperless.${private.domains.home}" = {
           forceSSL = true;
-          useACMEHost = "marcelnet.com";
+          useACMEHost = "${private.domains.home}";
           locations."/".proxyPass = "http://127.0.0.1:28981";
         };
       };

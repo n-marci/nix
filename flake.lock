@@ -183,22 +183,6 @@
         "type": "github"
       }
     },
-    "nixpkgs_3": {
-      "locked": {
-        "lastModified": 1764667669,
-        "narHash": "sha256-7WUCZfmqLAssbDqwg9cUDAXrSoXN79eEEq17qhTNM/Y=",
-        "owner": "nixos",
-        "repo": "nixpkgs",
-        "rev": "418468ac9527e799809c900eda37cbff999199b6",
-        "type": "github"
-      },
-      "original": {
-        "owner": "nixos",
-        "ref": "nixos-unstable",
-        "repo": "nixpkgs",
-        "type": "github"
-      }
-    },
     "root": {
       "inputs": {
         "colmena": "colmena",
@@ -209,26 +193,7 @@
         "nixpkgs": "nixpkgs_2",
         "nixpkgs-stable": "nixpkgs-stable",
         "nixpkgs-unstable": "nixpkgs-unstable",
-        "secrets": "secrets",
         "sops-nix": "sops-nix"
-      }
-    },
-    "secrets": {
-      "inputs": {
-        "nixpkgs": "nixpkgs_3"
-      },
-      "locked": {
-        "lastModified": 1792524745,
-        "narHash": "sha256-Ff4K9rgRdVNn7UlqtiZDrmeV25Gng/9XgavGMCeYwDU=",
-        "ref": "refs/heads/master",
-        "rev": "e1517c8b81448b1ebdee8b93e2a1450c8d13487e",
-        "revCount": 26,
-        "type": "git",
-        "url": "ssh://git@github.com/n-marci/secrets.git"
-      },
-      "original": {
-        "type": "git",
-        "url": "ssh://git@github.com/n-marci/secrets.git"
       }
     },
     "sops-nix": {

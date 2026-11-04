@@ -1,6 +1,6 @@
 # btrbk config
 
-{ config, pkgs, lib, name, hosts, service-dir, snapshot-dir, backup-dir, ... }:
+{ config, pkgs, lib, name, hosts, service-dir, snapshot-dir, backup-dir, private, ... }:
 
 let
   cfg = config.fleet.btrbk;
@@ -41,7 +41,7 @@ in
 
     publicKey = mkOption {
       type = types.str;
-      default = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIH+C3Nnd5EOTg52l8M3jJsfq8lr6tXXSgREaNP1Lx8OQ inspirion";
+      default = private.ssh-keys.inspirion;
     };
   };
   

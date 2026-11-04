@@ -1,6 +1,6 @@
 # adguardhome config
 
-{ config, lib, ... }:
+{ config, lib, private, ... }:
 
 let
   cfg = config.fleet.adguard;
@@ -34,10 +34,10 @@ in
       settings = {
         address = "0.0.0.0:3000";
     #     rewrites:
-    # - domain: '*.marcelnet.com'
+    # - domain: '*.${private.domains.home}'
     #   answer: 192.168.66.35
         rewrites = {
-          domain = "*.marcelnet.com";
+          domain = "*.${private.domains.home}";
           answer = "192.168.66.21";
         };
       };
@@ -53,9 +53,9 @@ in
     services.nginx = {
       enable = mkDefault true;
       virtualHosts = {
-        "adguard.marcelnet.com" = {
+        "adguard.${private.domains.home}" = {
           forceSSL = true;
-          useACMEHost = "marcelnet.com";
+          useACMEHost = "${private.domains.home}";
           locations."/".proxyPass = "http://127.0.0.1:3000";
         };
       };

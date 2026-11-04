@@ -1,7 +1,7 @@
 
 # btrbk configuration
 
-{config, pkgs, vars, lib, unstable, host, ...}:
+{config, pkgs, vars, lib, unstable, host, private, ... }:
 
 with lib; {
   options = {
@@ -34,7 +34,7 @@ with lib; {
     services = {
       btrbk = {
         # sshAccess = mkIf (config.fleet.btrbk.node == "target" ) [{
-        #   key = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIH+C3Nnd5EOTg52l8M3jJsfq8lr6tXXSgREaNP1Lx8OQ inspirion";
+        #   key = private.ssh-keys.inspirion;
         #   roles = [ "info" "source" "target" "delete" "snapshot" "send" "receive" ];
         # }];
 

@@ -1,9 +1,9 @@
-{ config, lib, pkgs, user, secrets, ... }:
+{ config, lib, pkgs, user, private, ... }:
 
 let
   cfg = config.marci.programs.git;
   inherit (lib) mkEnableOption mkIf;
-  emails = import "${secrets}/email-addresses.nix";
+  inherit (private) emails;
 in
 {
   ##############################################################################
@@ -20,6 +20,8 @@ in
 
   config = mkIf (cfg.enable) {
     home-manager.users.${user} = {
+      home.packages = [ pkgs.git-crypt ]; # decrypts ./private in the nix repo
+
       programs = {
         git = {
           enable = true;

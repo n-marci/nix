@@ -1,11 +1,11 @@
 # pangolin config
 
-{ config, lib, unstable, name, hosts, secrets, service-dir, snapshot-dir, backup-dir, ... }:
+{ config, lib, unstable, name, hosts, private, service-dir, snapshot-dir, backup-dir, ... }:
 
 let
   cfg = config.marci.services.pangolin;
   inherit (lib) mkEnableOption mkOption mkIf mkDefault mkMerge types elem;
-  emails = import "${secrets}/email-addresses.nix";
+  inherit (private) emails;
   # database-directory = "var/lib/postgresql";
   # db-export-directory = "var/lib/psql-export";
 in
@@ -48,7 +48,7 @@ in
       enable = true;
       package = unstable.pkgs.fosrl-pangolin;
       openFirewall = true;
-      baseDomain = "neugebauer-marcel.com";
+      baseDomain = "${private.domains.vps}";
       letsEncryptEmail = emails.web-de;
       environmentFile = config.sops.secrets.pangolin-env.path;
       dnsProvider = "ovh";
@@ -57,7 +57,7 @@ in
           prefer_wildcard_cert = true;
         };
         apps.test-pango = {
-          domain = "test.neugebauer-marcel.com";
+          domain = "test.${private.domains.vps}";
           type = "external";
           upstream = "http://localhost:9000";
         };
@@ -114,7 +114,7 @@ in
       enable = true;
       package = unstable.pkgs.fosrl-newt;
       environmentFile = config.sops.secrets.newt-env.path;
-      settings.endpoint = "https://pangolin.neugebauer-marcel.com";
+      settings.endpoint = "https://pangolin.${private.domains.vps}";
     };
     # networking.firewall.allowedUDPPorts = mkIf (elem name cfg.nodes.newt) [ 21820 ]; # I am not 100% if this is needed on newt or on pangolin - maybe revise later
 

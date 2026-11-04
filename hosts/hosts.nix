@@ -1,10 +1,10 @@
-{ secrets }:
+{ private }:
 
 # disable password login over ssh
 # only allow ssh key login
 
 let
-  sync-ids = import "${secrets}/syncthing-ids.nix";
+  inherit (private) sync-ids ssh-keys ips;
 in
 {
   ##############################################################################
@@ -38,7 +38,7 @@ in
     # };
     bkp-target = "linc-n2";
     access = [ ];
-    public-key = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIGMucFkgLycRIhAprDtT2yTGmH7vz3T87LhljLkNJ65V yoga";
+    public-key = ssh-keys.yoga;
     sync-id = sync-ids.yoga;
     secrets = "sops";
     # keys = {
@@ -56,7 +56,7 @@ in
     ];
     bkp-target = "linc-n2";
     access = [ ];
-    public-key = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIGMucFkgLycRIhAprDtT2yTGmH7vz3T87LhljLkNJ65V e-yoga";
+    public-key = ssh-keys.e-yoga;
     sync-id = sync-ids.e-yoga;
     secrets = "sops";
   };
@@ -129,7 +129,7 @@ in
   ##############################################################################
 
   ovh-vps = {
-    ip = "162.19.246.125";
+    ip = ips.ovh-vps;
     user = "marci";
     tags = [
       "vps"

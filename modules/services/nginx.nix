@@ -1,9 +1,9 @@
 # nginx configuration
 
-{config, vars, lib, unstable, host, secrets, ...}:
+{config, vars, lib, unstable, host, private, ...}:
 
 let
-  emails = import "${secrets}/email-addresses.nix";
+  inherit (private) emails;
 in
 with lib; {
   options = {
@@ -21,9 +21,9 @@ with lib; {
       clientMaxBodySize = "1G";
 
       virtualHosts = {
-        # "nextcloud.marcelnet.com" = {
+        # "nextcloud.${private.domains.home}" = {
         #   forceSSL = true;
-        #   useACMEHost = "marcelnet.com";
+        #   useACMEHost = "${private.domains.home}";
         #   #   locations."/" = {
         #   #     proxyPass = "http://localhost";
         #   #     proxyWebsockets = true;
@@ -35,51 +35,51 @@ with lib; {
         #   #   client_max_body_size 1G;
         #   # '';
         # };
-        # "adguard.marcelnet.com" = {
+        # "adguard.${private.domains.home}" = {
         #   forceSSL = true;
-        #   useACMEHost = "marcelnet.com";
+        #   useACMEHost = "${private.domains.home}";
         #   locations."/".proxyPass = "http://100.125.148.107:3000";
         # };
-        # "paperless.marcelnet.com" = {
+        # "paperless.${private.domains.home}" = {
         #   forceSSL = true;
-        #   useACMEHost = "marcelnet.com";
+        #   useACMEHost = "${private.domains.home}";
         #   locations."/".proxyPass = "http://100.125.148.107:28981";
         #   # locations."/" = {
         #   #   proxyPass = "http://100.125.148.107:28981";
         #   #   proxyWebsockets = true;
         #   # };
         # };
-        # "actual.marcelnet.com" = {
+        # "actual.${private.domains.home}" = {
         #   forceSSL = true;
-        #   useACMEHost = "marcelnet.com";
+        #   useACMEHost = "${private.domains.home}";
         #   locations."/".proxyPass = "http://100.125.148.107:5006";
         # };
-        # "cockpit.marcelnet.com" = {
+        # "cockpit.${private.domains.home}" = {
         #   forceSSL = true;
-        #   useACMEHost = "marcelnet.com";
+        #   useACMEHost = "${private.domains.home}";
         #   locations."/".proxyPass = "http://100.125.148.107:9090";
         # };
-        "traccar.marcelnet.com" = {
+        "traccar.${private.domains.home}" = {
           forceSSL = true;
-          useACMEHost = "marcelnet.com";
+          useACMEHost = "${private.domains.home}";
           locations."/".proxyPass = "http://100.125.148.107:8082";
         };
-        # "audiobookshelf.marcelnet.com" = {
+        # "audiobookshelf.${private.domains.home}" = {
         #   forceSSL = true;
-        #   useACMEHost = "marcelnet.com";
+        #   useACMEHost = "${private.domains.home}";
         #   locations."/" = {
         #     proxyPass = "http://100.125.148.107:8000";
         #     proxyWebsockets = true;
         #   };
         # };
-        # "mealie.marcelnet.com" = {
+        # "mealie.${private.domains.home}" = {
         #   forceSSL = true;
-        #   useACMEHost = "marcelnet.com";
+        #   useACMEHost = "${private.domains.home}";
         #   locations."/".proxyPass = "http://100.125.148.107:9925";
         # };
-        # "matrix.marcelnet.com" = {
+        # "matrix.${private.domains.home}" = {
         #   forceSSL = true;
-        #   useACMEHost = "marcelnet.com";
+        #   useACMEHost = "${private.domains.home}";
         #   locations."/".extraConfig = ''
         #     return 404;
         #   '';
@@ -92,12 +92,12 @@ with lib; {
     security.acme = {
       acceptTerms = true;   
       defaults.email = emails.web-de;
-      certs."marcelnet.com" = { 
+      certs."${private.domains.home}" = { 
         # ${config.services.nextcloud.hostName} = {
         # "bearded-bushi.ts.net" = {
-        domain = "*.marcelnet.com";
-        # domain = "marcelnet.com";
-        # extraDomainNames = [ "nextcloud.ts.marcelnet.com" "immich.ts.marcelnet.com" ];
+        domain = "*.${private.domains.home}";
+        # domain = "${private.domains.home}";
+        # extraDomainNames = [ "nextcloud.ts.${private.domains.home}" "immich.ts.${private.domains.home}" ];
         group = "nginx";
         dnsProvider = "cloudflare";
         dnsPropagationCheck = true;

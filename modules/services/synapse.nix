@@ -1,7 +1,7 @@
 # matrix synapse configuration
 # TODO make secrets folder only accessible by root
 
-{config, vars, lib, unstable, host, pkgs, ...}:
+{config, vars, lib, unstable, host, pkgs, private, ... }:
 
 with lib; {
 
@@ -29,8 +29,8 @@ with lib; {
         # configureRedisLocally = true;
         settings = {
           # redis.enabled = true;
-          server_name = "marcelnet.com";
-          public_baseurl = "https://matrix.marcelnet.com";
+          server_name = "${private.domains.home}";
+          public_baseurl = "https://matrix.${private.domains.home}";
           # enable_metrics = true;
           enable_registration = false;
           # enable_registration_without_verification = true;

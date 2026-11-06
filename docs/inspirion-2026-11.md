@@ -9,7 +9,7 @@
 ## Migration to managed subvolumes (Nov 6)
 
 - Removed all `/var/lib/*` subvolumes from `hosts/inspirion/disks.nix`.
-- Ran `colmena apply boot` and rebooted. Each path was snapshotted from its old `@name`.
+- Ran `colmena apply boot` and rebooted. Each path was snapshotted from its old `@name`, using a temporary `migrateFrom` option that has since been removed.
 - Checked file counts before and after: identical apart from runtime churn (audiobookshelf logs, samba sockets).
 
 | Path | From |
@@ -27,5 +27,7 @@
 2. As a result, btrbk connects as `root@helix-s`, and helix-s is offline anyway.
 3. `ocis` fails because its state dir is empty.
 4. helix-s and ovh-vps don't evaluate: `lts-kernel` is missing from the colmena specialArgs. This was already the case before these changes.
-5. Cleanup once confident: old `@name` subvolumes, `rescue/*`, `var/bkp/*`, the paperless `.bak`.
+5. ~~Cleanup~~ done (Nov 6): old `@name` subvolumes, `rescue/*`, `var/bkp/*` and the paperless `.bak` were deleted, and `migrateFrom` was removed from the module.
 6. `modules/services/btrfs-create-subvolumes.nix` is superseded (only helix-b uses it).
+7. `btrbk.nix`: the btrbk user has his hashed password written there - better move it to ./private
+8. harden my servers: ovh-vps, inspirion (e.g. hardened kernel)

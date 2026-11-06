@@ -67,7 +67,6 @@ in
 
     marci.subvolumes.paths."/var/lib/private/AdGuardHome" = {
       requiredBy = [ "adguardhome.service" ];
-      migrateFrom = "@AdGuardHome";
     };
 
   };

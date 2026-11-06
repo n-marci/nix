@@ -123,7 +123,6 @@ in
 
     marci.subvolumes.paths.${config.services.paperless.dataDir} = {
       requiredBy = map (s: "paperless-${s}.service") [ "secret-key" "scheduler" "task-queue" "consumer" "web" ];
-      migrateFrom = "@paperless";
     };
 
   ##############################################################################

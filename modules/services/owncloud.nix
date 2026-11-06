@@ -90,7 +90,6 @@ in
     marci.subvolumes.paths = mkIf (elem name cfg.nodes.service) {
       ${config.services.ocis.stateDir} = {
         requiredBy = [ "ocis.service" ];
-        migrateFrom = "@ocis";
         owner = "ocis";
         group = "ocis";
         mode = "0700";

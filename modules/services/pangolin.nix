@@ -228,7 +228,6 @@ in
     marci.subvolumes.paths = mkIf (elem name cfg.nodes.newt) {
       "/var/lib/private/newt" = {
         requiredBy = [ "newt.service" ];
-        migrateFrom = "@newt";
       };
     };
 

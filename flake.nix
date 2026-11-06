@@ -73,8 +73,8 @@
             unicorn = unstable;
             yoga = unstable;
             e-yoga = unstable;
-            # inspirion = unstable;
-            # ovh-vps = unstable;
+            inspirion = unstable;
+            ovh-vps = unstable;
           };
           nodeSpecialArgs = {
             unicorn = {

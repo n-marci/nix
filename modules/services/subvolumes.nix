@@ -7,7 +7,6 @@
 # Lifecycle (runs on boot and on every colmena deploy):
 #   - path declared, subvolume exists        -> nothing happens
 #   - path declared, subvolume missing       -> restore latest archive snapshot,
-#                                               else snapshot `migrateFrom`,
 #                                               else create an empty subvolume
 #   - path no longer declared (service off)  -> subvolume is moved into the
 #                                               archive and made read-only
@@ -74,23 +73,8 @@ let
         fi
       }
 
-      # snapshot a subvolume from the top-level (subvolid=5) of the filesystem
-      # (the unit runs with PrivateMounts=yes, so this mount is never visible)
-      snapshot_toplevel() {
-        local name="$1" path="$2" device top
-        device="$(findmnt -nvo SOURCE -T "$(dirname "$path")")"
-        top="$(mktemp -d /run/subvolume-top.XXXXXX)"
-        mount -t btrfs -o subvolid=5 "$device" "$top"
-        if is_subvolume "$top/$name"; then
-          btrfs subvolume snapshot "$top/$name" "$path"
-          log "migrated top-level subvolume $name -> $path"
-        fi
-        umount "$top"
-        rmdir "$top"
-      }
-
       ensure() {
-        local path="$1" owner="$2" group="$3" mode="$4" reset="$5" migrate_from="$6"
+        local path="$1" owner="$2" group="$3" mode="$4" reset="$5"
         local esc token_file stored reset_requested=0 latest
 
         mkdir -p "$STATE_DIR" "$RESET_DIR"
@@ -144,8 +128,6 @@ let
         if [ "$reset_requested" = 0 ] && [ -n "$latest" ]; then
           btrfs subvolume snapshot "$ARCHIVE_DIR/$esc/$latest" "$path"
           log "restored $path from archive $latest"
-        elif [ "$reset_requested" = 0 ] && [ -n "$migrate_from" ]; then
-          snapshot_toplevel "$migrate_from" "$path"
         fi
         if ! is_subvolume "$path"; then
           btrfs subvolume create "$path"
@@ -210,7 +192,7 @@ in
 
     paths = mkOption {
       default = { };
-      example = { "/var/lib/paperless" = { requiredBy = [ "paperless-web.service" ]; migrateFrom = "@paperless"; }; };
+      example = { "/var/lib/paperless".requiredBy = [ "paperless-web.service" ]; };
       type = types.attrsOf (types.submodule {
         options = {
           requiredBy = mkOption {
@@ -228,13 +210,6 @@ in
               start with an empty subvolume. Leaving the value in place does nothing
               on later deploys.
             '';
-          };
-
-          migrateFrom = mkOption {
-            type = types.nullOr types.str;
-            default = null;
-            example = "@paperless";
-            description = "Top-level subvolume to snapshot into place if there is neither a subvolume nor an archive yet.";
           };
 
           owner = mkOption { type = types.str; default = "root"; description = "Owner for newly created empty subvolumes."; };
@@ -283,11 +258,9 @@ in
         serviceConfig = {
           Type = "oneshot";
           RemainAfterExit = true;
-          PrivateMounts = true;
           ExecStart = utils.escapeSystemdExecArgs [
             (lib.getExe subvolume) "ensure" path sv.owner sv.group sv.mode
             (if sv.reset == null then "" else sv.reset)
-            (if sv.migrateFrom == null then "" else sv.migrateFrom)
           ];
         };
       }) cfg.paths;
@@ -302,18 +275,17 @@ in
     {
       marci.subvolumes.paths = mkMerge [
         (mkIf config.services.tailscale.enable {
-          "/var/lib/tailscale" = { requiredBy = [ "tailscaled.service" "tailscaled-set.service" ]; migrateFrom = "@tailscale"; mode = "0700"; };
+          "/var/lib/tailscale" = { requiredBy = [ "tailscaled.service" "tailscaled-set.service" ]; mode = "0700"; };
         })
         (mkIf config.services.samba.enable {
-          "/var/lib/samba" = { requiredBy = [ "samba-smbd.service" "samba-nmbd.service" "samba-winbindd.service" ]; migrateFrom = "@samba"; };
+          "/var/lib/samba".requiredBy = [ "samba-smbd.service" "samba-nmbd.service" "samba-winbindd.service" ];
         })
         (mkIf config.services.postgresql.enable {
-          "/var/lib/postgresql" = { requiredBy = [ "postgresql.service" "postgresql-setup.service" ]; migrateFrom = "@postgresql"; owner = "postgres"; group = "postgres"; mode = "0750"; };
+          "/var/lib/postgresql" = { requiredBy = [ "postgresql.service" "postgresql-setup.service" ]; owner = "postgres"; group = "postgres"; mode = "0750"; };
         })
         (mkIf config.services.postgresqlBackup.enable {
           ${config.services.postgresqlBackup.location} = {
             requiredBy = map (db: "postgresqlBackup-${db}.service") config.services.postgresqlBackup.databases;
-            migrateFrom = "@psql-export";
             owner = "postgres";
             mode = "0700";
           };

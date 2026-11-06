@@ -1,4 +1,4 @@
-{ config, pkgs, unstable, modulesPath, name, user, hosts, private, lts-kernel, ... }:
+{ config, pkgs, unstable, modulesPath, name, user, hosts, private, latest-kernel, ... }:
 
 # let
 #   inherit (private) emails;
@@ -88,7 +88,7 @@
   # set the timeout for the screen going dark - value in seconds
   boot.kernelParams = [ "consoleblank=120" ];
 
-  boot.kernelPackages = lts-kernel;
+  boot.kernelPackages = latest-kernel;
 
   ##############################################################################
   # SSH

@@ -311,7 +311,6 @@ in
       name = "${path}/${folder}";
       value = {
         requiredBy = [ "syncthing.service" "syncthing-init.service" ];
-        migrateFrom = if folder == "nix" then "@syncthing-nix" else "@${folder}";
         owner = user;
         group = "syncthing";
       };

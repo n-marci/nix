@@ -15,7 +15,6 @@ marci.subvolumes.enable = true;
 # service module: declare the state directory
 marci.subvolumes.paths."/var/lib/paperless" = {
   requiredBy = [ "paperless-web.service" ];  # units that need the data
-  migrateFrom = "@paperless";                # optional: old top-level subvolume
   # reset = "2026-11-06";                    # optional: change to start fresh once
 };
 ```

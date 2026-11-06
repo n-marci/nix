@@ -67,7 +67,6 @@ in
 
     marci.subvolumes.paths."/var/lib/audiobookshelf" = {
       requiredBy = [ "audiobookshelf.service" ];
-      migrateFrom = "@audiobookshelf";
     };
 
   ##############################################################################

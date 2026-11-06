@@ -12,8 +12,7 @@ top level (subvolid=5)
 │           ├── reset/<path>                last reset token
 │           ├── archive/<path>/<timestamp>  read-only archives
 │           └── displaced/                  converted plain dirs
-├── @nix, @persist
-└── @paperless, @mealie, …  ← old disko subvolumes, unused, untouched
+└── @nix, @persist
 ```
 
 `<path>` = `systemd-escape --path`, e.g. `var-lib-private-mealie`.
@@ -23,7 +22,7 @@ top level (subvolid=5)
 ```mermaid
 stateDiagram-v2
     direction LR
-    [*] --> Live: enable<br/>(archive → migrateFrom → empty)
+    [*] --> Live: enable<br/>(archive → empty)
     Live --> Archived: disable<br/>(rename + read-only)
     Archived --> Live: enable again<br/>(snapshot of newest archive)
     Live --> Live: reset changed<br/>(archive, then empty)
@@ -35,7 +34,6 @@ stateDiagram-v2
 marci.subvolumes.enable = true;            # host
 marci.subvolumes.paths."/var/lib/x" = {    # service module
   requiredBy  = [ "x.service" ];           # Requires= + After= on the subvolume unit
-  migrateFrom = "@x";                      # used only if no subvolume and no archive
   reset       = null;                      # new value ⇒ start fresh once
   owner = "root"; group = "root"; mode = "0755";  # only for new empty subvolumes
 };
@@ -87,15 +85,13 @@ flowchart TD
     V -- no --> OK([ok])
     V -- yes --> ARC[archive] --> N
     N{source?} -- "archive exists, no reset" --> R[snapshot newest archive]
-    N -- "migrateFrom exists, no reset" --> MIG[snapshot @x from top level]
     N -- otherwise --> E[create empty, chown/chmod]
-    R & MIG & E --> T[store token, run tmpfiles for path]
+    R & E --> T[store token, run tmpfiles for path]
 ```
 
 - **Archive** = `mv --no-copy` (atomic rename within `@`) + `btrfs property set ro true`.
-- **Restore/migrate** = `btrfs subvolume snapshot` (instant CoW; the source is kept).
+- **Restore** = `btrfs subvolume snapshot` (instant CoW; the archive is kept).
 - **Subvolume check** = btrfs and inode `256`.
-- **Top-level mount** for `migrateFrom` is private to the unit (`PrivateMounts=yes`).
 
 ## Reset token
 
@@ -111,6 +107,7 @@ Archives are **local only**. btrbk does not back them up.
 
 - Archives are never pruned automatically.
 - If the script's store path changes (nixpkgs bump), the subvolume units restart, and their services restart once.
+  That includes `tailscaled`, so a deploy over Tailscale can lose its SSH session (exit 255) even though the switch completes.
 - Don't declare nested managed paths (`/a` and `/a/b`).
 - Renaming a path in Nix = disable old + enable new (old data gets archived).
 - Only for hosts with `/var/lib` on btrfs.

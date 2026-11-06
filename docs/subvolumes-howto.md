@@ -40,14 +40,6 @@ systemctl start foo
 btrfs subvolume delete /var/lib/.subvolumes/archive/var-lib-foo/<timestamp>
 ```
 
-## Delete old disko subvolumes (once happy)
-
-```sh
-mount -o subvolid=5 $(findmnt -nvo SOURCE /) /mnt
-btrfs subvolume delete /mnt/@foo
-umount /mnt
-```
-
 ## Inspect / troubleshoot
 
 ```sh

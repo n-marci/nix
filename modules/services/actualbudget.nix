@@ -74,7 +74,6 @@ in
     marci.subvolumes.paths = mkIf (elem name cfg.nodes.service) {
       "/var/lib/private/actual" = {
         requiredBy = [ "actual.service" ];
-        migrateFrom = "@actual";
       };
     };
 

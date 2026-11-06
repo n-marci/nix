@@ -74,7 +74,6 @@ in
 
     marci.subvolumes.paths."/var/lib/private/mealie" = {
       requiredBy = [ "mealie.service" ];
-      migrateFrom = "@mealie";
     };
 
   ##############################################################################

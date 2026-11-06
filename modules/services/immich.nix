@@ -82,7 +82,6 @@ in
     marci.subvolumes.paths = mkIf (elem name cfg.nodes.service) {
       ${config.services.immich.mediaLocation} = {
         requiredBy = [ "immich-server.service" ];
-        migrateFrom = "@immich";
         owner = "immich";
         group = "immich";
         mode = "0700";

@@ -49,7 +49,26 @@ in
   # CONFIG
   ##############################################################################
 
-  config = mkIf (cfg.enable) {
+  config = mkMerge [
+
+  ##############################################################################
+  # SNAPSHOT DIRECTORIES
+  ##############################################################################
+
+    # btrbk aborts if a snapshot_dir does not exist, so create every one that is configured
+    {
+      systemd.tmpfiles.rules = let
+        findSnapshotDirs = v:
+          if lib.isAttrs v then
+            lib.concatLists (lib.mapAttrsToList (k: v':
+              if k == "snapshot_dir" && lib.isString v' then [ v' ] else findSnapshotDirs v'
+            ) v)
+          else [ ];
+        dirs = lib.unique (lib.concatMap (i: findSnapshotDirs i.settings) (lib.attrValues config.services.btrbk.instances));
+      in map (dir: "d ${dir} 0755 root root - -") dirs;
+    }
+
+    (mkIf (cfg.enable) {
 
     # assertions = [{
     #   assertion = !(cfg.source && cfg.target);
@@ -140,5 +159,6 @@ in
       key = cfg.publicKey;
       roles = [ "info" "source" "target" "delete" "snapshot" "send" "receive" ];
     }];
-  };
+    })
+  ];
 }

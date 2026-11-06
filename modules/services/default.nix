@@ -1,5 +1,6 @@
 [
   ./btrfs-create-subvolumes.nix
+  ./subvolumes.nix
   
   ./syncthing.nix
   ./paperless.nix

@@ -169,11 +169,19 @@ in
     };
   
   ##############################################################################
-  # DISKO
+  # SUBVOLUMES
   ##############################################################################
 
-  # TODO
-  
+    marci.subvolumes.paths = mkIf (name == cfg.host) {
+      ${config.services.nextcloud.home} = {
+        requiredBy = map (s: "${s}.service") [ "nextcloud-setup" "phpfpm-nextcloud" "nextcloud-cron" "nextcloud-update-db" "nextcloud-update-plugins" ];
+        migrateFrom = "@nextcloud";
+        owner = "nextcloud";
+        group = "nextcloud";
+        mode = "0750";
+      };
+    };
+
   ##############################################################################
   # POSTGRES DB EXPORT
   ##############################################################################

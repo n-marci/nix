@@ -30,6 +30,9 @@
       server.enable = true;
       mesh.enable = true;
     };
+
+    # service state in /var/lib as btrfs subvolumes, archived when a service is disabled
+    subvolumes.enable = true;
   };
 
   fleet = {

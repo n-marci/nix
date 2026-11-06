@@ -84,11 +84,19 @@ in
     networking.firewall.allowedUDPPorts = [ 9200 ]; # not sure if needed - just trying out
     networking.firewall.allowedTCPPorts = [ 9200 ]; # not sure if needed - just trying out
   ##############################################################################
-  # DISKO
+  # SUBVOLUMES
   ##############################################################################
 
-  # TODO
-  
+    marci.subvolumes.paths = mkIf (elem name cfg.nodes.service) {
+      ${config.services.ocis.stateDir} = {
+        requiredBy = [ "ocis.service" ];
+        migrateFrom = "@ocis";
+        owner = "ocis";
+        group = "ocis";
+        mode = "0700";
+      };
+    };
+
   ##############################################################################
   # POSTGRES DB EXPORT
   ##############################################################################

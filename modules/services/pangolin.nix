@@ -222,11 +222,16 @@ in
     sops.secrets.newt-env = mkIf (elem name cfg.nodes.newt) { };
 
   ##############################################################################
-  # DISKO
+  # SUBVOLUMES
   ##############################################################################
 
-  # TODO
-  
+    marci.subvolumes.paths = mkIf (elem name cfg.nodes.newt) {
+      "/var/lib/private/newt" = {
+        requiredBy = [ "newt.service" ];
+        migrateFrom = "@newt";
+      };
+    };
+
   ##############################################################################
   # BTRFS ON HOST
   ##############################################################################

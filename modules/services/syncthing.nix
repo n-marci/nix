@@ -304,10 +304,18 @@ in
     # ];
 
     ##############################################################################
-    # DISKO
+    # SUBVOLUMES
     ##############################################################################
 
-    # TODO
+    marci.subvolumes.paths = mkIf (elem name cfg.servers) (lib.listToAttrs (map (folder: {
+      name = "${path}/${folder}";
+      value = {
+        requiredBy = [ "syncthing.service" "syncthing-init.service" ];
+        migrateFrom = if folder == "nix" then "@syncthing-nix" else "@${folder}";
+        owner = user;
+        group = "syncthing";
+      };
+    }) (filter (folder: elem folder cfg.folders) [ "nix" "secrets" "wallpapers" "obsidian" "phone" "signal" "whatsapp" ])));
 
   ##############################################################################
   # BTRFS ON HOST

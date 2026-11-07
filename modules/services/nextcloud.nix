@@ -51,7 +51,7 @@ in
       enable = true;
       hostName = "nextcloud.${private.domains.home}";
       # hostName = "192.168.66.21";
-      package = pkgs.nextcloud33;
+      package = pkgs.nextcloud34;
       configureRedis = true;
       database.createLocally = true;
       maxUploadSize = "16G";

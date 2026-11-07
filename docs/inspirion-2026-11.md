@@ -31,3 +31,8 @@
 6. `modules/services/btrfs-create-subvolumes.nix` is superseded (only helix-b uses it).
 7. `btrbk.nix`: the btrbk user has his hashed password written there - better move it to ./private
 8. harden my servers: ovh-vps, inspirion (e.g. hardened kernel)
+
+# Maintenance agents.md
+1. dont forget to run nix flake update
+2. check the evaluation warnings in the very beginning of a colmena apply for required maintenance changes (applies to every machine, not just inspirion)
+3. prefer colmena apply boot + reboot to colmena apply switch

@@ -4,7 +4,7 @@
 
 let
   cfg = config.marci.services.nextcloud;
-  inherit (lib) mkEnableOption mkOption mkIf mkDefault mkForce types;
+  inherit (lib) mkEnableOption mkOption mkIf mkDefault mkOverride mkForce types;
   database-directory = "var/lib/postgresql";
   db-export-directory = "var/lib/psql-export";
 in
@@ -93,6 +93,13 @@ in
     sops.secrets.nextcloud-pass = mkIf (name == cfg.host) {
       owner = "nextcloud";
     };
+
+  ##############################################################################
+  # POSTGRES
+  ##############################################################################
+
+    # 15 -> 18 upgrade: run `pg-upgrade-18 run` BEFORE deploying this (see hosts/inspirion/pg-upgrade.nix)
+    services.postgresql.package = mkOverride 999 pkgs.postgresql_18;
 
   ##############################################################################
   # NGINX

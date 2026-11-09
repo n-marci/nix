@@ -13,6 +13,7 @@
       ../../modules/hosts/mesh.nix
       ./hardware-configuration.nix
       ./disks.nix
+      ./pg-upgrade.nix # TEMPORARY: remove after the postgres 18 upgrade
 
       # ../../modules/programs/helix.nix
       ../../modules/configurations/networking.nix
@@ -65,7 +66,6 @@
     nginx.enable = true;
     # cockpit.enable = true;
     # traccar.enable = true;
-    synapse.enable = false;
     audiobookshelf.enable = true;
 
     ##############################################################################
@@ -84,6 +84,14 @@
     # };
 
   };
+
+  ##############################################################################
+  # POSTGRES
+  ##############################################################################
+
+  # 15 -> 18 upgrade: run `pg-upgrade-18 run` BEFORE deploying this (see hosts/inspirion/pg-upgrade.nix)
+  # services.postgresql.package = pkgs.postgresql_18;
+  # made default in immich and nextcloud modules
 
   ##############################################################################
   # BOOT

@@ -1,10 +1,10 @@
 # immich config
 
-{ config, lib, name, hosts, service-dir, snapshot-dir, backup-dir, private, ... }:
+{ config, pkgs, lib, name, hosts, service-dir, snapshot-dir, backup-dir, private, ... }:
 
 let
   cfg = config.marci.services.immich;
-  inherit (lib) mkEnableOption mkOption mkIf mkDefault types elem;
+  inherit (lib) mkEnableOption mkOption mkIf mkDefault mkOverride types elem;
   database-directory = "var/lib/postgresql";
   db-export-directory = "var/lib/psql-export";
 in
@@ -51,6 +51,13 @@ in
       openFirewall = true;
       host = "0.0.0.0";
     };
+
+  ##############################################################################
+  # POSTGRES
+  ##############################################################################
+
+    # 15 -> 18 upgrade: run `pg-upgrade-18 run` BEFORE deploying this (see hosts/inspirion/pg-upgrade.nix)
+    services.postgresql.package = mkOverride 998 pkgs.postgresql_18;
 
   ##############################################################################
   # NGINX

@@ -98,8 +98,8 @@ in
   # POSTGRES
   ##############################################################################
 
-    # 15 -> 18 upgrade: run `pg-upgrade-18 run` BEFORE deploying this (see hosts/inspirion/pg-upgrade.nix)
-    services.postgresql.package = mkOverride 999 pkgs.postgresql_18;
+    # pinned: a major version change needs a pg_upgrade (see docs/inspirion-2026-11.md)
+    services.postgresql.package = mkIf (name == cfg.host) (mkOverride 999 pkgs.postgresql_18);
 
   ##############################################################################
   # NGINX

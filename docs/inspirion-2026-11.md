@@ -26,7 +26,9 @@
 - **Prep (morning):** dumped all DBs to `/var/lib/psql-export/pre-maintenance-2026-11-08/`, dropped the unused `matrix-synapse` and `mautrix-whatsapp` DBs and roles, dropped the old pgvecto.rs `vectors` extension, reindexed and refreshed collations (glibc 2.40 → 2.44).
 - **Upgrade:** `hosts/inspirion/pg-upgrade.nix` provides `pg-upgrade-18 check|run|verify`. `run` stops immich and nextcloud, takes a `pg_dumpall` and per-table row counts, stops postgres, snapshots `/var/lib/{postgresql,immich,nextcloud}` read-only, then runs `pg_upgrade --clone` (initdb with `--no-data-checksums`, because the 15 cluster had checksums off). Then `colmena apply boot` and a reboot.
 - **Result:** PG 18.6 runs from `/var/lib/postgresql/18`. `verify`: all 242 tables in immich and nextcloud have identical row counts. Immich and Nextcloud are healthy.
-- **Rollback material:** `/var/snap/pre-pg18-20261108-100403/{postgresql,immich,nextcloud}` (read-only, consistent), `/var/lib/psql-export/pre-pg18-20261108-100403/dumpall.sql.gz`, and the untouched `/var/lib/postgresql/15`. `pre-pg18-20261108-100234` is from a first attempt that aborted before changing anything (`/run/postgresql` disappears when postgres stops), so it's redundant.
+- **Gotcha for next time:** `/run/postgresql` disappears when postgres stops, so pass `pg_upgrade --socketdir` a directory of its own. The script (`hosts/inspirion/pg-upgrade.nix`) is in git history (commit `ee5989c`).
+- **Package pin:** `services.postgresql.package = pkgs.postgresql_18` is set in `immich.nix` / `nextcloud.nix`, scoped to the service host.
+- **Cleanup (Nov 9):** after 2 boots and a successful nightly PG18 dump, deleted `/var/lib/postgresql/15`, the `/var/snap/pre-pg18-*` snapshots, `/var/lib/psql-export/pre-pg18-*` and the superseded immich/nextcloud dumps, and removed `pg-upgrade.nix`. Kept: `/var/lib/psql-export/pre-maintenance-2026-11-08/{matrix-synapse,mautrix-whatsapp}.dump` + `globals.sql`, the only remaining copy of the dropped synapse/mautrix databases.
 - **Immich "schema drift" warning** (`album_asset_delete_audit` "missing"): a false positive. pg_upgrade gave the function OID 16703, which collides with an extension-owned type OID, and Immich's reader then skips it. The function and trigger exist and match. On the 15 snapshot `immich-admin schema-check` reports no drift.
 
 ## Open issues
@@ -39,7 +41,7 @@
 6. `modules/services/btrfs-create-subvolumes.nix` is superseded (only helix-b uses it).
 7. `btrbk.nix`: the btrbk user has his hashed password written there - better move it to ./private
 8. harden my servers: ovh-vps, inspirion (e.g. hardened kernel)
-9. ~~Postgres 15 → 17/18 upgrade~~ done (Nov 8). Later cleanup: delete `/var/lib/postgresql/15`, `/var/snap/pre-pg18-*` and `/var/lib/psql-export/pre-*`, then remove the `pg-upgrade.nix` import.
+9. ~~Postgres 15 → 17/18 upgrade~~ done (Nov 8), cleaned up (Nov 9).
 
 # Maintenance agents.md
 1. dont forget to run nix flake update
